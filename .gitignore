@@ -1,0 +1,12 @@
+# ignore mac files
+*.swp
+*~.nib
+
+# ignore build files
+build/
+
+# ignore xcodeproj specific files
+*.mode1v3
+*.pbxuser
+*.perspective
+*.perspectivev3
