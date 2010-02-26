@@ -115,6 +115,8 @@ class CNCLinearAxes(IPSerialBridge):
         self.send("%dOH0" % axis, 1)
 
 class CNCFakeLinearAxes():
+    def __init__(self):
+        self.pos = [0., 0., 0.]
     def power_down(self, axis=None):
         pass
     def power_up(self, axis=None):
@@ -122,11 +124,14 @@ class CNCFakeLinearAxes():
     def save_settings_to_controller(self):
         pass
     def composite_move_relative(self, x, y, z):
-        pass
+        self.pos = [self.pos[0] + x, self.pos[1] + y, self.pos[2] + z]
     def move_relative(self, axis, pos):
-        pass
+        self.pos[axis-1] += pos
     def get_position(self, axis=None):
-        pass
+        if axis == None:
+            return self.pos[0], self.pos[1], self.pos[2]
+        else:
+            return self.pos[axis-1]
     def home(self, axis):
         pass
 
@@ -203,6 +208,8 @@ class CNCHeadAxes(IPSerialBridge):
             self.send("%dWS" % axis, 1)
 
 class CNCFakeHeadAxes():
+    def __init__(self):
+        self.pos = [0., 0.]
     def power_down(self, axis=None):
         pass
     def power_up(self, axis=None):
@@ -210,11 +217,14 @@ class CNCFakeHeadAxes():
     def save_settings_to_controller(self):
         pass
     def composite_move_relative(self, b, w):
-        pass
+        self.pos = [self.pos[0] + b, self.pos[1] + w]
     def move_relative(self, axis, pos):
-        pass
+        self.pos[axis-1] += pos
     def get_position(self, axis=None):
-        pass
+        if axis == None:
+            return self.pos[0], self.pos[1]
+        else:
+            return self.pos[axis-1]
     def home(self, axis):
         pass
 

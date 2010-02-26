@@ -25,6 +25,12 @@ class CNCController (NSObject):
     bStep = objc.ivar(u"bStep")
     wStep = objc.ivar(u"wStep")
     
+    xPos = objc.ivar(u"xPos")
+    yPos = objc.ivar(u"yPos")
+    zPos = objc.ivar(u"zPos")
+    bPos = objc.ivar(u"bPos")
+    wPos = objc.ivar(u"wPos")
+    
     def awakeFromNib(self):
         print "in awakeFromNib"
         
@@ -38,7 +44,7 @@ class CNCController (NSObject):
         
         # set timeout to None to wait until error (infinite timeout)
         # set timeout to 0.0 to not wait for the socket to connect (this is a BAD idea) 
-        serialConnectionTimeout = 4.0 # seconds
+        serialConnectionTimeout = 1.0 # seconds
         
         print "Trying to connect to CNC Linear(XYZ) Axes"
         try:
@@ -57,6 +63,11 @@ class CNCController (NSObject):
             self.headAxes = CNCAxes.CNCFakeHeadAxes()
             
     
+    def update_bindings(self):
+        # TODO, add checks to see if any of the axes are moving. If they are, wait and then update later
+        self._.xPos, self._.yPos, self._.zPos = self.linearAxes.get_position()
+        self._.bPos, self._.wPos = self.headAxes.get_position()
+    
     # --------------- Actions ------------------
     
     @IBAction
@@ -67,6 +78,7 @@ class CNCController (NSObject):
         except:
             return
         self.linearAxes.move_relative(1,-xStep)
+        self.update_bindings()
     
     @IBAction
     def xRight_(self, sender):
@@ -76,6 +88,7 @@ class CNCController (NSObject):
         except:
             return
         self.linearAxes.move_relative(1,xStep)
+        self.update_bindings()
     
     @IBAction
     def yForward_(self, sender):
@@ -85,6 +98,7 @@ class CNCController (NSObject):
         except:
             return
         self.linearAxes.move_relative(2,yStep)
+        self.update_bindings()
     
     @IBAction
     def yBack_(self, sender):
@@ -94,6 +108,7 @@ class CNCController (NSObject):
         except:
             return
         self.linearAxes.move_relative(2,-yStep)
+        self.update_bindings()
     
     @IBAction
     def zUp_(self, sender):
@@ -103,6 +118,7 @@ class CNCController (NSObject):
         except:
             return
         self.linearAxes.move_relative(3,-zStep)
+        self.update_bindings()
     
     @IBAction
     def zDown_(self, sender):
@@ -112,6 +128,7 @@ class CNCController (NSObject):
         except:
             return
         self.linearAxes.move_relative(3,zStep)
+        self.update_bindings()
     
     @IBAction
     def bClockwise_(self, sender):
@@ -121,6 +138,7 @@ class CNCController (NSObject):
         except:
             return
         self.headAxes.move_relative(1,-bStep)
+        self.update_bindings()
     
     @IBAction
     def bCounterClockwise_(self, sender):
@@ -130,6 +148,7 @@ class CNCController (NSObject):
         except:
             return
         self.headAxes.move_relative(1,bStep)
+        self.update_bindings()
  
     @IBAction
     def wUp_(self, sender):
@@ -139,6 +158,7 @@ class CNCController (NSObject):
         except:
             return
         self.headAxes.move_relative(2,-wStep)
+        self.update_bindings()
     
     @IBAction
     def wDown_(self, sender):
@@ -148,3 +168,4 @@ class CNCController (NSObject):
         except:
             return
         self.headAxes.move_relative(2,wStep)
+        self.update_bindings()
