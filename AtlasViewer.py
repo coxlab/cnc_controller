@@ -65,6 +65,11 @@ class AtlasViewer (NSOpenGLView):
     
     def drawRect_(self, frame):
         """Display function"""
+        if not self.canDraw():
+            print "cannot draw: self.canDraw() == False"
+            #self.openGLContext().flushBuffer()
+            return
+        
         if self.gl_inited == False:
             self.initGL()
             pass
@@ -77,7 +82,7 @@ class AtlasViewer (NSOpenGLView):
         #glOrtho(0, 1., 0, 1.,-1.,1.)
     
         glClear(GL_COLOR_BUFFER_BIT)
-        if(not self.image):
+        if(self.image == None):
             print "No image"
             self.load_image("/Users/graham/man/ratBrainAtlas/section_images/png/012.png")
             self.openGLContext().flushBuffer()

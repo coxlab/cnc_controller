@@ -6,6 +6,8 @@
 #  Copyright (c) 2009 __MyCompanyName__. All rights reserved
 #
 
+import time
+
 from Foundation import *
 from AppKit import *
 import objc
@@ -31,6 +33,13 @@ class CNCController (NSObject):
     bPos = objc.ivar(u"bPos")
     wPos = objc.ivar(u"wPos")
     
+    xPosLimit = objc.ivar(u"xPosLimit")
+    xNegLimit = objc.ivar(u"xNegLimit")
+    yPosLimit = objc.ivar(u"yPosLimit")
+    yNegLimit = objc.ivar(u"yNegLimit")
+    zPosLimit = objc.ivar(u"zPosLimit")
+    zNegLimit = objc.ivar(u"zNegLimit")
+    
     def awakeFromNib(self):
         print "in awakeFromNib"
         
@@ -41,6 +50,13 @@ class CNCController (NSObject):
         
         self._.bStep = 1.0 # degrees
         self._.wStep = 1.0 # mm
+        
+        self._.xPosLimit = 12.70
+        self._.xNegLimit = -12.70
+        self._.yPosLimit = 12.70
+        self._.yNegLimit = -12.70
+        self._.zPosLimit = 12.70
+        self._.zNegLimit = -12.70
         
         # set timeout to None to wait until error (infinite timeout)
         # set timeout to 0.0 to not wait for the socket to connect (this is a BAD idea) 
@@ -61,10 +77,17 @@ class CNCController (NSObject):
         except:
             print "Connection with CNC Head(BW) Axes timed out, making fake axes instead"
             self.headAxes = CNCAxes.CNCFakeHeadAxes()
-            
+        
+        self.update_bindings()
     
     def update_bindings(self):
         # TODO, add checks to see if any of the axes are moving. If they are, wait and then update later
+        if not all((self.linearAxes.is_motion_done(),
+                    self.headAxes.is_motion_done())):
+            self._.xPos, self._.yPos, self._.zPos = (0., 0., 0.)
+            self._.bPos, self._.wPos = (0., 0.)
+            time.sleep(1)
+            return self.update_bindings()
         self._.xPos, self._.yPos, self._.zPos = self.linearAxes.get_position()
         self._.bPos, self._.wPos = self.headAxes.get_position()
     
@@ -168,4 +191,18 @@ class CNCController (NSObject):
         except:
             return
         self.headAxes.move_relative(2,wStep)
+        self.update_bindings()
+    
+    @IBAction
+    def setHome_(self, sender):
+        # read limit values, set limits
+        print "setting x limits:", self.xPosLimit, self.xNegLimit
+        self.linearAxes.set_software_limits(1, self.xPosLimit, self.xNegLimit)
+        self.linearAxes.set_software_home(1)
+        print "setting y limits:", self.yPosLimit, self.yNegLimit
+        self.linearAxes.set_software_limits(2, self.xPosLimit, self.xNegLimit)
+        self.linearAxes.set_software_home(1)
+        print "setting z limits:", self.zPosLimit, self.zNegLimit
+        self.linearAxes.set_software_limits(3, self.xPosLimit, self.xNegLimit)
+        self.linearAxes.set_software_home(1)
         self.update_bindings()

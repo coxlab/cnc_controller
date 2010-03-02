@@ -103,20 +103,39 @@ class CNCLinearAxes(IPSerialBridge):
         else:
             return self.send("%dTP" % axis)
     
-    def home(self, axis):
-        homeVelocity = 5.0
-        if axis == self.yAxis:
-            homeVelocity *= -1
-        # home axis
-        self.send("%dOH%g" % (axis, homeVelocity), 1)
-        #self.send("%dOR3" % axis, 1)
-        #self.send("%dWS" % axis, 1)
-        # reset home velocity to 0
-        self.send("%dOH0" % axis, 1)
+    def set_software_home(self, axis):
+        return self.send("%dDH00" % axis)
+    
+    def set_software_limits(self, axis, posLimit, negLimit):
+        """
+        Set left and right limits, enable sw limits, disable motors on limit,
+        and abort motion on limit.
+        """
+        return (self.send("%dSL%d" % (axis, posLimit)),
+                self.send("%dSR%d" % (axis, negLimit)),
+                self.send("%dZS0FFFFH" % axis))
+    
+    def is_motion_done(self, axis=None):
+        if axis == None:
+            return all(self.send("1MD"), self.send("2MD"), self.send("3MD"))
+        else:
+            return self.send("%dMD" % axis)
+    
+    #def home(self, axis):
+    #    homeVelocity = 5.0
+    #    if axis == self.yAxis:
+    #        homeVelocity *= -1
+    #    # home axis
+    #    self.send("%dOH%g" % (axis, homeVelocity), 1)
+    #    #self.send("%dOR3" % axis, 1)
+    #    #self.send("%dWS" % axis, 1)
+    #    # reset home velocity to 0
+    #    self.send("%dOH0" % axis, 1)
 
 class CNCFakeLinearAxes():
     def __init__(self):
         self.pos = [0., 0., 0.]
+        self.moving = 0
     def power_down(self, axis=None):
         pass
     def power_up(self, axis=None):
@@ -127,13 +146,22 @@ class CNCFakeLinearAxes():
         self.pos = [self.pos[0] + x, self.pos[1] + y, self.pos[2] + z]
     def move_relative(self, axis, pos):
         self.pos[axis-1] += pos
+        self.moving += 1
     def get_position(self, axis=None):
         if axis == None:
             return self.pos[0], self.pos[1], self.pos[2]
         else:
             return self.pos[axis-1]
-    def home(self, axis):
+    def set_software_home(self, axis):
+        self.pos = [0., 0., 0.]
+    def set_software_limits(self, axis, posLimit, negLimit):
         pass
+    def is_motion_done(self, axis=None):
+        if self.moving > 0:
+            self.moving -= 1
+            return False
+        else:
+            return True
 
 class CNCHeadAxes(IPSerialBridge):
     """
@@ -195,21 +223,40 @@ class CNCHeadAxes(IPSerialBridge):
         else:
             return self.send("%dTP" % axis)
     
-    def home(self, axis):
-        #homeVelocity = 5.0
-        #if axis == self.yAxis:
-        #    homeVelocity *= -1
-        # home axis
-        #self.send("%dOH%g" % (axis, homeVelocity), 1)
-        if axis == self.wAxis:
-            raise Exception("This should be a notification reminding you to remove the preamp prior to homing the w-axis")
+    def set_software_home(self, axis):
+        return self.send("%dDH00" % axis)
+    
+    def set_software_limits(self, axis, posLimit, negLimit):
+        """
+        Set left and right limits, enable sw limits, disable motors on limit,
+        and abort motion on limit.
+        """
+        return (self.send("%dSL%d" % (axis, posLimit)),
+                self.send("%dSR%d" % (axis, negLimit)),
+                self.send("%dZS0FFFFH" % axis))   
+    
+    def is_motion_done(self, axis=None):
+        if axis == None:
+            return all(self.send("1MD"), self.send("2MD"), self.send("3MD"))
         else:
-            self.send("%dOR3" % axis, 1)
-            self.send("%dWS" % axis, 1)
+            return self.send("%dMD" % axis)
+    
+    #def home(self, axis):
+    #    #homeVelocity = 5.0
+    #    #if axis == self.yAxis:
+    #    #    homeVelocity *= -1
+    #    # home axis
+    #    #self.send("%dOH%g" % (axis, homeVelocity), 1)
+    #    if axis == self.wAxis:
+    #        raise Exception("This should be a notification reminding you to remove the preamp prior to homing the w-axis")
+    #    else:
+    #        self.send("%dOR3" % axis, 1)
+    #        self.send("%dWS" % axis, 1)
 
 class CNCFakeHeadAxes():
     def __init__(self):
         self.pos = [0., 0.]
+        self.moving = 0
     def power_down(self, axis=None):
         pass
     def power_up(self, axis=None):
@@ -220,13 +267,22 @@ class CNCFakeHeadAxes():
         self.pos = [self.pos[0] + b, self.pos[1] + w]
     def move_relative(self, axis, pos):
         self.pos[axis-1] += pos
+        self.moving += 1
     def get_position(self, axis=None):
         if axis == None:
             return self.pos[0], self.pos[1]
         else:
             return self.pos[axis-1]
-    def home(self, axis):
+    def set_software_home(self, axis):
+        self.pos = [0., 0.]
+    def set_software_limits(self, axis, posLimit, negLimit):
         pass
+    def is_motion_done(self, axis=None):
+        if self.moving > 0:
+            self.moving -= 1
+            return False
+        else:
+            return True
 
 if __name__ == '__main__':
     axes = CNCLinearAxes("169.254.0.9", 8003)
