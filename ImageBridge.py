@@ -21,6 +21,13 @@ class ImageBridge (NSObject):
         self.cameras = cameraPair.CameraPair()
     
     @IBAction
+    def addZoomedAreas_(self, sender):
+        self.leftImageView.add_zoomed_area(0.5, 0.5)
+        self.leftImageView.scheduleRedisplay()
+        self.rightImageView.add_zoomed_area(0.5, 0.5)
+        self.rightImageView.scheduleRedisplay()
+    
+    @IBAction
     def connectToCameras_(self, sender):
         self.cameras.connect()
     
@@ -37,14 +44,34 @@ class ImageBridge (NSObject):
         self._.rightImageView.update_image(im2)
 
 class CVImageViewer (NSOpenGLView):
-    parentWindow = objc.IBOutlet()
+    
+    _defaultZoomColors = [(1., 0., 0., 0.5),
+                        (0., 1., 0., 0.5),
+                        (0., 0., 1., 0.5),
+                        (1., 1., 0., 0.5),
+                        (1., 0., 1., 0.5),
+                        (0., 1., 1., 0.5)]
+    
+    _zhw = 0.2
+    
+    def _to_gl(self, x, y):
+        return x*2.-1., y*2.-1.
     
     def awakeFromNib(self):
         self.gl_inited = False
         self.image = None
-        self.zoomedX = 0.5
-        self.zoomedY = 0.5
-        self.zoom = 1.
+        self.zooms = []
+        self.add_zoomed_area(0.5, 0.5)
+        self.selectedZoom = 0
+        #for i in xrange(3):
+        #    self.add_zoomed_area()
+        #self.add_zoomed_area({'x': 0.25, 'y': 0.5, 'z': 1., 'c': (1., 0., 0., 0.5)})
+        #self.add_zoomed_area({'x': 0.5, 'y': 0.5, 'z': 1., 'c': (0., 1., 0., 0.5)})
+        #self.add_zoomed_area({'x': 0.75, 'y': 0.5, 'z': 1., 'c': (0., 0., 1., 0.5)})
+        #self.selectedZoom = 0
+        #self.zoomedX = 0.5
+        #self.zoomedY = 0.5
+        #self.zoom = 1.
         #self.parentWindow.setAcceptsMouseMovedEvents_(True)
         #self.acceptsFirstResponder()
         #self.becomeFirstResponder()
@@ -55,40 +82,81 @@ class CVImageViewer (NSOpenGLView):
     #def mouseExited_(self, event):
     #    print event
     
+    def add_zoomed_area(self, x=None, y=None, z=None, c=None):
+        if x == None:
+            x = 0.1
+        if y == None:
+            y = 0.1
+        if z == None:
+            z = 1.
+        if c == None:
+            c = self._defaultZoomColors[len(self.zooms) % len(self._defaultZoomColors)]
+        self.zooms.append({'x': x, 'y': y, 'z': z, 'c': c})
+    
+    def select_closest_zoom(self, x, y):
+        closest = 0
+        dist = 1000000
+        for (i, z) in enumerate(self.zooms):
+            #print "x:", pos.x, "y:", pos.y
+            #print "zx:", z['x'], "y:", z['y']
+            d = ((x - z['x']) ** 2 + (y - z['y']) ** 2) ** 0.5
+            if d < dist:
+                closest = i
+                dist = d
+            print d
+        self.selectedZoom = closest
+    
     def scrollWheel_(self, event):
+        # select the zoomed window closest to the click position
+        pos = self.convertPoint_fromView_(event.locationInWindow(), None)
+        self.select_closest_zoom(pos.x/self.frame_width, pos.y/self.frame_height)
+        
+        # update zoom
         dZoom = event.deltaY()
         if dZoom > 0:
             # zoom in
-            print "zoom in:", dZoom
-            self.zoom *= dZoom+1.
+            #print "zoom in:", dZoom
+            self.zooms[self.selectedZoom]['z'] *= dZoom+1.
         elif dZoom < 0:
             # zoom out
-            print "zoom out:", dZoom
-            self.zoom /= abs(dZoom)+1
-        if self.zoom < 1.0:
-            self.zoom = 1.0
-        if self.zoom > 100.:
-            self.zoom = 100.
+            #print "zoom out:", dZoom
+            self.zooms[self.selectedZoom]['z'] /= abs(dZoom)+1
+        if self.zooms[self.selectedZoom]['z'] < 1.0:
+            self.zooms[self.selectedZoom]['z'] = 1.0
+        if self.zooms[self.selectedZoom]['z'] > 100.:
+            self.zooms[self.selectedZoom]['z'] = 100.
         self.scheduleRedisplay()
     
     def mouseDown_(self, event):
-        pass
+        # select the zoomed window closest to the click position
+        pos = self.convertPoint_fromView_(event.locationInWindow(), None)
+        self.select_closest_zoom(pos.x/self.frame_width, pos.y/self.frame_height)
+        self.scheduleRedisplay()
     
     def mouseUp_(self, event):
         pass
     
     def mouseDragged_(self, event):
-        dx = event.deltaX() / (self.frame_width * self.zoom)
-        dy = -event.deltaY() / (self.frame_height * self.zoom)
-        self.zoomedX += dx
-        self.zoomedY += dy
-        print self.zoomedX, self.zoomedY
+        dx = event.deltaX() / (self.frame_width * self.zooms[self.selectedZoom]['z'])
+        dy = -event.deltaY() / (self.frame_height * self.zooms[self.selectedZoom]['z'])
+        #self.zoomedX += dx
+        #self.zoomedY += dy
+        self.zooms[self.selectedZoom]['x'] += dx
+        self.zooms[self.selectedZoom]['y'] += dy
+        #print self.zoomedX, self.zoomedY
         self.scheduleRedisplay()
+        
+        # calculate position on image: bottom left = 0,0
+        #print("Cross at position:", self.image.width * self.zoomedX,
+        #            self.image.height * self.zoomedY)
     
     def rightMouseDown_(self, event):
         pass
     
     def rightMouseUp_(self, event):
+        #pos = self.convertPoint_fromView_(event.locationInWindow(), None)
+        #self.add_zoomed_area(pos.x/self.frame_width, pos.y/self.frame_height)
+        #self.scheduleRedisplay()
         pass
     
     def rightMouseDragged_(self, event):
@@ -127,15 +195,53 @@ class CVImageViewer (NSOpenGLView):
         
         glDeleteTextures(texture)
     
-    def draw_zoomed_image(self):
+    def draw_zoomed_crosshairs(self, index):
+        print "draw zoomed crosshairs"
+        #zhw = 0.1
+        #def to_gl(x,y):
+        #    return x*2.-1., y*2.-1.
+        
+        zx = self.zooms[index]['x']
+        zy = self.zooms[index]['y']
+        #zz = self.zooms[index]['z']
+        
+        glColor4f(*self.zooms[index]['c'])
+        glBegin(GL_LINES)
+        
+        glVertex2f(*self._to_gl(zx, zy-self._zhw))
+        glVertex2f(*self._to_gl(zx, zy+self._zhw))
+        
+        glVertex2f(*self._to_gl(zx-self._zhw, zy))
+        glVertex2f(*self._to_gl(zx+self._zhw, zy))
+        glEnd()
+    
+    def draw_zoomed_border(self, index):
+        #zhw = 0.1
+        #def to_gl(x,y):
+        #    return x*2.-1., y*2.-1.
+        
+        zx = self.zooms[index]['x']
+        zy = self.zooms[index]['y']
+        
+        glColor4f(*self.zooms[index]['c'])
+        glBegin(GL_LINE_STRIP)
+        glVertex2f(*self._to_gl(zx-self._zhw, zy-self._zhw))
+        glVertex2f(*self._to_gl(zx-self._zhw, zy+self._zhw))
+        glVertex2f(*self._to_gl(zx+self._zhw, zy+self._zhw))
+        glVertex2f(*self._to_gl(zx+self._zhw, zy-self._zhw))
+        glVertex2f(*self._to_gl(zx-self._zhw, zy-self._zhw))
+        glEnd()
+    
+    def draw_zoomed_image(self, index):
+        print "draw zoomed image"
         texture = glGenTextures(1)
         
         glColor4f(1.,1.,1.,1.)
         glBindTexture(GL_TEXTURE_2D, texture)
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP)
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP)
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)#GL_LINEAR)
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)#GL_LINEAR)
         glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE8, self.image.width, self.image.height,
                     0, GL_LUMINANCE, GL_UNSIGNED_BYTE, self.image.tostring())
         glBindTexture(GL_TEXTURE_2D, texture)
@@ -144,48 +250,66 @@ class CVImageViewer (NSOpenGLView):
         # zoomed coords: 0,0 = bottom left, 1,1 = top right
         # texture coords: 0,0 = bottom left, 1,1 = top right
         # opengl coords: -1,-1 = bottom left, 1,1 = top right 
-        zhw = 0.3 # zoom window half width
+        #zhw = 0.1 # zoom window half width
         #self.zoom = 10.
-        def to_gl(x,y):
-            return x*2.-1., y*2.-1.
+        #def to_gl(x,y):
+        #    return x*2.-1., y*2.-1.
+        
+        zx = self.zooms[index]['x']
+        zy = self.zooms[index]['y']
+        zz = self.zooms[index]['z']
+        zc = self.zooms[index]['c']
         
         glBegin(GL_QUADS)
         # bottom left
-        glTexCoord2f(self.zoomedX - zhw/self.zoom, 1 - self.zoomedY + zhw/self.zoom)
-        gx,gy = to_gl(self.zoomedX-zhw, self.zoomedY-zhw)
+        glTexCoord2f(zx - self._zhw/zz, 1 - zy + self._zhw/zz)
+        gx,gy = self._to_gl(zx-self._zhw, zy-self._zhw)
         glVertex3f(gx, gy, 0.)
         
         # bottom right
-        glTexCoord2f(self.zoomedX + zhw/self.zoom, 1 - self.zoomedY + zhw/self.zoom)
-        gx,gy = to_gl(self.zoomedX+zhw, self.zoomedY-zhw)
+        glTexCoord2f(zx + self._zhw/zz, 1 - zy + self._zhw/zz)
+        gx,gy = self._to_gl(zx+self._zhw, zy-self._zhw)
         glVertex3f(gx, gy, 0.)
         
         # top right
-        glTexCoord2f(self.zoomedX + zhw/self.zoom, 1 - self.zoomedY - zhw/self.zoom)
-        gx,gy = to_gl(self.zoomedX+zhw, self.zoomedY+zhw)
+        glTexCoord2f(zx + self._zhw/zz, 1 - zy - self._zhw/zz)
+        gx,gy = self._to_gl(zx+self._zhw, zy+self._zhw)
         glVertex3f(gx, gy, 0.)
         
         # top left
-        glTexCoord2f(self.zoomedX - zhw/self.zoom, 1 - self.zoomedY - zhw/self.zoom)
-        gx,gy = to_gl(self.zoomedX-zhw, self.zoomedY+zhw)
+        glTexCoord2f(zx - self._zhw/zz, 1 - zy - self._zhw/zz)
+        gx,gy = self._to_gl(zx-self._zhw, zy+self._zhw)
         glVertex3f(gx, gy, 0.)
         glEnd()
         glBindTexture(GL_TEXTURE_2D, 0)
         
         glDeleteTextures(texture)
         
-        glColor4f(1., 0., 0., 0.5)
-        glBegin(GL_LINES)
-        
-        glVertex2f(*to_gl(self.zoomedX, self.zoomedY-zhw))
-        glVertex2f(*to_gl(self.zoomedX, self.zoomedY+zhw))
-        
-        glVertex2f(*to_gl(self.zoomedX-zhw, self.zoomedY))
-        glVertex2f(*to_gl(self.zoomedX+zhw, self.zoomedY))
-        glEnd()
-        
-        
-        
+        #glBegin(GL_QUADS)
+        ## bottom left
+        #glTexCoord2f(self.zoomedX - zhw/self.zoom, 1 - self.zoomedY + zhw/self.zoom)
+        #gx,gy = to_gl(self.zoomedX-zhw, self.zoomedY-zhw)
+        #glVertex3f(gx, gy, 0.)
+        #
+        ## bottom right
+        #glTexCoord2f(self.zoomedX + zhw/self.zoom, 1 - self.zoomedY + zhw/self.zoom)
+        #gx,gy = to_gl(self.zoomedX+zhw, self.zoomedY-zhw)
+        #glVertex3f(gx, gy, 0.)
+        #
+        ## top right
+        #glTexCoord2f(self.zoomedX + zhw/self.zoom, 1 - self.zoomedY - zhw/self.zoom)
+        #gx,gy = to_gl(self.zoomedX+zhw, self.zoomedY+zhw)
+        #glVertex3f(gx, gy, 0.)
+        #
+        ## top left
+        #glTexCoord2f(self.zoomedX - zhw/self.zoom, 1 - self.zoomedY - zhw/self.zoom)
+        #gx,gy = to_gl(self.zoomedX-zhw, self.zoomedY+zhw)
+        #glVertex3f(gx, gy, 0.)
+        #glEnd()
+        #glBindTexture(GL_TEXTURE_2D, 0)
+        #
+        #glDeleteTextures(texture)
+    
     def initGL(self):
         glEnable(GL_BLEND)
         glEnable(GL_TEXTURE_2D)
@@ -225,5 +349,15 @@ class CVImageViewer (NSOpenGLView):
             return
         
         self.draw_image()
-        self.draw_zoomed_image()
+        
+        for i in xrange(len(self.zooms)):
+            if i == self.selectedZoom:
+                continue
+            self.draw_zoomed_image(i)
+            self.draw_zoomed_crosshairs(i)
+        
+        self.draw_zoomed_image(self.selectedZoom)
+        self.draw_zoomed_crosshairs(self.selectedZoom)
+        self.draw_zoomed_border(self.selectedZoom)
+        
         self.openGLContext().flushBuffer()

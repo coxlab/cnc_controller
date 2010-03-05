@@ -57,11 +57,51 @@ def NumPy2Ipl(input):
     return result
 
 class CameraPair:
+    """
+    Pseudo cv3dTracker functions:
+        cv3dTrackerCalibrateCameras(
+            int num_cameras
+            Cv3dTrackerCameraIntrinsics camera_intrinsics
+                CvPoint2D32f principal_point
+                float focal_length[2]
+                float distortion[4]
+            CvSize etalon_size {grid size}
+            float square_size {grid square size}
+            IplImage* samples {images}
+            Cv3dTrackerCameraInfo camera_info
+                CvBool valid
+                float mat[4][4]
+                CvPoint2D32f principal_point
+            ) 
+            =-=-=-=-=-= What it does =-=-=-=-=-=
+            find chessboards
+            cvFindExtrinsicCameraParams
+            cvRodrigues
+            combine matricies [MultMatrix]
+        
+        
+        cv3dTrackerLocateObjects(
+            int num_cameras
+            int num_objects
+            Cv3dTrackerCameraInfo camera_info
+                CvBool valid
+                float mat[4][4]
+                CvPoint2D32f principal_point
+            Cv3dTracker2dTrackedObject tracking_info
+                int id
+                CvPoint2D32f
+            Cv3dTrackerTrackedObject tracked_objects
+                int id
+                CvPoint3D32f
+            )
+            =-=-=-=-=-= What it does =-=-=-=-=-=
+            a
+    """
     def __init__(self):
         self.calibrated = False
         self.connected = False
     
-    def connect(self, indexes=[0,1]):
+    def connect(self, indexes=(0,1)):
         if self.connected:
             return
         
@@ -89,8 +129,9 @@ class CameraPair:
         image2 = NumPy2Ipl(frame2.astype('uint8'))
         return image1, image2
     
-    def calibrate(self, nGrids=8, captureDelay=-1, gridSize=(5,5)):
+    def calibrate(self, nGrids=8, captureDelay=-1, gridSize=(5,5), gridBlockSize=3.55):
         """
+        gridSize = (width, height)
         captureDelay [-1] : seconds to wait between image capture attempts
                 if -1 : manually trigger capture via command line
         """
@@ -138,6 +179,10 @@ class CameraPair:
                 print "Couldn't find right number of grid corners:%i,%i!=%i" % (len(c1), len(c2), gridN)
                 continue
             
+            # TODO make sure that everything is oriented correctly
+            #  all intersections must be ordered (e.g. bottom left -> right -> up)
+            #  in the same way that matches the object points
+            
             print "Found good grids:%i" % successes
             # store data for future analysis
             # TODO add ability to save data/images to file
@@ -147,8 +192,8 @@ class CameraPair:
                 imPts1[i+step, 1] = c1[i][1]
                 imPts2[i+step, 0] = c2[i][0]
                 imPts2[i+step, 1] = c2[i][1]
-                objPts[i+step, 0] = i/float(gridN)
-                objPts[i+step, 1] = i % gridN
+                objPts[i+step, 0] = i % gridSize[0] * gridblockSize #i/float(gridN)
+                objPts[i+step, 1] = i / gridSize[0] * gridblockSize #i % gridN
                 objPts[i+step, 2] = 0.
             ptCounts[successes, 0] = gridN
             

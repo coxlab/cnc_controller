@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="750"/>
 			<integer value="296"/>
+			<integer value="750"/>
 			<integer value="702"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -1464,6 +1464,26 @@
 													<object class="NSMutableData" key="NSPixelAttributes">
 														<bytes key="NS.bytes">AAAABQAAAGAAAAAIAAAAMAAAAAsAAAAQAAAAAA</bytes>
 													</object>
+												</object>
+											</object>
+											<object class="NSButton" id="245300096">
+												<reference key="NSNextResponder" ref="720000276"/>
+												<int key="NSvFlags">268</int>
+												<string key="NSFrame">{{174, 193}, {124, 48}}</string>
+												<reference key="NSSuperview" ref="720000276"/>
+												<bool key="NSEnabled">YES</bool>
+												<object class="NSButtonCell" key="NSCell" id="176366814">
+													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags2">134217728</int>
+													<string key="NSContents">Add Zoomed Area</string>
+													<reference key="NSSupport" ref="268031044"/>
+													<reference key="NSControlView" ref="245300096"/>
+													<int key="NSButtonFlags">-2033434369</int>
+													<int key="NSButtonFlags2">134</int>
+													<string key="NSAlternateContents"/>
+													<string key="NSKeyEquivalent"/>
+													<int key="NSPeriodicDelay">400</int>
+													<int key="NSPeriodicInterval">75</int>
 												</object>
 											</object>
 										</object>
@@ -4640,6 +4660,14 @@
 					</object>
 					<int key="connectionID">915</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addZoomedAreas:</string>
+						<reference key="source" ref="485486094"/>
+						<reference key="destination" ref="245300096"/>
+					</object>
+					<int key="connectionID">918</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -5726,6 +5754,7 @@
 							<reference ref="126211821"/>
 							<reference ref="10996105"/>
 							<reference ref="487915211"/>
+							<reference ref="245300096"/>
 						</object>
 						<reference key="parent" ref="960617053"/>
 					</object>
@@ -6837,6 +6866,20 @@
 						<reference key="object" ref="343695484"/>
 						<reference key="parent" ref="837242254"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">916</int>
+						<reference key="object" ref="245300096"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="176366814"/>
+						</object>
+						<reference key="parent" ref="720000276"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">917</int>
+						<reference key="object" ref="176366814"/>
+						<reference key="parent" ref="245300096"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -7272,6 +7315,8 @@
 					<string>889.IBPluginDependency</string>
 					<string>896.CustomClassName</string>
 					<string>896.IBPluginDependency</string>
+					<string>916.IBPluginDependency</string>
+					<string>917.IBPluginDependency</string>
 					<string>92.IBPluginDependency</string>
 					<string>92.ImportedFromIB2</string>
 				</object>
@@ -7713,6 +7758,8 @@
 					<string>AtlasViewer</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 				</object>
 			</object>
@@ -7732,7 +7779,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">915</int>
+			<int key="maxID">918</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7787,10 +7834,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">CVImageViewer</string>
 					<string key="superclassName">NSOpenGLView</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">parentWindow</string>
-						<string key="NS.object.0">id</string>
-					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="554891266">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">ImageBridge.py</string>
@@ -7803,12 +7846,14 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addZoomedAreas:</string>
 							<string>captureFrames:</string>
 							<string>connectToCameras:</string>
 							<string>loadCalibration:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
