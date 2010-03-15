@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<cam1RVec type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>1</cols>
+  <dt>d</dt>
+  <data>
+    1.8584649695874816e-01 7.0620871202310820e-01 4.4158513943812711e-01</data></cam1RVec>
+</opencv_storage>

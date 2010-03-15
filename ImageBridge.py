@@ -9,16 +9,28 @@ from OpenGL.GL import *
 
 import cameraPair
 
-
 class ImageBridge (NSObject):
     # need outlets to the 2 opengl views
     # initialization
     leftImageView = objc.IBOutlet()
     rightImageView = objc.IBOutlet()
     
+    registrationPointTableView = objc.IBOutlet()
+    
     def awakeFromNib(self):
         # create camera pair
         self.cameras = cameraPair.CameraPair()
+    
+    @IBAction
+    def captureCalibrationImage_(self, sender):
+        im1, im2, success = self.cameras.capture_calibration_images()
+        self._.leftImageView.update_image(im1)
+        self._.rightImageView.update_image(im2)
+        print "Calibration Images are:", success
+    
+    @IBAction
+    def calibrateCameras_(self, sender):
+        self.cameras.calibrate_cameras()
     
     @IBAction
     def addZoomedAreas_(self, sender):
@@ -26,6 +38,20 @@ class ImageBridge (NSObject):
         self.leftImageView.scheduleRedisplay()
         self.rightImageView.add_zoomed_area(0.5, 0.5)
         self.rightImageView.scheduleRedisplay()
+        self.update_bindings()
+    
+    def update_bindings(self):
+        """ force the table to update """
+        self.print_zoom_xys()
+        self.registrationPointTableView.reloadData()
+    
+    def print_zoom_xys(self):
+        for i in xrange(len(self.leftImageView.zooms)):
+            l = self.leftImageView.zooms[i]
+            r = self.rightImageView.zooms[i]
+            w = self.leftImageView.frame_width
+            h = self.leftImageView.frame_height
+            print "%f %f %f %f" % (l['x']*w, l['y']*h, r['x']*w, r['y']*h)
     
     @IBAction
     def connectToCameras_(self, sender):
@@ -35,13 +61,38 @@ class ImageBridge (NSObject):
     def loadCalibration_(self, sender):
         #TODO add this to the configuration file
         self.cameras.load_calibration('/Users/graham/Repositories/coxlab/cncController/stereoCalibration')
-        self.cameras.compute_rectify_matricies((1280,960))
+        #self.cameras.compute_rectify_matricies((1280,960))
     
     @IBAction
     def captureFrames_(self, sender):
         im1, im2 = self.cameras.capture()
         self._.leftImageView.update_image(im1)
         self._.rightImageView.update_image(im2)
+    
+    
+    # data source methods to make this NSTableView complient
+    def numberOfRowsInTableView_(self, view):
+        return len(self.leftImageView.zooms)
+    
+    def tableView_objectValueForTableColumn_row_(self, view, column, row):
+        col = column.identifier()
+        if col == 'lx':
+            return self.leftImageView.zooms[row]['x'] * self.cameras.imageSize[0]
+        elif col =='ly':
+            return self.leftImageView.zooms[row]['y'] * self.cameras.imageSize[1]
+        elif col == 'rx':
+            return self.rightImageView.zooms[row]['x'] * self.cameras.imageSize[0]
+        elif col == 'ry':
+            return self.rightImageView.zooms[row]['y'] * self.cameras.imageSize[1]
+        elif col == 'x':
+            return 0
+        elif col == 'y':
+            return 0
+        elif col == 'z':
+            return 0
+        elif col == 'c':
+            return self.rightImageView._defaultZoomColorNames[row]
+
 
 class CVImageViewer (NSOpenGLView):
     
@@ -51,8 +102,11 @@ class CVImageViewer (NSOpenGLView):
                         (1., 1., 0., 0.5),
                         (1., 0., 1., 0.5),
                         (0., 1., 1., 0.5)]
+    _defaultZoomColorNames = ['r', 'g', 'b', 'y', 'm', 't']
     
     _zhw = 0.2
+    
+    imageBridge = objc.IBOutlet()
     
     def _to_gl(self, x, y):
         return x*2.-1., y*2.-1.
@@ -72,7 +126,6 @@ class CVImageViewer (NSOpenGLView):
         #self.zoomedX = 0.5
         #self.zoomedY = 0.5
         #self.zoom = 1.
-        #self.parentWindow.setAcceptsMouseMovedEvents_(True)
         #self.acceptsFirstResponder()
         #self.becomeFirstResponder()
     
@@ -103,7 +156,7 @@ class CVImageViewer (NSOpenGLView):
             if d < dist:
                 closest = i
                 dist = d
-            print d
+            #print d
         self.selectedZoom = closest
     
     def scrollWheel_(self, event):
@@ -143,6 +196,7 @@ class CVImageViewer (NSOpenGLView):
         #self.zoomedY += dy
         self.zooms[self.selectedZoom]['x'] += dx
         self.zooms[self.selectedZoom]['y'] += dy
+        #print self.zooms[self.selectedZoom]['x'], self.zooms[self.selectedZoom]['y']
         #print self.zoomedX, self.zoomedY
         self.scheduleRedisplay()
         
@@ -196,7 +250,7 @@ class CVImageViewer (NSOpenGLView):
         glDeleteTextures(texture)
     
     def draw_zoomed_crosshairs(self, index):
-        print "draw zoomed crosshairs"
+        #print "draw zoomed crosshairs"
         #zhw = 0.1
         #def to_gl(x,y):
         #    return x*2.-1., y*2.-1.
@@ -233,7 +287,7 @@ class CVImageViewer (NSOpenGLView):
         glEnd()
     
     def draw_zoomed_image(self, index):
-        print "draw zoomed image"
+        #print "draw zoomed image"
         texture = glGenTextures(1)
         
         glColor4f(1.,1.,1.,1.)
@@ -359,5 +413,7 @@ class CVImageViewer (NSOpenGLView):
         self.draw_zoomed_image(self.selectedZoom)
         self.draw_zoomed_crosshairs(self.selectedZoom)
         self.draw_zoomed_border(self.selectedZoom)
+        
+        self.imageBridge.update_bindings()
         
         self.openGLContext().flushBuffer()
