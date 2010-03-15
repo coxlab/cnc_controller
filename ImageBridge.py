@@ -20,17 +20,21 @@ class ImageBridge (NSObject):
     def awakeFromNib(self):
         # create camera pair
         self.cameras = cameraPair.CameraPair()
+        
+        self.points = [{'lx': 0, 'ly': 0, 'rx': 0, 'ry': 0,
+                        'x': 0, 'y': 0, 'z': 0, 'c': 0},]
     
     @IBAction
     def captureCalibrationImage_(self, sender):
-        im1, im2, success = self.cameras.capture_calibration_images()
-        self._.leftImageView.update_image(im1)
-        self._.rightImageView.update_image(im2)
+        ims, success = self.cameras.capture_calibration_images()
+        #im1, im2, success = self.cameras.capture_calibration_images()
+        self._.leftImageView.update_image(ims[0][0])
+        self._.rightImageView.update_image(im[1][0])
         print "Calibration Images are:", success
     
     @IBAction
     def calibrateCameras_(self, sender):
-        self.cameras.calibrate_cameras()
+        self.cameras.calibrate()
     
     @IBAction
     def addZoomedAreas_(self, sender):
@@ -42,7 +46,8 @@ class ImageBridge (NSObject):
     
     def update_bindings(self):
         """ force the table to update """
-        self.print_zoom_xys()
+        #self.print_zoom_xys()
+        self.update_points()
         self.registrationPointTableView.reloadData()
     
     def print_zoom_xys(self):
@@ -60,7 +65,7 @@ class ImageBridge (NSObject):
     @IBAction
     def loadCalibration_(self, sender):
         #TODO add this to the configuration file
-        self.cameras.load_calibration('/Users/graham/Repositories/coxlab/cncController/stereoCalibration')
+        self.cameras.load_calibrations('/Users/graham/Repositories/coxlab/cncController/stereoCalibration')
         #self.cameras.compute_rectify_matricies((1280,960))
     
     @IBAction
@@ -74,8 +79,20 @@ class ImageBridge (NSObject):
     def numberOfRowsInTableView_(self, view):
         return len(self.leftImageView.zooms)
     
+    def update_points(self):
+        self.points = []
+        for i in xrange(len(self.leftImageView.zooms)):
+            lx = self.leftImageView.zooms[i]['x'] * self.cameras.cameras[0].imageSize[0]
+            ly = self.leftImageView.zooms[i]['y'] * self.cameras.cameras[0].imageSize[1]
+            rx = self.rightImageView.zooms[i]['x'] * self.cameras.cameras[1].imageSize[0]
+            ry = self.rightImageView.zooms[i]['y'] * self.cameras.cameras[1].imageSize[1]
+            x, y, z = self.cameras.get_3d_position(( (lx,ly), (rx,ry) ))
+            self.points.append({'lx': lx, 'ly': ly, 'rx': rx, 'ry': ry,
+                'x': x, 'y': y, 'z': z, 'c': self.leftImageView._defaultZoomColorNames[i]})
+    
     def tableView_objectValueForTableColumn_row_(self, view, column, row):
         col = column.identifier()
+        return self.points[row][col]
         if col == 'lx':
             return self.leftImageView.zooms[row]['x'] * self.cameras.imageSize[0]
         elif col =='ly':
