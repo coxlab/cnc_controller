@@ -17,6 +17,49 @@ class MeshViewer (NSOpenGLView):
         # gl_inited is also touched by objc
         self.gl_inited = False
         self.mesh = None
+        
+        self.xpos = 0.
+        self.ypos = 0.
+        self.zpos = 0.
+        self.xrot = 0.
+        self.yrot = 0.
+        self.zrot = 0.
+        self.scale = 0.01
+    
+    @IBAction
+    def loadMesh_(self, sender):
+        panel = NSOpenPanel.openPanel()
+        panel.setCanChooseDirectories_(NO)
+        panel.setAllowsMultipleSelection_(NO)
+        panel.setAllowedFileTypes_(['obj'])
+        
+        def url_to_string(url):
+            # TODO make this more robust
+            return str(url)[16:]
+        
+        retValue = panel.runModal()
+        meshFilename = ""
+        if retValue:
+            meshFilename = url_to_string(panel.URLs()[0])
+        else:
+            print "Mesh selection canceled"
+            return
+        
+        panel.setAllowedFileTypes_(['jpg'])
+        retValue = panel.runModal()
+        textureFilename = ""
+        if retValue:
+            textureFilename = url_to_string(panel.URLs()[0])
+        else:
+            print "Texture selection canceled"
+            return
+        
+        #self.load_mesh("/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/mesh.obj",
+        #                "/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/texture.jpg")
+        
+        # TODO, add progress bar
+        self.load_mesh(meshFilename, textureFilename)
+        
     
     def load_mesh(self, meshFilename, textureFilename):
         self.mesh = objLoader.OBJ(meshFilename, textureFilename)
@@ -67,29 +110,75 @@ class MeshViewer (NSOpenGLView):
         self.frame_width = frame.size.width
         self.frame_height = frame.size.height
         
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         if(self.mesh == None):
             print "Mesh is None"
-            self.load_mesh("/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/mesh.obj",
-                            "/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/texture.jpg")
+            #self.load_mesh("/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/mesh.obj",
+            #                "/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/texture.jpg")
+            # TODO draw "No Mesh" signifier
             self.openGLContext().flushBuffer()
             return
     
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glPushMatrix()
-        xpos = 0.
-        ypos = 0.
-        zpos = 0.
-        xrot = 0.
-        yrot = 0.
-        scale = 0.01
-        glTranslate(xpos, ypos, zpos)
-        glRotatef(xrot, 0., 1., 0.)
-        glRotatef(yrot, 1., 0., 0.)
-        glScalef(scale, scale, scale)
+        glTranslate(self.xpos, self.ypos, self.zpos)
+        glRotatef(self.xrot, 0., 1., 0.)
+        glRotatef(self.yrot, 1., 0., 0.)
+        glScalef(self.scale, self.scale, self.scale)
+        #print self.scale
         
         self.draw_mesh()
         
         glPopMatrix()
         
-        print "flushing buffer"
+        #print "flushing buffer"
         self.openGLContext().flushBuffer()
+    
+    def scrollWheel_(self, event):
+        delta = event.deltaY()
+        if delta > 0:
+            # scale in
+            self.scale *= delta+1.
+        else:
+            self.scale /= abs(delta)+1.
+        # TODO add limits
+        self.scheduleRedisplay()
+    
+    def mouseDown_(self, event):
+        self.mesh.showTexture = False
+        self.mesh.showMesh = False
+        self.mesh.showPointCloud = True
+    
+    def mouseUp_(self, event):
+        self.mesh.showTexture = True
+        self.mesh.showMesh = True
+        self.mesh.showPointCloud = False
+        self.scheduleRedisplay()
+    
+    def mouseDragged_(self, event):
+        dx = event.deltaX() / (self.frame_width)
+        dy = event.deltaY() / (self.frame_height)
+        
+        self.xrot += dx * 10.
+        self.yrot += dy * 10.
+        # TODO, maybe turn off some rendering to speed this up
+        self.scheduleRedisplay()
+    
+    def rightMouseDown_(self, event):
+        self.mesh.showTexture = False
+        self.mesh.showMesh = False
+        self.mesh.showPointCloud = True
+    
+    def rightMouseUp_(self, event):
+        self.mesh.showTexture = True
+        self.mesh.showMesh = True
+        self.mesh.showPointCloud = False
+        self.scheduleRedisplay()
+    
+    def rightMouseDragged_(self, event):
+        dx = event.deltaX() / (self.frame_width)
+        dy = event.deltaY() / (self.frame_height)
+        
+        self.xpos += dx
+        self.ypos -= dy
+        # TODO, maybe turn off some rendering to speed this up
+        self.scheduleRedisplay()

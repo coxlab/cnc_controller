@@ -378,7 +378,7 @@ class CVImageViewer (NSOpenGLView):
         #glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         #glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_DST_ALPHA)
         glPixelStorei(GL_UNPACK_ALIGNMENT,1)
-        #self.gl_inited = True
+        self.gl_inited = True
     
     def scheduleRedisplay(self):
         """Call to force redisplay of the opengl view"""
