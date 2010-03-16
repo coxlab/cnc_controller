@@ -8,6 +8,7 @@ from objc import IBAction, IBOutlet
 from OpenGL.GL import *
 
 import cameraPair
+import cfg
 
 class ImageBridge (NSObject):
     # need outlets to the 2 opengl views
@@ -26,7 +27,9 @@ class ImageBridge (NSObject):
     
     @IBAction
     def captureCalibrationImage_(self, sender):
-        ims, success = self.cameras.capture_calibration_images()
+        gridSize = cfg.gridSize if ('gridSize' in dir(cfg)) else (8,5)
+        gridBlockSize = cfg.gridBlockSize if ('gridBlockSize' in dir(cfg)) else 2.73
+        ims, success = self.cameras.capture_calibration_images(gridSize, gridBlockSize)
         #im1, im2, success = self.cameras.capture_calibration_images()
         self._.leftImageView.update_image(ims[0][0])
         self._.rightImageView.update_image(im[1][0])
@@ -34,7 +37,9 @@ class ImageBridge (NSObject):
     
     @IBAction
     def calibrateCameras_(self, sender):
-        self.cameras.calibrate()
+        gridSize = cfg.gridSize if ('gridSize' in dir(cfg)) else (8,5)
+        gridBlockSize = cfg.gridBlockSize if ('gridBlockSize' in dir(cfg)) else 2.73
+        self.cameras.calibrate(gridSize, gridBlockSize)
     
     @IBAction
     def addZoomedAreas_(self, sender):
@@ -65,7 +70,11 @@ class ImageBridge (NSObject):
     @IBAction
     def loadCalibration_(self, sender):
         #TODO add this to the configuration file
-        self.cameras.load_calibrations('/Users/graham/Repositories/coxlab/cncController/stereoCalibration')
+        calibrationDirectory = '/Users/graham/Repositories/coxlab/cncController/stereoCalibration'
+        if 'calibrationDirectory' in dir(cfg):
+            calibrationDirectory = cfg.calibrationDirectory
+        
+        self.cameras.load_calibrations(calibrationDirectory)
         #self.cameras.compute_rectify_matricies((1280,960))
     
     @IBAction
@@ -97,15 +106,11 @@ class ImageBridge (NSObject):
 
 class CVImageViewer (NSOpenGLView):
     
-    _defaultZoomColors = [(1., 0., 0., 0.5),
-                        (0., 1., 0., 0.5),
-                        (0., 0., 1., 0.5),
-                        (1., 1., 0., 0.5),
-                        (1., 0., 1., 0.5),
-                        (0., 1., 1., 0.5)]
-    _defaultZoomColorNames = ['r', 'g', 'b', 'y', 'm', 't']
+    _defaultZoomColors = cfg.zoomColors
     
-    _zhw = 0.2
+    _defaultZoomColorNames = cfg.zoomColorNames
+    
+    _zhw = cfg.zoomHalfWidth
     
     imageBridge = objc.IBOutlet()
     

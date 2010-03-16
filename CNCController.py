@@ -14,6 +14,7 @@ import objc
 from objc import IBAction, IBOutlet
 
 import CNCAxes
+import cfg
 
 class CNCController (NSObject):
     
@@ -44,27 +45,37 @@ class CNCController (NSObject):
         print "in awakeFromNib"
         
         # == setting defaults ==
-        self._.xStep = 1.27 # mm
-        self._.yStep = 1.27 # mm
-        self._.zStep = 1.27 # mm
+        self._.xStep = cfg.xStep if 'xStep' in dir(cfg) else 1.27 # mm
+        self._.yStep = cfg.yStep if 'yStep' in dir(cfg) else 1.27 # mm
+        self._.zStep = cfg.zStep if 'zStep' in dir(cfg) else 1.27 # mm
         
-        self._.bStep = 1.0 # degrees
-        self._.wStep = 1.0 # mm
+        self._.bStep = cfg.bStep if 'bStep' in dir(cfg) else 1.0 # degrees
+        self._.wStep = cfg.wStep if 'wStep' in dir(cfg) else 1.0 # mm
         
-        self._.xPosLimit = 12.70
-        self._.xNegLimit = -12.70
-        self._.yPosLimit = 12.70
-        self._.yNegLimit = -12.70
-        self._.zPosLimit = 12.70
-        self._.zNegLimit = -12.70
+        self._.xPosLimit = cfg.xPosLimit if 'xPosLimit' in dir(cfg) else 12.70
+        self._.xNegLimit = cfg.xNegLimit if 'xNegLimit' in dir(cfg) else -12.70
+        self._.yPosLimit = cfg.yPosLimit if 'yPosLimit' in dir(cfg) else 12.70
+        self._.yNegLimit = cfg.yNegLimit if 'yNegLimit' in dir(cfg) else -12.70
+        self._.zPosLimit = cfg.zPosLimit if 'zPosLimit' in dir(cfg) else 12.70
+        self._.zNegLimit = cfg.zNegLimit if 'zNegLimit' in dir(cfg) else -12.70
         
         # set timeout to None to wait until error (infinite timeout)
         # set timeout to 0.0 to not wait for the socket to connect (this is a BAD idea) 
         serialConnectionTimeout = 1.0 # seconds
+        if 'serialConnectionTimeout' in dir(cfg):
+            serialConnectionTimeout = cfg.serialConnectionTimeout
         
         print "Trying to connect to CNC Linear(XYZ) Axes"
         try:
-            self.linearAxes = CNCAxes.CNCLinearAxes("169.254.0.9", 8003, timeout=serialConnectionTimeout)
+            linearIP = "169.254.0.9"
+            if 'cncLinearAxesIP' in dir(cfg):
+                linearIP = cfg.cncLinearAxesIP
+            
+            linearPort = 8003
+            if 'cncLinearAxesPort' in dir(cfg):
+                linearPort = cfg.cncLinearAxesPort
+            
+            self.linearAxes = CNCAxes.CNCLinearAxes(linearIP, linearPort, timeout=serialConnectionTimeout)
         except:
             print "Connection with CNC Linear(XYZ) Axes timed out, making fake axes instead"
             self.linearAxes = CNCAxes.CNCFakeLinearAxes()
@@ -73,7 +84,15 @@ class CNCController (NSObject):
         
         print "Trying to connect to CNC Head(BW) Axes"
         try:
-            self.headAxes = CNCAxes.CNCHeadAxes("169.254.0.9", 8004, timeout=serialConnectionTimeout)
+            headIP = "169.254.0.9"
+            if 'cncHeadAxesIP' in dir(cfg):
+                headIP = cfg.cncHeadAxesIP
+            
+            headPort = 8004
+            if 'cncHeadAxesPort' in dir(cfg):
+                headPort = cfg.cncHeadAxesPort
+            
+            self.headAxes = CNCAxes.CNCHeadAxes(headIP, headPort, timeout=serialConnectionTimeout)
         except:
             print "Connection with CNC Head(BW) Axes timed out, making fake axes instead"
             self.headAxes = CNCAxes.CNCFakeHeadAxes()

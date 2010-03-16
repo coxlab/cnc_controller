@@ -19,6 +19,8 @@
 #    myFoo = cfg.foo
 #  else:
 #    myFoo = 'default value'
+# or as a one-liner
+#  myFoo = cfg.foo if ('foo' in dir(cfg)) else 'default value'
 #
 # ====== What if I want to use this cfg file to read a different file? =======
 # You could use something like this:
@@ -36,9 +38,10 @@
 # custom setting. The default config file (cfg.py) should look like this:
 #  foo = 'bar'
 #  # ...exaustive definition of defaults...
-#  import os
-#  if os.path.exists('customCfg.py'):
+#  try:
 #    from customCfg import *
+#  except:
+#    print "No custom configuration found"
 # This way the values in the custom file will overwrite the defaults.
 
 
@@ -46,7 +49,8 @@
 gridSize = (8,5)
 gridBlockSize = 2.73
 
-calibrationDirectory = "stereoCalibration"
+# TODO sort out where this should go
+#calibrationDirectory = "stereoCalibration"
 
 
 # ----- ImageBridge Settings ------
@@ -82,7 +86,12 @@ yNegLimit = -12.70
 zPosLimit = 12.70
 zNegLimit = -12.70
 
+
 # import custom configuration file, which will overwrite default values
-import os
-if os.path.exists('customCfg.py'):
+#appPath = '/Users/graham/Repositories/coxlab/cncController/build/Debug/cncController.app'
+#resourcePath = '%s/Contents/Resources' % appPath
+
+try:
     from customCfg import *
+except:
+    print "No custom configuration (customCfg.py) found"
