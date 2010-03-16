@@ -93,22 +93,6 @@ class ImageBridge (NSObject):
     def tableView_objectValueForTableColumn_row_(self, view, column, row):
         col = column.identifier()
         return self.points[row][col]
-        if col == 'lx':
-            return self.leftImageView.zooms[row]['x'] * self.cameras.imageSize[0]
-        elif col =='ly':
-            return self.leftImageView.zooms[row]['y'] * self.cameras.imageSize[1]
-        elif col == 'rx':
-            return self.rightImageView.zooms[row]['x'] * self.cameras.imageSize[0]
-        elif col == 'ry':
-            return self.rightImageView.zooms[row]['y'] * self.cameras.imageSize[1]
-        elif col == 'x':
-            return 0
-        elif col == 'y':
-            return 0
-        elif col == 'z':
-            return 0
-        elif col == 'c':
-            return self.rightImageView._defaultZoomColorNames[row]
 
 
 class CVImageViewer (NSOpenGLView):

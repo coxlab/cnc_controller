@@ -20,6 +20,7 @@
 		BF333D1E10CD47490009217F /* IPSerialBridge.py in Resources */ = {isa = PBXBuildFile; fileRef = BF333D1D10CD47490009217F /* IPSerialBridge.py */; };
 		BF333D2610CD47560009217F /* CNCAxes.py in Resources */ = {isa = PBXBuildFile; fileRef = BF333D2510CD47560009217F /* CNCAxes.py */; };
 		BF333D2910CD47960009217F /* CNCController.py in Resources */ = {isa = PBXBuildFile; fileRef = BF333D2810CD47960009217F /* CNCController.py */; };
+		BF42CC08114FDC0D008754B2 /* cfg.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42CC07114FDC0D008754B2 /* cfg.py */; };
 		BF43D6AC10CB2BB900F1F642 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = BF43D6AB10CB2BB900F1F642 /* main.py */; };
 		BFDBF0D110CDBF7C00962C45 /* example.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDBF0D010CDBF7C00962C45 /* example.png */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		BF333D1D10CD47490009217F /* IPSerialBridge.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = IPSerialBridge.py; sourceTree = "<group>"; };
 		BF333D2510CD47560009217F /* CNCAxes.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = CNCAxes.py; sourceTree = "<group>"; };
 		BF333D2810CD47960009217F /* CNCController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = CNCController.py; sourceTree = "<group>"; };
+		BF42CC07114FDC0D008754B2 /* cfg.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = cfg.py; sourceTree = "<group>"; };
 		BF43D6AB10CB2BB900F1F642 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		BFDBF0D010CDBF7C00962C45 /* example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = example.png; path = media/example.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +116,7 @@
 				256AC3F00F4B6AF500CF3369 /* cncController_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				BF43D6AB10CB2BB900F1F642 /* main.py */,
+				BF42CC07114FDC0D008754B2 /* cfg.py */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				BF325C1F11386383003058BE /* ImageBridge.py in Resources */,
 				BF32A02E11388AC1003058BE /* AtlasViewer.py in Resources */,
 				BF32A03211388CDA003058BE /* python2.6_env in Resources */,
+				BF42CC08114FDC0D008754B2 /* cfg.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

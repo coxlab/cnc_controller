@@ -10,3 +10,9 @@ build/
 *.pbxuser
 *.perspective
 *.perspectivev3
+
+# ignore compiled python files
+*.pyc
+
+# ignore custom configuration file
+customCfg.py
