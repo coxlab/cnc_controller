@@ -22,6 +22,8 @@
 		BF42CC08114FDC0D008754B2 /* cfg.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42CC07114FDC0D008754B2 /* cfg.py */; };
 		BF42DDEA114FF620008754B2 /* python2.6_env in Resources */ = {isa = PBXBuildFile; fileRef = BF42CC13114FF61E008754B2 /* python2.6_env */; };
 		BF42DE07114FF65F008754B2 /* customCfg.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42DE06114FF65F008754B2 /* customCfg.py */; };
+		BF42DE30114FFBE3008754B2 /* MeshViewer.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42DE2F114FFBE3008754B2 /* MeshViewer.py */; };
+		BF42DE34114FFE3E008754B2 /* objLoader.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42DE33114FFE3E008754B2 /* objLoader.py */; };
 		BF43D6AC10CB2BB900F1F642 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = BF43D6AB10CB2BB900F1F642 /* main.py */; };
 		BFDBF0D110CDBF7C00962C45 /* example.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDBF0D010CDBF7C00962C45 /* example.png */; };
 /* End PBXBuildFile section */
@@ -48,6 +50,8 @@
 		BF42CC07114FDC0D008754B2 /* cfg.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = cfg.py; sourceTree = "<group>"; };
 		BF42CC13114FF61E008754B2 /* python2.6_env */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python2.6_env; sourceTree = "<group>"; };
 		BF42DE06114FF65F008754B2 /* customCfg.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = customCfg.py; sourceTree = "<group>"; };
+		BF42DE2F114FFBE3008754B2 /* MeshViewer.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MeshViewer.py; sourceTree = "<group>"; };
+		BF42DE33114FFE3E008754B2 /* objLoader.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = objLoader.py; sourceTree = "<group>"; };
 		BF43D6AB10CB2BB900F1F642 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		BFDBF0D010CDBF7C00962C45 /* example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = example.png; path = media/example.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,6 +162,8 @@
 		BF32A02C11388AAD003058BE /* Atlas */ = {
 			isa = PBXGroup;
 			children = (
+				BF42DE2F114FFBE3008754B2 /* MeshViewer.py */,
+				BF42DE33114FFE3E008754B2 /* objLoader.py */,
 				BF32A02D11388AC1003058BE /* AtlasViewer.py */,
 			);
 			name = Atlas;
@@ -240,6 +246,8 @@
 				BF42CC08114FDC0D008754B2 /* cfg.py in Resources */,
 				BF42DDEA114FF620008754B2 /* python2.6_env in Resources */,
 				BF42DE07114FF65F008754B2 /* customCfg.py in Resources */,
+				BF42DE30114FFBE3008754B2 /* MeshViewer.py in Resources */,
+				BF42DE34114FFE3E008754B2 /* objLoader.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,9 +12,9 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="750"/>
+			<integer value="764"/>
 			<integer value="296"/>
-			<integer value="702"/>
+			<integer value="963"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1374,7 +1374,7 @@
 								<object class="NSTabViewItem" id="960617053">
 									<string key="NSIdentifier">2</string>
 									<object class="NSView" key="NSView" id="720000276">
-										<reference key="NSNextResponder" ref="398473475"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">256</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1782,7 +1782,7 @@
 																	</object>
 																	<object class="NSTableColumn" id="59615873">
 																		<string key="NSIdentifier">z</string>
-																		<double key="NSWidth">85</double>
+																		<double key="NSWidth">110</double>
 																		<double key="NSMinWidth">10</double>
 																		<double key="NSMaxWidth">3.4028234663852886e+38</double>
 																		<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -1852,7 +1852,6 @@
 														<int key="NSvFlags">-2147483392</int>
 														<string key="NSFrame">{{1, 192}, {452, 15}}</string>
 														<reference key="NSSuperview" ref="451662788"/>
-														<bool key="NSEnabled">YES</bool>
 														<int key="NSsFlags">1</int>
 														<reference key="NSTarget" ref="451662788"/>
 														<string key="NSAction">_doScroller:</string>
@@ -1877,7 +1876,7 @@
 												<string key="NSFrame">{{10, 80}, {656, 113}}</string>
 												<reference key="NSSuperview" ref="720000276"/>
 												<reference key="NSNextKeyView" ref="543125964"/>
-												<int key="NSsFlags">690</int>
+												<int key="NSsFlags">562</int>
 												<reference key="NSVScroller" ref="151385088"/>
 												<reference key="NSHScroller" ref="691807311"/>
 												<reference key="NSContentView" ref="543125964"/>
@@ -1903,21 +1902,47 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 33}, {674, 500}}</string>
-										<reference key="NSSuperview" ref="398473475"/>
 									</object>
 									<string key="NSLabel">Stereo Camera</string>
 									<reference key="NSColor" ref="1030757133"/>
 									<reference key="NSTabView" ref="398473475"/>
 								</object>
+								<object class="NSTabViewItem" id="485634881">
+									<string key="NSIdentifier">Item 2</string>
+									<object class="NSView" key="NSView" id="548268794">
+										<reference key="NSNextResponder" ref="398473475"/>
+										<int key="NSvFlags">256</int>
+										<object class="NSMutableArray" key="NSSubviews">
+											<bool key="EncodedWithXMLCoder">YES</bool>
+											<object class="NSOpenGLView" id="72749846">
+												<reference key="NSNextResponder" ref="548268794"/>
+												<int key="NSvFlags">1292</int>
+												<object class="NSPSMatrix" key="NSDrawMatrix"/>
+												<string key="NSFrame">{{17, 17}, {640, 480}}</string>
+												<reference key="NSSuperview" ref="548268794"/>
+												<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
+													<object class="NSMutableData" key="NSPixelAttributes">
+														<bytes key="NS.bytes">AAAABQAAAAgAAAAwAAAACwAAABAAAAAMAAAAIAAAAAA</bytes>
+													</object>
+												</object>
+											</object>
+										</object>
+										<string key="NSFrame">{{10, 33}, {674, 500}}</string>
+										<reference key="NSSuperview" ref="398473475"/>
+									</object>
+									<string key="NSLabel">Mesh</string>
+									<reference key="NSColor" ref="1030757133"/>
+									<reference key="NSTabView" ref="398473475"/>
+								</object>
 							</object>
-							<reference key="NSSelectedTabViewItem" ref="960617053"/>
+							<reference key="NSSelectedTabViewItem" ref="485634881"/>
 							<reference key="NSFont" ref="268031044"/>
 							<int key="NSTvFlags">0</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<reference ref="720000276"/>
+								<reference ref="548268794"/>
 							</object>
 						</object>
 						<object class="NSBox" id="549778445">
@@ -6155,6 +6180,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="170682434"/>
 							<reference ref="960617053"/>
+							<reference ref="485634881"/>
 						</object>
 						<reference key="parent" ref="439893737"/>
 					</object>
@@ -7513,6 +7539,29 @@
 						<reference key="object" ref="30125294"/>
 						<reference key="parent" ref="171578295"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">960</int>
+						<reference key="object" ref="485634881"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="548268794"/>
+						</object>
+						<reference key="parent" ref="398473475"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">961</int>
+						<reference key="object" ref="548268794"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="72749846"/>
+						</object>
+						<reference key="parent" ref="485634881"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">963</int>
+						<reference key="object" ref="72749846"/>
+						<reference key="parent" ref="548268794"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -7979,6 +8028,10 @@
 					<string>952.IBPluginDependency</string>
 					<string>953.IBPluginDependency</string>
 					<string>954.IBPluginDependency</string>
+					<string>960.IBPluginDependency</string>
+					<string>961.IBPluginDependency</string>
+					<string>963.CustomClassName</string>
+					<string>963.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -8111,9 +8164,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{391, 199}, {720, 614}}</string>
+					<string>{{-1296, -34}, {720, 614}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{391, 199}, {720, 614}}</string>
+					<string>{{-1296, -34}, {720, 614}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>
@@ -8448,6 +8501,10 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>MeshViewer</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -8466,7 +8523,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">959</int>
+			<int key="maxID">965</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -8570,6 +8627,14 @@
 						</object>
 					</object>
 					<reference key="sourceIdentifier" ref="554891266"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MeshViewer</string>
+					<string key="superclassName">NSOpenGLView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">MeshViewer.py</string>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableArray" key="referencedPartialClassDescriptionsV3.2+">

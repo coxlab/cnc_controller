@@ -23,5 +23,7 @@ from ImageBridge import *
 
 from AtlasViewer import *
 
+from MeshViewer import *
+
 # pass control to AppKit and run events (linked to MainMenu.nib)
 AppHelper.runEventLoop()
