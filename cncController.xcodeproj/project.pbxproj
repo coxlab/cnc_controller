@@ -25,6 +25,7 @@
 		BF42DE30114FFBE3008754B2 /* MeshViewer.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42DE2F114FFBE3008754B2 /* MeshViewer.py */; };
 		BF42DE34114FFE3E008754B2 /* objLoader.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42DE33114FFE3E008754B2 /* objLoader.py */; };
 		BF43D6AC10CB2BB900F1F642 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = BF43D6AB10CB2BB900F1F642 /* main.py */; };
+		BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BF9C84D711527B5100C68A5A /* physiology_icon.icns */; };
 		BFDBF0D110CDBF7C00962C45 /* example.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDBF0D010CDBF7C00962C45 /* example.png */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		BF42DE2F114FFBE3008754B2 /* MeshViewer.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MeshViewer.py; sourceTree = "<group>"; };
 		BF42DE33114FFE3E008754B2 /* objLoader.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = objLoader.py; sourceTree = "<group>"; };
 		BF43D6AB10CB2BB900F1F642 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
+		BF9C84D711527B5100C68A5A /* physiology_icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = physiology_icon.icns; sourceTree = "<group>"; };
 		BFDBF0D010CDBF7C00962C45 /* example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = example.png; path = media/example.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +133,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BF9C84D711527B5100C68A5A /* physiology_icon.icns */,
 				BF42CC13114FF61E008754B2 /* python2.6_env */,
 				BF1E318C10CB3A0E00163053 /* media */,
 				8D1107310486CEB800E47090 /* cncController-Info.plist */,
@@ -248,6 +251,7 @@
 				BF42DE07114FF65F008754B2 /* customCfg.py in Resources */,
 				BF42DE30114FFBE3008754B2 /* MeshViewer.py in Resources */,
 				BF42DE34114FFE3E008754B2 /* objLoader.py in Resources */,
+				BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

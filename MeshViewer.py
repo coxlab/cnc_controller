@@ -13,10 +13,14 @@ import objLoader
 
 
 class MeshViewer (NSOpenGLView):
+    
+    app = objc.IBOutlet()
+    
     def awakeFromNib(self):
         # gl_inited is also touched by objc
         self.gl_inited = False
         self.mesh = None
+        self.renderLoading = False
         
         self.xpos = 0.
         self.ypos = 0.
@@ -25,6 +29,7 @@ class MeshViewer (NSOpenGLView):
         self.yrot = 0.
         self.zrot = 0.
         self.scale = 0.01
+    
     
     @IBAction
     def loadMesh_(self, sender):
@@ -37,6 +42,7 @@ class MeshViewer (NSOpenGLView):
             # TODO make this more robust
             return str(url)[16:]
         
+        panel.setTitle_("Select a .obj mesh file")
         retValue = panel.runModal()
         meshFilename = ""
         if retValue:
@@ -45,6 +51,7 @@ class MeshViewer (NSOpenGLView):
             print "Mesh selection canceled"
             return
         
+        panel.setTitle_("Select a .jpg texture file")
         panel.setAllowedFileTypes_(['jpg'])
         retValue = panel.runModal()
         textureFilename = ""
@@ -56,15 +63,26 @@ class MeshViewer (NSOpenGLView):
         
         #self.load_mesh("/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/mesh.obj",
         #                "/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/texture.jpg")
-        
-        # TODO, add progress bar
         self.load_mesh(meshFilename, textureFilename)
         
     
+    def start_loading(self):
+        dockTile = self.app.dockTile()
+        dockTile.setBadgeLabel_("Wait")
+        self.renderLoading = True
+    
+    def end_loading(self):
+        self.renderLoading = False
+        dockTile = self.app.dockTile()
+        dockTile.setBadgeLabel_("")
+    
     def load_mesh(self, meshFilename, textureFilename):
+        dockTile = self.app.dockTile()
+        dockTile.setBadgeLabel_("Wait")
         self.mesh = objLoader.OBJ(meshFilename, textureFilename)
-        print "Making mesh lists"
+        dockTile.setBadgeLabel_("Wait")
         self.mesh.prep_lists()
+        dockTile.setBadgeLabel_("")
         self.scheduleRedisplay()
     
     def draw_mesh(self):
@@ -111,14 +129,19 @@ class MeshViewer (NSOpenGLView):
         self.frame_height = frame.size.height
         
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-        if(self.mesh == None):
+        if (self.renderLoading == True):
+            self.display_loading()
+            self.openGLContext().flushBuffer()
+            return            
+        if (self.mesh == None):
             print "Mesh is None"
             #self.load_mesh("/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/mesh.obj",
             #                "/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/texture.jpg")
             # TODO draw "No Mesh" signifier
+            self.display_no_mesh()
             self.openGLContext().flushBuffer()
             return
-    
+        
         glPushMatrix()
         glTranslate(self.xpos, self.ypos, self.zpos)
         glRotatef(self.xrot, 0., 1., 0.)
@@ -132,6 +155,14 @@ class MeshViewer (NSOpenGLView):
         
         #print "flushing buffer"
         self.openGLContext().flushBuffer()
+    
+    def display_no_mesh(self):
+        # TODO implement this
+        pass
+    
+    def display_loading(self):
+        # TODO implement this
+        pass
     
     def scrollWheel_(self, event):
         delta = event.deltaY()
@@ -158,8 +189,8 @@ class MeshViewer (NSOpenGLView):
         dx = event.deltaX() / (self.frame_width)
         dy = event.deltaY() / (self.frame_height)
         
-        self.xrot += dx * 10.
-        self.yrot += dy * 10.
+        self.xrot += dx * 100.
+        self.yrot += dy * 100.
         # TODO, maybe turn off some rendering to speed this up
         self.scheduleRedisplay()
     
@@ -178,7 +209,7 @@ class MeshViewer (NSOpenGLView):
         dx = event.deltaX() / (self.frame_width)
         dy = event.deltaY() / (self.frame_height)
         
-        self.xpos += dx
-        self.ypos -= dy
+        self.xpos += dx * 10.
+        self.ypos -= dy * 10.
         # TODO, maybe turn off some rendering to speed this up
         self.scheduleRedisplay()
