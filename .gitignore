@@ -16,3 +16,6 @@ build/
 
 # ignore custom configuration file
 customCfg.py
+
+# ignore scan directory
+media/test_scan
