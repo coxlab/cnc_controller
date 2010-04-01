@@ -18,4 +18,4 @@ build/
 customCfg.py
 
 # ignore scan directory
-media/test_scan
+media/testScan
