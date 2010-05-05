@@ -20,32 +20,45 @@ class ImageBridge (NSObject):
     
     def awakeFromNib(self):
         # create camera pair
-        self.cameras = cameraPair.CameraPair()
+        self.cameras = cameraPair.CameraPair(cfg.camIDs)
         
         self.points = [{'lx': 0, 'ly': 0, 'rx': 0, 'ry': 0,
                         'x': 0, 'y': 0, 'z': 0, 'c': 0},]
     
-    @IBAction
-    def captureCalibrationImage_(self, sender):
-        gridSize = cfg.gridSize if ('gridSize' in dir(cfg)) else (8,5)
-        gridBlockSize = cfg.gridBlockSize if ('gridBlockSize' in dir(cfg)) else 2.73
-        ims, success = self.cameras.capture_calibration_images(gridSize, gridBlockSize)
-        #im1, im2, success = self.cameras.capture_calibration_images()
-        self._.leftImageView.update_image(ims[0][0])
-        self._.rightImageView.update_image(im[1][0])
-        print "Calibration Images are:", success
+    #@IBAction
+    #def captureCalibrationImage_(self, sender):
+    #    gridSize = cfg.gridSize if ('gridSize' in dir(cfg)) else (8,5)
+    #    gridBlockSize = cfg.gridBlockSize if ('gridBlockSize' in dir(cfg)) else 2.73
+    #    ims, success = self.cameras.capture_calibration_images(gridSize, gridBlockSize)
+    #    #im1, im2, success = self.cameras.capture_calibration_images()
+    #    self._.leftImageView.update_image(ims[0][0])
+    #    self._.rightImageView.update_image(ims[1][0])
+    #    print "Calibration Images are:", success
     
     @IBAction
-    def calibrateCameras_(self, sender):
+    def captureLocalizationImage_(self, sender):
         gridSize = cfg.gridSize if ('gridSize' in dir(cfg)) else (8,5)
-        gridBlockSize = cfg.gridBlockSize if ('gridBlockSize' in dir(cfg)) else 2.73
-        self.cameras.calibrate(gridSize, gridBlockSize)
+        gridBlockSize = cfg.gridBlockSize if ('gridBlockSize' in dir(cfg)) else (1.27)
+        ims, success = self.cameras.capture_localization_images(gridSize)
+        if success:
+            self.cameras.localize(gridSize, gridBlockSize)
+            print "Camera localization was a success"
+        else:
+            print "Camera localization was a failure"
+        self._.leftImageView.update_image(ims[0][0])
+        self._.rightImageView.update_image(ims[1][0])
+    
+    #@IBAction
+    #def calibrateCameras_(self, sender):
+    #    gridSize = cfg.gridSize if ('gridSize' in dir(cfg)) else (8,5)
+    #    gridBlockSize = cfg.gridBlockSize if ('gridBlockSize' in dir(cfg)) else 2.73
+    #    self.cameras.calibrate(gridSize, gridBlockSize)
     
     @IBAction
     def addZoomedAreas_(self, sender):
         self.leftImageView.add_zoomed_area(0.5, 0.5)
-        self.leftImageView.scheduleRedisplay()
         self.rightImageView.add_zoomed_area(0.5, 0.5)
+        self.leftImageView.scheduleRedisplay()
         self.rightImageView.scheduleRedisplay()
         self.update_bindings()
     
@@ -54,6 +67,11 @@ class ImageBridge (NSObject):
         #self.print_zoom_xys()
         self.update_points()
         self.registrationPointTableView.reloadData()
+    
+    @IBAction
+    def printPointXYZs_(self, sender):
+        for p in self.points:
+            print "%f %f %f %f %f %f %f" % (p['lx'], p['ly'], p['rx'], p['ry'], p['x'], p['y'], p['z'])
     
     def print_zoom_xys(self):
         for i in xrange(len(self.leftImageView.zooms)):
@@ -65,17 +83,30 @@ class ImageBridge (NSObject):
     
     @IBAction
     def connectToCameras_(self, sender):
+        # connect
         self.cameras.connect()
-    
-    @IBAction
-    def loadCalibration_(self, sender):
-        #TODO add this to the configuration file
+        # load calibrations
         calibrationDirectory = '/Users/graham/Repositories/coxlab/cncController/stereoCalibration'
         if 'calibrationDirectory' in dir(cfg):
             calibrationDirectory = cfg.calibrationDirectory
-        
         self.cameras.load_calibrations(calibrationDirectory)
-        #self.cameras.compute_rectify_matricies((1280,960))
+    
+    #@IBAction
+    #def loadCalibration_(self, sender):
+    #    calibrationDirectory = '/Users/graham/Repositories/coxlab/cncController/stereoCalibration'
+    #    if 'calibrationDirectory' in dir(cfg):
+    #        calibrationDirectory = cfg.calibrationDirectory
+    #    
+    #    self.cameras.load_calibrations(calibrationDirectory)
+    #    #self.cameras.compute_rectify_matricies((1280,960))
+    
+    #@IBAction
+    #def saveCalibration_(self, sender):
+    #    calibrationDirectory = '/Users/graham/Repositories/coxlab/cncController/stereoCalibration'
+    #    if 'calibrationDirectory' in dir(cfg):
+    #        calibrationDirectory = cfg.calibrationDirectory
+    #    
+    #    self.cameras.save_calibrations(calibrationDirectory)
     
     @IBAction
     def captureFrames_(self, sender):
@@ -86,10 +117,16 @@ class ImageBridge (NSObject):
     
     # data source methods to make this NSTableView complient
     def numberOfRowsInTableView_(self, view):
-        return len(self.leftImageView.zooms)
+        return len(self.points)#len(self.leftImageView.zooms)+2
     
     def update_points(self):
         self.points = []
+        # add position of cameras
+        c1, c2 = self.cameras.get_camera_positions()
+        self.points.append({'lx': 0, 'ly': 0, 'rx': 0, 'ry': 0,
+            'x': c1[0], 'y': c1[1], 'z': c1[2], 'c': 'c1'})
+        self.points.append({'lx': 0, 'ly': 0, 'rx': 0, 'ry': 0,
+            'x': c2[0], 'y': c2[1], 'z': c2[2], 'c': 'c2'})
         for i in xrange(len(self.leftImageView.zooms)):
             lx = self.leftImageView.zooms[i]['x'] * self.cameras.cameras[0].imageSize[0]
             ly = self.leftImageView.zooms[i]['y'] * self.cameras.cameras[0].imageSize[1]
@@ -97,7 +134,7 @@ class ImageBridge (NSObject):
             ry = self.rightImageView.zooms[i]['y'] * self.cameras.cameras[1].imageSize[1]
             x, y, z = self.cameras.get_3d_position(( (lx,ly), (rx,ry) ))
             self.points.append({'lx': lx, 'ly': ly, 'rx': rx, 'ry': ry,
-                'x': x, 'y': y, 'z': z, 'c': self.leftImageView._defaultZoomColorNames[i]})
+                'x': x, 'y': y, 'z': z, 'c': self.leftImageView.zooms[i]['c']})
     
     def tableView_objectValueForTableColumn_row_(self, view, column, row):
         col = column.identifier()

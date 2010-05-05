@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 
+#TODO
+#  setup estop to stop motion but NOT kill motors
+#  setup softwares limits to stop motion but NOT kill motors
+#  remove software limits (I don't think they're important
+#  fix parameters
+#  assign different parameters to each axis
+
+
 from IPSerialBridge import IPSerialBridge
 
 class CNCLinearAxes(IPSerialBridge):
@@ -117,7 +125,7 @@ class CNCLinearAxes(IPSerialBridge):
     
     def is_motion_done(self, axis=None):
         if axis == None:
-            return all(self.send("1MD"), self.send("2MD"), self.send("3MD"))
+            return all((self.send("1MD"), self.send("2MD"), self.send("3MD")))
         else:
             return self.send("%dMD" % axis)
     
@@ -237,7 +245,7 @@ class CNCHeadAxes(IPSerialBridge):
     
     def is_motion_done(self, axis=None):
         if axis == None:
-            return all(self.send("1MD"), self.send("2MD"), self.send("3MD"))
+            return all((self.send("1MD"), self.send("2MD"), self.send("3MD")))
         else:
             return self.send("%dMD" % axis)
     

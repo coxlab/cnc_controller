@@ -46,8 +46,9 @@
 
 
 # ----- Camera Calibration Settings -----
+camIDs = [49712223528793951, 49712223528793946]
 gridSize = (8,5)
-gridBlockSize = 2.73
+gridBlockSize = 1.27
 
 # TODO sort out where this should go
 #calibrationDirectory = "stereoCalibration"
