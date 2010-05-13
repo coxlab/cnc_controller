@@ -19,13 +19,14 @@
 		BF333D1E10CD47490009217F /* IPSerialBridge.py in Resources */ = {isa = PBXBuildFile; fileRef = BF333D1D10CD47490009217F /* IPSerialBridge.py */; };
 		BF333D2610CD47560009217F /* CNCAxes.py in Resources */ = {isa = PBXBuildFile; fileRef = BF333D2510CD47560009217F /* CNCAxes.py */; };
 		BF333D2910CD47960009217F /* CNCController.py in Resources */ = {isa = PBXBuildFile; fileRef = BF333D2810CD47960009217F /* CNCController.py */; };
+		BF3F3B7A119C477C00FAFDE9 /* vector.py in Resources */ = {isa = PBXBuildFile; fileRef = BF3F3B79119C477C00FAFDE9 /* vector.py */; };
+		BF3F7AD4119C574000FAFDE9 /* python2.6_env in Resources */ = {isa = PBXBuildFile; fileRef = BF3F6462119C573D00FAFDE9 /* python2.6_env */; };
 		BF42CC08114FDC0D008754B2 /* cfg.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42CC07114FDC0D008754B2 /* cfg.py */; };
 		BF42DE07114FF65F008754B2 /* customCfg.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42DE06114FF65F008754B2 /* customCfg.py */; };
 		BF42DE30114FFBE3008754B2 /* MeshViewer.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42DE2F114FFBE3008754B2 /* MeshViewer.py */; };
 		BF42DE34114FFE3E008754B2 /* objLoader.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42DE33114FFE3E008754B2 /* objLoader.py */; };
 		BF43D6AC10CB2BB900F1F642 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = BF43D6AB10CB2BB900F1F642 /* main.py */; };
 		BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BF9C84D711527B5100C68A5A /* physiology_icon.icns */; };
-		BFA30E4B11641CE700625FF0 /* python2.6_env in Resources */ = {isa = PBXBuildFile; fileRef = BFA3FC7011641CE400625FF0 /* python2.6_env */; };
 		BFDBF0D110CDBF7C00962C45 /* example.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDBF0D010CDBF7C00962C45 /* example.png */; };
 /* End PBXBuildFile section */
 
@@ -48,13 +49,14 @@
 		BF333D1D10CD47490009217F /* IPSerialBridge.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = IPSerialBridge.py; sourceTree = "<group>"; };
 		BF333D2510CD47560009217F /* CNCAxes.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = CNCAxes.py; sourceTree = "<group>"; };
 		BF333D2810CD47960009217F /* CNCController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = CNCController.py; sourceTree = "<group>"; };
+		BF3F3B79119C477C00FAFDE9 /* vector.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = vector.py; sourceTree = "<group>"; };
+		BF3F6462119C573D00FAFDE9 /* python2.6_env */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python2.6_env; sourceTree = "<group>"; };
 		BF42CC07114FDC0D008754B2 /* cfg.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = cfg.py; sourceTree = "<group>"; };
 		BF42DE06114FF65F008754B2 /* customCfg.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = customCfg.py; sourceTree = "<group>"; };
 		BF42DE2F114FFBE3008754B2 /* MeshViewer.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MeshViewer.py; sourceTree = "<group>"; };
 		BF42DE33114FFE3E008754B2 /* objLoader.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = objLoader.py; sourceTree = "<group>"; };
 		BF43D6AB10CB2BB900F1F642 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		BF9C84D711527B5100C68A5A /* physiology_icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = physiology_icon.icns; sourceTree = "<group>"; };
-		BFA3FC7011641CE400625FF0 /* python2.6_env */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python2.6_env; sourceTree = "<group>"; };
 		BFDBF0D010CDBF7C00962C45 /* example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = example.png; path = media/example.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,6 +123,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BF3F3B79119C477C00FAFDE9 /* vector.py */,
 				256AC3F00F4B6AF500CF3369 /* cncController_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				BF43D6AB10CB2BB900F1F642 /* main.py */,
@@ -133,7 +136,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BFA3FC7011641CE400625FF0 /* python2.6_env */,
+				BF3F6462119C573D00FAFDE9 /* python2.6_env */,
 				BF9C84D711527B5100C68A5A /* physiology_icon.icns */,
 				BF1E318C10CB3A0E00163053 /* media */,
 				8D1107310486CEB800E47090 /* cncController-Info.plist */,
@@ -251,7 +254,8 @@
 				BF42DE30114FFBE3008754B2 /* MeshViewer.py in Resources */,
 				BF42DE34114FFE3E008754B2 /* objLoader.py in Resources */,
 				BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */,
-				BFA30E4B11641CE700625FF0 /* python2.6_env in Resources */,
+				BF3F3B7A119C477C00FAFDE9 /* vector.py in Resources */,
+				BF3F7AD4119C574000FAFDE9 /* python2.6_env in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +306,14 @@
 				GCC_PREFIX_HEADER = cncController_Prefix.pch;
 				INFOPLIST_FILE = "cncController-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/python2.6_env\"",
+					"\"$(SRCROOT)/python2.6_env/lib\"",
+					"\"$(SRCROOT)/python2.6_env/lib/python2.6/config\"",
+					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages\"",
+					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages/numpy/core/lib\"",
+				);
 				OTHER_LDFLAGS = (
 					"-L/usr/lib/python2.6",
 					"-lpython",
@@ -320,6 +332,14 @@
 				GCC_PREFIX_HEADER = cncController_Prefix.pch;
 				INFOPLIST_FILE = "cncController-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/python2.6_env\"",
+					"\"$(SRCROOT)/python2.6_env/lib\"",
+					"\"$(SRCROOT)/python2.6_env/lib/python2.6/config\"",
+					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages\"",
+					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages/numpy/core/lib\"",
+				);
 				PRODUCT_NAME = cncController;
 			};
 			name = Release;

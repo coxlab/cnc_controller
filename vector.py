@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from pylab import *
+from scipy import optimize
 
 # what coordinates should I use????????????????
 # +x = east: about x = attitude (pitch)
@@ -18,6 +19,10 @@ from pylab import *
 #                               [tx, ty, tz, 1]])
 # transformation_matrix = rotation_matrix * translation_matrix
 
+def rotate_and_translate(R,T):
+    """This function is really just to preserve the order of operations"""
+    return R * T
+
 def pad_matrix(m):
     m2 = vstack((m,zeros((1,m.shape[1]))))
     return hstack((m2,zeros((m2.shape[0],1))))
@@ -26,56 +31,48 @@ def euler_to_matrix(aboutX, aboutY, aboutZ):# roll, pitch, yaw
     """
     Applied in this order: aboutX, aboutY, aboutZ
     """
+    # #m = matrix(identity(4,dtype=float64))
+    # xrot = matrix(identity(4,dtype=float64))
+    # xrot[1,1] = cos(aboutX)
+    # xrot[1,2] = -sin(aboutX)
+    # xrot[2,1] = sin(aboutX)
+    # xrot[2,2] = cos(aboutX)
+    # 
+    # yrot = matrix(identity(4,dtype=float64))
+    # yrot[0,0] = cos(aboutY)
+    # yrot[0,2] = sin(aboutY)
+    # yrot[2,0] = -sin(aboutY)
+    # yrot[2,2] = cos(aboutY) 
+    # 
+    # zrot = matrix(identity(4,dtype=float64))
+    # zrot[0,0] = cos(aboutZ)
+    # zrot[0,1] = -sin(aboutZ)
+    # zrot[1,0] = sin(aboutZ)
+    # zrot[1,1] = cos(aboutZ) 
+    # 
+    # #return zrot * yrot * xrot
+    # P = zrot * yrot * xrot
+    
     m = matrix(identity(4,dtype=float64))
-    xrot = matrix(identity(4,dtype=float64))
-    xrot[1,1] = cos(aboutX)
-    xrot[1,2] = -sin(aboutX)
-    xrot[2,1] = sin(aboutX)
-    xrot[2,2] = cos(aboutX)
+    cx = cos(aboutX); cy = cos(aboutY); cz = cos(aboutZ)
+    sx = sin(aboutX); sy = sin(aboutY); sz = sin(aboutZ)
+    m[0,0] = cy*cz
+    m[0,1] = sx*sy*cz-cx*sz
+    m[0,2] = cx*sy*cz+sx*sz
+    m[1,0] = cy*sz
+    m[1,1] = sx*sy*sz+cx*cz
+    m[1,2] = cx*sy*sz-sx*cz
+    m[2,0] = -sy
+    m[2,1] = sx*cy
+    m[2,2] = cx*cy
     
-    yrot = matrix(identity(4,dtype=float64))
-    yrot[0,0] = cos(aboutY)
-    yrot[0,2] = sin(aboutY)
-    yrot[2,0] = -sin(aboutY)
-    yrot[2,2] = cos(aboutY) 
-    
-    zrot = matrix(identity(4,dtype=float64))
-    zrot[0,0] = cos(aboutZ)
-    zrot[0,1] = -sin(aboutZ)
-    zrot[1,0] = sin(aboutZ)
-    zrot[1,1] = cos(aboutZ) 
-    
-    return zrot * yrot * xrot
-    # cx = cos(aboutX); cy = cos(aboutY); cz = cos(aboutZ)
-    # sx = sin(aboutX); sy = sin(aboutY); sz = sin(aboutZ)
-    # # ch = cy = cz;  h = y = z
-    # # ca = cp = cy;  a = p = y
-    # # cb = cr = cx;  b = r = x
-    # # cy = cos(yaw) # ch
-    # # cp = cos(pitch) # ca
-    # # cr = cos(roll) # cb
-    # # sy = sin(yaw) # sh
-    # # sp = sin(pitch) # sa
-    # # sr = sin(roll) # sb
-    # #   ch*ca       -ch*sa*cb+sh*sb      ch*sa*sb+sh*cb     0
-    # #   sa          ca*cb               -ca*sb              0
-    # #   -sh*ca      sh*sa*cb+ch*sb      -sh*sa*sb+ch*cb     0
-    # #   0           0                   0                   1
-    # #
-    # #   cz*cy       -cz*sy*cx+sz*sx      cz*sy*sx+sz*cx     0
-    # #   sy          cy*cx               -cy*sx              0
-    # #   -sz*cy      sz*sy*cx+cz*sx      -sz*sy*sx+cz*cx     0
-    # #   0           0                   0                   1
-    # m[0,0] = cz * cy
-    # m[0,1] = -cz*sy*cx+sz*sx
-    # m[0,2] = cz*sy*sx+sz*cx
-    # m[1,0] = sy
-    # m[1,1] = cy*cx
-    # m[1,2] = -cy*sx
-    # m[2,0] = -sz*cy
-    # m[2,1] = sz*sy*cx+cz*sx
-    # m[2,2] = -sz*sy*sx+cz*cx
-    # return m
+    # if not all(abs(P - m) < ones(4)*1e-8):
+    #     print "P:"
+    #     print array(P)
+    #     print "m:"
+    #     print array(m)
+    #     raise Exception
+    return m
 
 def scale_to_transform(x,y,z):
     m = matrix(identity(4,dtype=float64))
@@ -92,6 +89,33 @@ def translation_to_matrix(x,y,z):
     m[3,0] = x
     m[3,1] = y
     m[3,2] = z
+    return m
+
+def transform_to_matrix(tx=0., ty=0., tz=0., ax=0., ay=0., az=0.):
+    # R = euler_to_matrix(ax,ay,az)
+    # T = translation_to_matrix(tx,ty,tz)
+    # P = rotate_and_translate(R,T)
+    m = matrix(identity(4,dtype=float64))
+    cx = cos(ax); cy = cos(ay); cz = cos(az)
+    sx = sin(ax); sy = sin(ay); sz = sin(az)
+    m[0,0] = cy*cz
+    m[0,1] = sx*sy*cz-cx*sz
+    m[0,2] = cx*sy*cz+sx*sz
+    m[1,0] = cy*sz
+    m[1,1] = sx*sy*sz+cx*cz
+    m[1,2] = cx*sy*sz-sx*cz
+    m[2,0] = -sy
+    m[2,1] = sx*cy
+    m[2,2] = cx*cy
+    m[3,0] = tx
+    m[3,1] = ty
+    m[3,2] = tz
+    # if not all(abs(P - m) < ones(4)*1e-8):
+    #     print "P:"
+    #     print array(P)
+    #     print "m:"
+    #     print array(m)
+    #     raise Exception
     return m
 
 def calculate_normal(p1, p2, p3, normalize=True):
@@ -122,6 +146,11 @@ def recenter(points):
 
 def angle_between_vectors(v1, v2):
     return arccos(dot(v1, v2))
+
+def calculate_rigid_transform(originalPts, transformedPts, p0=zeros(6,dtype=float64)):
+    """Accepts homogenous points only, only uses the first 3 points"""
+    fit_it = lambda p: ravel((originalPts[:3] - (transformedPts[:3] * vector.transform_to_matrix(*p)))[:,:3])
+    return vector.transform_to_matrix(*(optimize.leastsq(fit_it, p0)[0]))
 
 # def vectors_to_axis_rotation(v1, v2, axis):
 #     """Axis = 0,1,2 = corresponding to x,y,z"""

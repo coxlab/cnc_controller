@@ -8,8 +8,19 @@ from objc import IBAction, IBOutlet
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+import sys
+import numpy
+
+#import obj
 import objLoader
 #import cameraPair
+
+
+# =======================================================================
+# mesh viewer is in SKULL coordinates but contains matrix (MeshViewer.skullToTCMatrix)
+# to convert skull to TC frame (inv(matrix) to go other way)
+# =======================================================================
+
 
 
 class MeshViewer (NSOpenGLView):
@@ -20,6 +31,7 @@ class MeshViewer (NSOpenGLView):
         # gl_inited is also touched by objc
         self.gl_inited = False
         self.mesh = None
+        self.animalCfg = None
         self.renderLoading = False
         
         self.xpos = 0.
@@ -29,41 +41,44 @@ class MeshViewer (NSOpenGLView):
         self.yrot = 0.
         self.zrot = 0.
         self.scale = 0.01
+        
     
     
     @IBAction
-    def loadMesh_(self, sender):
+    def loadAnimal_(self, sender):
         panel = NSOpenPanel.openPanel()
-        panel.setCanChooseDirectories_(NO)
+        panel.setCanChooseDirectories_(YES)
+        panel.setCanChooseFiles_(NO)
         panel.setAllowsMultipleSelection_(NO)
-        panel.setAllowedFileTypes_(['obj'])
+        #panel.setAllowedFileTypes_(['obj'])
         
         def url_to_string(url):
             # TODO make this more robust
             return str(url)[16:]
         
-        panel.setTitle_("Select a .obj mesh file")
+        panel.setTitle_("Select an animal directory")
         retValue = panel.runModal()
-        meshFilename = ""
+        animalDir = ""
         if retValue:
-            meshFilename = url_to_string(panel.URLs()[0])
+            animalDir = url_to_string(panel.URLs()[0])
         else:
             print "Mesh selection canceled"
             return
         
-        panel.setTitle_("Select a .jpg texture file")
-        panel.setAllowedFileTypes_(['jpg'])
-        retValue = panel.runModal()
-        textureFilename = ""
-        if retValue:
-            textureFilename = url_to_string(panel.URLs()[0])
-        else:
-            print "Texture selection canceled"
-            return
+        #panel.setTitle_("Select a .jpg texture file")
+        #panel.setAllowedFileTypes_(['jpg'])
+        #retValue = panel.runModal()
+        #textureFilename = ""
+        #if retValue:
+        #    textureFilename = url_to_string(panel.URLs()[0])
+        #else:
+        #    print "Texture selection canceled"
+        #    return
         
         #self.load_mesh("/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/mesh.obj",
         #                "/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/texture.jpg")
-        self.load_mesh(meshFilename, textureFilename)
+        #self.load_mesh(meshFilename, textureFilename)
+        self.load_animal(animalDir)
         
     
     def start_loading(self):
@@ -75,6 +90,25 @@ class MeshViewer (NSOpenGLView):
         self.renderLoading = False
         dockTile = self.app.dockTile()
         dockTile.setBadgeLabel_("")
+    
+    def load_animal(self, animalDir):
+        dockTile = self.app.dockTile()
+        dockTile.setBadgeLabel_("Wait")
+        # load animal configuration
+        sys.path.append(animalDir)
+        self.animalCfg = __import__("animalCfg")
+        sys.path.pop()
+        # find and load skull mesh
+        meshFilename = "%s/%s/skull.obj" % (animalDir, self.animalCfg.skullScan)
+        textureFilename = "%s/%s/Texture/texture.jpg" % (animalDir, self.animalCfg.skullScan)
+        self.mesh = objLoader.OBJ(meshFilename, textureFilename)
+        self.mesh.prep_lists()
+        # load skullToTCMatrix
+        self.STT = numpy.loadtxt("%s/skullToTCMatrix" % animalDir)
+        # check if it's possible to register the camera and skull frames
+        dockTile.setBadgeLabel_("")
+        self.scheduleRedisplay()
+        
     
     def load_mesh(self, meshFilename, textureFilename):
         dockTile = self.app.dockTile()

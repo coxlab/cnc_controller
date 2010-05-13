@@ -64,9 +64,9 @@ def NumPy2Ipl(input):
 
 
 def CVtoNumPy(cvMatrix):
-    m = numpy.matrix(numpy.zeros([cvMatrix.rows, cvMatrix.cols]))
-    for r in xrange(cvMatrix.rows):
-        for c in xrange(cvMatrix.cols):
+    m = numpy.matrix(numpy.zeros([cvMatrix.height, cvMatrix.width]))
+    for r in xrange(cvMatrix.height):
+        for c in xrange(cvMatrix.width):
             m[r,c] = cvMatrix[r,c]
     return m
 
@@ -86,14 +86,14 @@ def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):
                     [0., 0., 1., 0.],
                     [tVec[0,0], tVec[1,0], tVec[2,0], 1.]])
     #print "r"
-    # r = numpy.matrix([[rMatrix[0,0], rMatrix[0,1], rMatrix[0,2], 0.],
-    #             [rMatrix[1,0], rMatrix[1,1], rMatrix[1,2], 0.],
-    #             [rMatrix[2,0], rMatrix[2,1], rMatrix[2,2], 0.],
-    #             [0., 0., 0., 1.] ])
-    r = numpy.matrix(([rMatrix[0,0], rMatrix[1,0], rMatrix[2,0], 0.],
-                    [rMatrix[0,1], rMatrix[1,1], rMatrix[2,1], 0.],
-                    [rMatrix[0,2], rMatrix[1,2], rMatrix[2,2], 0.],
-                    [0., 0., 0., 1.]))
+    r = numpy.matrix([[rMatrix[0,0], rMatrix[0,1], rMatrix[0,2], 0.],
+                [rMatrix[1,0], rMatrix[1,1], rMatrix[1,2], 0.],
+                [rMatrix[2,0], rMatrix[2,1], rMatrix[2,2], 0.],
+                [0., 0., 0., 1.] ])
+    # r = numpy.matrix(([rMatrix[0,0], rMatrix[1,0], rMatrix[2,0], 0.],
+    #                 [rMatrix[0,1], rMatrix[1,1], rMatrix[2,1], 0.],
+    #                 [rMatrix[0,2], rMatrix[1,2], rMatrix[2,2], 0.],
+    #                 [0., 0., 0., 1.]))
     info = t * r
     
     # info = numpy.matrix([[rMatrix[0,0], rMatrix[0,1], rMatrix[0,2], tVec[0,0]],
@@ -128,10 +128,10 @@ def intersection(o1, p1, o2, p2):
     d1 = numpy.array(p1) - numpy.array(o1)
     d2 = numpy.array(p2) - numpy.array(o2)
     
-    cross = numpy.array([d1[1]*d2[2] - d1[2]*d2[1],
+    c = numpy.array([d1[1]*d2[2] - d1[2]*d2[1],
             d1[2]*d2[0] - d1[0]*d2[2],
             d1[0]*d2[1] - d1[1]*d2[0]])
-    den = cross[0]**2 + cross[1]**2 + cross[2]**2
+    den = c[0]**2 + c[1]**2 + c[2]**2
     
     if den < 1e-9:
         print "3d localization is invalid"
@@ -139,11 +139,11 @@ def intersection(o1, p1, o2, p2):
     def det(v1, v2, v3):
         return v1[0]*v2[1]*v3[2] + v1[2]*v2[0]*v3[1] + v1[1]*v2[2]*v3[0] - v1[2]*v2[1]*v3[0] - v1[0]*v2[2]*v3[1] - v1[1]*v2[0]*v3[2]
     
-    t1 = det(x, d2, cross) / den
-    t2 = det(x, d1, cross) / den
+    t1 = det(x, d2, c) / den
+    t2 = det(x, d1, c) / den
     
-    r1 = numpy.array(o1) + numpy.array(d1) * t1
-    r2 = numpy.array(o2) + numpy.array(d2) * t2
+    r1 = o1 + d1 * t1
+    r2 = o2 + d2 * t2
     
     return r1, r2
 
@@ -186,7 +186,7 @@ class CalibratedCamera:
         self.connected = True
     
     
-    def capture(self):
+    def capture(self, undistort=True):
         if not self.connected:
             self.connect()
         
@@ -197,7 +197,7 @@ class CalibratedCamera:
         if self.imageSize == (-1, -1):
             self.imageSize = (image.width, image.height)
         
-        if self.calibrated:
+        if self.calibrated and undistort:
             # undistort image
             undistortedImage = cv.CreateImage((image.width, image.height),
                                             image.depth, image.nChannels)
@@ -211,7 +211,9 @@ class CalibratedCamera:
     def capture_localization_image(self, gridSize):
         if not self.calibrated:
             raise IOError('Camera must be calibrated before localization')
-        image = self.capture()
+        # from the source code (cvcalibration.cpp:1167) it looks like
+        # cvFindExtrinsicCameraParams2 performs undistortion internally
+        image = self.capture()#undistort=False)
         success, corners = cv.FindChessboardCorners(image, gridSize)
         
         if not success:
@@ -523,8 +525,9 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
     print "Capture"
     im1, im2 = cp.capture()
     
-    print "Loading calibration"
+    print "Loading calibration",
     cp.load_calibrations(calibrationDirectory)
+    print cp.cameras[0].calibrated, cp.cameras[1].calibrated
     
     print "Capture localization image"
     success = False
@@ -539,6 +542,8 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
     print "Localize"
     cp.localize(gridSize, gridBlockSize)
     
+    #print ims[0][0].width, ims[0][0].height #1280 x 960
+    
     if not all([c.located for c in cp.cameras]):
         print "Something wasn't localized correctly"
         sys.exit(1)
@@ -546,13 +551,13 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
     import pylab
     from mpl_toolkits.mplot3d import Axes3D
     
-    f = pylab.figure()
+    f = pylab.figure(1)
     a = Axes3D(f)
     cpos = []
     for c in cp.cameras:
         p = c.get_position()
         cpos.append(p)
-        a.scatter([p[0]],[p[1]],[p[2]],c='b')
+        # a.scatter([p[0]],[p[1]],[p[2]],c='b')
     lcorners = cp.cameras[0].localizationCorners
     rcorners = cp.cameras[1].localizationCorners
     pts = []
@@ -561,8 +566,60 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
         pts.append(p)
         a.scatter([p[0]],[p[1]],[p[2]],c='r')
     
+    a.set_xlim3d([-5,20])
+    a.set_ylim3d([-5,20])
+    a.set_zlim3d([-5,20])
+    
     pylab.savetxt('%s/gridPts' % calibrationDirectory, pylab.array(pts))
     pylab.savetxt('%s/camPos' % calibrationDirectory, pylab.array(cpos))
+    
+    measuredDists = pylab.sqrt(pylab.sum(pylab.array(pts)**2,1))
+    y, x = divmod(pylab.arange(gridSize[0]*gridSize[1]),gridSize[0])
+    actualPos = pylab.transpose(pylab.vstack((x,y))) * gridBlockSize
+    actualDists = pylab.sqrt(pylab.sum(actualPos**2,1))
+    distErrors = abs(measuredDists - actualDists)
+    
+    pylab.figure(2)
+    pylab.hist(distErrors)
+    print "Max Abs(Error):", distErrors.max()
+    
+    def dist_grid(a):
+        a = pylab.array(a)
+        r = pylab.zeros((len(a),len(a)))
+        for i in xrange(len(a)):
+            r[i,:] = pylab.sqrt(pylab.sum((a-a[i])**2,1))
+        return r
+    
+    aGrid = dist_grid(actualPos)
+    mGrid = dist_grid(pts)
+    eGrid = abs(mGrid-aGrid)
+    pylab.figure(3)
+    pylab.subplot(221)
+    pylab.imshow(mGrid,interpolation='nearest',origin='lower')
+    pylab.title('Measured')
+    pylab.colorbar()
+    pylab.subplot(222)
+    pylab.imshow(aGrid,interpolation='nearest',origin='lower')
+    pylab.title('Actual')
+    pylab.colorbar()
+    pylab.subplot(223)
+    pylab.imshow(abs(mGrid-aGrid),interpolation='nearest',origin='lower')
+    pylab.title('Error')
+    pylab.colorbar()
+    pylab.subplot(224)
+    pylab.imshow(abs(aGrid/mGrid - 1.),interpolation='nearest',origin='lower')
+    pylab.title('Ratio')
+    pylab.colorbar()
+    
+    pylab.figure(4)
+    pylab.subplot(121)
+    i1 = pylab.array(CVtoNumPy(ims[0][0])/255.)
+    pylab.imshow(i1)
+    pylab.gray()
+    pylab.subplot(122)
+    i2 = pylab.array(CVtoNumPy(ims[1][0])/255.)
+    pylab.imshow(i2)
+    pylab.gray()
     pylab.show()
     
     #print "Save calibrations/localization"
@@ -570,16 +627,22 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
 
 
 if __name__ == "__main__":
+    gridSize = (8,5)
+    gridBlockSize = 2.822
+    # gridSize = (8,5)
+    # gridBlockSize = 1.27
+    # gridSize = (8,6)
+    # gridBlockSize = 1.
     if len(sys.argv) > 1:
         test = sys.argv[1].lower()
     if test[0] == 'l':
-        test_single_camera(49712223528793951, (8,5), 1.27) # left
+        test_single_camera(49712223528793951, gridSize, gridBlockSize) # left
     elif test[0] == 'r':
-        test_single_camera(49712223528793946, (8,5), 1.27) # right
+        test_single_camera(49712223528793946, gridSize, gridBlockSize) # right
     elif test[0] == 'p':
-        test_camera_pair((49712223528793951, 49712223528793946), (8,5), 1.27)
+        test_camera_pair((49712223528793951, 49712223528793946), gridSize, gridBlockSize)
     else:
-        test_camera_pair((49712223528793951, 49712223528793946), (8,5), 1.27)
+        test_camera_pair((49712223528793951, 49712223528793946), gridSize, gridBlockSize)
     
     # cp = CameraPair()
     # 
