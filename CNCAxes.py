@@ -23,7 +23,6 @@ class CNCLinearAxes(IPSerialBridge):
     
     minimum 'step' is 0.0127 mm
     """
-    
     espConfigCommand="""QM3
         QI2.0
         QV30.0
@@ -42,8 +41,6 @@ class CNCLinearAxes(IPSerialBridge):
         FE25.3999
         TJ1
         OM3
-        SL%g
-        SR%g
         ZA323H
         ZB0H
         ZE3H
@@ -51,6 +48,34 @@ class CNCLinearAxes(IPSerialBridge):
         ZH24H
         ZS24H
         QD"""
+    
+    # espConfigCommand="""QM3
+    #     QI2.0
+    #     QV30.0
+    #     SN2
+    #     SU0.0127
+    #     FR0.0127
+    #     QS1000
+    #     VU12.7
+    #     VA6.35
+    #     JH6.35
+    #     JW3.175
+    #     OH0.0
+    #     AU6.35
+    #     AC6.35
+    #     AG6.35
+    #     FE25.3999
+    #     TJ1
+    #     OM3
+    #     SL%g
+    #     SR%g
+    #     ZA323H
+    #     ZB0H
+    #     ZE3H
+    #     ZF2H
+    #     ZH24H
+    #     ZS24H
+    #     QD"""
     
     def __init__(self, address, port, xAxis = 1, yAxis = 2, zAxis = 3,
                 xyzLimits=((-355.6, 0.0), (-355.6, 0.0), (-101.6, 0.0)),
@@ -65,8 +90,11 @@ class CNCLinearAxes(IPSerialBridge):
         self.configure_axis(self.xAxis, *xyzLimits[0])
         self.configure_axis(self.yAxis, *xyzLimits[1])
         self.configure_axis(self.zAxis, *xyzLimits[2])
+        
         self.power_down()
         self.save_settings_to_controller()
+    
+    def configure_axis(self, axis):
     
     def configure_axis(self, axis, leftLimit, rightLimit):
         filledCommand = self.espConfigCommand % (leftLimit, rightLimit)
