@@ -7,4 +7,4 @@ gridSize = (8,5)
 gridBlockSize = 1.27
 
 # TODO sort out where this should go
-calibrationDirectory = "/Users/graham/Repositories/coxlab/cncController/electrodeController/calibrations"
+calibrationDirectory = "/Users/%s/Repositories/coxlab/cncController/electrodeController/calibrations" % os.getlogin()

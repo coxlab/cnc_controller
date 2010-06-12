@@ -13,9 +13,9 @@ assign_cfg_module(__name__)
 useManualImageProcessor = True
 fakeCNC = True
 fakeCameras = True
-fakeFramesDir = '/Users/graham/Desktop/fakeFrames'
+fakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/fakeFrames' % os.getlogin()
 
-cfgDir = '/Users/graham/Repositories/coxlab/cncController/electrodeController/cfgs'
+cfgDir = '/Users/%s/Repositories/coxlab/cncController/electrodeController/cfgs' % os.getlogin()
 externalCfgs = ['cameraCfg.py', 'cncCfg.py', 'framesCfg.py']
 
 # import custom configuration file, which will overwrite default values

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from pylab import *
+from numpy import *
 from scipy import optimize
 
 # what coordinates should I use????????????????

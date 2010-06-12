@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from pylab import *
+from numpy import *
 
 import vector
 
