@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import os
+
 # ----- Camera Calibration Settings -----
 # ordered as 'left', 'right'
 camIDs = [49712223528793951, 49712223528793946]
