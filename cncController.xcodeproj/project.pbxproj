@@ -33,6 +33,7 @@
 		BF5E3B8811C16EC8003EF057 /* ocZoomView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E3B8711C16EC8003EF057 /* ocZoomView.py */; };
 		BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BF9C84D711527B5100C68A5A /* physiology_icon.icns */; };
 		BFDBF0D110CDBF7C00962C45 /* example.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDBF0D010CDBF7C00962C45 /* example.png */; };
+		BFF6149011C3D7CF00B76C8A /* ocCenteringSlider.py in Resources */ = {isa = PBXBuildFile; fileRef = BFF6148F11C3D7CF00B76C8A /* ocCenteringSlider.py */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		BF5E3B8711C16EC8003EF057 /* ocZoomView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocZoomView.py; sourceTree = "<group>"; };
 		BF9C84D711527B5100C68A5A /* physiology_icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = physiology_icon.icns; sourceTree = "<group>"; };
 		BFDBF0D010CDBF7C00962C45 /* example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = example.png; path = media/example.png; sourceTree = "<group>"; };
+		BFF6148F11C3D7CF00B76C8A /* ocCenteringSlider.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocCenteringSlider.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				BF42DE06114FF65F008754B2 /* customCfg.py */,
 				BF42CC07114FDC0D008754B2 /* cfg.py */,
 				BF5E23BD11C138FD003EF057 /* ocController.py */,
+				BFF6148F11C3D7CF00B76C8A /* ocCenteringSlider.py */,
 				BF5E3B8711C16EC8003EF057 /* ocZoomView.py */,
 			);
 			name = "Other Sources";
@@ -276,6 +279,7 @@
 				BF5E3AF811C15608003EF057 /* Interface.xib in Resources */,
 				BF5E3B8611C16EAC003EF057 /* zoomView.py in Resources */,
 				BF5E3B8811C16EC8003EF057 /* ocZoomView.py in Resources */,
+				BFF6149011C3D7CF00B76C8A /* ocCenteringSlider.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

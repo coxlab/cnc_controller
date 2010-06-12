@@ -734,11 +734,21 @@ class FakeAxes(Axes):
         else:
             self.pos[axis] += value
     
+    def get_velocity(self, axis=None):
+        if axis == None:
+            d = {}
+            for a in axis:
+                d[a] = 0.0
+            return d
+        else:
+            return 0.0
+    
     def get_position(self, axis=None):
-        self.poll_command('TP', axis)
+        #self.poll_command('TP', axis)
         if axis == None:
             return self.pos
         else:
+            print self.pos
             return self.pos[axis]
     
     def get_current_velocity(self, axis=None):
@@ -749,7 +759,7 @@ class FakeAxes(Axes):
                 r[k] = 0.
             return r
         else:
-            return {axis: 0.}
+            return 0.0
     
     def set_velocity(self, value, axis=None):
         self.send_command('VA', axis, '%.4f' % value)

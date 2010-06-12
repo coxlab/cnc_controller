@@ -20,8 +20,23 @@ class OCController (NSObject, electrodeController.controller.Controller):
     ocAngle = objc.ivar(u"ocAngle")
     ocDepth = objc.ivar(u"ocDepth")
     
-    framesDisplay = objc.IBOutlet()
+    ocX = objc.ivar(u"ocX")
+    ocY = objc.ivar(u"ocY")
+    ocZ = objc.ivar(u"ocZ")
+    ocW = objc.ivar(u"ocW")
+    ocB = objc.ivar(u"ocB")
+    
+    #framesDisplay = objc.IBOutlet()
     framesStatus = objc.ivar(u"framesStatus")
+    
+    depthTargetField = objc.IBOutlet()
+    depthVelocityField = objc.IBOutlet() # TODO this duplicates bVelocityField, how do I link them?
+    depthLevelIndicator = objc.IBOutlet()
+    
+    targetDVField = objc.IBOutlet()
+    targetMLField = objc.IBOutlet()
+    targetAPField = objc.IBOutlet()
+    targetAngleField = objc.IBOutlet()
     
     wAxisMoverWindow = objc.IBOutlet()
     goToTargetWindow = objc.IBOutlet()
@@ -34,6 +49,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     zoomPointsController = objc.IBOutlet()
     zoomPoints = NSMutableArray.array()
+    
+    xVelocityField = objc.IBOutlet()
+    yVelocityField = objc.IBOutlet()
+    zVelocityField = objc.IBOutlet()
+    wVelocityField = objc.IBOutlet()
+    bVelocityField = objc.IBOutlet()
     
     def awakeFromNib(self):
         electrodeController.controller.Controller.__init__(self)
@@ -48,44 +69,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.zoomPoints.append({'c':'b','lx':0.0, 'ly':0., 'rx':0., 'ry':0., 'x':0., 'y':0., 'z':0., 'angle':5.0})
         self.zoomPointsController.rearrangeObjects()
         
+        # update bindings with correct values
         self.update_frames_display()
-    
-    def update_position(self):
-        if self.frameStatus == 3: # all frames are a good
-            # don't read from linear axes
-            cncCoord = numpy.ones(4,dtype=numpy.float64)
-            cncCoord[:3] = self.cnc.get_tip_position_on_arm()
-            skullCoord = self.fManager.transform_point(cncCoord, "cnc", "skull")
-            # ML = X
-            self._.ocML = skullCoord[0]
-            # AP = Y
-            self._.ocAP = skullCoord[1]
-            # DV = Z
-            self._.ocDV = skullCoord[2]
-        self._.ocAngle = float(self.cnc.headAxes.get_position('b'))
-        self._.ocDepth = float(self.cnc.headAxes.get_position('w'))
-    
-    def update_frames_display(self):
-        state = 0
-        if self.fManager.test_route('skull','tricorner'): state += 1
-        if self.fManager.test_route('tricorner','camera'): state += 1
-        if self.fManager.test_route('camera','cnc'): state += 1
-        self._.framesStatus = state
-    
-    @IBAction
-    def updateFramesDisplay_(self, sender):
-        self.update_frames_display()
-    
-    @IBAction
-    def updateZoomViews_(self, sender):
-        self.update_zoom_views()
-    
-    def update_zoom_views(self):
-        if not self.cameras.get_connected():
-            return
-        im0, im1 = self.cameras.capture()
-        self.leftZoomView.set_image_from_cv(im0)
-        self.rightZoomView.set_image_from_cv(im1)
+        self.update_velocities()
+        self.update_position()
     
     @IBAction
     def clearZoomPoints_(self, sender):
@@ -203,26 +190,128 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.updateFramesDisplay_(sender)
     
     @IBAction
-    def toggleGoToTargetVisibility_(self, sender):
-        if self.goToTargetWindow.isVisible():
-            self.goToTargetWindow.orderOut_(sender)
-        else:
-            self.goToTargetWindow.orderFront_(sender)
-        print self.goToTargetWindow.isVisible()
+    def goToTarget_(self, sender):
+        raise Exception
+        #targetDVField = objc.IBOutlet()
+        #targetMLField = objc.IBOutlet()
+        #targetAPField = objc.IBOutlet()
+        #targetAngleField = objc.IBOutlet()
+        pass
     
     @IBAction
-    def toggleWAxisMoverVisibility_(self, sender):
-        if self.wAxisMoverWindow.isVisible():
-            self.wAxisMoverWindow.orderOut_(sender)
-        else:
-            self.wAxisMoverWindow.orderFront_(sender)
-        print self.wAxisMoverWindow.isVisible()
+    def moveWAxis_(self, sender):
+        #depthTargetField = objc.IBOutlet()
+        #depthVelocityField = objc.IBOutlet() # TODO this duplicates bVelocityField, how do I link them?
+        #depthLevelIndicator = objc.IBOutlet()
+        raise Exception
+        pass
+    
+    # ========================= UI related functions ==========================
+    
+    #@IBAction
+    #def toggleGoToTargetVisibility_(self, sender):
+    #    if self.goToTargetWindow.isVisible():
+    #        self.goToTargetWindow.orderOut_(sender)
+    #    else:
+    #        self.goToTargetWindow.orderFront_(sender)
+    #    #print self.goToTargetWindow.isVisible()
+    
+    #@IBAction
+    #def toggleWAxisMoverVisibility_(self, sender):
+    #    if self.wAxisMoverWindow.isVisible():
+    #        self.wAxisMoverWindow.orderOut_(sender)
+    #    else:
+    #        self.wAxisMoverWindow.orderFront_(sender)
+    #    #print self.wAxisMoverWindow.isVisible()
+    
+    #@IBAction
+    #def toggleMoveRelativeVisibility_(self, sender):
+    #    if self.moveRelativeWindow.isVisible():
+    #        self.moveRelativeWindow.orderOut_(sender)
+    #    else:
+    #        self.moveRelativeWindow.orderFront_(sender)
+    #    #print self.moveRelativeWindow.isVisible()
     
     @IBAction
-    def toggleMoveRelativeVisibility_(self, sender):
-        if self.moveRelativeWindow.isVisible():
-            self.moveRelativeWindow.orderOut_(sender)
+    def setVelocities_(self, sender):
+        print "in setVelocities"
+        if sender == self.xVelocityField:
+            print "was x"
+            self.cnc.linearAxes.set_velocity(self.xVelocityField.floatValue(),'x')
+        elif sender == self.yVelocityField:
+            print "was y"
+            self.cnc.linearAxes.set_velocity(self.yVelocityField.floatValue(),'y')
+        elif sender == self.zVelocityField:
+            print "was z"
+            self.cnc.linearAxes.set_velocity(self.zVelocityField.floatValue(),'z')
+        elif sender == self.wVelocityField:
+            print "was w"
+            self.cnc.headAxes.set_velocity(self.wVelocityField.floatValue(),'w')
+        elif sender == self.bVelocityField:
+            print "was b"
+            self.cnc.headAxes.set_velocity(self.bVelocityField.floatValue(),'b')
+        elif sender == self.depthVelocityField:
+            print "was depth"
+            self.cnc.headAxes.set_velocity(self.depthVelocityField.floatValue(),'b')
         else:
-            self.moveRelativeWindow.orderFront_(sender)
-        print self.moveRelativeWindow.isVisible()
+            # update all with b having precedent
+            self.cnc.linearAxes.set_velocity(self.xVelocityField.floatValue(),'x')
+            self.cnc.linearAxes.set_velocity(self.yVelocityField.floatValue(),'y')
+            self.cnc.linearAxes.set_velocity(self.zVelocityField.floatValue(),'z')
+            self.cnc.headAxes.set_velocity(self.wVelocityField.floatValue(),'w')
+            self.cnc.headAxes.set_velocity(self.bVelocityField.floatValue(),'b')
+        self.update_velocities()
     
+    def update_velocities(self):
+        self.xVelocityField.setFloatValue_(float(self.cnc.linearAxes.get_velocity('x')))
+        self.yVelocityField.setFloatValue_(float(self.cnc.linearAxes.get_velocity('y')))
+        self.zVelocityField.setFloatValue_(float(self.cnc.linearAxes.get_velocity('z')))
+        self.wVelocityField.setFloatValue_(float(self.cnc.headAxes.get_velocity('w')))
+        
+        bVel = float(self.cnc.headAxes.get_velocity('b'))
+        self.bVelocityField.setFloatValue_(bVel)
+        self.depthVelocityField.setFloatValue_(bVel)
+    
+    def update_position(self):
+        if self.framesStatus == 3: # all frames are a good
+            # don't read from linear axes
+            cncCoord = numpy.ones(4,dtype=numpy.float64)
+            cncCoord[:3] = self.cnc.get_tip_position_on_arm()
+            skullCoord = self.fManager.transform_point(cncCoord, "cnc", "skull")
+            # ML = X
+            self._.ocML = skullCoord[0]
+            # AP = Y
+            self._.ocAP = skullCoord[1]
+            # DV = Z
+            self._.ocDV = skullCoord[2]
+        self._.ocAngle = float(self.cnc.headAxes.get_position('b'))
+        # TODO this should be (target - w) not just w
+        self._.ocDepth = float(self.cnc.headAxes.get_position('w'))
+        
+        self._.ocX = float(self.cnc.linearAxes.get_position('x'))
+        self._.ocY = float(self.cnc.linearAxes.get_position('y'))
+        self._.ocZ = float(self.cnc.linearAxes.get_position('z'))
+        self._.ocB = float(self.cnc.headAxes.get_position('b'))
+        self._.ocW = float(self.cnc.headAxes.get_position('w'))
+    
+    def update_frames_display(self):
+        state = 0
+        if self.fManager.test_route('skull','tricorner'): state += 1
+        if self.fManager.test_route('tricorner','camera'): state += 1
+        if self.fManager.test_route('camera','cnc'): state += 1
+        self._.framesStatus = state
+    
+    @IBAction
+    def updateFramesDisplay_(self, sender):
+        self.update_frames_display()
+    
+    @IBAction
+    def updateZoomViews_(self, sender):
+        self.update_zoom_views()
+    
+    def update_zoom_views(self):
+        if not self.cameras.get_connected():
+            return
+        im0, im1 = self.cameras.capture()
+        self.leftZoomView.set_image_from_cv(im0)
+        self.rightZoomView.set_image_from_cv(im1)
