@@ -39,7 +39,7 @@ class Controller:
         # TODO load animal mesh (for collision detection and viewing)
         
         # load skull-to-tricorner transformation matrix and add to frameStack
-        self.fManager.add_transformation_matrix('skull', 'tricorner', matrix(loadtxt(cfg.skullToTCMatrixFile)))
+        self.fManager.add_transformation_matrix('skull', 'tricorner', numpy.matrix(numpy.loadtxt(cfg.skullToTCMatrixFile)))
     
     
     def connect_cameras(self):

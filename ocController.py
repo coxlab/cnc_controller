@@ -29,6 +29,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
     #framesDisplay = objc.IBOutlet()
     framesStatus = objc.ivar(u"framesStatus")
     
+    meshView = objc.IBOutlet()
+    
     depthTargetField = objc.IBOutlet()
     depthVelocityField = objc.IBOutlet() # TODO this duplicates bVelocityField, how do I link them?
     depthLevelIndicator = objc.IBOutlet()
@@ -152,6 +154,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #self.load_mesh(meshFilename, textureFilename)
         
         self.load_animal(animalCfg)
+        self.meshView.load_obj("%s/skull.obj" % cfg.meshDir, "%s/Texture/texture.jpg" % cfg.meshDir)
         self.updateFramesDisplay_(sender)
     
     @IBAction

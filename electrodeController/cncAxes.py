@@ -727,7 +727,7 @@ class FakeAxes(Axes):
             self.pos[axis] = value
     
     def move_relative(self, value, axis=None):
-        self.send_command('PR', axis, '%.4f' % value)
+        #self.send_command('PR', axis, '%.4f' % value)
         if axis == None:
             for a in self.axes:
                 self.pos[a] += value
@@ -748,7 +748,6 @@ class FakeAxes(Axes):
         if axis == None:
             return self.pos
         else:
-            print self.pos
             return self.pos[axis]
     
     def get_current_velocity(self, axis=None):

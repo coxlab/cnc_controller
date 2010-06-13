@@ -17,6 +17,7 @@ from PyObjCTools import AppHelper
 from ocController import *
 from ocZoomView import *
 from ocCenteringSlider import *
+from ocMeshView import *
 
 #print "Python file is open and running, passing control to AppKit"
 # import the child class of NSObject that provides the bridge between objc and python

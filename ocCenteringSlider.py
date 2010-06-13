@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import logging
+
 from Foundation import *
 from AppKit import *
 import objc
@@ -31,14 +33,15 @@ class OCCenteringSliderCell(NSSliderCell):
             raise ValueError("invalid axis(%s) for OCCenteringSliderCell" % self.axis)
         
         # set axis velocity from text field
-        print self.velocityField.floatValue()
+        #print self.velocityField.floatValue()
         self.controller.update_velocities()
         
-        print "start tracking"
+        #print "start tracking"
+        logging.debug("start tracking")
         return NSSliderCell.startTrackingAt_inView_(self, startPoint, controlView)
     
     def stopTracking_at_inView_mouseIsUp_(self, lastPoint, stopPoint, controlView, flag):
         self.setFloatValue_(0.0)
         # stop axis
-        print "stopping axis"
+        #print "stopping axis"
         NSSliderCell.stopTracking_at_inView_mouseIsUp_(self, lastPoint, stopPoint, controlView, flag)

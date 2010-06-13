@@ -11,6 +11,8 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		BF0C00D111C5773700D994B0 /* ocMeshView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF0C00D011C5773700D994B0 /* ocMeshView.py */; };
+		BF0C00E011C5A0B200D994B0 /* quaternion.py in Resources */ = {isa = PBXBuildFile; fileRef = BF0C00DF11C5A0B200D994B0 /* quaternion.py */; };
 		BF1E318F10CB3A2E00163053 /* clockwiseArrows.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1E318D10CB3A2E00163053 /* clockwiseArrows.png */; };
 		BF1E319010CB3A2E00163053 /* counterclockwiseArrows.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */; };
 		BF325C1B1138635F003058BE /* cameraPair.py in Resources */ = {isa = PBXBuildFile; fileRef = BF325C1A1138635F003058BE /* cameraPair.py */; };
@@ -46,6 +48,8 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* cncController-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "cncController-Info.plist"; sourceTree = "<group>"; };
+		BF0C00D011C5773700D994B0 /* ocMeshView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocMeshView.py; sourceTree = "<group>"; };
+		BF0C00DF11C5A0B200D994B0 /* quaternion.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = quaternion.py; sourceTree = "<group>"; };
 		BF1E318D10CB3A2E00163053 /* clockwiseArrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clockwiseArrows.png; path = media/clockwiseArrows.png; sourceTree = "<group>"; };
 		BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = counterclockwiseArrows.png; path = media/counterclockwiseArrows.png; sourceTree = "<group>"; };
 		BF325C1A1138635F003058BE /* cameraPair.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = cameraPair.py; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				BF3F3B79119C477C00FAFDE9 /* vector.py */,
+				BF0C00DF11C5A0B200D994B0 /* quaternion.py */,
 				BF5E3B8511C16EAC003EF057 /* zoomView.py */,
 				256AC3F00F4B6AF500CF3369 /* cncController_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -146,6 +151,7 @@
 				BF5E23BD11C138FD003EF057 /* ocController.py */,
 				BFF6148F11C3D7CF00B76C8A /* ocCenteringSlider.py */,
 				BF5E3B8711C16EC8003EF057 /* ocZoomView.py */,
+				BF0C00D011C5773700D994B0 /* ocMeshView.py */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -280,6 +286,8 @@
 				BF5E3B8611C16EAC003EF057 /* zoomView.py in Resources */,
 				BF5E3B8811C16EC8003EF057 /* ocZoomView.py in Resources */,
 				BFF6149011C3D7CF00B76C8A /* ocCenteringSlider.py in Resources */,
+				BF0C00D111C5773700D994B0 /* ocMeshView.py in Resources */,
+				BF0C00E011C5A0B200D994B0 /* quaternion.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
