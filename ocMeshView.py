@@ -178,6 +178,13 @@ class OCMeshView(NSOpenGLView):
         
         self.gl_inited = True
     
+    def draw_electrode_path(self):
+        glColor(1., 0., 0., 1.)
+        glBegin(GL_LINES)
+        glVertex3f(0., 0., -100000.)
+        glVertex3f(0., 0., 100000.)
+        glEnd()
+    
     def drawRect_(self, frame):
         if not self.canDraw():
             return
@@ -192,6 +199,7 @@ class OCMeshView(NSOpenGLView):
             self.obj.display()
         
         if self.electrode != None:
+            self.draw_electrode_path()
             self.electrode.display()
         
         self.orbiter.draw_origin()
