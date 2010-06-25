@@ -90,7 +90,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         for l, r in zip(self.leftZoomView.zooms, self.rightZoomView.zooms):
             newPoint = {'c': l['c'], 'lx': l['x'], 'ly': l['y'], 'rx': r['x'], 'ry': r['y']}
             # check if 3d localization is possible
-            if all(self.cameras.get_calibrated) and all(self.cameras.get_located):
+            if all(self.cameras.get_calibrated()) and all(self.cameras.get_located()):
                 l3d = self.cameras.get_3d_position([ [l['x'],l['y']], [r['x'],r['y']] ])
                 newPoint['x'] = l3d[0]
                 newPoint['y'] = l3d[1]
