@@ -15,23 +15,12 @@
 		BF0C00E011C5A0B200D994B0 /* quaternion.py in Resources */ = {isa = PBXBuildFile; fileRef = BF0C00DF11C5A0B200D994B0 /* quaternion.py */; };
 		BF1E318F10CB3A2E00163053 /* clockwiseArrows.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1E318D10CB3A2E00163053 /* clockwiseArrows.png */; };
 		BF1E319010CB3A2E00163053 /* counterclockwiseArrows.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */; };
-		BF325C1B1138635F003058BE /* cameraPair.py in Resources */ = {isa = PBXBuildFile; fileRef = BF325C1A1138635F003058BE /* cameraPair.py */; };
-		BF325C1F11386383003058BE /* ImageBridge.py in Resources */ = {isa = PBXBuildFile; fileRef = BF325C1E11386383003058BE /* ImageBridge.py */; };
-		BF32A02E11388AC1003058BE /* AtlasViewer.py in Resources */ = {isa = PBXBuildFile; fileRef = BF32A02D11388AC1003058BE /* AtlasViewer.py */; };
-		BF333D1E10CD47490009217F /* IPSerialBridge.py in Resources */ = {isa = PBXBuildFile; fileRef = BF333D1D10CD47490009217F /* IPSerialBridge.py */; };
-		BF333D2610CD47560009217F /* CNCAxes.py in Resources */ = {isa = PBXBuildFile; fileRef = BF333D2510CD47560009217F /* CNCAxes.py */; };
-		BF333D2910CD47960009217F /* CNCController.py in Resources */ = {isa = PBXBuildFile; fileRef = BF333D2810CD47960009217F /* CNCController.py */; };
-		BF3F3B7A119C477C00FAFDE9 /* vector.py in Resources */ = {isa = PBXBuildFile; fileRef = BF3F3B79119C477C00FAFDE9 /* vector.py */; };
-		BF42CC08114FDC0D008754B2 /* cfg.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42CC07114FDC0D008754B2 /* cfg.py */; };
 		BF42DE07114FF65F008754B2 /* customCfg.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42DE06114FF65F008754B2 /* customCfg.py */; };
-		BF42DE30114FFBE3008754B2 /* MeshViewer.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42DE2F114FFBE3008754B2 /* MeshViewer.py */; };
-		BF42DE34114FFE3E008754B2 /* objLoader.py in Resources */ = {isa = PBXBuildFile; fileRef = BF42DE33114FFE3E008754B2 /* objLoader.py */; };
 		BF43D6AC10CB2BB900F1F642 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = BF43D6AB10CB2BB900F1F642 /* main.py */; };
 		BF5E23BE11C138FD003EF057 /* ocController.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E23BD11C138FD003EF057 /* ocController.py */; };
 		BF5E240511C13A3F003EF057 /* electrodeController in Resources */ = {isa = PBXBuildFile; fileRef = BF5E23C511C13A3F003EF057 /* electrodeController */; };
 		BF5E3AD011C13FAC003EF057 /* python2.6_env in Resources */ = {isa = PBXBuildFile; fileRef = BF5E245D11C13FA9003EF057 /* python2.6_env */; };
 		BF5E3AF811C15608003EF057 /* Interface.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF5E3AF711C15608003EF057 /* Interface.xib */; };
-		BF5E3B8611C16EAC003EF057 /* zoomView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E3B8511C16EAC003EF057 /* zoomView.py */; };
 		BF5E3B8811C16EC8003EF057 /* ocZoomView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E3B8711C16EC8003EF057 /* ocZoomView.py */; };
 		BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BF9C84D711527B5100C68A5A /* physiology_icon.icns */; };
 		BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */ = {isa = PBXBuildFile; fileRef = BFD1491511D3EE5E002CA13F /* a_10.obj */; };
@@ -53,24 +42,13 @@
 		BF0C00DF11C5A0B200D994B0 /* quaternion.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = quaternion.py; sourceTree = "<group>"; };
 		BF1E318D10CB3A2E00163053 /* clockwiseArrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clockwiseArrows.png; path = media/clockwiseArrows.png; sourceTree = "<group>"; };
 		BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = counterclockwiseArrows.png; path = media/counterclockwiseArrows.png; sourceTree = "<group>"; };
-		BF325C1A1138635F003058BE /* cameraPair.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = cameraPair.py; sourceTree = "<group>"; };
-		BF325C1E11386383003058BE /* ImageBridge.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ImageBridge.py; sourceTree = "<group>"; };
-		BF32A02D11388AC1003058BE /* AtlasViewer.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = AtlasViewer.py; sourceTree = "<group>"; };
 		BF330D4610CD46D10009217F /* cncController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cncController.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF333D1D10CD47490009217F /* IPSerialBridge.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = IPSerialBridge.py; sourceTree = "<group>"; };
-		BF333D2510CD47560009217F /* CNCAxes.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = CNCAxes.py; sourceTree = "<group>"; };
-		BF333D2810CD47960009217F /* CNCController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = CNCController.py; sourceTree = "<group>"; };
-		BF3F3B79119C477C00FAFDE9 /* vector.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = vector.py; sourceTree = "<group>"; };
-		BF42CC07114FDC0D008754B2 /* cfg.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = cfg.py; sourceTree = "<group>"; };
 		BF42DE06114FF65F008754B2 /* customCfg.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = customCfg.py; sourceTree = "<group>"; };
-		BF42DE2F114FFBE3008754B2 /* MeshViewer.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MeshViewer.py; sourceTree = "<group>"; };
-		BF42DE33114FFE3E008754B2 /* objLoader.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = objLoader.py; sourceTree = "<group>"; };
 		BF43D6AB10CB2BB900F1F642 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		BF5E23BD11C138FD003EF057 /* ocController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocController.py; sourceTree = "<group>"; };
 		BF5E23C511C13A3F003EF057 /* electrodeController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = electrodeController; sourceTree = "<group>"; };
 		BF5E245D11C13FA9003EF057 /* python2.6_env */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python2.6_env; sourceTree = "<group>"; };
 		BF5E3AF711C15608003EF057 /* Interface.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Interface.xib; sourceTree = "<group>"; };
-		BF5E3B8511C16EAC003EF057 /* zoomView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = zoomView.py; sourceTree = "<group>"; };
 		BF5E3B8711C16EC8003EF057 /* ocZoomView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocZoomView.py; sourceTree = "<group>"; };
 		BF9C84D711527B5100C68A5A /* physiology_icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = physiology_icon.icns; sourceTree = "<group>"; };
 		BFD1491511D3EE5E002CA13F /* a_10.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = a_10.obj; path = media/a_10.obj; sourceTree = "<group>"; };
@@ -93,9 +71,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				BF32A02C11388AAD003058BE /* Atlas */,
-				BF9CA8EC11385C0500B0BCB0 /* Stereo Camera */,
-				BF9CA82611385BD300B0BCB0 /* CNC */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -142,14 +117,11 @@
 			isa = PBXGroup;
 			children = (
 				BF5E23C511C13A3F003EF057 /* electrodeController */,
-				BF3F3B79119C477C00FAFDE9 /* vector.py */,
 				BF0C00DF11C5A0B200D994B0 /* quaternion.py */,
-				BF5E3B8511C16EAC003EF057 /* zoomView.py */,
 				256AC3F00F4B6AF500CF3369 /* cncController_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				BF43D6AB10CB2BB900F1F642 /* main.py */,
 				BF42DE06114FF65F008754B2 /* customCfg.py */,
-				BF42CC07114FDC0D008754B2 /* cfg.py */,
 				BF5E23BD11C138FD003EF057 /* ocController.py */,
 				BFF6148F11C3D7CF00B76C8A /* ocCenteringSlider.py */,
 				BF5E3B8711C16EC8003EF057 /* ocZoomView.py */,
@@ -190,35 +162,6 @@
 				BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */,
 			);
 			name = media;
-			sourceTree = "<group>";
-		};
-		BF32A02C11388AAD003058BE /* Atlas */ = {
-			isa = PBXGroup;
-			children = (
-				BF42DE2F114FFBE3008754B2 /* MeshViewer.py */,
-				BF42DE33114FFE3E008754B2 /* objLoader.py */,
-				BF32A02D11388AC1003058BE /* AtlasViewer.py */,
-			);
-			name = Atlas;
-			sourceTree = "<group>";
-		};
-		BF9CA82611385BD300B0BCB0 /* CNC */ = {
-			isa = PBXGroup;
-			children = (
-				BF333D2510CD47560009217F /* CNCAxes.py */,
-				BF333D1D10CD47490009217F /* IPSerialBridge.py */,
-				BF333D2810CD47960009217F /* CNCController.py */,
-			);
-			name = CNC;
-			sourceTree = "<group>";
-		};
-		BF9CA8EC11385C0500B0BCB0 /* Stereo Camera */ = {
-			isa = PBXGroup;
-			children = (
-				BF325C1A1138635F003058BE /* cameraPair.py */,
-				BF325C1E11386383003058BE /* ImageBridge.py */,
-			);
-			name = "Stereo Camera";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,24 +212,13 @@
 				BF43D6AC10CB2BB900F1F642 /* main.py in Resources */,
 				BF1E318F10CB3A2E00163053 /* clockwiseArrows.png in Resources */,
 				BF1E319010CB3A2E00163053 /* counterclockwiseArrows.png in Resources */,
-				BF333D1E10CD47490009217F /* IPSerialBridge.py in Resources */,
-				BF333D2610CD47560009217F /* CNCAxes.py in Resources */,
-				BF333D2910CD47960009217F /* CNCController.py in Resources */,
 				BFDBF0D110CDBF7C00962C45 /* example.png in Resources */,
-				BF325C1B1138635F003058BE /* cameraPair.py in Resources */,
-				BF325C1F11386383003058BE /* ImageBridge.py in Resources */,
-				BF32A02E11388AC1003058BE /* AtlasViewer.py in Resources */,
-				BF42CC08114FDC0D008754B2 /* cfg.py in Resources */,
 				BF42DE07114FF65F008754B2 /* customCfg.py in Resources */,
-				BF42DE30114FFBE3008754B2 /* MeshViewer.py in Resources */,
-				BF42DE34114FFE3E008754B2 /* objLoader.py in Resources */,
 				BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */,
-				BF3F3B7A119C477C00FAFDE9 /* vector.py in Resources */,
 				BF5E23BE11C138FD003EF057 /* ocController.py in Resources */,
 				BF5E240511C13A3F003EF057 /* electrodeController in Resources */,
 				BF5E3AD011C13FAC003EF057 /* python2.6_env in Resources */,
 				BF5E3AF811C15608003EF057 /* Interface.xib in Resources */,
-				BF5E3B8611C16EAC003EF057 /* zoomView.py in Resources */,
 				BF5E3B8811C16EC8003EF057 /* ocZoomView.py in Resources */,
 				BFF6149011C3D7CF00B76C8A /* ocCenteringSlider.py in Resources */,
 				BF0C00D111C5773700D994B0 /* ocMeshView.py in Resources */,
