@@ -95,7 +95,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 newPoint['x'] = l3d[0]
                 newPoint['y'] = l3d[1]
                 newPoint['z'] = l3d[2]
-            newPoint['angle'] = float(self.cnc.headAxes.get_position('b'))
+            newPoint['angle'] = float(self.cnc.headAxes.get_position('b')['b'])
             self.zoomPoints.append(newPoint)
         self.zoomPointsController.rearrangeObjects()
     

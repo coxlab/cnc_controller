@@ -78,6 +78,7 @@ class OCMeshView(NSOpenGLView):
         self.leftDown = None
         self.rightDown = None
         self.electrode = None
+        self.meshFilename = None
     
     # so we get a keyDown event
     def acceptsFirstResponder(self):
@@ -106,6 +107,13 @@ class OCMeshView(NSOpenGLView):
                 self.scheduleRedisplay()
     
     def load_obj(self, meshFilename, textureFilename, center=False):
+        # so, if this is called before the mesh tab has been visited,
+        # gl_inited will be false, and the loading will fail :(
+        if self.gl_inited == False:
+            self.meshTextureFilename = textureFilename
+            self.meshFilename = meshFilename
+            return
+        
         self.obj = objLoader.OBJ(meshFilename, textureFilename)
         
         if center:
@@ -114,6 +122,7 @@ class OCMeshView(NSOpenGLView):
             self.obj.vertices = v.tolist()
         
         self.obj.prep_lists()
+        
         self.scheduleRedisplay()
     
     def load_electrode(self, meshFilename, textureFilename=None):
@@ -177,6 +186,9 @@ class OCMeshView(NSOpenGLView):
         self.load_electrode(cfg.electrodeMesh, cfg.electrodeTexture)
         
         self.gl_inited = True
+        
+        if self.meshFilename != None:
+            self.load_obj(self.meshFilename, self.meshTextureFilename)
     
     def draw_electrode_path(self):
         glColor(1., 0., 0., 1.)

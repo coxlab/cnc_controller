@@ -11,16 +11,16 @@ from bjgcfg import *
 assign_cfg_module(__name__)
 
 useManualImageProcessor = True
-fakeCNC = False
-fakeCameras = False
+fakeCNC = True
+fakeCameras = True
 fakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/fakeFrames' % os.getlogin()
 
 cfgDir = '/Users/%s/Repositories/coxlab/cncController/electrodeController/cfgs' % os.getlogin()
 externalCfgs = ['cameraCfg.py', 'cncCfg.py', 'framesCfg.py', 'electrodeCfg.py']
 
 # import custom configuration file, which will overwrite default values
-if os.path.exists('customCfg.py'):
-    load_external_cfg('customCfg.py')
+if os.path.exists('%s/%s' % (cfgDir, 'customCfg.py')):
+    load_external_cfg('%s/%s' % (cfgDir, 'customCfg.py'))
 
 # load all external configuration files
 for e in externalCfgs:
