@@ -34,6 +34,7 @@
 		BF5E3B8611C16EAC003EF057 /* zoomView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E3B8511C16EAC003EF057 /* zoomView.py */; };
 		BF5E3B8811C16EC8003EF057 /* ocZoomView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E3B8711C16EC8003EF057 /* ocZoomView.py */; };
 		BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BF9C84D711527B5100C68A5A /* physiology_icon.icns */; };
+		BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */ = {isa = PBXBuildFile; fileRef = BFD1491511D3EE5E002CA13F /* a_10.obj */; };
 		BFDBF0D110CDBF7C00962C45 /* example.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDBF0D010CDBF7C00962C45 /* example.png */; };
 		BFF6149011C3D7CF00B76C8A /* ocCenteringSlider.py in Resources */ = {isa = PBXBuildFile; fileRef = BFF6148F11C3D7CF00B76C8A /* ocCenteringSlider.py */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		BF5E3B8511C16EAC003EF057 /* zoomView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = zoomView.py; sourceTree = "<group>"; };
 		BF5E3B8711C16EC8003EF057 /* ocZoomView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocZoomView.py; sourceTree = "<group>"; };
 		BF9C84D711527B5100C68A5A /* physiology_icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = physiology_icon.icns; sourceTree = "<group>"; };
+		BFD1491511D3EE5E002CA13F /* a_10.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = a_10.obj; path = media/a_10.obj; sourceTree = "<group>"; };
 		BFDBF0D010CDBF7C00962C45 /* example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = example.png; path = media/example.png; sourceTree = "<group>"; };
 		BFF6148F11C3D7CF00B76C8A /* ocCenteringSlider.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocCenteringSlider.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,7 +93,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				BF5E23C511C13A3F003EF057 /* electrodeController */,
 				BF32A02C11388AAD003058BE /* Atlas */,
 				BF9CA8EC11385C0500B0BCB0 /* Stereo Camera */,
 				BF9CA82611385BD300B0BCB0 /* CNC */,
@@ -140,6 +141,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BF5E23C511C13A3F003EF057 /* electrodeController */,
 				BF3F3B79119C477C00FAFDE9 /* vector.py */,
 				BF0C00DF11C5A0B200D994B0 /* quaternion.py */,
 				BF5E3B8511C16EAC003EF057 /* zoomView.py */,
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				BFDBF0D010CDBF7C00962C45 /* example.png */,
+				BFD1491511D3EE5E002CA13F /* a_10.obj */,
 				BF1E318D10CB3A2E00163053 /* clockwiseArrows.png */,
 				BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */,
 			);
@@ -288,6 +291,7 @@
 				BFF6149011C3D7CF00B76C8A /* ocCenteringSlider.py in Resources */,
 				BF0C00D111C5773700D994B0 /* ocMeshView.py in Resources */,
 				BF0C00E011C5A0B200D994B0 /* quaternion.py in Resources */,
+				BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

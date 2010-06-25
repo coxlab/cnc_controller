@@ -1003,7 +1003,6 @@ def test_linear_axis(axisName, axisIndex, ipAddress, port):
             run_test_move(testDistance)
         
         # set parameter/quit
-        # TODO print list of commands
         print_commands()
         r = raw_input()
         if run_command(r):

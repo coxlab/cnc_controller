@@ -154,7 +154,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #self.load_mesh(meshFilename, textureFilename)
         
         self.load_animal(animalCfg)
-        self.meshView.load_obj("%s/skull.obj" % cfg.meshDir, "%s/Texture/texture.jpg" % cfg.meshDir)
+        #print cfg.animalMesh, cfg.animalTexture
+        self.meshView.load_obj(cfg.animalMesh, cfg.animalTexture)
+        #self.meshView.load_obj("%s/skull.obj" % cfg.meshDir, "%s/Texture/texture.jpg" % cfg.meshDir)
         self.updateFramesDisplay_(sender)
     
     @IBAction
@@ -318,3 +320,20 @@ class OCController (NSObject, electrodeController.controller.Controller):
         im0, im1 = self.cameras.capture()
         self.leftZoomView.set_image_from_cv(im0)
         self.rightZoomView.set_image_from_cv(im1)
+    
+    @IBAction
+    def locateCameras_(self, sender):
+        ims, s = self.cameras.capture_localization_images(cfg.gridSize)
+        
+        self.leftZoomView.set_image_from_cv(ims[0])
+        self.rightZoomView.set_image_from_cv(ims[1])
+        if s == True:
+            self.cameras.locate(cfg.gridSize, cfg.gridBlockSize)
+        
+        located = self.cameras.get_located()
+        
+        # TODO hook this up to the GUI
+        if all(located):
+            print "Cameras located"
+        else:
+            print "Cameras NOT located"

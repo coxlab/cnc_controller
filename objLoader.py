@@ -112,6 +112,7 @@ class OBJ:
         self.prep_mesh_list()
         self.prep_point_cloud_list()
     def display(self):
+        glColor(1.,1.,1.,1.)
         if self.showMesh:
             if self.showTexture:
                 glEnable(GL_TEXTURE_2D)

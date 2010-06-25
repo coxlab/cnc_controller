@@ -3,7 +3,8 @@
 import numpy
 
 import quaternion
-import objLoader
+from electrodeController import objLoader
+from electrodeController import cfg
 
 from Foundation import *
 from AppKit import *
@@ -19,6 +20,11 @@ class Orbiter:
         self.radius = radius
         self.translation = translation
         self.rotation = quaternion.fromEuler(rotation[0],rotation[1],rotation[2])
+    
+    def reset(self):
+        self.translation = [0, 0, 0]
+        self.rotation = quaternion.fromEuler(0,0,0)
+        self.radius = 100.
     
     def rotate(self, ax=0, ay=0, az=0):
         #rotQuaternion = quaternion.fromEuler((y-viewDown[1])*0.01,(x-viewDown[0])*0.01,0.) * rotQuaternion
@@ -39,7 +45,7 @@ class Orbiter:
         glMultMatrixd(self.rotation.matrix())
     
     def draw_origin(self):
-        glPushMatrix() # X
+        glPushMatrix() # X, red
         glRotatef(90,0,1,0)
         glColor(1.,0.,0.,1.)
         gluCylinder(gluNewQuadric(), 0.05, 0.05, 0.5, 10, 3)
@@ -48,7 +54,7 @@ class Orbiter:
         glPopMatrix()
         
         #glTranslate(0.,0.,-1.)
-        glPushMatrix() # Y
+        glPushMatrix() # Y, blue
         glRotatef(-90,1,0,0)
         glColor(0.,0.,1.,1.)
         gluCylinder(gluNewQuadric(), 0.05, 0.05, 0.5, 10, 3)
@@ -56,7 +62,7 @@ class Orbiter:
         glutSolidCone(0.1, 0.2, 10, 3)
         glPopMatrix()
         
-        glColor(0.,1.,0.,1.) # Z
+        glColor(0.,1.,0.,1.) # Z, green
         glPushMatrix()
         gluCylinder(gluNewQuadric(), 0.05, 0.05, 0.5, 10, 3)
         glTranslate(0.,0.,0.5)
@@ -71,6 +77,33 @@ class OCMeshView(NSOpenGLView):
         self.gl_inited = False
         self.leftDown = None
         self.rightDown = None
+        self.electrode = None
+    
+    # so we get a keyDown event
+    def acceptsFirstResponder(self):
+        return YES
+    
+    def becomeFirstResponder(self):
+        return YES
+    
+    def resignFirstResponder(self):
+        return YES
+    
+    def keyDown_(self, event):
+        if self.obj != None:
+            c = event.characters()
+            if c == 't':
+                self.obj.showTexture = not self.obj.showTexture
+                self.scheduleRedisplay()
+            elif c == 'p':
+                self.obj.showPointCloud = not self.obj.showPointCloud
+                self.scheduleRedisplay()
+            elif c == 'm':
+                self.obj.showMesh = not self.obj.showMesh
+                self.scheduleRedisplay()
+            elif c == 'r':
+                self.orbiter.reset()
+                self.scheduleRedisplay()
     
     def load_obj(self, meshFilename, textureFilename, center=False):
         self.obj = objLoader.OBJ(meshFilename, textureFilename)
@@ -81,6 +114,13 @@ class OCMeshView(NSOpenGLView):
             self.obj.vertices = v.tolist()
         
         self.obj.prep_lists()
+        self.scheduleRedisplay()
+    
+    def load_electrode(self, meshFilename, textureFilename=None):
+        self.electrode = objLoader.OBJ(meshFilename, textureFilename)
+        self.electrode.prep_lists()
+        self.electrode.color = (0.4, 0.7, 0.4, 1.0)
+        
         self.scheduleRedisplay()
     
     # left mouse button
@@ -133,6 +173,9 @@ class OCMeshView(NSOpenGLView):
         glClearColor(0., 0., 0., 1.)
         glMatrixMode(GL_PROJECTION)
         gluPerspective(10.,1.,0.1,1000.0)
+        
+        self.load_electrode(cfg.electrodeMesh, cfg.electrodeTexture)
+        
         self.gl_inited = True
     
     def drawRect_(self, frame):
@@ -147,6 +190,10 @@ class OCMeshView(NSOpenGLView):
         
         if self.obj != None:
             self.obj.display()
+        
+        if self.electrode != None:
+            self.electrode.display()
+        
         self.orbiter.draw_origin()
         
         self.openGLContext().flushBuffer()

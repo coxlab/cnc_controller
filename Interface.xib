@@ -2,20 +2,20 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10D573</string>
+		<string key="IBDocument.SystemVersion">10F569</string>
 		<string key="IBDocument.InterfaceBuilderVersion">762</string>
 		<string key="IBDocument.AppKitVersion">1038.29</string>
-		<string key="IBDocument.HIToolboxVersion">460.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">762</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="29"/>
 			<integer value="907"/>
-			<integer value="869"/>
+			<integer value="367"/>
 			<integer value="930"/>
-			<integer value="860"/>
+			<integer value="869"/>
+			<integer value="29"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1473,7 +1473,7 @@
 								<object class="NSTabViewItem" id="406980174">
 									<string key="NSIdentifier">1</string>
 									<object class="NSView" key="NSView" id="633158745">
-										<reference key="NSNextResponder" ref="553846446"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">256</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSOpenGLView" id="7007551">
@@ -1490,7 +1490,6 @@
 											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {742, 501}}</string>
-										<reference key="NSSuperview" ref="553846446"/>
 									</object>
 									<string key="NSLabel">Mesh</string>
 									<object class="NSColor" key="NSColor" id="142994466">
@@ -1507,7 +1506,7 @@
 								<object class="NSTabViewItem" id="479501803">
 									<string key="NSIdentifier">2</string>
 									<object class="NSView" key="NSView" id="381671482">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="553846446"/>
 										<int key="NSvFlags">256</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSScrollView" id="529465367">
@@ -1901,7 +1900,7 @@
 											<object class="NSButton" id="812486189">
 												<reference key="NSNextResponder" ref="381671482"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{5, 191}, {108, 32}}</string>
+												<string key="NSFrame">{{448, 191}, {108, 32}}</string>
 												<reference key="NSSuperview" ref="381671482"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="504437601">
@@ -1921,7 +1920,7 @@
 											<object class="NSButton" id="62943046">
 												<reference key="NSNextResponder" ref="381671482"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{110, 191}, {115, 32}}</string>
+												<string key="NSFrame">{{556, 191}, {115, 32}}</string>
 												<reference key="NSSuperview" ref="381671482"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="391019273">
@@ -1941,7 +1940,7 @@
 											<object class="NSButton" id="411683178">
 												<reference key="NSNextResponder" ref="381671482"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{225, 191}, {96, 32}}</string>
+												<string key="NSFrame">{{11, 210}, {96, 32}}</string>
 												<reference key="NSSuperview" ref="381671482"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="817756915">
@@ -1950,6 +1949,26 @@
 													<string key="NSContents">Capture</string>
 													<reference key="NSSupport" ref="858839378"/>
 													<reference key="NSControlView" ref="411683178"/>
+													<int key="NSButtonFlags">-2038284033</int>
+													<int key="NSButtonFlags2">129</int>
+													<string key="NSAlternateContents"/>
+													<string key="NSKeyEquivalent"/>
+													<int key="NSPeriodicDelay">200</int>
+													<int key="NSPeriodicInterval">25</int>
+												</object>
+											</object>
+											<object class="NSButton" id="494812895">
+												<reference key="NSNextResponder" ref="381671482"/>
+												<int key="NSvFlags">268</int>
+												<string key="NSFrame">{{107, 210}, {96, 32}}</string>
+												<reference key="NSSuperview" ref="381671482"/>
+												<bool key="NSEnabled">YES</bool>
+												<object class="NSButtonCell" key="NSCell" id="744723996">
+													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags2">134217728</int>
+													<string key="NSContents">Localize</string>
+													<reference key="NSSupport" ref="858839378"/>
+													<reference key="NSControlView" ref="494812895"/>
 													<int key="NSButtonFlags">-2038284033</int>
 													<int key="NSButtonFlags2">129</int>
 													<string key="NSAlternateContents"/>
@@ -1972,19 +1991,20 @@
 											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {742, 501}}</string>
+										<reference key="NSSuperview" ref="553846446"/>
 									</object>
 									<string key="NSLabel">Camera</string>
 									<reference key="NSColor" ref="142994466"/>
 									<reference key="NSTabView" ref="553846446"/>
 								</object>
 							</array>
-							<reference key="NSSelectedTabViewItem" ref="406980174"/>
+							<reference key="NSSelectedTabViewItem" ref="479501803"/>
 							<reference key="NSFont" ref="858839378"/>
 							<int key="NSTvFlags">0</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<array class="NSMutableArray" key="NSSubviews">
-								<reference ref="633158745"/>
+								<reference ref="381671482"/>
 							</array>
 						</object>
 						<object class="NSButton" id="28746724">
@@ -5021,6 +5041,14 @@
 					</object>
 					<int key="connectionID">1231</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">locateCameras:</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="494812895"/>
+					</object>
+					<int key="connectionID">1235</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -6072,12 +6100,13 @@
 						<int key="objectID">848</int>
 						<reference key="object" ref="381671482"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="812486189"/>
 							<reference ref="529465367"/>
-							<reference ref="62943046"/>
-							<reference ref="411683178"/>
 							<reference ref="834655251"/>
 							<reference ref="761894194"/>
+							<reference ref="62943046"/>
+							<reference ref="812486189"/>
+							<reference ref="411683178"/>
+							<reference ref="494812895"/>
 						</array>
 						<reference key="parent" ref="479501803"/>
 					</object>
@@ -7431,6 +7460,19 @@
 						<reference key="object" ref="7007551"/>
 						<reference key="parent" ref="633158745"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1232</int>
+						<reference key="object" ref="494812895"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="744723996"/>
+						</array>
+						<reference key="parent" ref="381671482"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1233</int>
+						<reference key="object" ref="744723996"/>
+						<reference key="parent" ref="494812895"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -7532,6 +7574,8 @@
 				<string key="1195.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1230.CustomClassName">OCMeshView</string>
 				<string key="1230.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1232.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1233.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="124.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="124.ImportedFromIB2"/>
 				<string key="125.IBEditorWindowLastContentRect">{{449, 589}, {132, 23}}</string>
@@ -7585,9 +7629,9 @@
 				<string key="296.editorWindowContentRectSynchronizationRect">{{475, 832}, {234, 43}}</string>
 				<string key="297.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="298.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBEditorWindowLastContentRect">{{179, 154}, {788, 642}}</string>
+				<string key="367.IBEditorWindowLastContentRect">{{283, 145}, {788, 642}}</string>
 				<string key="367.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBWindowTemplateEditedContentRect">{{179, 154}, {788, 642}}</string>
+				<string key="367.IBWindowTemplateEditedContentRect">{{283, 145}, {788, 642}}</string>
 				<integer value="1" key="367.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="367.editorWindowContentRectSynchronizationRect">{{11, 666}, {480, 270}}</string>
 				<string key="367.windowTemplate.maxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -7964,7 +8008,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1231</int>
+			<int key="maxID">1235</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7988,6 +8032,7 @@
 						<string key="clearZoomPoints:">id</string>
 						<string key="goToTarget:">id</string>
 						<string key="loadAnimal:">id</string>
+						<string key="locateCameras:">id</string>
 						<string key="moveWAxis:">id</string>
 						<string key="registerCNC:">id</string>
 						<string key="registerCameras:">id</string>

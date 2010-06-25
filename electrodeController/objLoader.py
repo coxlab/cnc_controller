@@ -4,6 +4,16 @@ from PIL import Image
 from OpenGL.GLU import *
 from OpenGL.GL import *
 
+import time
+def print_timing(func):
+    def wrapper(*arg):
+        t1 = time.time()
+        res = func(*arg)
+        t2 = time.time()
+        print '%s took %0.3f ms' % (func.func_name, (t2-t1)*1000.0)
+        return res
+    return wrapper
+
 def LoadTexture(filename):
     im = Image.open(filename)
     im = im.transpose(Image.FLIP_TOP_BOTTOM)
@@ -20,9 +30,9 @@ def LoadTexture(filename):
     glBindTexture(GL_TEXTURE_2D, 0)
     return texId
 
- 
 class OBJ:
-    def __init__(self, filename, textureFilename, swapyz=False):
+    
+    def __init__(self, filename, textureFilename=None, swapyz=False):
         """Loads a Wavefront OBJ file. """
         self.vertices = []
         self.normals = []
@@ -32,10 +42,16 @@ class OBJ:
         self.meshList = None
         self.pointCloudList = None
         
-        self.showTexture = True
+        if textureFilename == None:
+            self.showTexture = False
+        else:
+            self.texId = LoadTexture(textureFilename)
+            self.showTexture = True
+            
         self.showMesh = True
         self.showPointCloud = False
         material = None
+        self.color = (1., 1., 1., 1.)
         for line in open(filename, "r"):
             if line.startswith('#'): continue
             values = line.split()
@@ -72,32 +88,58 @@ class OBJ:
                     else:
                         norms.append(0)
                 self.faces.append((face, norms, texcoords, material))
-        self.texId = LoadTexture(textureFilename)
+    
+    
     def prep_mesh_list(self):
         self.meshList = glGenLists(1)
         glNewList(self.meshList, GL_COMPILE)
         
         glFrontFace(GL_CCW)
-        for face in self.faces:
-            #print "processing face..."
-            vertices, normals, texture_coords, material = face
-            #mtl = self.mtl[material]
-            #if 'texture_Kd' in mtl:
-            #    # use diffuse texmap
-            #    glBindTexture(GL_TEXTURE_2D, mtl['texture_Kd'])
-            #else:
-            #    # just use diffuse colour
-            #    glColor(*mtl['Kd'])
-            glMaterialfv(GL_FRONT,GL_DIFFUSE,(1.0, 1.0, 1.0, 1.0))
-            glBegin(GL_POLYGON)
-            for i in range(0, len(vertices)):
-                if normals[i] > 0:
-                    glNormal3fv(self.normals[normals[i] - 1])
-                if texture_coords[i] > 0:
-                    glTexCoord2fv(self.texcoords[texture_coords[i] - 1])
-                glVertex3fv(self.vertices[vertices[i] - 1])
-            glEnd()
+        glMaterialfv(GL_FRONT,GL_DIFFUSE,(1.0, 1.0, 1.0, 1.0))
+        glBegin(GL_TRIANGLES)
+        if len(self.normals) != 0:
+            if len(self.texcoords) != 0:
+                # use normals and texcoords
+                for face in self.faces:
+                    vs, ns, tcs, m = face
+                    glNormal3fv(self.normals[ns[0]-1])
+                    glTexCoord2fv(self.texcoords[tcs[0]-1])
+                    glVertex3fv(self.vertices[vs[0]-1])
+                    glNormal3fv(self.normals[ns[1]-1])
+                    glTexCoord2fv(self.texcoords[tcs[1]-1])
+                    glVertex3fv(self.vertices[vs[1]-1])
+                    glNormal3fv(self.normals[ns[2]-1])
+                    glTexCoord2fv(self.texcoords[tcs[2]-1])
+                    glVertex3fv(self.vertices[vs[2]-1])
+            else:
+                # use normals NOT texcoords
+                for face in self.faces:
+                    vs, ns, tcs, m = face
+                    glNormal3fv(self.normals[ns[0]-1])
+                    glVertex3fv(self.vertices[vs[0]-1])
+                    glNormal3fv(self.normals[ns[1]-1])
+                    glVertex3fv(self.vertices[vs[1]-1])
+                    glNormal3fv(self.normals[ns[2]-1])
+                    glVertex3fv(self.vertices[vs[2]-1])
+        elif len(self.texcoords) != 0:
+            for face in self.faces:
+                vs, ns, tcs, m = face
+                glTexCoord2fv(self.texcoords[tcs[0]-1])
+                glVertex3fv(self.vertices[vs[0]-1])
+                glTexCoord2fv(self.texcoords[tcs[1]-1])
+                glVertex3fv(self.vertices[vs[1]-1])
+                glTexCoord2fv(self.texcoords[tcs[2]-1])
+                glVertex3fv(self.vertices[vs[2]-1])
+        else:
+            for face in self.faces:
+                vs, ns, tcs, m = face
+                glVertex3fv(self.vertices[vs[0]-1])
+                glVertex3fv(self.vertices[vs[1]-1])
+                glVertex3fv(self.vertices[vs[2]-1])
+        glEnd()
         glEndList()
+    
+    
     def prep_point_cloud_list(self):
         self.pointCloudList = glGenLists(1)
         glNewList(self.pointCloudList, GL_COMPILE)
@@ -107,11 +149,13 @@ class OBJ:
         for v in self.vertices:
             glVertex3f(*v)
         glEnd()
-        glEndList()        
+        glEndList()
+    
     def prep_lists(self):
         self.prep_mesh_list()
         self.prep_point_cloud_list()
     def display(self):
+        glColor(*self.color)
         if self.showMesh:
             if self.showTexture:
                 glEnable(GL_TEXTURE_2D)
