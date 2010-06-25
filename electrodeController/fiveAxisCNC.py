@@ -40,15 +40,16 @@ class FiveAxisCNC:
                 return True
         return False
     
-    def calculate_arm_length(self, tipLocations):
+    def calculate_arm_length(self, tipLocations, wPosition):
         """Requires 3 measurements of the tip location at 3 angles"""
         dists = [sqrt(sum(array(tipLocations[i-1]-tipLocations[i])**2)) for i in xrange(len(tipLocations))]
         dists.sort()
         a, b, c = dists
         self.arm_length = a*b*c / sqrt(2*a**2*b**2 + 2*b**2*c**2 + 2*c**2*a**2 - a**4 - b**4 - c**4)
+        self.arm_length -= wPosition
         return self.arm_length
     
     def get_tip_position_on_arm(self):
-        b = numpy.radians(float(self.headAxes.get_position('b')))
-        w = float(self.headAxes.get_position('w'))
-        return numpy.sin(b)*w, 0., numpy.cos(b)*w
+        b = numpy.radians(float(self.headAxes.get_position('b')['b']))
+        w = float(self.headAxes.get_position('w')['w'])
+        return numpy.sin(b)*(w+self.arm_length), 0., numpy.cos(b)*(w+self.arm_length)

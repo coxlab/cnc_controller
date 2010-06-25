@@ -2,7 +2,8 @@
 
 import numpy
 
-import electrodeController.cfg as cfg
+from electrodeController import cfg
+from electrodeController import vector
 
 from Foundation import *
 from AppKit import *
@@ -96,6 +97,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 newPoint['y'] = l3d[1]
                 newPoint['z'] = l3d[2]
             newPoint['angle'] = float(self.cnc.headAxes.get_position('b')['b'])
+            newPoint['w'] = float(self.cnc.headAxes.get_position('w')['w'])
             self.zoomPoints.append(newPoint)
         self.zoomPointsController.rearrangeObjects()
     
@@ -103,12 +105,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
     def enable_motors(self):
         self.cnc.enable_motors()
         self.motorStatusButton.setState_(True)
-        self.motorStatusButton.setTitle_('On')
+        self.motorStatusButton.setTitle_('Off')
     
     def disable_motors(self):
         self.cnc.disable_motors()
         self.motorStatusButton.setState_(False)
-        self.motorStatusButton.setTitle_('Off')
+        self.motorStatusButton.setTitle_('On')
     
     @IBAction
     def toggleMotors_(self, sender):
@@ -181,17 +183,24 @@ class OCController (NSObject, electrodeController.controller.Controller):
         # get points from saved points and angles
         tPoints = []
         angles = []
+        ws
         for z in self.zoomPoints:
-            if all((z.has_key('x'),z.has_key('y'),z.has_key('z'),z.has_key('angle'))):
+            if all((z.has_key('x'),z.has_key('y'),z.has_key('z'),z.has_key('angle'),z.has_key('w'))):
                 tPoints.append([z['x'],z['y'],z['z'],1.])
                 angles.append(numpy.radians(z['angle']))
+                ws.append(float(z['w']))
         
         if len(tPoints) != 3 or len(angles) != 3:
             # TODO log error
             print "register_cnc requires exactly 3 valid points"
             return
         
-        self.register_cnc(tPoints, angles)
+        # TODO check that all ws are the same
+        wPosition = ws[0]
+        for w in ws:
+            if w != wPosition:
+                print "register_cnc requires 3 points with the same w position"
+        self.register_cnc(tPoints, angles, wPosition)
         self.updateFramesDisplay_(sender)
     
     @IBAction
@@ -289,6 +298,17 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self._.ocAP = skullCoord[1]
             # DV = Z
             self._.ocDV = skullCoord[2]
+            # TODO update electrode 
+            # first apply rotation and translation as specified by tip position
+            b = float(self.cnc.headAxes.get_position('b')['b'])
+            cncMatrix = vector.transform_to_matrix(cncCoord[0], cncCoord[1], cncCoord[2], 0., b, 0.)
+            # then apply the transform from cnc to skull
+            tMatrix = self.fManager.get_transformation_matrix("cnc","skull")
+            # TODO check the order of this
+            self.meshView.electrodMatrix = tMatrix * cncMatrix
+            self.meshView.drawElectrode = True
+            self.meshView.scheduleRedisplay()
+        
         self._.ocAngle = float(self.cnc.headAxes.get_position('b')['b'])
         # TODO this should be (target - w) not just w
         self._.ocDepth = float(self.cnc.headAxes.get_position('w')['w'])

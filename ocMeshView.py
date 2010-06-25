@@ -5,6 +5,7 @@ import numpy
 import quaternion
 from electrodeController import objLoader
 from electrodeController import cfg
+from electrodeController import vector
 
 from Foundation import *
 from AppKit import *
@@ -79,6 +80,8 @@ class OCMeshView(NSOpenGLView):
         self.rightDown = None
         self.electrode = None
         self.meshFilename = None
+        self.drawElectrode = True
+        self.electrodeMatrix = numpy.matrix(numpy.identity(4,dtype=numpy.float64))
     
     # so we get a keyDown event
     def acceptsFirstResponder(self):
@@ -210,9 +213,12 @@ class OCMeshView(NSOpenGLView):
         if self.obj != None:
             self.obj.display()
         
-        if self.electrode != None:
+        if self.electrode != None and self.drawElectrode:
+            glPushMatrix()
+            glMultMatrixd(numpy.array(self.electrodeMatrix))
             self.draw_electrode_path()
             self.electrode.display()
+            glPopMatrix()
         
         self.orbiter.draw_origin()
         
