@@ -268,12 +268,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.update_velocities()
     
     def update_velocities(self):
-        self.xVelocityField.setFloatValue_(float(self.cnc.linearAxes.get_velocity('x')))
-        self.yVelocityField.setFloatValue_(float(self.cnc.linearAxes.get_velocity('y')))
-        self.zVelocityField.setFloatValue_(float(self.cnc.linearAxes.get_velocity('z')))
-        self.wVelocityField.setFloatValue_(float(self.cnc.headAxes.get_velocity('w')))
+        self.xVelocityField.setFloatValue_(float(self.cnc.linearAxes.get_velocity('x')['x']))
+        self.yVelocityField.setFloatValue_(float(self.cnc.linearAxes.get_velocity('y')['y']))
+        self.zVelocityField.setFloatValue_(float(self.cnc.linearAxes.get_velocity('z')['z']))
+        self.wVelocityField.setFloatValue_(float(self.cnc.headAxes.get_velocity('w')['w']))
         
-        bVel = float(self.cnc.headAxes.get_velocity('b'))
+        bVel = float(self.cnc.headAxes.get_velocity('b')['b'])
         self.bVelocityField.setFloatValue_(bVel)
         self.depthVelocityField.setFloatValue_(bVel)
     
@@ -289,15 +289,15 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self._.ocAP = skullCoord[1]
             # DV = Z
             self._.ocDV = skullCoord[2]
-        self._.ocAngle = float(self.cnc.headAxes.get_position('b'))
+        self._.ocAngle = float(self.cnc.headAxes.get_position('b')['b'])
         # TODO this should be (target - w) not just w
-        self._.ocDepth = float(self.cnc.headAxes.get_position('w'))
+        self._.ocDepth = float(self.cnc.headAxes.get_position('w')['w'])
         
-        self._.ocX = float(self.cnc.linearAxes.get_position('x'))
-        self._.ocY = float(self.cnc.linearAxes.get_position('y'))
-        self._.ocZ = float(self.cnc.linearAxes.get_position('z'))
-        self._.ocB = float(self.cnc.headAxes.get_position('b'))
-        self._.ocW = float(self.cnc.headAxes.get_position('w'))
+        self._.ocX = float(self.cnc.linearAxes.get_position('x')['x'])
+        self._.ocY = float(self.cnc.linearAxes.get_position('y')['y'])
+        self._.ocZ = float(self.cnc.linearAxes.get_position('z')['z'])
+        self._.ocB = float(self.cnc.headAxes.get_position('b')['b'])
+        self._.ocW = float(self.cnc.headAxes.get_position('w')['w'])
     
     def update_frames_display(self):
         state = 0

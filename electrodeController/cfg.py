@@ -11,8 +11,8 @@ from bjgcfg import *
 assign_cfg_module(__name__)
 
 useManualImageProcessor = True
-fakeCNC = True
-fakeCameras = True
+fakeCNC = False
+fakeCameras = False
 fakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/fakeFrames' % os.getlogin()
 
 cfgDir = '/Users/%s/Repositories/coxlab/cncController/electrodeController/cfgs' % os.getlogin()
