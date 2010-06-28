@@ -27,8 +27,15 @@ class OCController (NSObject, electrodeController.controller.Controller):
     ocW = objc.ivar(u"ocW")
     ocB = objc.ivar(u"ocB")
     
+    ocXInc = objc.ivar(u"ocXInc")
+    ocYInc = objc.ivar(u"ocYInc")
+    ocZInc = objc.ivar(u"ocZInc")
+    ocWInc = objc.ivar(u"ocWInc")
+    ocBInc = objc.ivar(u"ocBInc")
+    
     #framesDisplay = objc.IBOutlet()
-    framesStatus = objc.ivar(u"framesStatus")
+    # TODO rename this to ocFrameStatus
+    ocFramesStatus = objc.ivar(u"ocFramesStatus")
     
     meshView = objc.IBOutlet()
     
@@ -71,6 +78,13 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.zoomPoints.append({'c':'r','lx':1024.2244, 'ly': 847.3844, 'rx': 384.3434, 'ry': 0.01121, 'x': 0.43, 'y': 23.33, 'z': 400.4343})
         self.zoomPoints.append({'c':'b','lx':0.0, 'ly':0., 'rx':0., 'ry':0., 'x':0., 'y':0., 'z':0., 'angle':5.0})
         self.zoomPointsController.rearrangeObjects()
+        
+        # set default movement increments
+        self._.ocXInc = cfg.xInc
+        self._.ocYInc = cfg.yInc
+        self._.ocZInc = cfg.zInc
+        self._.ocBInc = cfg.bInc
+        self._.ocWInc = cfg.wInc
         
         # update bindings with correct values
         self.update_frames_display()
@@ -212,13 +226,53 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #targetAngleField = objc.IBOutlet()
         pass
     
+    #@IBAction
+    #def moveWAxis_(self, sender):
+    #    #depthTargetField = objc.IBOutlet()
+    #    #depthVelocityField = objc.IBOutlet() # TODO this duplicates bVelocityField, how do I link them?
+    #    #depthLevelIndicator = objc.IBOutlet()
+    #    raise Exception
+    #    pass
+    
     @IBAction
-    def moveWAxis_(self, sender):
-        #depthTargetField = objc.IBOutlet()
-        #depthVelocityField = objc.IBOutlet() # TODO this duplicates bVelocityField, how do I link them?
-        #depthLevelIndicator = objc.IBOutlet()
-        raise Exception
-        pass
+    def moveXAxisLeft_(self, sender):
+        self.cnc.linearAxes.move_relative(-self.ocXInc, 'x')
+    
+    @IBAction
+    def moveXAxisRight_(self, sender):
+        self.cnc.linearAxes.move_relative(self.ocXInc, 'x')
+    
+    @IBAction
+    def moveYAxisForward_(self, sender):
+        self.cnc.linearAxes.move_relative(self.ocYInc, 'y')
+    
+    @IBAction
+    def moveYAxisBack_(self, sender):
+        self.cnc.linearAxes.move_relative(-self.ocYInc, 'y')
+    
+    @IBAction
+    def moveZAxisUp_(self, sender):
+        self.cnc.linearAxes.move_relative(-self.ocZInc, 'z')
+    
+    @IBAction
+    def moveZAxisDown_(self, sender):
+        self.cnc.linearAxes.move_relative(self.ocZInc, 'z')
+    
+    @IBAction
+    def moveWAxisUp_(self, sender):
+        self.cnc.headAxes.move_relative(-self.ocWInc, 'w')
+    
+    @IBAction
+    def moveWAxisDown_(self, sender):
+        self.cnc.headAxes.move_relative(self.ocWInc, 'w')
+    
+    @IBAction
+    def moveBAxisClockwise_(self, sender):
+        self.cnc.headAxes.move_relative(-self.ocBInc, 'b')
+    
+    @IBAction
+    def moveBAxisCounterClockwise_(self, sender):
+        self.cnc.headAxes.move_relative(self.ocBInc, 'b')
     
     # ========================= UI related functions ==========================
     
@@ -287,7 +341,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.depthVelocityField.setFloatValue_(bVel)
     
     def update_position(self):
-        if self.framesStatus == 3: # all frames are a good
+        if self.ocFramesStatus == 3: # all frames are a good
             # don't read from linear axes
             cncCoord = numpy.ones(4,dtype=numpy.float64)
             cncCoord[:3] = self.cnc.get_tip_position_on_arm()
@@ -305,7 +359,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             # then apply the transform from cnc to skull
             tMatrix = self.fManager.get_transformation_matrix("cnc","skull")
             # TODO check the order of this
-            self.meshView.electrodMatrix = tMatrix * cncMatrix
+            self.meshView.electrodeMatrix = tMatrix * cncMatrix
             self.meshView.drawElectrode = True
             self.meshView.scheduleRedisplay()
         
@@ -324,7 +378,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if self.fManager.test_route('skull','tricorner'): state += 1
         if self.fManager.test_route('tricorner','camera'): state += 1
         if self.fManager.test_route('camera','cnc'): state += 1
-        self._.framesStatus = state
+        self._.ocFramesStatus = state
     
     @IBAction
     def updateFramesDisplay_(self, sender):

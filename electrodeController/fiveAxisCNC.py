@@ -49,7 +49,10 @@ class FiveAxisCNC:
         self.arm_length -= wPosition
         return self.arm_length
     
+    def get_position_on_arm(self, angle, length):
+        return numpy.sin(angle)*length, 0., numpy.cos(angle)*length
+    
     def get_tip_position_on_arm(self):
         b = numpy.radians(float(self.headAxes.get_position('b')['b']))
         w = float(self.headAxes.get_position('w')['w'])
-        return numpy.sin(b)*(w+self.arm_length), 0., numpy.cos(b)*(w+self.arm_length)
+        return self.get_position_on_arm(b, w)

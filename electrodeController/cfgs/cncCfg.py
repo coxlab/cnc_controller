@@ -13,7 +13,7 @@ serialConnectionTimeout = 4.0
 cncRegDeltaAngle = 2.0 # in degrees
 
 # -- X --
-xStep = 1.27
+xInc = 1.27
 xPosLimit = 12.70
 xNegLimit = -12.70
 # QM: motor type (3: step motor)
@@ -99,7 +99,7 @@ xAxisConfig="""QM3
     QD"""
 
 # -- Y --
-yStep = 1.27
+yInc = 1.27
 yPosLimit = 12.70
 yNegLimit = -12.70
 yAxisConfig="""QM3
@@ -128,7 +128,7 @@ yAxisConfig="""QM3
     QD"""
 
 # -- Z --
-zStep = 1.27
+zInc = 1.27
 zPosLimit = 12.70
 zNegLimit = -12.70
 zAxisConfig="""QM3
@@ -157,7 +157,7 @@ zAxisConfig="""QM3
     QD"""
 
 # -- B --
-bStep = 1.0
+bInc = 1.0
 
 # -- W --
-wStep = 1.0
+wInc = 1.0

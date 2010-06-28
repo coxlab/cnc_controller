@@ -16,13 +16,14 @@
 		BF1E318F10CB3A2E00163053 /* clockwiseArrows.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1E318D10CB3A2E00163053 /* clockwiseArrows.png */; };
 		BF1E319010CB3A2E00163053 /* counterclockwiseArrows.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */; };
 		BF43D6AC10CB2BB900F1F642 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = BF43D6AB10CB2BB900F1F642 /* main.py */; };
+		BF54661111D8D4A70095F0ED /* ocAtlasView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF54661011D8D4A70095F0ED /* ocAtlasView.py */; };
 		BF5E23BE11C138FD003EF057 /* ocController.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E23BD11C138FD003EF057 /* ocController.py */; };
-		BF5E240511C13A3F003EF057 /* electrodeController in Resources */ = {isa = PBXBuildFile; fileRef = BF5E23C511C13A3F003EF057 /* electrodeController */; };
 		BF5E3AD011C13FAC003EF057 /* python2.6_env in Resources */ = {isa = PBXBuildFile; fileRef = BF5E245D11C13FA9003EF057 /* python2.6_env */; };
 		BF5E3AF811C15608003EF057 /* Interface.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF5E3AF711C15608003EF057 /* Interface.xib */; };
 		BF5E3B8811C16EC8003EF057 /* ocZoomView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E3B8711C16EC8003EF057 /* ocZoomView.py */; };
 		BF91F36111D5366000049A44 /* zoomView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF91F36011D5366000049A44 /* zoomView.py */; };
 		BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BF9C84D711527B5100C68A5A /* physiology_icon.icns */; };
+		BFB2B96E11D8FAE2004679DA /* electrodeController in Resources */ = {isa = PBXBuildFile; fileRef = BFB2B92711D8FAE2004679DA /* electrodeController */; };
 		BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */ = {isa = PBXBuildFile; fileRef = BFD1491511D3EE5E002CA13F /* a_10.obj */; };
 		BFDBF0D110CDBF7C00962C45 /* example.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDBF0D010CDBF7C00962C45 /* example.png */; };
 		BFF6149011C3D7CF00B76C8A /* ocCenteringSlider.py in Resources */ = {isa = PBXBuildFile; fileRef = BFF6148F11C3D7CF00B76C8A /* ocCenteringSlider.py */; };
@@ -44,13 +45,14 @@
 		BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = counterclockwiseArrows.png; path = media/counterclockwiseArrows.png; sourceTree = "<group>"; };
 		BF330D4610CD46D10009217F /* cncController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cncController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF43D6AB10CB2BB900F1F642 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
+		BF54661011D8D4A70095F0ED /* ocAtlasView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocAtlasView.py; sourceTree = "<group>"; };
 		BF5E23BD11C138FD003EF057 /* ocController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocController.py; sourceTree = "<group>"; };
-		BF5E23C511C13A3F003EF057 /* electrodeController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = electrodeController; sourceTree = "<group>"; };
 		BF5E245D11C13FA9003EF057 /* python2.6_env */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python2.6_env; sourceTree = "<group>"; };
 		BF5E3AF711C15608003EF057 /* Interface.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Interface.xib; sourceTree = "<group>"; };
 		BF5E3B8711C16EC8003EF057 /* ocZoomView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocZoomView.py; sourceTree = "<group>"; };
 		BF91F36011D5366000049A44 /* zoomView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = zoomView.py; sourceTree = "<group>"; };
 		BF9C84D711527B5100C68A5A /* physiology_icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = physiology_icon.icns; sourceTree = "<group>"; };
+		BFB2B92711D8FAE2004679DA /* electrodeController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = electrodeController; sourceTree = "<group>"; };
 		BFD1491511D3EE5E002CA13F /* a_10.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = a_10.obj; path = media/a_10.obj; sourceTree = "<group>"; };
 		BFDBF0D010CDBF7C00962C45 /* example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = example.png; path = media/example.png; sourceTree = "<group>"; };
 		BFF6148F11C3D7CF00B76C8A /* ocCenteringSlider.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocCenteringSlider.py; sourceTree = "<group>"; };
@@ -116,7 +118,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				BF5E23C511C13A3F003EF057 /* electrodeController */,
+				BFB2B92711D8FAE2004679DA /* electrodeController */,
 				BF0C00DF11C5A0B200D994B0 /* quaternion.py */,
 				256AC3F00F4B6AF500CF3369 /* cncController_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -126,6 +128,7 @@
 				BF5E3B8711C16EC8003EF057 /* ocZoomView.py */,
 				BF91F36011D5366000049A44 /* zoomView.py */,
 				BF0C00D011C5773700D994B0 /* ocMeshView.py */,
+				BF54661011D8D4A70095F0ED /* ocAtlasView.py */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -215,7 +218,6 @@
 				BFDBF0D110CDBF7C00962C45 /* example.png in Resources */,
 				BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */,
 				BF5E23BE11C138FD003EF057 /* ocController.py in Resources */,
-				BF5E240511C13A3F003EF057 /* electrodeController in Resources */,
 				BF5E3AD011C13FAC003EF057 /* python2.6_env in Resources */,
 				BF5E3AF811C15608003EF057 /* Interface.xib in Resources */,
 				BF5E3B8811C16EC8003EF057 /* ocZoomView.py in Resources */,
@@ -224,6 +226,8 @@
 				BF0C00E011C5A0B200D994B0 /* quaternion.py in Resources */,
 				BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */,
 				BF91F36111D5366000049A44 /* zoomView.py in Resources */,
+				BF54661111D8D4A70095F0ED /* ocAtlasView.py in Resources */,
+				BFB2B96E11D8FAE2004679DA /* electrodeController in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

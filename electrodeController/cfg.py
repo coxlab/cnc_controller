@@ -16,7 +16,7 @@ fakeCameras = True
 fakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/fakeFrames' % os.getlogin()
 
 cfgDir = '/Users/%s/Repositories/coxlab/cncController/electrodeController/cfgs' % os.getlogin()
-externalCfgs = ['cameraCfg.py', 'cncCfg.py', 'framesCfg.py', 'electrodeCfg.py']
+externalCfgs = ['atlasCfg.py', 'cameraCfg.py', 'cncCfg.py', 'framesCfg.py', 'electrodeCfg.py']
 
 # import custom configuration file, which will overwrite default values
 if os.path.exists('%s/%s' % (cfgDir, 'customCfg.py')):
