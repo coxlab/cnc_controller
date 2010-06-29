@@ -29,6 +29,14 @@ class OCZoomView(NSOpenGLView, ZoomView):
         self.load_texture_from_string(image.tostring())
         self.scheduleRedisplay()
     
+    @IBAction
+    def showHelp_(self, sender):
+        alert = NSAlert.alloc().init()
+        alert.setMessageText_("Camera Tab Help")
+        alert.setInformativeText_("Right Click = add Zoom Area\nLeft Drag = move Zoom Area\nShift+Right Click = delete Zoom Area\nScroll = Zoom in/out")
+        alert.setAlertStyle_(NSInformationalAlertStyle)
+        alert.runModal()
+    
     def mouseDown_(self, event):
         x,y = self.oc_to_gl(self.convertPoint_fromView_(event.locationInWindow(), None))
         self.process_mouse(GLUT_LEFT_BUTTON, GLUT_DOWN, x, y)
@@ -51,8 +59,16 @@ class OCZoomView(NSOpenGLView, ZoomView):
     
     def rightMouseUp_(self, event):
         x,y = self.oc_to_gl(self.convertPoint_fromView_(event.locationInWindow(), None))
-        self.add_zoomed_area(x/self.scale, y/self.scale)
-        self.otherView.add_zoomed_area(x/self.otherView.scale, y/self.otherView.scale)
+        
+        if event.modifierFlags() & NSShiftKeyMask:
+            d, i = self.find_closest_zoom_distance(x/self.scale, y/self.scale)
+            if i != -1:
+                self.zooms.remove(self.zooms[i])
+                self.otherView.zooms.remove(self.otherView.zooms[i])
+        else:
+            self.add_zoomed_area(x/self.scale, y/self.scale)
+            self.otherView.add_zoomed_area(x/self.otherView.scale, y/self.otherView.scale)
+        
         self.process_mouse(GLUT_RIGHT_BUTTON, GLUT_DOWN, x, y)
         self.otherView.scheduleRedisplay()
         self.scheduleRedisplay()
@@ -62,7 +78,8 @@ class OCZoomView(NSOpenGLView, ZoomView):
     
     def scrollWheel_(self, event):
         x,y = self.oc_to_gl(self.convertPoint_fromView_(event.locationInWindow(), None))
-        self.selectedZoom = self.find_closest_zoom_index(x, y)
+        
+        #self.selectedZoom = self.find_closest_zoom_index(x/self.scale, y/self.scale)
         
         dZoom = event.deltaY()
         newZoom = self.zooms[self.selectedZoom]['z'] * (1.0 + dZoom)

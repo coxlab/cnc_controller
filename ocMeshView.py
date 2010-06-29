@@ -83,6 +83,21 @@ class OCMeshView(NSOpenGLView):
         self.drawElectrode = True
         self.electrodeMatrix = numpy.matrix(numpy.identity(4,dtype=numpy.float64))
     
+    @IBAction
+    def showHelp_(self, sender):
+        alert = NSAlert.alloc().init()
+        alert.setMessageText_("Mesh Tab Help")
+        alert.setInformativeText_("""
+        Left Drag = Rotate View
+        Right Drag = Translate View
+        Scroll = Zoom
+        t = toggle Texture
+        p = toggle pointcloud
+        m = toggle mesh
+        r = reset view""")
+        alert.setAlertStyle_(NSInformationalAlertStyle)
+        alert.runModal()
+    
     # so we get a keyDown event
     def acceptsFirstResponder(self):
         return YES

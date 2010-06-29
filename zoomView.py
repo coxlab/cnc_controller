@@ -444,15 +444,19 @@ class ZoomView:
             c = self._defaultZoomColors[len(self.zooms) % len(self._defaultZoomColors)]
         self.zooms.append({'x': x, 'y': y, 'z': z, 'c': c})
     
-    def find_closest_zoom_index(self, x, y):
-        closest = 0
+    def find_closest_zoom_distance(self, x, y):
+        closest = -1
         dist = 1000000
         for (i, z) in enumerate(self.zooms):
             d = ((x - z['x']) ** 2 + (y - z['y']) ** 2) ** 0.5
             if d < dist:
                 closest = i
                 dist = d
-        return closest
+        return dist, closest
+    
+    def find_closest_zoom_index(self, x, y):
+        return self.find_closest_zoom_distance(x,y)[1]
+        
 
 
 

@@ -427,11 +427,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
         # TODO hook this up to the GUI
         if all(located):
             print "Cameras located"
-            cfg.cameraLog('Cameras Located Successfully')
-            cfg.cameraLog('\tID\t\t\tX\tY\tZ')
+            cfg.cameraLog.info('Cameras Located Successfully')
+            cfg.cameraLog.info('\tID\t\t\tX\tY\tZ')
             for c in self.cameras.cameras:
                 p = c.get_position()
-                cfg.cameraLog('\t%i\t%.3f\t%.3f\t%.3f' % (c.camID, p[0], p[1], p[2]))
+                cfg.cameraLog.info('\t%i\t%.3f\t%.3f\t%.3f' % (c.camID, p[0], p[1], p[2]))
         else:
             print "Cameras NOT located"
-            cfg.cameraLog('Camera Localization Failed')
+            cfg.cameraLog.info('Camera Localization Failed')
