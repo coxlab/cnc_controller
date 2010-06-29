@@ -12,10 +12,10 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<integer value="29"/>
-			<integer value="907"/>
+			<integer value="367"/>
 			<integer value="930"/>
+			<integer value="907"/>
 			<integer value="871"/>
-			<integer value="368"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4877,14 +4877,6 @@
 					<int key="connectionID">981</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">loadAnimal:</string>
-						<reference key="source" ref="401468622"/>
-						<reference key="destination" ref="325475918"/>
-					</object>
-					<int key="connectionID">982</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">contentArray: zoomPoints</string>
 						<reference key="source" ref="649340272"/>
@@ -5747,6 +5739,30 @@
 						<reference key="destination" ref="954466672"/>
 					</object>
 					<int key="connectionID">1341</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">tabView</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="553846446"/>
+					</object>
+					<int key="connectionID">1343</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">loadAnimal:</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="325475918"/>
+					</object>
+					<int key="connectionID">1344</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">mainWindow</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="513744381"/>
+					</object>
+					<int key="connectionID">1345</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -8704,9 +8720,9 @@
 				<string key="296.editorWindowContentRectSynchronizationRect">{{475, 832}, {234, 43}}</string>
 				<string key="297.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="298.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBEditorWindowLastContentRect">{{275, 123}, {788, 642}}</string>
+				<string key="367.IBEditorWindowLastContentRect">{{233, 123}, {788, 642}}</string>
 				<string key="367.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBWindowTemplateEditedContentRect">{{275, 123}, {788, 642}}</string>
+				<string key="367.IBWindowTemplateEditedContentRect">{{233, 123}, {788, 642}}</string>
 				<integer value="1" key="367.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="367.editorWindowContentRectSynchronizationRect">{{11, 666}, {480, 270}}</string>
 				<string key="367.windowTemplate.maxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -8997,7 +9013,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1341</int>
+			<int key="maxID">1345</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9051,10 +9067,12 @@
 						<string key="depthVelocityField">id</string>
 						<string key="goToTargetWindow">id</string>
 						<string key="leftZoomView">id</string>
+						<string key="mainWindow">id</string>
 						<string key="meshView">id</string>
 						<string key="motorStatusButton">id</string>
 						<string key="moveRelativeWindow">id</string>
 						<string key="rightZoomView">id</string>
+						<string key="tabView">id</string>
 						<string key="targetAPField">id</string>
 						<string key="targetAngleField">id</string>
 						<string key="targetDVField">id</string>

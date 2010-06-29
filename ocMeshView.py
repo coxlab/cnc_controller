@@ -127,6 +127,7 @@ class OCMeshView(NSOpenGLView):
     def load_obj(self, meshFilename, textureFilename, center=False):
         # so, if this is called before the mesh tab has been visited,
         # gl_inited will be false, and the loading will fail :(
+        # and it will fubar other textures (see zoomView)
         if self.gl_inited == False:
             self.meshTextureFilename = textureFilename
             self.meshFilename = meshFilename

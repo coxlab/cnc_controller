@@ -39,7 +39,8 @@ if not os.path.exists(logDir): os.makedirs(logDir)
 # create instance of root logger
 # TODO I also don't know how to pass this on :(
 logLevel = logging.DEBUG
-log = logging.basicConfig(level=logLevel, filename='%s/root.log' % logDir)
+logging.basicConfig(level=logLevel, filename='%s/root.log' % logDir)
+log = logging.root
 
 
 cameraLogDir = '%s/camera' % logDir

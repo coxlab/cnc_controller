@@ -20,12 +20,12 @@ class ZoomView:
     TODO Um... document this
     """
     
-    _defaultZoomColors = [(1., 0., 0., 0.5),
-                (0., 1., 0., 0.5),
-                (0., 0., 1., 0.5),
-                (1., 1., 0., 0.5),
-                (1., 0., 1., 0.5),
-                (0., 1., 1., 0.5)]
+    _defaultZoomColors = [(255, 0, 0, 255),
+                (0, 255, 0, 255),
+                (0, 0, 255, 255),
+                (255, 255, 0, 255),
+                (255, 0, 255, 255),
+                (0, 255, 255, 255)]
     
     def __init__(self): #, scale=1.):
         self.imageTexture = None
@@ -61,6 +61,11 @@ class ZoomView:
         #self.draw_test_quad()
     
     def draw_zoom(self, index):
+        # TODO there is some bug that when I:
+        # - open program with mesh tab shown
+        # - switch to camera tab
+        # - load animal
+        # the color of ONLY the right zoom view goes screwy
         zoom = self.zooms[index]
         glXY = self._image_to_gl(zoom['x'], zoom['y'])
         glHalfSize = 0.3 # this is a proportion of the image size
@@ -69,7 +74,7 @@ class ZoomView:
         texHalfSize = glHalfSize / 2.
         
         # zoomed box
-        glColor4f(1.0, 1.0, 1.0, 1.0)
+        glColor(1.0, 1.0, 1.0, 1.0)
         #glColor4f(0.5, 0.5, 0.5, 1.0)
         glBindTexture(GL_TEXTURE_2D, self.imageTexture)
         #glBindTexture(GL_TEXTURE_2D, self.zoomTexture)
@@ -101,7 +106,7 @@ class ZoomView:
         
         
         # crosshairs
-        glColor4f(*zoom['c'])
+        glColor(*zoom['c'])
         glBegin(GL_LINES)
         glVertex2f(glXY[0]-glHalfSize, glXY[1])
         glVertex2f(glXY[0]+glHalfSize, glXY[1])
@@ -112,7 +117,7 @@ class ZoomView:
         # if selected:
         if index == self.selectedZoom:
             # draw border
-            glColor4f(*zoom['c'])
+            glColor(*zoom['c'])
             glBegin(GL_LINE_STRIP)
             glVertex2f(glXY[0]-glHalfSize, glXY[1]-glHalfSize)
             glVertex2f(glXY[0]+glHalfSize, glXY[1]-glHalfSize)

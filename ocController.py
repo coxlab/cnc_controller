@@ -38,6 +38,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
     ocFramesStatus = objc.ivar(u"ocFramesStatus")
     
     meshView = objc.IBOutlet()
+    tabView = objc.IBOutlet()
+    mainWindow = objc.IBOutlet()
     
     depthTargetField = objc.IBOutlet()
     depthVelocityField = objc.IBOutlet() # TODO this duplicates bVelocityField, how do I link them?
@@ -135,6 +137,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def loadAnimal_(self, sender):
+        # I need to switch to the mesh view first because of a bug in load_obj that
+        # fubars other textures and prevents the obj from loading properly
+        self.tabView.selectTabViewItemAtIndex_(1)
+        
+        
         panel = NSOpenPanel.openPanel()
         panel.setCanChooseDirectories_(NO)
         panel.setCanChooseFiles_(YES)
@@ -169,10 +176,17 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #                "/Users/graham/Repositories/coxlab/structured_light_stereotaxy/software/viewer/example_mesh/texture.jpg")
         #self.load_mesh(meshFilename, textureFilename)
         
+        self.mainWindow.setTitle_(u"Loading mesh... this may take a while")
+        self.mainWindow.setAlphaValue_(0.8)
+        
+        
         self.load_animal(animalCfg)
         #print cfg.animalMesh, cfg.animalTexture
         self.meshView.load_obj(cfg.animalMesh, cfg.animalTexture)
         #self.meshView.load_obj("%s/skull.obj" % cfg.meshDir, "%s/Texture/texture.jpg" % cfg.meshDir)
+        
+        self.mainWindow.setAlphaValue_(1.0)
+        self.mainWindow.setTitle_(animalCfg)
         self.updateFramesDisplay_(sender)
     
     @IBAction
