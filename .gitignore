@@ -19,3 +19,6 @@ customCfg.py
 
 # ignore scan directory
 media/testScan
+
+# ignore log directory
+logs/

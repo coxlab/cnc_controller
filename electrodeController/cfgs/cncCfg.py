@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import logging, os
+
 # ----- CNC settings ------
 cncLinearAxesIP = "169.254.0.9"
 cncLinearAxesPort = 8003

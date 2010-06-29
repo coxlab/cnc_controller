@@ -5,6 +5,8 @@ from numpy.linalg import inv
 
 import vector
 
+import cfg
+
 # !!!! 3 points on arc, to define plane of rotation and length of arm
 
 # manage a stack of coordinate frames with transformation matrices relating each level in the stack to the next
@@ -190,6 +192,8 @@ class FrameManager:
             self.frameStack[fromIndex] = tMatrix
         else:
             self.frameStack[toIndex] = inv(tMatrix)
+        cfg.framesLog.info('Adding Frame %s to %s' % (fromFrame, toFrame))
+        cfg.framesLog.info(str(array(tMatrix)))
     
     def test_route(self, fromFrame, toFrame):
         fromIndex = self.frameNames.index(fromFrame)

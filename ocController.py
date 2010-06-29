@@ -348,13 +348,13 @@ class OCController (NSObject, electrodeController.controller.Controller):
     def update_position(self):
         print "update_position:", self.ocFramesStatus
         if int(self.ocFramesStatus) == 3: # all frames are a good
-            print "all frames are good to go"
+            #print "all frames are good to go"
             # don't read from linear axes
             cncCoord = numpy.ones(4,dtype=numpy.float64)
             cncCoord[:3] = self.cnc.get_tip_position_on_arm()
             skullCoord = self.fManager.transform_point(cncCoord, "cnc", "skull")[0]
-            print "Found skullCoord:", skullCoord
-            print "updating UI"
+            #print "Found skullCoord:", skullCoord
+            #print "updating UI"
             # ML = X
             self._.ocML = skullCoord[0]
             # AP = Y
@@ -368,11 +368,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
             # then apply the transform from cnc to skull
             tMatrix = self.fManager.get_transformation_matrix("cnc","skull")
             # TODO check the order of this
-            print "updating mesh view"
+            #print "updating mesh view"
             self.meshView.electrodeMatrix = tMatrix * cncMatrix
             self.meshView.drawElectrode = True
             self.meshView.scheduleRedisplay()
-            print "skull coordinates updated"
+            #print "skull coordinates updated"
+            cfg.log.info('ML:%.3f AP:%.3f DV:%.3f' % (self.ocML, self.ocAP, self.ocDV))
         
         self._.ocAngle = float(self.cnc.headAxes.get_position('b')['b'])
         # TODO this should be (target - w) not just w
@@ -383,6 +384,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self._.ocZ = float(self.cnc.linearAxes.get_position('z')['z'])
         self._.ocB = float(self.cnc.headAxes.get_position('b')['b'])
         self._.ocW = float(self.cnc.headAxes.get_position('w')['w'])
+        
+        # logging
+        cfg.cncLog.info('X:%.3f Y:%.3f Z:%.3f B:%.3f W:%.3f' % (self.ocX, self.ocY, self.ocZ, self.ocB, self.ocW))
     
     def update_frames_display(self):
         state = 0
@@ -390,7 +394,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if self.fManager.test_route('tricorner','camera'): state += 1
         if self.fManager.test_route('camera','cnc'): state += 1
         self._.ocFramesStatus = state
-        print "Frames state:", state
+        #print "Frames state:", state
         if state == 3:
             self.update_position()
     
@@ -423,5 +427,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
         # TODO hook this up to the GUI
         if all(located):
             print "Cameras located"
+            cfg.cameraLog('Cameras Located Successfully')
+            cfg.cameraLog('\tID\t\t\tX\tY\tZ')
+            for c in self.cameras.cameras:
+                p = c.get_position()
+                cfg.cameraLog('\t%i\t%.3f\t%.3f\t%.3f' % (c.camID, p[0], p[1], p[2]))
         else:
             print "Cameras NOT located"
+            cfg.cameraLog('Camera Localization Failed')

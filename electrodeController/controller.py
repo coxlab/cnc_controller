@@ -60,6 +60,9 @@ class Controller:
         # calculate transformation matrix and add to frameStack
         oPoints = cfg.tcRegPoints
         M = vector.calculate_rigid_transform(oPoints,tPoints)
+        cfg.framesLog.info('Registering cameras with points in (tcFrame, camera):')
+        cfg.framesLog.info(oPoints)
+        cfg.framesLog.info(tPoints)
         self.fManager.add_transformation_matrix('tricorner', 'camera', M)
     
     
@@ -70,6 +73,9 @@ class Controller:
                                 [numpy.sin(angles[2])*r, 0., numpy.cos(angles[2])*r, 1.]])
         
         M = vector.calculate_rigid_transform(oPoints,locations) #TODO check that this is correct
+        cfg.framesLog.info('Registering cnc with points in (camera, cnc):')
+        cfg.framesLog.info(oPoints)
+        cfg.framesLog.info(locations)
         self.fManager.add_transformation_matrix('camera', 'cnc', M)
         
     def automated_find_tip(self):

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import logging
 
 # ----- Camera Calibration Settings -----
 # ordered as 'left', 'right'

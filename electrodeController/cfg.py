@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os
+import logging, os, time
 
 # the first time this is imported, the module is created,
 # subsequent calls to import (I think) just link to the already loaded, and potentially modified module
@@ -29,3 +29,41 @@ for e in externalCfgs:
         load_external_cfg(eCfg)
     else:
         raise Exception ('%s does not exist' % eCfg)
+
+
+# setup logging
+# TODO I can't timestamp this at the moment because I don't know how to pass
+# logDir to the external cfgs
+logDir = '/Users/%s/Repositories/coxlab/cncController/logs/%i' % (os.getlogin(), time.time())
+if not os.path.exists(logDir): os.makedirs(logDir)
+# create instance of root logger
+# TODO I also don't know how to pass this on :(
+logLevel = logging.DEBUG
+log = logging.basicConfig(level=logLevel, filename='%s/root.log' % logDir)
+
+
+cameraLogDir = '%s/camera' % logDir
+#cameraLogDir = '/Users/%s/Repositories/coxlab/cncController/logs/camera/' % os.getlogin()
+if not os.path.exists(cameraLogDir): os.makedirs(cameraLogDir)
+
+cameraLog = logging.getLogger('camera')
+cameraLog.setLevel(logLevel)
+cameraLog.addHandler(logging.FileHandler('%s/camera.log' % cameraLogDir))
+
+
+cncLogDir = '%s/cnc' % logDir
+#cncLogDir = '/Users/%s/Repositories/coxlab/cncController/logs/cnc/' % os.getlogin()
+if not os.path.exists(cncLogDir): os.makedirs(cncLogDir)
+
+cncLog = logging.getLogger('cnc')
+cncLog.setLevel(logLevel)
+cncLog.addHandler(logging.FileHandler('%s/cnc.log' % cncLogDir))
+
+
+framesLogDir = '%s/frames' % logDir
+#framesLogDir = '/Users/%s/Repositories/coxlab/cncController/logs/frames/' % os.getlogin()
+if not os.path.exists(framesLogDir): os.makedirs(framesLogDir)
+
+framesLog = logging.getLogger('frames')
+framesLog.setLevel(logLevel)
+framesLog.addHandler(logging.FileHandler('%s/frames.log' % framesLogDir))
