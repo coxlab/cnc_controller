@@ -197,7 +197,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         # get points from saved points and angles
         tPoints = []
         angles = []
-        ws
+        ws = []
         for z in self.zoomPoints:
             if all((z.has_key('x'),z.has_key('y'),z.has_key('z'),z.has_key('angle'),z.has_key('w'))):
                 tPoints.append([z['x'],z['y'],z['z'],1.])
@@ -214,6 +214,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
         for w in ws:
             if w != wPosition:
                 print "register_cnc requires 3 points with the same w position"
+        tPoints = numpy.array(tPoints)
+        angles = numpy.array(angles)
+        print "going to register_cnc in controller"
         self.register_cnc(tPoints, angles, wPosition)
         self.updateFramesDisplay_(sender)
     
@@ -268,10 +271,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def moveBAxisClockwise_(self, sender):
+        print "Trying to move Clockwise(LEFT)",self.ocBInc
         self.cnc.headAxes.move_relative(-self.ocBInc, 'b')
     
     @IBAction
     def moveBAxisCounterClockwise_(self, sender):
+        print "Trying to move CounterClockWise(RIGHT)", self.ocBInc
         self.cnc.headAxes.move_relative(self.ocBInc, 'b')
     
     # ========================= UI related functions ==========================
@@ -341,11 +346,15 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.depthVelocityField.setFloatValue_(bVel)
     
     def update_position(self):
-        if self.ocFramesStatus == 3: # all frames are a good
+        print "update_position:", self.ocFramesStatus
+        if int(self.ocFramesStatus) == 3: # all frames are a good
+            print "all frames are good to go"
             # don't read from linear axes
             cncCoord = numpy.ones(4,dtype=numpy.float64)
             cncCoord[:3] = self.cnc.get_tip_position_on_arm()
-            skullCoord = self.fManager.transform_point(cncCoord, "cnc", "skull")
+            skullCoord = self.fManager.transform_point(cncCoord, "cnc", "skull")[0]
+            print "Found skullCoord:", skullCoord
+            print "updating UI"
             # ML = X
             self._.ocML = skullCoord[0]
             # AP = Y
@@ -359,9 +368,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
             # then apply the transform from cnc to skull
             tMatrix = self.fManager.get_transformation_matrix("cnc","skull")
             # TODO check the order of this
+            print "updating mesh view"
             self.meshView.electrodeMatrix = tMatrix * cncMatrix
             self.meshView.drawElectrode = True
             self.meshView.scheduleRedisplay()
+            print "skull coordinates updated"
         
         self._.ocAngle = float(self.cnc.headAxes.get_position('b')['b'])
         # TODO this should be (target - w) not just w
@@ -379,6 +390,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if self.fManager.test_route('tricorner','camera'): state += 1
         if self.fManager.test_route('camera','cnc'): state += 1
         self._.ocFramesStatus = state
+        print "Frames state:", state
+        if state == 3:
+            self.update_position()
     
     @IBAction
     def updateFramesDisplay_(self, sender):
@@ -398,14 +412,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def locateCameras_(self, sender):
         ims, s = self.cameras.capture_localization_images(cfg.gridSize)
-        
-        self.leftZoomView.set_image_from_cv(ims[0])
-        self.rightZoomView.set_image_from_cv(ims[1])
+        print ims, s
+        self.leftZoomView.set_image_from_cv(ims[0][0])
+        self.rightZoomView.set_image_from_cv(ims[1][0])
+        print s
         if s == True:
             self.cameras.locate(cfg.gridSize, cfg.gridBlockSize)
         
         located = self.cameras.get_located()
-        
         # TODO hook this up to the GUI
         if all(located):
             print "Cameras located"

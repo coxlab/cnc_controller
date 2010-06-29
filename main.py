@@ -8,6 +8,8 @@
 
 #import modules required by application
 
+import numpy
+
 import objc
 import Foundation
 import AppKit

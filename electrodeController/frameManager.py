@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from numpy import *
+from numpy.linalg import inv
 
 import vector
 
@@ -181,6 +182,9 @@ class FrameManager:
         fromIndex = self.frameNames.index(fromFrame)
         toIndex = self.frameNames.index(toFrame)
         if toIndex - fromIndex != 1:
+            print self.frameStack
+            print self.frameNames
+            print self.frameNames.index(fromFrame), self.frameNames.index(toFrame)
             raise ValueError('Invalid from and to frames(%s, %s)' % (fromFrame, toFrame))
         elif toIndex > fromIndex:
             self.frameStack[fromIndex] = tMatrix
@@ -214,7 +218,7 @@ class FrameManager:
         return self._get_transformation_matrix_with_indices(fromIndex, toIndex)
     
     def transform_point(self, point, fromFrame, toFrame):
-        return point * self.get_transformation_matrix(fromFrame, toFrame)
+        return array(array(point) * self.get_transformation_matrix(fromFrame, toFrame))
     
     def _get_transformation_matrix_with_indices(self, fromIndex, toIndex):
         direction = toIndex - fromIndex

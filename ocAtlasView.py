@@ -40,7 +40,7 @@ class OCAtlasView (NSObject):
         # find location of tip
         tip = numpy.ones(4,dtype=numpy.float64)
         tip[:3] = self.controller.cnc.get_tip_position_on_arm()
-        tip = self.controller.fManager.transform_point(tip, "cnc", "skull")
+        tip = self.controller.fManager.transform_point(tip, "cnc", "skull")[0]
         
         # find which picture contains the tip
         for k, v in cfg.atlasSliceLocations.iteritems():
@@ -103,7 +103,7 @@ class OCAtlasView (NSObject):
         # get electrode tip location in black
         tip = numpy.ones(4,dtype=numpy.float64)
         tip[:3] = self.controller.cnc.get_tip_position_on_arm()
-        tip = self.controller.fManager.transform_point(tip, "cnc", "skull")
+        tip = self.controller.fManager.transform_point(tip, "cnc", "skull")[0]
         #  small black circle for tip
         if tip[1] <= apMax and tip[1] >= apMin:
             draw_circle(mm_to_canvas(tip[0],tip[2]),10,NSColor.blackColor())
@@ -112,7 +112,7 @@ class OCAtlasView (NSObject):
         for padOffset in cfg.electrodePadOffsets:
             pad = numpy.ones(4,dtype=numpy.float64)
             pad[:3] = self.controller.cnc.get_position_on_arm(armAngle, armOffset + padOffset)
-            pad = self.controller.fManager.transform_point(tip, "cnc", "skull")
+            pad = self.controller.fManager.transform_point(tip, "cnc", "skull")[0]
             if pad[1] <= apMax and pad[1] >=apMin:
                 draw_circle(mm_to_canvas(pad[0],pad[2]),10,NSColor.redColor())
             
@@ -120,7 +120,7 @@ class OCAtlasView (NSObject):
         #  small blue circle for ref pad
         ref = numpy.ones(4,dtype=numpy.float64)
         ref[:3] = self.controller.cnc.get_position_on_arm(armAngle, armOffset + cfg.electrodeRefOffset)
-        ref = self.controller.fManager.transform_point(ref, "cnc", "skull")
+        ref = self.controller.fManager.transform_point(ref, "cnc", "skull")[0]
         if ref[1] < apMax and ref[1] >= apMin:
             draw_circle(mm_to_canvas(ref[0],ref[2]),10,NSColor.blueColor())
         
