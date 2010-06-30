@@ -1,0 +1,205 @@
+#!/usr/bin/env python
+"""
+data to plot:
+    xx = number
+    ss = string
+    
+    camera location
+        INFO:camera:Cameras Located Successfully
+        INFO:camera:\tID\t\tX:\tY\tZ
+        INFO:camera:\txx\txx\txx\txx
+    
+    matrix (find good way to show it)
+        
+        INFO:frames:Adding Frame ss to ss
+    
+    frame registration points:
+        tcFrame -> camera
+        camera -> cnc
+        
+        INFO:frames:Registering {cameras/cnc} with points in (ss, ss):
+        INFO:frames:[[ xx xx xx xx]
+            [ xx xx xx xx]
+            [ xx xx xx xx]
+            [ xx xx xx xx]]
+    
+    resulting points:
+        INFO:root:ML:xx AP:xx DV:xx
+        INFO:cnc:X:xx Y:xx Z:xx B:xx W:xx
+"""
+
+import re
+
+from pylab import *
+from mpl_toolkits.mplot3d import Axes3D
+
+from electrodeController import frameManager
+
+# TODO fetch this from command line
+logDir = 'logs/1277845293'
+
+def get_camera_locations(logFile):
+    """
+    camera location
+        INFO:camera:Cameras Located Successfully
+        INFO:camera:\tID\t\tX:\tY\tZ
+        INFO:camera:\txx\txx\txx\txx"""
+    logFile.seek(0)
+    locations = {}
+    
+    for l in logFile:
+        if re.match(r'INFO:camera:\t[0-9]',l):
+            items = l.split()
+            locations[items[1]] = (float(items[2]), float(items[3]), float(items[4]))
+    
+    return locations
+
+def read_array(lines):
+    items = []
+    for l in lines:
+        s = len(l) - l[::-1].find('[') # should have -1 but see later
+        e = l.find(']')
+        if s < 0 or e < 0 or e <= s:
+            raise IOError("read_array cannot process line: %s" % l)
+        items.append([float(i) for i in l[s:e].split()]) # don't add 1 because I didn't subtract it earlier
+    return array(items)
+
+def get_matrices(logFile):
+    """
+    matrix (find good way to show it)
+        
+        INFO:frames:Adding Frame ss to ss"""
+    logFile.seek(0)
+    matrices = {}
+    
+    l = logFile.readline()
+    while l != '':
+        if re.match(r'INFO:frames:Adding Frame', l):
+            # get to and from
+            fromFrame = l.split()[2]
+            toFrame = l.split()[4]
+            label = '%s to %s' % (fromFrame, toFrame)
+            
+            # get matrix
+            tMatrix = read_array([logFile.readline() for i in xrange(4)])
+            matrices[label] = tMatrix
+        l = logFile.readline()
+    
+    return matrices
+
+def get_frame_registration_points(logFile):
+    """
+    frame registration points:
+        tcFrame -> camera
+        camera -> cnc
+        
+        INFO:frames:Registering {cameras/cnc} with points in (ss, ss):
+        INFO:frames:[[ xx xx xx xx]
+            [ xx xx xx xx]
+            [ xx xx xx xx]
+            [ xx xx xx xx]]"""
+    logFile.seek(0)
+    points = {}
+    
+    l = logFile.readline()
+    while l != '':
+        if re.match(r'INFO:frames:Registering', l):
+            frameName = l.split()[1]
+            
+            oPoints = read_array([logFile.readline() for i in xrange(3)])
+            tPoints = read_array([logFile.readline() for i in xrange(3)])
+            points[frameName] = [oPoints, tPoints]
+        l = logFile.readline()
+    
+    return points
+
+def get_positions(logFile):
+    """
+    resulting points:
+        INFO:root:ML:xx AP:xx DV:xx
+        INFO:cnc:X:xx Y:xx Z:xx B:xx W:xx"""
+    pass
+
+def parse_log_dir(logDir):
+    pass
+
+if __name__ == '__main__':
+    # open the main log file (only once)
+    f = open('%s/root.log' % logDir, 'r')
+    
+    colors = ['b', 'r', 'g', 'y', 'k', 'm']
+    figIndex = 1
+    
+    # get the calculated locations of the two cameras
+    locations = get_camera_locations(f)
+    # ax = Axes3D(figure(figIndex))
+    # figIndex += 1
+    # #ax.set_label('Camera Locations')
+    # for (i,l) in enumerate(locations.values()):
+    #     ax.scatter([l[0]],[l[1]],[l[2]],c=colors[i])
+    
+    # get the calculated transformation matrices between frames
+    matrices = get_matrices(f)
+    # find good way to show matrices
+    
+    # get the registration points used to calculate the transformations
+    points = get_frame_registration_points(f)
+    # for (l,p) in points.iteritems():
+    #     ax = Axes3D(figure(figIndex))
+    #     figIndex += 1
+    #     #ax.set_label(l)
+    #     for (i,s) in enumerate(p):
+    #         ax.scatter(s[:,0],s[:,1],s[:,2],c=colors[i])
+    
+    # construct frame manager from data
+    fm = frameManager.FrameManager(['skull','tricorner','camera','cnc'])
+    for (n,m) in matrices.iteritems():
+        fromFrame = n.split()[0]
+        toFrame = n.split()[2]
+        if toFrame == 'cnc' or toFrame == 'camera':
+            m = inv(m)
+        fm.add_transformation_matrix(fromFrame, toFrame, matrix(m))
+    
+    tcPoints, cTcPoints = points['cameras']
+    cTipPoints, tipPoints = points['cnc']
+    # tcPoints : tricorner refs : in tricorner frame
+    # cTcPoints : tricorner refs : in camera frame
+    # cTipPoints : tip locations : in camera frame
+    # tipPoints : tip locations in cnc frame
+    
+    # plot things in camera frame
+    ax = Axes3D(figure(figIndex))
+    figIndex += 1
+    camLocs = ones((2,4),dtype=float64)
+    camLocs[:,:3] = array(locations.values())
+    #camLocs[:,:3] = array([locations.values()[0],locations.values()[1]])
+    
+    def plot_points_in_frame(plotAxes, points, frameMan, fromFrame, toFrame, **kwargs):
+        points = array(frameMan.transform_point(points,fromFrame,toFrame))
+        ax.scatter(points[:,0],points[:,1],points[:,2],**kwargs)
+    
+    plotFrame = 'camera'
+    
+    plot_points_in_frame(ax, camLocs, fm, 'camera', plotFrame, c=colors[0], s=100, marker='o')
+    
+    plot_points_in_frame(ax, tcPoints, fm, 'tricorner', plotFrame, c=colors[0], s=100, marker='^')
+    plot_points_in_frame(ax, cTcPoints, fm, 'camera', plotFrame, c=colors[1], s=100, marker='^')
+    
+    plot_points_in_frame(ax, tipPoints, fm, 'cnc', plotFrame, c=colors[0], s=100, marker='s')
+    plot_points_in_frame(ax, cTipPoints, fm, 'camera', plotFrame, c=colors[1], s=100, marker='s')
+        
+    
+    # plot tcPoints as seen from camera
+    
+    
+    # tcToCMatrix = matrices['tricorner to camera']
+    # pTcPoints = array(matrix(cTcPoints) * inv(matrix(tcToCMatrix))) # predict backwards
+    # ax.scatter(tcPoints[:,0],tcPoints[:,1],tcPoints[:,2],c=colors[0],s=100,marker='^')
+    # ax.scatter(cTcPoints[:,0],cTcPoints[:,1],cTcPoints[:,2],c=colors[1],s=100,marker='^')
+    # ax.scatter(pTcPoints[:,0],pTcPoints[:,1],pTcPoints[:,2],c=colors[2],s=100,marker='^')
+    
+    # plot cncPoints as seen from camera
+    # cToNMatrix = matrices['camera to cnc']
+    # pCPoints = array(matrix(cncPoints))
+    
+    show()
