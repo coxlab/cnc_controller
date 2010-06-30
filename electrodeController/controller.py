@@ -68,11 +68,13 @@ class Controller:
     
     def register_cnc(self, locations, angles, wPosition):
         r = self.cnc.calculate_arm_length(locations, wPosition) + wPosition
+        cfg.cncLog.info('Found arm length: %f' % r)
+        
         oPoints = numpy.array([[numpy.sin(angles[0])*r, 0., numpy.cos(angles[0])*r, 1.],
                                 [numpy.sin(angles[1])*r, 0., numpy.cos(angles[1])*r, 1.],
                                 [numpy.sin(angles[2])*r, 0., numpy.cos(angles[2])*r, 1.]])
         
-        M = vector.calculate_rigid_transform(oPoints,locations) #TODO check that this is correct
+        M = vector.calculate_rigid_transform(locations,oPoints) #TODO check that this is correct
         cfg.framesLog.info('Registering cnc with points in (camera, cnc):')
         cfg.framesLog.info(oPoints)
         cfg.framesLog.info(locations)

@@ -11,11 +11,11 @@
 			<string key="NS.object.0">762</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="29"/>
 			<integer value="367"/>
-			<integer value="930"/>
-			<integer value="907"/>
+			<integer value="29"/>
 			<integer value="871"/>
+			<integer value="907"/>
+			<integer value="930"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1539,7 +1539,7 @@
 								<object class="NSTabViewItem" id="406980174">
 									<string key="NSIdentifier">1</string>
 									<object class="NSView" key="NSView" id="633158745">
-										<reference key="NSNextResponder" ref="553846446"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">256</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSOpenGLView" id="7007551">
@@ -1580,7 +1580,6 @@
 											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {742, 501}}</string>
-										<reference key="NSSuperview" ref="553846446"/>
 									</object>
 									<string key="NSLabel">Mesh</string>
 									<reference key="NSColor" ref="142994466"/>
@@ -1589,7 +1588,7 @@
 								<object class="NSTabViewItem" id="479501803">
 									<string key="NSIdentifier">2</string>
 									<object class="NSView" key="NSView" id="381671482">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="553846446"/>
 										<int key="NSvFlags">256</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSScrollView" id="529465367">
@@ -2045,7 +2044,7 @@
 											<object class="NSButton" id="411683178">
 												<reference key="NSNextResponder" ref="381671482"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{119, 210}, {96, 32}}</string>
+												<string key="NSFrame">{{1, 218}, {96, 32}}</string>
 												<reference key="NSSuperview" ref="381671482"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="817756915">
@@ -2065,7 +2064,7 @@
 											<object class="NSButton" id="494812895">
 												<reference key="NSNextResponder" ref="381671482"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{11, 210}, {96, 32}}</string>
+												<string key="NSFrame">{{575, 218}, {96, 32}}</string>
 												<reference key="NSSuperview" ref="381671482"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="744723996">
@@ -2116,19 +2115,20 @@
 											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {742, 501}}</string>
+										<reference key="NSSuperview" ref="553846446"/>
 									</object>
 									<string key="NSLabel">Camera</string>
 									<reference key="NSColor" ref="142994466"/>
 									<reference key="NSTabView" ref="553846446"/>
 								</object>
 							</array>
-							<reference key="NSSelectedTabViewItem" ref="406980174"/>
+							<reference key="NSSelectedTabViewItem" ref="479501803"/>
 							<reference key="NSFont" ref="858839378"/>
 							<int key="NSTvFlags">0</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<array class="NSMutableArray" key="NSSubviews">
-								<reference ref="633158745"/>
+								<reference ref="381671482"/>
 							</array>
 						</object>
 						<object class="NSButton" id="28746724">
@@ -6821,9 +6821,9 @@
 							<reference ref="761894194"/>
 							<reference ref="62943046"/>
 							<reference ref="812486189"/>
-							<reference ref="494812895"/>
-							<reference ref="411683178"/>
 							<reference ref="776560578"/>
+							<reference ref="411683178"/>
+							<reference ref="494812895"/>
 						</array>
 						<reference key="parent" ref="479501803"/>
 					</object>

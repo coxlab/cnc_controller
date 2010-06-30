@@ -254,44 +254,52 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def moveXAxisLeft_(self, sender):
         self.cnc.linearAxes.move_relative(-self.ocXInc, 'x')
+        self.update_position()
     
     @IBAction
     def moveXAxisRight_(self, sender):
         self.cnc.linearAxes.move_relative(self.ocXInc, 'x')
+        self.update_position()
     
     @IBAction
     def moveYAxisForward_(self, sender):
         self.cnc.linearAxes.move_relative(self.ocYInc, 'y')
+        self.update_position()
     
     @IBAction
     def moveYAxisBack_(self, sender):
         self.cnc.linearAxes.move_relative(-self.ocYInc, 'y')
+        self.update_position()
     
     @IBAction
     def moveZAxisUp_(self, sender):
         self.cnc.linearAxes.move_relative(-self.ocZInc, 'z')
+        self.update_position()
     
     @IBAction
     def moveZAxisDown_(self, sender):
         self.cnc.linearAxes.move_relative(self.ocZInc, 'z')
+        self.update_position()
     
     @IBAction
     def moveWAxisUp_(self, sender):
         self.cnc.headAxes.move_relative(-self.ocWInc, 'w')
+        self.update_position()
     
     @IBAction
     def moveWAxisDown_(self, sender):
         self.cnc.headAxes.move_relative(self.ocWInc, 'w')
+        self.update_position()
     
     @IBAction
     def moveBAxisClockwise_(self, sender):
-        print "Trying to move Clockwise(LEFT)",self.ocBInc
         self.cnc.headAxes.move_relative(-self.ocBInc, 'b')
+        self.update_position()
     
     @IBAction
     def moveBAxisCounterClockwise_(self, sender):
-        print "Trying to move CounterClockWise(RIGHT)", self.ocBInc
         self.cnc.headAxes.move_relative(self.ocBInc, 'b')
+        self.update_position()
     
     # ========================= UI related functions ==========================
     
