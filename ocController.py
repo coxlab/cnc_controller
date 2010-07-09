@@ -113,7 +113,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 newPoint['y'] = l3d[1]
                 newPoint['z'] = l3d[2]
             newPoint['angle'] = float(self.cnc.headAxes.get_position('b')['b'])
-            newPoint['w'] = float(self.cnc.headAxes.get_position('w')['w'])
+            newPoint['w'] = -float(self.cnc.headAxes.get_position('w')['w'])
             self.zoomPoints.append(newPoint)
         self.zoomPointsController.rearrangeObjects()
     
@@ -192,33 +192,33 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def registerCameras_(self, sender):
         # get points from saved points (or zoom view)
-        tPoints = []
+        ptsInCam = []
         for z in self.zoomPoints:
             if all((z.has_key('x'),z.has_key('y'),z.has_key('z'))):
                 # point is valid
-                tPoints.append([z['x'],z['y'],z['z'],1.])
+                ptsInCam.append([z['x'],z['y'],z['z'],1.])
         
-        if len(tPoints) != 3:
+        if len(ptsInCam) != 3:
             # TODO log error
             print "register_cameras requires exactly 3 valid points"
             return
         
-        self.register_cameras(numpy.array(tPoints))
+        self.register_cameras(numpy.array(ptsInCam))
         self.updateFramesDisplay_(sender)
     
     @IBAction
     def registerCNC_(self, sender):
         # get points from saved points and angles
-        tPoints = []
+        ptsInCam = []
         angles = []
         ws = []
         for z in self.zoomPoints:
             if all((z.has_key('x'),z.has_key('y'),z.has_key('z'),z.has_key('angle'),z.has_key('w'))):
-                tPoints.append([z['x'],z['y'],z['z'],1.])
+                ptsInCam.append([z['x'],z['y'],z['z'],1.])
                 angles.append(numpy.radians(z['angle']))
                 ws.append(float(z['w']))
         
-        if len(tPoints) != 3 or len(angles) != 3:
+        if len(ptsInCam) != 3 or len(angles) != 3:
             # TODO log error
             print "register_cnc requires exactly 3 valid points"
             return
@@ -228,10 +228,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
         for w in ws:
             if w != wPosition:
                 print "register_cnc requires 3 points with the same w position"
-        tPoints = numpy.array(tPoints)
+        ptsInCam = numpy.array(ptsInCam)
         angles = numpy.array(angles)
         print "going to register_cnc in controller"
-        self.register_cnc(tPoints, angles, wPosition)
+        self.register_cnc(ptsInCam, angles, wPosition)
         self.updateFramesDisplay_(sender)
     
     @IBAction
@@ -283,12 +283,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def moveWAxisUp_(self, sender):
-        self.cnc.headAxes.move_relative(-self.ocWInc, 'w')
+        self.cnc.headAxes.move_relative(self.ocWInc, 'w')
         self.update_position()
     
     @IBAction
     def moveWAxisDown_(self, sender):
-        self.cnc.headAxes.move_relative(self.ocWInc, 'w')
+        self.cnc.headAxes.move_relative(-self.ocWInc, 'w')
         self.update_position()
     
     @IBAction
@@ -367,6 +367,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.bVelocityField.setFloatValue_(bVel)
         self.depthVelocityField.setFloatValue_(bVel)
     
+    @IBAction
+    def updatePosition_(self, sender):
+        self.update_position()
+    
     def update_position(self):
         print "update_position:", self.ocFramesStatus
         if int(self.ocFramesStatus) == 3: # all frames are a good
@@ -399,13 +403,13 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         self._.ocAngle = float(self.cnc.headAxes.get_position('b')['b'])
         # TODO this should be (target - w) not just w
-        self._.ocDepth = float(self.cnc.headAxes.get_position('w')['w'])
+        self._.ocDepth = -float(self.cnc.headAxes.get_position('w')['w'])
         
         self._.ocX = float(self.cnc.linearAxes.get_position('x')['x'])
         self._.ocY = float(self.cnc.linearAxes.get_position('y')['y'])
         self._.ocZ = float(self.cnc.linearAxes.get_position('z')['z'])
         self._.ocB = float(self.cnc.headAxes.get_position('b')['b'])
-        self._.ocW = float(self.cnc.headAxes.get_position('w')['w'])
+        self._.ocW = -float(self.cnc.headAxes.get_position('w')['w'])
         
         # logging
         cfg.cncLog.info('X:%.3f Y:%.3f Z:%.3f B:%.3f W:%.3f' % (self.ocX, self.ocY, self.ocZ, self.ocB, self.ocW))

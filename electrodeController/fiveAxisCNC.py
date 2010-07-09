@@ -54,5 +54,5 @@ class FiveAxisCNC:
     
     def get_tip_position_on_arm(self):
         b = radians(float(self.headAxes.get_position('b')['b']))
-        w = float(self.headAxes.get_position('w')['w'])
+        w = -float(self.headAxes.get_position('w')['w'])
         return self.get_position_on_arm(b, w)

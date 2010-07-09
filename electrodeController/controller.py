@@ -51,34 +51,34 @@ class Controller:
         if not all(self.cameras.get_calibrated()):
             self.cameras.load_calibrations(cfg.calibrationDirectory)
     
-    def register_cameras(self, tPoints):
+    def register_cameras(self, ptsInCamera):
         # # find location of 3 tricorner reference points
         # #  - homogenous points
         # #  - ordered from left to right as seen from cameras
         # tPoints = self.imageProcessor.find_tricorner_registration_points()
         # 
         # calculate transformation matrix and add to frameStack
-        oPoints = cfg.tcRegPoints
-        M = vector.calculate_rigid_transform(oPoints,tPoints)
+        ptsInTC = cfg.tcRegPoints
+        tcToCam = vector.calculate_rigid_transform(ptsInTC,ptsInCamera)
         cfg.framesLog.info('Registering cameras with points in (tcFrame, camera):')
-        cfg.framesLog.info(oPoints)
-        cfg.framesLog.info(tPoints)
-        self.fManager.add_transformation_matrix('tricorner', 'camera', M)
+        cfg.framesLog.info(ptsInTC)
+        cfg.framesLog.info(ptsInCamera)
+        self.fManager.add_transformation_matrix('tricorner', 'camera', tcToCam)
     
     
-    def register_cnc(self, locations, angles, wPosition):
-        r = self.cnc.calculate_arm_length(locations, wPosition) + wPosition
+    def register_cnc(self, ptsInCamera, angles, wPosition):
+        r = self.cnc.calculate_arm_length(ptsInCamera, wPosition) + wPosition
         cfg.cncLog.info('Found arm length: %f' % r)
         
-        oPoints = numpy.array([[numpy.sin(angles[0])*r, 0., numpy.cos(angles[0])*r, 1.],
+        ptsInCNC= numpy.array([[numpy.sin(angles[0])*r, 0., numpy.cos(angles[0])*r, 1.],
                                 [numpy.sin(angles[1])*r, 0., numpy.cos(angles[1])*r, 1.],
                                 [numpy.sin(angles[2])*r, 0., numpy.cos(angles[2])*r, 1.]])
         
-        M = vector.calculate_rigid_transform(locations,oPoints) #TODO check that this is correct
+        camToCNC = vector.calculate_rigid_transform(ptsInCamera,ptsInCNC) #TODO check that this is correct
         cfg.framesLog.info('Registering cnc with points in (camera, cnc):')
-        cfg.framesLog.info(oPoints)
-        cfg.framesLog.info(locations)
-        self.fManager.add_transformation_matrix('camera', 'cnc', M)
+        cfg.framesLog.info(ptsInCNC)
+        cfg.framesLog.info(ptsInCamera)
+        self.fManager.add_transformation_matrix('camera', 'cnc', camToCNC)
         
     def automated_find_tip(self):
         # enable axis motors

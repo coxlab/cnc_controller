@@ -12,10 +12,10 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<integer value="367"/>
-			<integer value="29"/>
-			<integer value="871"/>
-			<integer value="907"/>
 			<integer value="930"/>
+			<integer value="29"/>
+			<integer value="907"/>
+			<integer value="871"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1301,6 +1301,28 @@
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
+						<object class="NSToolbarItem" key="2E6EE6D1-1BD0-4674-B98B-3260BA3ECC98" id="429747870">
+							<object class="NSMutableString" key="NSToolbarItemIdentifier">
+								<characters key="NS.bytes">2E6EE6D1-1BD0-4674-B98B-3260BA3ECC98</characters>
+							</object>
+							<string key="NSToolbarItemLabel">Update Positions</string>
+							<string key="NSToolbarItemPaletteLabel">Update Positions</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">NSRefreshTemplate</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
 						<object class="NSToolbarItem" key="88E466A8-8BE3-47A7-ADF1-027E894A6C41" id="482059594">
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">88E466A8-8BE3-47A7-ADF1-027E894A6C41</characters>
@@ -1447,11 +1469,13 @@
 						<reference ref="434821934"/>
 						<reference ref="482059594"/>
 						<reference ref="403700122"/>
+						<reference ref="429747870"/>
 					</array>
 					<array class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<reference ref="325475918"/>
 						<reference ref="676646529"/>
 						<reference ref="371452767"/>
+						<reference ref="429747870"/>
 						<reference ref="519792981"/>
 						<reference ref="434821934"/>
 						<reference ref="482059594"/>
@@ -5764,6 +5788,14 @@
 					</object>
 					<int key="connectionID">1345</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">updatePosition:</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="429747870"/>
+					</object>
+					<int key="connectionID">1347</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -7448,6 +7480,7 @@
 							<reference ref="676646529"/>
 							<reference ref="325475918"/>
 							<reference ref="519792981"/>
+							<reference ref="429747870"/>
 						</array>
 						<reference key="parent" ref="513744381"/>
 					</object>
@@ -8501,6 +8534,11 @@
 						<reference key="object" ref="651814129"/>
 						<reference key="parent" ref="954466672"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1346</int>
+						<reference key="object" ref="429747870"/>
+						<reference key="parent" ref="100332142"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -8685,6 +8723,7 @@
 				<string key="134.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="134.ImportedFromIB2"/>
 				<string key="1340.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1346.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="136.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="136.ImportedFromIB2"/>
 				<string key="143.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -8720,9 +8759,9 @@
 				<string key="296.editorWindowContentRectSynchronizationRect">{{475, 832}, {234, 43}}</string>
 				<string key="297.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="298.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBEditorWindowLastContentRect">{{233, 123}, {788, 642}}</string>
+				<string key="367.IBEditorWindowLastContentRect">{{248, 97}, {788, 642}}</string>
 				<string key="367.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBWindowTemplateEditedContentRect">{{233, 123}, {788, 642}}</string>
+				<string key="367.IBWindowTemplateEditedContentRect">{{248, 97}, {788, 642}}</string>
 				<integer value="1" key="367.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="367.editorWindowContentRectSynchronizationRect">{{11, 666}, {480, 270}}</string>
 				<string key="367.windowTemplate.maxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -8865,7 +8904,7 @@
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="81.ImportedFromIB2"/>
 				<string key="81.editorWindowContentRectSynchronizationRect">{{323, 672}, {199, 203}}</string>
-				<string key="811.IBEditorWindowLastContentRect">{{400, 741}, {616, 0}}</string>
+				<string key="811.IBEditorWindowLastContentRect">{{334, 739}, {616, 0}}</string>
 				<string key="811.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="82.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="82.ImportedFromIB2"/>
@@ -8899,9 +8938,9 @@
 				<string key="868.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="868.IBWindowTemplateEditedContentRect">{{119, 457}, {239, 181}}</string>
 				<boolean value="NO" key="868.NSWindowTemplate.visibleAtLaunch"/>
-				<string key="869.IBEditorWindowLastContentRect">{{369, 253}, {563, 371}}</string>
+				<string key="869.IBEditorWindowLastContentRect">{{401, 241}, {563, 371}}</string>
 				<string key="869.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="869.IBWindowTemplateEditedContentRect">{{369, 253}, {563, 371}}</string>
+				<string key="869.IBWindowTemplateEditedContentRect">{{401, 241}, {563, 371}}</string>
 				<boolean value="NO" key="869.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="871.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="872.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9013,7 +9052,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1345</int>
+			<int key="maxID">1347</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9058,6 +9097,7 @@
 						<string key="setVelocities:">id</string>
 						<string key="toggleMotors:">id</string>
 						<string key="updateFramesDisplay:">id</string>
+						<string key="updatePosition:">id</string>
 						<string key="updateZoomViews:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
@@ -9832,6 +9872,7 @@
 			<string key="NSMenuCheckmark">{9, 8}</string>
 			<string key="NSMenuMixedState">{7, 2}</string>
 			<string key="NSQuickLookTemplate">{19, 11}</string>
+			<string key="NSRefreshTemplate">{10, 12}</string>
 			<string key="NSRevealFreestandingTemplate">{14, 14}</string>
 			<string key="NSUser">{32, 32}</string>
 		</dictionary>
