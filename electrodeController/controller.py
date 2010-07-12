@@ -76,8 +76,8 @@ class Controller:
         
         camToCNC = vector.calculate_rigid_transform(ptsInCamera,ptsInCNC) #TODO check that this is correct
         cfg.framesLog.info('Registering cnc with points in (camera, cnc):')
-        cfg.framesLog.info(ptsInCNC)
         cfg.framesLog.info(ptsInCamera)
+        cfg.framesLog.info(ptsInCNC)
         self.fManager.add_transformation_matrix('camera', 'cnc', camToCNC)
         
     def automated_find_tip(self):

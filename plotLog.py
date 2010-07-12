@@ -28,7 +28,7 @@ data to plot:
         INFO:cnc:X:xx Y:xx Z:xx B:xx W:xx
 """
 
-import re
+import os, re, sys
 
 from pylab import *
 from mpl_toolkits.mplot3d import Axes3D
@@ -36,7 +36,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from electrodeController import frameManager
 
 # TODO fetch this from command line
-logDir = 'logs/1277845293'
+logDir = sys.argv[1]
 
 def get_camera_locations(logFile):
     """
@@ -156,8 +156,8 @@ if __name__ == '__main__':
     for (n,m) in matrices.iteritems():
         fromFrame = n.split()[0]
         toFrame = n.split()[2]
-        if toFrame == 'cnc' or toFrame == 'camera':
-            m = inv(m)
+        #if toFrame == 'cnc':
+        #    m = inv(m)
         fm.add_transformation_matrix(fromFrame, toFrame, matrix(m))
     
     tcPoints, cTcPoints = points['cameras']
@@ -193,12 +193,12 @@ if __name__ == '__main__':
     
     
     # tcToCMatrix = matrices['tricorner to camera']
-    # pTcPoints = array(matrix(cTcPoints) * inv(matrix(tcToCMatrix))) # predict backwards
-    # ax.scatter(tcPoints[:,0],tcPoints[:,1],tcPoints[:,2],c=colors[0],s=100,marker='^')
-    # ax.scatter(cTcPoints[:,0],cTcPoints[:,1],cTcPoints[:,2],c=colors[1],s=100,marker='^')
-    # ax.scatter(pTcPoints[:,0],pTcPoints[:,1],pTcPoints[:,2],c=colors[2],s=100,marker='^')
+    #     pTcPoints = array(matrix(cTcPoints) * inv(matrix(tcToCMatrix))) # predict backwards
+    #     ax.scatter(tcPoints[:,0],tcPoints[:,1],tcPoints[:,2],c=colors[0],s=100,marker='^')
+    #     ax.scatter(cTcPoints[:,0],cTcPoints[:,1],cTcPoints[:,2],c=colors[1],s=100,marker='^')
+    #     ax.scatter(pTcPoints[:,0],pTcPoints[:,1],pTcPoints[:,2],c=colors[2],s=100,marker='^')
     
-    # plot cncPoints as seen from camera
+    # # plot cncPoints as seen from camera
     # cToNMatrix = matrices['camera to cnc']
     # pCPoints = array(matrix(cncPoints))
     
