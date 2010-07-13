@@ -163,3 +163,4 @@ bInc = 1.0
 
 # -- W --
 wInc = 1.0
+wDirection = 1.0 # for flipping the w-axis

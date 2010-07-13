@@ -113,12 +113,56 @@ def get_frame_registration_points(logFile):
     
     return points
 
-def get_positions(logFile):
+def get_arm_length(logFile):
+    """
+    resulting armLength:
+        INFO:cnc:Found arm length: 71.567896"""
+    logFile.seek(0)
+    armLength = None
+    l = logFile.readline()
+    while l != '':
+        if re.match(r'INFO:cnc:Found arm length:', l):
+            armLength = float(l.split(':')[-1])
+        l = logFile.readline()
+    return armLength
+
+def get_cnc_positions(logFile):
     """
     resulting points:
         INFO:root:ML:xx AP:xx DV:xx
         INFO:cnc:X:xx Y:xx Z:xx B:xx W:xx"""
-    pass
+    logFile.seek(0)
+    positions = []
+    l = logFile.readline()
+    while l != '':
+        if re.match(r'INFO:cnc:X:', l):
+            items = l.split()
+            x = float(items[0].split(':')[-1])
+            y = float(items[1].split(':')[-1])
+            z = float(items[2].split(':')[-1])
+            b = float(items[2].split(':')[-1])
+            w = float(items[2].split(':')[-1])
+            positions.append([x,y,z,b,w])
+        l = logFile.readline()
+    return positions
+
+def get_skull_positions(logFile):
+    """
+    resulting points:
+        INFO:root:ML:xx AP:xx DV:xx
+        INFO:cnc:X:xx Y:xx Z:xx B:xx W:xx"""
+    logFile.seek(0)
+    positions = []
+    l = logFile.readline()
+    while l != '':
+        if re.match(r'INFO:root:ML:', l):
+            items = l.split()
+            ml = float(items[0].split(':')[-1])
+            ap = float(items[1].split(':')[-1])
+            dv = float(items[2].split(':')[-1])
+            positions.append([ml,ap,dv,1.0])
+        l = logFile.readline()
+    return array(positions)
 
 def parse_log_dir(logDir):
     pass
@@ -151,6 +195,9 @@ if __name__ == '__main__':
     #     for (i,s) in enumerate(p):
     #         ax.scatter(s[:,0],s[:,1],s[:,2],c=colors[i])
     
+    # get tip locaiton in skull frame
+    sTipPoints = get_skull_positions(f)
+    
     # construct frame manager from data
     fm = frameManager.FrameManager(['skull','tricorner','camera','cnc'])
     for (n,m) in matrices.iteritems():
@@ -178,7 +225,9 @@ if __name__ == '__main__':
         points = array(frameMan.transform_point(points,fromFrame,toFrame))
         ax.scatter(points[:,0],points[:,1],points[:,2],**kwargs)
     
-    plotFrame = 'camera'
+    plotFrame = 'skull'
+    
+    plot_points_in_frame(ax, sTipPoints, fm, 'skull', plotFrame, c=colors[0], s=100, marker='d')
     
     plot_points_in_frame(ax, camLocs, fm, 'camera', plotFrame, c=colors[0], s=100, marker='o')
     

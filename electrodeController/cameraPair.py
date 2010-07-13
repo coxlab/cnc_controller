@@ -399,6 +399,10 @@ class CameraPair:
             if len(camIDs) != 2:
                 raise IOError("Could not find two cameras")
         self.cameras = [CalibratedCamera(camIDs[0]), CalibratedCamera(camIDs[1])]
+        
+        # for logging
+        self.frame = 0
+        self.logDirectory = '/Users/labuser/Desktop/cncControllerImages/'
     
     
     def get_connected(self):
@@ -431,6 +435,9 @@ class CameraPair:
         ims = []
         for c in self.cameras:
             ims.append(c.capture())
+        for (i, im) in enumerate(ims):
+            cv.SaveImage("%s/%i/%i.png" % (self.logDirectory, self.frame, i), im)
+        self.frame += 1
         return ims
     
     
