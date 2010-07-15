@@ -34,7 +34,6 @@ class OCController (NSObject, electrodeController.controller.Controller):
     ocBInc = objc.ivar(u"ocBInc")
     
     #framesDisplay = objc.IBOutlet()
-    # TODO rename this to ocFrameStatus
     ocFramesStatus = objc.ivar(u"ocFramesStatus")
     
     meshView = objc.IBOutlet()
@@ -387,6 +386,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self._.ocAP = skullCoord[1]
             # DV = Z
             self._.ocDV = skullCoord[2]
+            
+            
             # TODO update electrode 
             # first apply rotation and translation as specified by tip position
             b = float(self.cnc.headAxes.get_position('b')['b'])
@@ -394,9 +395,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
             # then apply the transform from cnc to skull
             tMatrix = self.fManager.get_transformation_matrix("cnc","skull")
             # TODO check the order of this
-            #print "updating mesh view"
-            self.meshView.electrodeMatrix = tMatrix * cncMatrix
+            #print "updating mesh view" 
+            self.meshView.electrodeMatrix = numpy.matrix(cncMatrix) * numpy.matrix(tMatrix)
             self.meshView.drawElectrode = True
+            
+            
             self.meshView.scheduleRedisplay()
             #print "skull coordinates updated"
             cfg.log.info('ML:%.3f AP:%.3f DV:%.3f' % (self.ocML, self.ocAP, self.ocDV))

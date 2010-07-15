@@ -35,9 +35,6 @@ from mpl_toolkits.mplot3d import Axes3D
 
 from electrodeController import frameManager
 
-# TODO fetch this from command line
-logDir = sys.argv[1]
-
 def get_camera_locations(logFile):
     """
     camera location
@@ -168,6 +165,9 @@ def parse_log_dir(logDir):
     pass
 
 if __name__ == '__main__':
+    # TODO fetch this from command line
+    logDir = sys.argv[1]
+    
     # open the main log file (only once)
     f = open('%s/root.log' % logDir, 'r')
     
