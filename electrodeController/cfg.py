@@ -47,6 +47,9 @@ log = logging.root
 cameraLogDir = '%s/camera' % logDir
 #cameraLogDir = '/Users/%s/Repositories/coxlab/cncController/logs/camera/' % os.getlogin()
 if not os.path.exists(cameraLogDir): os.makedirs(cameraLogDir)
+if not os.path.exists(cameraLogDir+'/0'): os.makedirs(cameraLogDir+'/0')
+if not os.path.exists(cameraLogDir+'/1'): os.makedirs(cameraLogDir+'/1')
+
 
 cameraLog = logging.getLogger('camera')
 cameraLog.setLevel(logLevel)

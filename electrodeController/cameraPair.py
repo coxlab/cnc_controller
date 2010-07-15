@@ -401,7 +401,7 @@ class CameraPair:
         self.cameras = [CalibratedCamera(camIDs[0]), CalibratedCamera(camIDs[1])]
         
         # for logging
-        self.frame = 0
+        self.frameNum = 0
         self.logDirectory = '/Users/labuser/Desktop/cncControllerImages/'
     
     
@@ -436,8 +436,8 @@ class CameraPair:
         for c in self.cameras:
             ims.append(c.capture())
         for (i, im) in enumerate(ims):
-            cv.SaveImage("%s/%i/%i.png" % (self.logDirectory, self.frame, i), im)
-        self.frame += 1
+            cv.SaveImage("%s/%i/%i.png" % (self.logDirectory, i, self.frameNum), im)
+        self.frameNum += 1
         return ims
     
     
