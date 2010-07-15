@@ -27,7 +27,7 @@ class Controller:
         self.fManager = frameManager.FrameManager(['skull', 'tricorner', 'camera', 'cnc'])
         self.cnc = fiveAxisCNC.FiveAxisCNC()
         self.cameras = CameraPair(cfg.camIDs)
-		self.cameras.logDirectory(cfg.cameraLogDir)
+        self.cameras.logDirectory = cfg.cameraLogDir
         self.animal = None
         #self.imageProcessor = imageProcessing.Processor(self.cameras)
     
