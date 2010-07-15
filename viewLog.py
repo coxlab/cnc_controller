@@ -1,4 +1,4 @@
-open#!/usr/bin/env python
+#!/usr/bin/env python
 
 from OpenGL.GL import *
 from pylab import *
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     f = open('%s/root.log' % logDir, 'r')
     
     colors = [(0,0,1,1), (1,0,0,1), (0,1,0,1), (1,1,0,1), (1,0,1,1), (0,1,1,0)]
-    viewFrame = 'tricorner'
+    viewFrame = 'skull'
     
     locations = plotLog.get_camera_locations(f)
     matrices = plotLog.get_matrices(f)
