@@ -42,6 +42,9 @@ class FiveAxisCNC:
     
     def calculate_arm_length(self, tipLocations, wPosition):
         """Requires 3 measurements of the tip location at 3 angles"""
+        cfg.cncLog.info("measuring arm length with (wPosition, tipLocations):")
+        cfg.cncLog.info(wPosition)
+        cfg.cncLog.info(tipLocations)
         dists = [sqrt(sum(array(tipLocations[i-1]-tipLocations[i])**2)) for i in xrange(len(tipLocations))]
         dists.sort()
         a, b, c = dists

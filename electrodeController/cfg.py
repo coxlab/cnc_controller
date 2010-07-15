@@ -13,7 +13,8 @@ assign_cfg_module(__name__)
 useManualImageProcessor = True
 fakeCNC = True
 fakeCameras = True
-fakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/fakeFrames' % os.getlogin()
+#fakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/fakeFrames' % os.getlogin()
+fakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/inLogs/1279205629/camera' % os.getlogin()
 
 cfgDir = '/Users/%s/Repositories/coxlab/cncController/electrodeController/cfgs' % os.getlogin()
 externalCfgs = ['atlasCfg.py', 'cameraCfg.py', 'cncCfg.py', 'framesCfg.py', 'electrodeCfg.py']

@@ -61,14 +61,14 @@ class OCZoomView(NSOpenGLView, ZoomView):
         x,y = self.oc_to_gl(self.convertPoint_fromView_(event.locationInWindow(), None))
         
         if event.modifierFlags() & NSShiftKeyMask:
-            print "trying to find zoom to delete"
+            #print "trying to find zoom to delete"
             d, i = self.find_closest_zoom_distance(x/self.scale, y/self.scale)
-            print "attempting to delete:", i, "at", d
+            #print "attempting to delete:", i, "at", d
             if i != -1:
-                print "removing zoom here"
+                #print "removing zoom here"
                 self.zooms.remove(self.zooms[i])
                 if self.selectedZoom >= i: self.selectedZoom -= 1
-                print "removing zoom there"
+                #print "removing zoom there"
                 self.otherView.zooms.remove(self.otherView.zooms[i])
                 if self.otherView.selectedZoom >= i: self.otherView.selectedZoom -= 1
         else:
@@ -88,7 +88,11 @@ class OCZoomView(NSOpenGLView, ZoomView):
         #self.selectedZoom = self.find_closest_zoom_index(x/self.scale, y/self.scale)
         
         dZoom = event.deltaY()
-        newZoom = self.zooms[self.selectedZoom]['z'] * (1.0 + dZoom)
+        if dZoom > 0:
+            newZoom = self.zooms[self.selectedZoom]['z'] * 1.1
+        elif dZoom < 0:
+            newZoom = self.zooms[self.selectedZoom]['z'] * 0.9
+        #newZoom = self.zooms[self.selectedZoom]['z'] * (1.0 + dZoom)
         if newZoom < 1.:
             newZoom = 1.
         elif newZoom > 100.:

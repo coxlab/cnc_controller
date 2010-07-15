@@ -172,25 +172,26 @@ if __name__ == '__main__':
     f = open('%s/root.log' % logDir, 'r')
     
     colors = ['b', 'r', 'g', 'y', 'k', 'm']
-    figIndex = 1
     
     # get the calculated locations of the two cameras
     locations = get_camera_locations(f)
-    # ax = Axes3D(figure(figIndex))
-    # figIndex += 1
+    # ax = Axes3D(figure())
     # #ax.set_label('Camera Locations')
     # for (i,l) in enumerate(locations.values()):
     #     ax.scatter([l[0]],[l[1]],[l[2]],c=colors[i])
+    
     
     # get the calculated transformation matrices between frames
     matrices = get_matrices(f)
     # find good way to show matrices
     
+    armLength = get_arm_length(f)
+    print "Arm length: %.3f mm" % armLength
+    
     # get the registration points used to calculate the transformations
     points = get_frame_registration_points(f)
     # for (l,p) in points.iteritems():
-    #     ax = Axes3D(figure(figIndex))
-    #     figIndex += 1
+    #     ax = Axes3D(figure())
     #     #ax.set_label(l)
     #     for (i,s) in enumerate(p):
     #         ax.scatter(s[:,0],s[:,1],s[:,2],c=colors[i])
@@ -215,11 +216,11 @@ if __name__ == '__main__':
     # tipPoints : tip locations in cnc frame
     
     # plot things in camera frame
-    ax = Axes3D(figure(figIndex))
-    figIndex += 1
+    ax = Axes3D(figure())
     camLocs = ones((2,4),dtype=float64)
     camLocs[:,:3] = array(locations.values())
     #camLocs[:,:3] = array([locations.values()[0],locations.values()[1]])
+    print "Distance between cameras: %.3f mm" % sqrt(sum((camLocs[0] - camLocs[1])**2))
     
     def plot_points_in_frame(plotAxes, points, frameMan, fromFrame, toFrame, **kwargs):
         points = array(frameMan.transform_point(points,fromFrame,toFrame))
@@ -236,7 +237,35 @@ if __name__ == '__main__':
     
     plot_points_in_frame(ax, tipPoints, fm, 'cnc', plotFrame, c=colors[0], s=100, marker='s')
     plot_points_in_frame(ax, cTipPoints, fm, 'camera', plotFrame, c=colors[1], s=100, marker='s')
+    
+    # plot all matrices
+    def plot_matrix(m):
+        print "Translation:", m[3]
+        ax = Axes3D(figure())
+        pts = array([[0,0,0,1],
+                [1,0,0,1],
+                [0,1,0,1],
+                [0,0,1,1]])
+        def plot_pts(ax, pts):
+            ax.plot([pts[0][0],pts[1][0]],[pts[0][1],pts[1][1]],[pts[0][2],pts[1][2]], c='r')
+            ax.plot([pts[0][0],pts[2][0]],[pts[0][1],pts[2][1]],[pts[0][2],pts[2][2]], c='g')
+            ax.plot([pts[0][0],pts[3][0]],[pts[0][1],pts[3][1]],[pts[0][2],pts[3][2]], c='b')
+        plot_pts(ax, pts)
+        plot_pts(ax, array(pts * matrix(m)))
+        # scale axes
+        yl = ax.get_ylim3d()
+        xl = ax.get_xlim3d()
+        zl = ax.get_zlim3d()
+        tl = (min(hstack((xl,yl,zl))), max(hstack((xl,yl,zl))))
+        #tl = (min(min(xl),min(yl),min(zl)), max(max(xl),max(yl),max(zl))
+        ax.set_xlim3d(tl)
+        ax.set_ylim3d(tl)
+        ax.set_zlim3d(tl)
         
+    
+    plot_matrix(fm.get_transformation_matrix('skull','tricorner'))
+    plot_matrix(fm.get_transformation_matrix('tricorner','camera'))
+    plot_matrix(fm.get_transformation_matrix('camera','cnc'))
     
     # plot tcPoints as seen from camera
     

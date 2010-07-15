@@ -73,7 +73,7 @@ class Orbiter:
 
 class OCMeshView(NSOpenGLView):
     def awakeFromNib(self):
-        self.orbiter = Orbiter()
+        self.orbiter = Orbiter(rotation=[2.3561944901923448,0.,0.])
         self.obj = None
         self.gl_inited = False
         self.leftDown = None
@@ -200,7 +200,7 @@ class OCMeshView(NSOpenGLView):
         glDepthFunc(GL_LEQUAL)
         glClearColor(0., 0., 0., 1.)
         glMatrixMode(GL_PROJECTION)
-        gluPerspective(10.,1.,0.1,1000.0)
+        gluPerspective(10.,1.,0.1,10000.0)
         
         self.load_electrode(cfg.electrodeMesh, cfg.electrodeTexture)
         
