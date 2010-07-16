@@ -45,11 +45,21 @@ class FiveAxisCNC:
         cfg.cncLog.info("measuring arm length with (wPosition, tipLocations):")
         cfg.cncLog.info(wPosition)
         cfg.cncLog.info(tipLocations)
-        dists = [sqrt(sum(array(tipLocations[i-1]-tipLocations[i])**2)) for i in xrange(len(tipLocations))]
-        dists.sort()
-        a, b, c = dists
-        self.arm_length = a*b*c / sqrt(2*a**2*b**2 + 2*b**2*c**2 + 2*c**2*a**2 - a**4 - b**4 - c**4)
-        self.arm_length -= wPosition
+        
+        # just measure the arm length (at w = 0)
+        self.arm_length = 226.0
+                
+        # old, trigonimetric algorithm
+        #dists = [sqrt(sum(array(tipLocations[i-1]-tipLocations[i])**2)) for i in xrange(len(tipLocations))]
+        #dists.sort()
+        #a, b, c = dists
+        #self.arm_length = a*b*c / sqrt(2*a**2*b**2 + 2*b**2*c**2 + 2*c**2*a**2 - a**4 - b**4 - c**4)
+        #self.arm_length -= wPosition
+        
+        # curve fitting
+        #self.arm_length -= wPosition
+        
+        print self.arm_length
         return self.arm_length
     
     def get_position_on_arm(self, angle, length):
@@ -57,5 +67,5 @@ class FiveAxisCNC:
     
     def get_tip_position_on_arm(self):
         b = radians(float(self.headAxes.get_position('b')['b']))
-        w = -float(self.headAxes.get_position('w')['w'])
+        w = 50-float(self.headAxes.get_position('w')['w']) #FIXME w axis flip
         return self.get_position_on_arm(b, w)

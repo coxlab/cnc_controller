@@ -112,7 +112,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 newPoint['y'] = l3d[1]
                 newPoint['z'] = l3d[2]
             newPoint['angle'] = float(self.cnc.headAxes.get_position('b')['b'])
-            newPoint['w'] = -float(self.cnc.headAxes.get_position('w')['w'])
+            newPoint['w'] = 50-float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
             self.zoomPoints.append(newPoint)
         self.zoomPointsController.rearrangeObjects()
     
@@ -406,13 +406,13 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         self._.ocAngle = float(self.cnc.headAxes.get_position('b')['b'])
         # TODO this should be (target - w) not just w
-        self._.ocDepth = -float(self.cnc.headAxes.get_position('w')['w'])
+        self._.ocDepth = 50-float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
         
         self._.ocX = float(self.cnc.linearAxes.get_position('x')['x'])
         self._.ocY = float(self.cnc.linearAxes.get_position('y')['y'])
         self._.ocZ = float(self.cnc.linearAxes.get_position('z')['z'])
         self._.ocB = float(self.cnc.headAxes.get_position('b')['b'])
-        self._.ocW = -float(self.cnc.headAxes.get_position('w')['w'])
+        self._.ocW = 50-float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
         
         # logging
         cfg.cncLog.info('X:%.3f Y:%.3f Z:%.3f B:%.3f W:%.3f' % (self.ocX, self.ocY, self.ocZ, self.ocB, self.ocW))

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-mv logs/* logs/.last_logs
-
-
+rm -f logs/.old_logs.tar
+tar cvf logs/.old_logs.tar logs/*
+rm -rf logs/*
