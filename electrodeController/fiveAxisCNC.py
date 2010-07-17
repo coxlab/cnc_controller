@@ -47,7 +47,7 @@ class FiveAxisCNC:
         cfg.cncLog.info(tipLocations)
         
         # just measure the arm length (at w = 0)
-        self.arm_length = 226.0
+        self.arm_length = 184.0
                 
         # old, trigonimetric algorithm
         #dists = [sqrt(sum(array(tipLocations[i-1]-tipLocations[i])**2)) for i in xrange(len(tipLocations))]

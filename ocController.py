@@ -211,6 +211,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
         ptsInCam = []
         angles = []
         ws = []
+        
+        print '# lx ly rx ry x y z angle w'
+        for z in self.zoomPoints:
+            print z['lx'], z['ly'], z['rx'], z['ry'], z['x'], z['y'], z['z'], z['angle'], z['w']
+        
         for z in self.zoomPoints:
             if all((z.has_key('x'),z.has_key('y'),z.has_key('z'),z.has_key('angle'),z.has_key('w'))):
                 ptsInCam.append([z['x'],z['y'],z['z'],1.])
