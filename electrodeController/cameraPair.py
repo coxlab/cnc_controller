@@ -824,7 +824,7 @@ def test_stereo_localization(camIDs, gridSize, gridBlockSize, calibrationDirecto
             ax.set_xlim3d([-5,20])
             ax.set_ylim3d([-5,20])
             ax.set_zlim3d([-5,20])
-        
+        ptIndex += 1
         pylab.figure()
         pylab.subplot(121)
         pylab.imshow(numpy.array(CVtoNumPy(ims[0])))
