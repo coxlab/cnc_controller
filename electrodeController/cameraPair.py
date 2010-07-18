@@ -11,6 +11,7 @@ import time
 import os
 
 import numpy
+import pylab
 import cv
 import dc1394simple
 
@@ -179,11 +180,17 @@ class CalibratedCamera:
                 raise IOError, "No cameras found"
             self.camID = cams[0]
         
-        self.camera = dc1394simple.SimpleCamera(self.camID)
+        try:
+            self.camera = dc1394simple.SimpleCamera(self.camID)
+        except:
+            print "Failed to connect to camera %i" % self.camID
+            self.connected = False
+            return False
         
         # TODO check if camera connected correctly?
         
         self.connected = True
+        return True
     
     
     def capture(self, undistort=True):
@@ -208,56 +215,90 @@ class CalibratedCamera:
         return image
     
     
-    def capture_localization_image(self, gridSize):
+    def capture_grid_image(self, gridSize):
         if not self.calibrated:
-            raise IOError('Camera must be calibrated before localization')
-        # from the source code (cvcalibration.cpp:1167) it looks like
-        # cvFindExtrinsicCameraParams2 performs undistortion internally
-        image = self.capture()#undistort=False)
+            raise IOError('Camera must be calibrated before capturing grid')
+        
+        image = self.capture()
         success, corners = cv.FindChessboardCorners(image, gridSize)
         
         if not success:
-            return image, False
+            return image, corners, False
         
         corners = cv.FindCornerSubPix(image, corners, (5,5), (-1, -1),
                     (cv.CV_TERMCRIT_EPS + cv.CV_TERMCRIT_ITER, 30, 0.1))
         
         gridN = gridSize[0] * gridSize[1]
         if len(corners) != gridN:
+            return image, corners, False
+        
+        return image, corners, True
+    
+    
+    def capture_localization_image(self, gridSize):
+        image, corners, success = self.capture_grid_image(gridSize)
+        if not success:
             return image, False
         
         self.localizationImage = image
         self.localizationCorners = corners
-        
         return image, True
+        # if not self.calibrated:
+        #             raise IOError('Camera must be calibrated before localization')
+        #         # from the source code (cvcalibration.cpp:1167) it looks like
+        #         # cvFindExtrinsicCameraParams2 performs undistortion internally
+        #         image = self.capture()#undistort=False)
+        #         success, corners = cv.FindChessboardCorners(image, gridSize)
+        #         
+        #         if not success:
+        #             return image, False
+        #         
+        #         corners = cv.FindCornerSubPix(image, corners, (5,5), (-1, -1),
+        #                     (cv.CV_TERMCRIT_EPS + cv.CV_TERMCRIT_ITER, 30, 0.1))
+        #         
+        #         gridN = gridSize[0] * gridSize[1]
+        #         if len(corners) != gridN:
+        #             return image, False
+        #         
+        #         self.localizationImage = image
+        #         self.localizationCorners = corners
+        #         
+        #         return image, True
     
     
     def capture_calibration_image(self, gridSize):
-        # capture image (converted to IplImage)
-        image = self.capture()
-        
-        # find chessboards
-        success, corners = cv.FindChessboardCorners(image, gridSize)
-        
-        # if no chessboard, return the image and false
+        image, corners, success = self.capture_grid_image(self, gridSize)
         if not success:
             return image, False
         
-        # find subpixel coordinates of inside corners
-        corners = cv.FindCornerSubPix(image, corners, (5,5), (-1,-1),
-                    (cv.CV_TERMCRIT_EPS + cv.CV_TERMCRIT_ITER, 30, 0.1))
-        
-        # did we find the right number of corners?
-        gridN = gridSize[0] * gridSize[1]
-        if len(corners) != gridN:
-            return image, False
-        
-        #cv.DrawChessboardCorners(image, gridSize, corners, success)
-        
         self.calibrationImages.append(image)
         self.calibrationImgPts.append(corners)
-        
         return image, True
+        # # capture image (converted to IplImage)
+        # image = self.capture()
+        # 
+        # # find chessboards
+        # success, corners = cv.FindChessboardCorners(image, gridSize)
+        # 
+        # # if no chessboard, return the image and false
+        # if not success:
+        #     return image, False
+        # 
+        # # find subpixel coordinates of inside corners
+        # corners = cv.FindCornerSubPix(image, corners, (5,5), (-1,-1),
+        #             (cv.CV_TERMCRIT_EPS + cv.CV_TERMCRIT_ITER, 30, 0.1))
+        # 
+        # # did we find the right number of corners?
+        # gridN = gridSize[0] * gridSize[1]
+        # if len(corners) != gridN:
+        #     return image, False
+        # 
+        # #cv.DrawChessboardCorners(image, gridSize, corners, success)
+        # 
+        # self.calibrationImages.append(image)
+        # self.calibrationImgPts.append(corners)
+        # 
+        # return image, True
     
     
     def remove_last_calibration_point(self):
@@ -391,6 +432,66 @@ class CalibratedCamera:
             return 0, 0, 0
 
 
+class FileCamera(CalibratedCamera):
+    def __init__(self, camID=None, frameDirectory=None):
+        CalibratedCamera.__init__(self, camID)
+        self.frameDirectory = frameDirectory
+        self.frameIndex = 0
+    def connect(self):
+        if self.connected:
+            return True
+        if self.frameDirectory == None:
+            raise IOError, "FileCamera.frameDirectory must be set before calling connect"
+        
+        if not os.path.exists(self.frameDirectory):
+            raise IOError, "FileCamera.frameDirectory(%s) does not exist" % self.frameDirectory
+        
+        if not os.path.isdir(self.frameDirectory):
+            raise IOError, "FileCamera.frameDirectory(%s) is not a directory" % self.frameDirectory
+        
+        # autoassign camID
+        if self.camID == None:
+            files = [f for f in os.listdir(self.frameDirectory) if os.path.isdir(f)]
+            files.sort()
+            for f in files:
+                try:
+                    self.camID = int(f)
+                except:
+                    pass
+            if self.camID == None:
+                raise IOError, "Failed to find valid int named dir in frameDirectory"
+        
+        self.connected = True
+    def capture(self, undistort=True):
+        if not self.connected:
+            self.connect()
+        
+        try:
+            frame = pylab.imread("%s/%i/%i.png" % (self.frameDirectory, self.camID, self.frameIndex))
+        except:
+            try:
+                self.frameIndex = 0
+                frame = pylab.imread("%s/%i/0.png" % (self.frameDirectory, self.camID))
+            except:
+                raise IOError, "Failed to find a valid frame (%s/%i/%i.png)" % (self.frameDirectory, self.camID, self.frameIndex)
+        
+        self.frameIndex += 1
+        image = NumPy2Ipl((frame*255).astype('uint8'))
+        
+        # TODO find a better way to do this
+        if self.imageSize == (-1, -1):
+            self.imageSize = (image.width, image.height)
+        
+        if self.calibrated and undistort:
+            # undistort image
+            undistortedImage = cv.CreateImage((image.width, image.height),
+                                            image.depth, image.nChannels)
+            #result = cv.CreateImage(input.shape[::-1], depth, channels)
+            cv.Undistort2(image, undistortedImage, self.camMatrix, self.distCoeffs)
+            return undistortedImage
+        
+        return image
+
 class CameraPair:
     """A simple class that contains two CalibratedCamera objects"""
     def __init__(self, camIDs=None):
@@ -440,6 +541,16 @@ class CameraPair:
         self.frameNum += 1
         return ims
     
+    def locate_grid(self, gridSize):
+        lim, lcorners, lsuccess = self.cameras[0].capture_grid_image(gridSize)
+        rim, rcorners, rsuccess = self.cameras[1].capture_grid_image(gridSize)
+        if not (lsuccess and rsuccess):
+            return (lim,rim), None, False
+        pts = []
+        for (l, r) in zip(lcorners, rcorners):
+            p = self.get_3d_position((l,r))
+            pts.append(p)
+        return (lim,rim), pts, True
     
     def capture_calibration_images(self, gridSize):
         ims = []
@@ -506,6 +617,21 @@ class CameraPair:
         
         return midpoint(r1, r2)
 
+class FileCameraPair(CameraPair):
+    def __init__(self, camIDs=None, frameDirectory=None):
+        if camIDs == None:
+            camIDs = (None, None)
+        self.cameras = [FileCamera(camIDs[0],frameDirectory), FileCamera(camIDs[1],frameDirectory)]
+        
+        # for logging
+        self.frameNum = 0
+        self.logDirectory = '/Users/labuser/Desktop/cncControllerImages/'
+    
+    
+    def set_frame_directory(self, frameDirectory):
+        for i in xrange(len(self.cameras)):
+            self.cameras[i].frameDirectory = frameDirectory
+
 class FakeCameraPair(CameraPair):
     def __init__(self, camIDs=None):
         # directory containing two directories '0' and '1' that contain images '0...1.png'
@@ -564,6 +690,7 @@ class FakeCameraPair(CameraPair):
         return self.capture()
     
     def capture_localization_images(self, gridSize):
+        raise Exception, "This no longer agrees with CameraPair"
         ims = self.capture()
         return ims, False
     
@@ -616,9 +743,104 @@ def test_single_camera(camID, gridSize, gridBlockSize, calibrationDirectory='cal
     print "Save calibration"
     cam.save_calibration(calibrationDirectory)
 
-def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='calibrations'):
+def test_file_camera(camID, frameDirectory, gridSize, gridBlockSize, calibrationDirectory='calibrations'):
     print "Create"
-    cp = CameraPair(camIDs)
+    c = FileCamera(camID,frameDirectory)
+    print "Connect"
+    c.connect()
+    print "Capture"
+    im = c.capture()
+    print im
+    pylab.figure()
+    nim = numpy.array(CVtoNumPy(im))
+    print nim
+    pylab.imshow(nim)
+    pylab.show()
+
+def test_stereo_localization(camIDs, gridSize, gridBlockSize, calibrationDirectory='calibrations', frameDirectory=None):
+    print "Create",
+    if frameDirectory != None:
+        print "FileCameraPair"
+        cp = FileCameraPair(camIDs, frameDirectory)
+        for c in cp.cameras:
+            c.frameIndex = 3
+    else:
+        print "CameraPair"
+        cp = CameraPair(camIDs)
+    print "Connect"
+    cp.connect()
+    print "Capture"
+    im1, im2 = cp.capture()
+    print "Loading calibration",
+    cp.load_calibrations(calibrationDirectory)
+    print cp.cameras[0].calibrated, cp.cameras[1].calibrated
+    
+    print "Capture localization image"
+    pylab.ion()
+    success = False
+    while not success:
+        ims, success = cp.capture_localization_images(gridSize)
+        pylab.figure()
+        pylab.subplot(121)
+        pylab.imshow(numpy.array(CVtoNumPy(ims[0][0])))
+        pylab.gray()
+        pylab.subplot(122)
+        pylab.imshow(numpy.array(CVtoNumPy(ims[1][0])))
+        pylab.gray()
+        if not success:
+            print "Both cameras did not see the grid"
+            if poll_user("Try Again?", "y", "n", 0) == 1:
+                print "Quitting localization"
+                sys.exit(1)
+    
+    print "Locate"
+    cp.locate(gridSize, gridBlockSize)
+    
+    if not all([c.located for c in cp.cameras]):
+        print "Something wasn't located correctly"
+        sys.exit(1)
+    
+    keep_capturing = True
+    ptColors = ['b','g','r','c','m','y','k'] # no 'w' white
+    ptIndex = 0
+    
+    from mpl_toolkits.mplot3d import Axes3D
+    
+    ax = Axes3D(pylab.figure())
+    pylab.ion()
+    
+    while keep_capturing:
+        if poll_user("Capture and locate grid points?", "y", "n", 0) == 1:
+            keep_capturing = False
+            continue
+        
+        ims, corners, success = cp.locate_grid(gridSize)
+        if not success:
+            print "Could not find grid"
+            continue
+        
+        for c in corners:
+            ax.scatter([c[0]],[c[1]],[c[2]],c=ptColors[divmod(ptIndex,len(ptColors))[1]])
+            ax.set_xlim3d([-5,20])
+            ax.set_ylim3d([-5,20])
+            ax.set_zlim3d([-5,20])
+        
+        pylab.figure()
+        pylab.subplot(121)
+        pylab.imshow(numpy.array(CVtoNumPy(ims[0])))
+        pylab.gray()
+        pylab.subplot(122)
+        pylab.imshow(numpy.array(CVtoNumPy(ims[1])))
+        pylab.gray()
+
+def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='calibrations', frameDirectory=None):
+    print "Create"
+    if frameDirectory != None:
+        print "FileCameraPair"
+        cp = FileCameraPair(camIDs, frameDirectory)
+    else:
+        print "CameraPair"
+        cp = CameraPair(camIDs)
     
     print "Connect"
     cp.connect()
@@ -649,7 +871,6 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
         print "Something wasn't located correctly"
         sys.exit(1)
     
-    import pylab
     from mpl_toolkits.mplot3d import Axes3D
     
     f = pylab.figure(1)
@@ -728,20 +949,38 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
 
 
 if __name__ == "__main__":
-    gridSize = (8,5)
-    gridBlockSize = 2.822
     # gridSize = (8,5)
-    # gridBlockSize = 1.27
+    # gridBlockSize = 2.822
+    gridSize = (8,5)
+    gridBlockSize = 1.27
     # gridSize = (8,6)
     # gridBlockSize = 1.
+    
+    #left = 49712223528793951
+    #right = 49712223528793946
+    
     if len(sys.argv) > 1:
         test = sys.argv[1].lower()
+        if len(sys.argv) > 2:
+            frameDir = sys.argv[2]
+            print "Reading frames from %s" % frameDir
+        else:
+            frameDir = None
     if test[0] == 'l':
         test_single_camera(49712223528793951, gridSize, gridBlockSize) # left
     elif test[0] == 'r':
         test_single_camera(49712223528793946, gridSize, gridBlockSize) # right
     elif test[0] == 'p':
-        test_camera_pair((49712223528793951, 49712223528793946), gridSize, gridBlockSize)
+        test_camera_pair((49712223528793951, 49712223528793946), gridSize, gridBlockSize, frameDirectory=frameDir)
+    elif test[0] == 's':
+        test_stereo_localization((49712223528793951, 49712223528793946), gridSize, gridBlockSize, frameDirectory=frameDir)
+    elif test[0] == 'f':
+        if test[1] == 'l':
+            test_file_camera(49712223528793951, frameDir, gridSize, gridBlockSize)
+        elif test[1] == 'r':
+            test_file_camera(49712223528793946, frameDir, gridSize, gridBlockSize)
+        else:
+            print "unknown camera"
     else:
         test_camera_pair((49712223528793951, 49712223528793946), gridSize, gridBlockSize)
     
