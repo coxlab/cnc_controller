@@ -213,14 +213,7 @@ def find_electrode_tip(im, line_segment):
     return to_image_coords(tip)
 
 
-if __name__ == "__main__":
-    
-    #load a test image
-    base_dir = "/Users/davidcox/Desktop/electrode_tip/1/0/"
-    base_im = double(imread(base_dir + "4.png"))
-    im = double(imread(base_dir + "13.png"))
-    
-    
+def find_electrode_tip_with_refinement(im, base_im, angle_range, angle_resolution):
     diff_im = abs(im - base_im)
     diff_im = median_filter(diff_im, 4)
     
@@ -231,6 +224,19 @@ if __name__ == "__main__":
     a = scipy.optimize.brute(lambda a: electrode_alignment_objective(a, diff_im, l)[0], ranges=(slice(-7,7,.25),))
     print "a=", a
     (trough, new_tip) = electrode_alignment_objective(a[0], diff_im, l)
+    
+    return new_tip
+    
+
+if __name__ == "__main__":
+    
+    #load a test image
+    base_dir = "/Users/davidcox/Desktop/electrode_tip/1/0/"
+    base_im = double(imread(base_dir + "4.png"))
+    im = double(imread(base_dir + "13.png"))
+   
+    tip = find_electrode_tip_with_refinement(im, base_im, (-7,7), 0.25)
+    
     
     plt.imshow(im, cmap=cm.gray)
     plt.hold(True)
