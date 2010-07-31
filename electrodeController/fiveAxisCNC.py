@@ -19,7 +19,10 @@ class FiveAxisCNC:
         self.linearAxes.configure_axis('x',cfg.xAxisConfig)
         self.linearAxes.configure_axis('y',cfg.yAxisConfig)
         self.linearAxes.configure_axis('z',cfg.zAxisConfig)
+        self.linearAxes.save_settings_to_controller()
         self.headAxes = Axes(cfg.cncHeadAxesIP, cfg.cncHeadAxesPort, cfg.cncHeadAxes, cfg.serialConnectionTimeout)
+        self.headAxes.configure_axis('w',cfg.wAxisConfig)
+        self.headAxes.save_settings_to_controller()
         self.arm_length = None
         self.disable_motors()
     
