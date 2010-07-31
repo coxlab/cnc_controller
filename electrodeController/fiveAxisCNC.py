@@ -68,4 +68,4 @@ class FiveAxisCNC:
     def get_tip_position_on_arm(self):
         b = radians(float(self.headAxes.get_position('b')['b']))
         w = 50-float(self.headAxes.get_position('w')['w']) #FIXME w axis flip
-        return self.get_position_on_arm(b, w + self.arm_length)
+        return self.get_position_on_arm(radians(b), w + self.arm_length)

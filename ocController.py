@@ -396,7 +396,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             # TODO update electrode 
             # first apply rotation and translation as specified by tip position
             b = float(self.cnc.headAxes.get_position('b')['b'])
-            cncMatrix = vector.transform_to_matrix(cncCoord[0], cncCoord[1], cncCoord[2], 0., b, 0.)
+            cncMatrix = vector.transform_to_matrix(cncCoord[0], cncCoord[1], cncCoord[2], 0., numpy.radians(b), 0.)
             # then apply the transform from cnc to skull
             tMatrix = self.fManager.get_transformation_matrix("cnc","skull")
             # TODO check the order of this
