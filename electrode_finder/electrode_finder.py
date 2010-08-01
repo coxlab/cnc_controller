@@ -9,6 +9,7 @@ from numpy.random import rand
 from numpy.linalg import norm
 from scipy.interpolate import interp2d
 
+plot_alot = False
 
 def find_electrode(im):
     # apply some sort of windowing / exclude irrelvant image pixels
@@ -17,7 +18,7 @@ def find_electrode(im):
     (grad_mag, thinned_grad, edge_im) = canny(im, 150, 50);
 
     # show the canny image
-    if False:
+    if plot_alot:
         plt.imshow(edge_im)
         plt.colorbar()
         plt.show()
@@ -35,7 +36,9 @@ def find_electrode(im):
     
     # find the "lowest" point
     best_lowness = 0
+    
     for l in lines:
+        is_best_line = False
         start_point = array(l[0])
         end_point = array(l[1])
         
@@ -44,13 +47,16 @@ def find_electrode(im):
         
         if(start_lowness > best_lowness):
             best_line = l
+            is_best_line = True
             best_lowness = start_lowness
             
         if(end_lowness > best_lowness):
             best_line = l
+            is_best_line = True
             best_lowness = end_lowness
-            
-        if((best_line == l) and (start_lowness > end_lowness)):
+        
+           
+        if(is_best_line and (start_lowness > end_lowness)):
             best_line = (end_point, start_point)
             
     return best_line
@@ -98,7 +104,7 @@ def resample_slab(im, line, sample_width=20, sample_step=1, over_factor=1.5):
         
     
     # look at the slab resampling
-    if False:
+    if plot_alot:
         plt.imshow(im)
         plt.hold(True)
         for i in range(0, X_im.shape[0], 4):
@@ -136,7 +142,7 @@ def estimate_tip_location_in_slab(slab):
     
     normalized_center_slice = center_slice -  (left_flank + right_flank)/2
     
-    if False:
+    if plot_alot:
         plt.plot(cross_section)
         plt.title("Cross section - ")
         plt.show()
@@ -154,7 +160,7 @@ def estimate_tip_location_in_slab(slab):
             tip_cutoff = len(normalized_center_slice) - t
             break
     
-    if False:
+    if plot_alot:
         plt.plot(normalized_center_slice)
         plt.title("Center slice - ")
         plt.hold(True)
@@ -190,7 +196,7 @@ def electrode_alignment_objective(params, im, line_segment):
     (slab, to_image_coords) = resample_slab(im, line_segment)
     (tip, trough) = estimate_tip_location_in_slab(slab)
     
-    if False:
+    if plot_alot:
         plt.imshow(slab, cmap=cm.gray)
         plt.hold(True)
         plt.plot(tip[0], tip[1], 'r*')
@@ -214,9 +220,14 @@ def find_electrode_tip(im, line_segment):
 
 
 def find_electrode_tip_with_refinement(im, base_im, angle_range, angle_resolution):
-    diff_im = abs(im - base_im)
-    diff_im = median_filter(diff_im, 4)
     
+    if base_im is not None:
+        diff_im = abs(im - base_im)
+    else:
+        diff_im = im
+        print "WARNING: no base (sans electrode) image provided"
+    
+    diff_im = median_filter(diff_im, 4)
     
     l = find_electrode(diff_im)
     tip = find_electrode_tip(diff_im, l)
@@ -231,9 +242,10 @@ def find_electrode_tip_with_refinement(im, base_im, angle_range, angle_resolutio
 if __name__ == "__main__":
     
     #load a test image
-    base_dir = "/Users/davidcox/Desktop/electrode_tip/1/0/"
-    base_im = double(imread(base_dir + "4.png"))
-    im = double(imread(base_dir + "13.png"))
+    base_dir = "./test_images/0/"
+    #base_im = double(imread(base_dir + "0.png"))
+    base_im = None
+    im = double(imread(base_dir + "2.png"))
    
     tip = find_electrode_tip_with_refinement(im, base_im, (-7,7), 0.25)
     
