@@ -821,9 +821,15 @@ def test_stereo_localization(camIDs, gridSize, gridBlockSize, calibrationDirecto
         
         for c in corners:
             ax.scatter([c[0]],[c[1]],[c[2]],c=ptColors[divmod(ptIndex,len(ptColors))[1]])
-            ax.set_xlim3d([-5,20])
-            ax.set_ylim3d([-5,20])
-            ax.set_zlim3d([-5,20])
+            # scale axes 1:1
+            ox, oy, oz = ax.get_xlim3d().copy(), ax.get_ylim3d().copy(), ax.get_zlim3d().copy()
+            rmax = max((abs(pylab.diff(ox)), abs(pylab.diff(oy)), abs(pylab.diff(oz))))
+            ox = (ox - pylab.mean(ox))/abs(pylab.diff(ox)) * rmax + pylab.mean(ox)
+            oy = (oy - pylab.mean(oy))/abs(pylab.diff(oy)) * rmax + pylab.mean(oy)
+            oz = (oz - pylab.mean(oz))/abs(pylab.diff(oz)) * rmax + pylab.mean(oz)
+            ax.set_xlim3d([ox[0],ox[1]])
+            ax.set_ylim3d([oy[0],oy[1]])
+            ax.set_zlim3d([oz[0],oz[1]])
         ptIndex += 1
         pylab.figure()
         pylab.subplot(121)
@@ -951,10 +957,10 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
 if __name__ == "__main__":
     # gridSize = (8,5)
     # gridBlockSize = 2.822
-    gridSize = (8,5)
-    gridBlockSize = 1.27
-    # gridSize = (8,6)
-    # gridBlockSize = 1.
+    # gridSize = (8,5)
+    # gridBlockSize = 1.27
+    gridSize = (8,6)
+    gridBlockSize = 1.
     
     #left = 49712223528793951
     #right = 49712223528793946
