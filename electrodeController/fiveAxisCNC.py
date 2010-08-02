@@ -8,6 +8,8 @@ else:
 #import cncAxes
 from numpy import *
 
+from rayfit import measure_rotation_plane
+
 class FiveAxisCNC:
     """
     linearAxes = {'x':1, 'y':2, 'z':3}
@@ -43,14 +45,19 @@ class FiveAxisCNC:
                 return True
         return False
     
-    def calculate_arm_length(self, tipLocations, wPosition):
+    def calculate_arm_length(self, tipLocations, angles, wPositions):
         """Requires 3 measurements of the tip location at 3 angles"""
         cfg.cncLog.info("measuring arm length with (wPosition, tipLocations):")
         cfg.cncLog.info(wPosition)
         cfg.cncLog.info(tipLocations)
         
+        # using rayfit
+        rotCen, rotNorm, rotRadii = measure_rotation_plane(tipLocations, angles, wpositions)
+        medRadius = median(rotRadii - wPositions)
+        self.arm_length = medRadius
+        
         # just measure the arm length (at w = 0)
-        self.arm_length = 184.0
+        #self.arm_length = 184.0
                 
         # old, trigonimetric algorithm
         #dists = [sqrt(sum(array(tipLocations[i-1]-tipLocations[i])**2)) for i in xrange(len(tipLocations))]

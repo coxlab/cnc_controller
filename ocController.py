@@ -210,7 +210,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         # get points from saved points and angles
         ptsInCam = []
         angles = []
-        ws = []
+        wPositions = []
         
         print '# lx ly rx ry x y z angle w'
         for z in self.zoomPoints:
@@ -220,22 +220,23 @@ class OCController (NSObject, electrodeController.controller.Controller):
             if all((z.has_key('x'),z.has_key('y'),z.has_key('z'),z.has_key('angle'),z.has_key('w'))):
                 ptsInCam.append([z['x'],z['y'],z['z'],1.])
                 angles.append(numpy.radians(z['angle']))
-                ws.append(float(z['w']))
+                wPositions.append(float(z['w']))
         
-        if len(ptsInCam) != 3 or len(angles) != 3:
+        if len(ptsInCam) != 4 or len(angles) != 4 or len(wPositions) != 4:
             # TODO log error
-            print "register_cnc requires exactly 3 valid points"
+            print "register_cnc requires exactly 4 valid points"
             return
         
         # TODO check that all ws are the same
-        wPosition = ws[0]
-        for w in ws:
-            if w != wPosition:
-                print "register_cnc requires 3 points with the same w position"
+        #wPosition = ws[0]
+        #for w in ws:
+        #    if w != wPosition:
+        #        print "register_cnc requires 3 points with the same w position"
         ptsInCam = numpy.array(ptsInCam)
         angles = numpy.array(angles)
+        wPositions = numpy.array(wPositions
         print "going to register_cnc in controller"
-        self.register_cnc(ptsInCam, angles, wPosition)
+        self.register_cnc(ptsInCam, angles, wPositions)
         self.updateFramesDisplay_(sender)
     
     @IBAction

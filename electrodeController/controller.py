@@ -67,8 +67,8 @@ class Controller:
         self.fManager.add_transformation_matrix('tricorner', 'camera', tcToCam)
     
     
-    def register_cnc(self, ptsInCamera, angles, wPosition):
-        r = self.cnc.calculate_arm_length(ptsInCamera, wPosition) + wPosition
+    def register_cnc(self, ptsInCamera, angles, wPositions):
+        r = self.cnc.calculate_arm_length(ptsInCamera, angles, wPositions) + wPosition
         cfg.cncLog.info('Found arm length: %f' % r)
         
         ptsInCNC= numpy.array([[numpy.sin(angles[0])*r, 0., numpy.cos(angles[0])*r, 1.],
