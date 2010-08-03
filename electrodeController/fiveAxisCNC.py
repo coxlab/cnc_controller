@@ -53,7 +53,7 @@ class FiveAxisCNC:
         
         # using rayfit
         rotCen, rotNorm, rotRadii = measure_rotation_plane(tipLocations, angles, wPositions)
-        medRadius = median(rotRadii - wPositions)
+        medRadius = median(rotRadii + wPositions)
         self.arm_length = medRadius
         
         # just measure the arm length (at w = 0)
@@ -77,5 +77,5 @@ class FiveAxisCNC:
     
     def get_tip_position_on_arm(self):
         b = radians(float(self.headAxes.get_position('b')['b']))
-        w = 50-float(self.headAxes.get_position('w')['w']) #FIXME w axis flip
-        return self.get_position_on_arm(radians(b), w + self.arm_length)
+        w = float(self.headAxes.get_position('w')['w']) #FIXME w axis flip
+        return self.get_position_on_arm(radians(b), self.arm_length - w)
