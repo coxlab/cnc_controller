@@ -15,6 +15,13 @@ import pylab
 import cv
 import dc1394simple
 
+# coordinates (post flip, see: '# flipped')
+#
+# z+ towards camera
+# y+ up
+# x+ right
+
+
 # gridSize = (8,5)
 # gridBlockSize = 2.73
 # leftCamID = 49712223528793951
@@ -383,7 +390,8 @@ class CalibratedCamera:
         #if not self.calibrated:
         #    raise Exception, "Camera must be calibrated before calling get_position"
         if self.located:
-            return self.itoWMatrix[3,0], self.itoWMatrix[3,1], self.itoWMatrix[3,2]
+            # flipping y and z to make this left-handed
+            return self.itoWMatrix[3,0], -self.itoWMatrix[3,1], -self.itoWMatrix[3,2]
         else:
             return 0, 0, 0
     
@@ -432,7 +440,8 @@ class CalibratedCamera:
             #tp = numpy.matrix([ x - self.camMatrix[0,2], y - self.camMatrix[1,2], 1., 1. ])
             tp = numpy.array([x - self.camMatrix[0,2], y - self.camMatrix[1,2], 1., 1.])
             tr = numpy.array(tp * self.itoWMatrix)[0]
-            return tr[0]/tr[3], tr[1]/tr[3], tr[2]/tr[3]
+            # flipping y and z to make this left-handed
+            return tr[0]/tr[3], -tr[1]/tr[3], -tr[2]/tr[3]
         else:
             return 0, 0, 0
 
@@ -847,6 +856,9 @@ def test_stereo_localization(camIDs, gridSize, gridBlockSize, calibrationDirecto
             ax.set_xlim3d([ox[0],ox[1]])
             ax.set_ylim3d([oy[0],oy[1]])
             ax.set_zlim3d([oz[0],oz[1]])
+            ax.set_xlabel('x')
+            ax.set_ylabel('y')
+            ax.set_zlabel('z')
         ptIndex += 1
         pylab.figure()
         pylab.subplot(121)
