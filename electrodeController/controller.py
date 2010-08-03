@@ -72,8 +72,12 @@ class Controller:
         cfg.cncLog.info('Found arm length: %f' % armLength)
         
         ptsInCNC = numpy.zeros((len(angles),4),dtype=numpy.float64)
+        # trying to make this agree with the camera frame as much as possible
+        # counter-clockwise is +, clockwise is -
+        # so at angle 0 we're straight down (y-) centered (x0) and z0
+        # + angles take the tip right (x+)
         ptsInCNC[:,0] = numpy.sin(angles)*(wPositions+armLength)
-        ptsInCNC[:,2] = numpy.cos(angles)*(wPositions+armLength)
+        ptsInCNC[:,1] = -numpy.cos(angles)*(wPositions+armLength)
         ptsInCNC[:,3] = numpy.ones(len(angles))
         # ptsInCNC= numpy.array([[numpy.sin(angles[0])*r, 0., numpy.cos(angles[0])*r, 1.],
         #                         [numpy.sin(angles[1])*r, 0., numpy.cos(angles[1])*r, 1.],
