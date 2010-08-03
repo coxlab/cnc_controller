@@ -50,16 +50,16 @@ def measure_rotation_plane(pts, angles, radii):
         ri = where(ur == r)[0][0]
         gd[ai,ri] = p
     
-    print tpts
-    print gd
-    
-    print tpts[0], tpts[2]
-    print gd[0,0], gd[0,1]
-    
-    figure()
-    for (i,p) in enumerate(tpts):
-        text(p[0],p[1],i)
-    scatter(tpts[:,0],tpts[:,1])
+    # print tpts
+    # print gd
+    # 
+    # print tpts[0], tpts[2]
+    # print gd[0,0], gd[0,1]
+    # 
+    # figure()
+    # for (i,p) in enumerate(tpts):
+    #     text(p[0],p[1],i)
+    # scatter(tpts[:,0],tpts[:,1])
     
     # find  ray intersection
     ms = zeros(len(ua))
@@ -73,14 +73,14 @@ def measure_rotation_plane(pts, angles, radii):
     ix = (bs[1] - bs[0])/(ms[0] - ms[1])
     iy = ms[0] * ix + bs[0]
     
-    scatter(ix,iy)
-    for i in xrange(len(ua)):
-        plot([gd[i,1,0],gd[i,0,0]],[gd[i,1,1],gd[i,0,1]])
+    # scatter(ix,iy)
+    # for i in xrange(len(ua)):
+    #     plot([gd[i,1,0],gd[i,0,0]],[gd[i,1,1],gd[i,0,1]])
     
-
+    
     # reproject center to 3d
     mc = array(vector.apply_matrix_to_points(inv(P),array([[ix,iy,0.,1.]])))[0][:3] + mean(pts,0)
-
+    
     # measure radii
     mrs = zeros(len(radii))
     for i in xrange(len(radii)):

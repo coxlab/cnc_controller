@@ -186,7 +186,8 @@ if __name__ == '__main__':
     # find good way to show matrices
     
     armLength = get_arm_length(f)
-    print "Arm length: %.3f mm" % armLength
+    if armLength is not None:
+        print "Arm length: %.3f mm" % armLength
     
     # get the registration points used to calculate the transformations
     points = get_frame_registration_points(f)
