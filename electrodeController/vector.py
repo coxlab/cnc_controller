@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from numpy import *
+from pylab import norm
 from scipy import optimize
 
 # what coordinates should I use????????????????
@@ -19,9 +20,32 @@ from scipy import optimize
 #                               [tx, ty, tz, 1]])
 # transformation_matrix = rotation_matrix * translation_matrix
 
+def apply_matrix_to_points(tMatrix, points):
+    """This function is really just to preserve the order of operations"""
+    if points.shape[1] != 4:
+        if points.shape[1] == 3:
+            # convert to homogeneous
+            np = ones((points.shape[0],4),dtype=points.dtype)
+            np[:,:3] = points[:,:]
+            points = np
+        else:
+            raise Exception
+    return array(points * tMatrix)
+
 def rotate_and_translate(R,T):
     """This function is really just to preserve the order of operations"""
     return R * T
+
+def translate_and_rotate(T,R):
+    return T * R
+
+def make_homogeneous(pts, axis=1):
+    pts = array(pts)
+    s = array(pts.shape)
+    s[axis] += 1
+    npts = ones(s, pts.dtype)
+    npts[:pts.shape[0],:pts.shape[1]] = pts[:]
+    return npts
 
 def pad_matrix(m):
     m2 = vstack((m,zeros((1,m.shape[1]))))
