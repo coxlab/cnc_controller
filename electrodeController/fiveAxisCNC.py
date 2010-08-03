@@ -47,12 +47,12 @@ class FiveAxisCNC:
     
     def calculate_arm_length(self, tipLocations, angles, wPositions):
         """Requires 3 measurements of the tip location at 3 angles"""
-        cfg.cncLog.info("measuring arm length with (wPosition, tipLocations):")
-        cfg.cncLog.info(wPosition)
+        cfg.cncLog.info("measuring arm length with (wPositions, tipLocations):")
+        cfg.cncLog.info(wPositions)
         cfg.cncLog.info(tipLocations)
         
         # using rayfit
-        rotCen, rotNorm, rotRadii = measure_rotation_plane(tipLocations, angles, wpositions)
+        rotCen, rotNorm, rotRadii = measure_rotation_plane(tipLocations, angles, wPositions)
         medRadius = median(rotRadii - wPositions)
         self.arm_length = medRadius
         

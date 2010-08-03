@@ -68,14 +68,18 @@ class Controller:
     
     
     def register_cnc(self, ptsInCamera, angles, wPositions):
-        r = self.cnc.calculate_arm_length(ptsInCamera, angles, wPositions) + wPosition
-        cfg.cncLog.info('Found arm length: %f' % r)
+        armLength = self.cnc.calculate_arm_length(ptsInCamera, angles, wPositions)
+        cfg.cncLog.info('Found arm length: %f' % armLength)
         
-        ptsInCNC= numpy.array([[numpy.sin(angles[0])*r, 0., numpy.cos(angles[0])*r, 1.],
-                                [numpy.sin(angles[1])*r, 0., numpy.cos(angles[1])*r, 1.],
-                                [numpy.sin(angles[2])*r, 0., numpy.cos(angles[2])*r, 1.]])
+        ptsInCNC = numpy.zeros((len(angles),4),dtype=numpy.float64)
+        ptsInCNC[:,0] = numpy.sin(angles)*(wPositions+armLength)
+        ptsInCNC[:,2] = numpy.cos(angles)*(wPositions+armLength)
+        ptsInCNC[:,3] = numpy.ones(len(angles))
+        # ptsInCNC= numpy.array([[numpy.sin(angles[0])*r, 0., numpy.cos(angles[0])*r, 1.],
+        #                         [numpy.sin(angles[1])*r, 0., numpy.cos(angles[1])*r, 1.],
+        #                         [numpy.sin(angles[2])*r, 0., numpy.cos(angles[2])*r, 1.]])
         
-        camToCNC = vector.calculate_rigid_transform(ptsInCamera,ptsInCNC) #TODO check that this is correct
+        camToCNC = vector.calculate_rigid_transform(ptsInCamera[:3],ptsInCNC[:3]) #TODO check that this is correct
         cfg.framesLog.info('Registering cnc with points in (camera, cnc):')
         cfg.framesLog.info(ptsInCamera)
         cfg.framesLog.info(ptsInCNC)

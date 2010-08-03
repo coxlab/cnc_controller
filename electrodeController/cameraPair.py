@@ -193,6 +193,11 @@ class CalibratedCamera:
         return True
     
     
+    def disconnect(self):
+        if self.connected == True:
+            self.connected = False
+            del self.camera
+    
     def capture(self, undistort=True):
         if not self.connected:
             self.connect()
@@ -216,8 +221,8 @@ class CalibratedCamera:
     
     
     def capture_grid_image(self, gridSize):
-        if not self.calibrated:
-            raise IOError('Camera must be calibrated before capturing grid')
+        #if not self.calibrated:
+        #    raise IOError('Camera must be calibrated before capturing grid')
         
         image = self.capture()
         success, corners = cv.FindChessboardCorners(image, gridSize)
@@ -267,7 +272,7 @@ class CalibratedCamera:
     
     
     def capture_calibration_image(self, gridSize):
-        image, corners, success = self.capture_grid_image(self, gridSize)
+        image, corners, success = self.capture_grid_image(gridSize)
         if not success:
             return image, False
         
@@ -462,6 +467,10 @@ class FileCamera(CalibratedCamera):
                 raise IOError, "Failed to find valid int named dir in frameDirectory"
         
         self.connected = True
+    
+    def disconnect(self):
+        self.connected = False
+    
     def capture(self, undistort=True):
         if not self.connected:
             self.connect()
@@ -530,6 +539,11 @@ class CameraPair:
     def connect(self):
         for i in xrange(len(self.cameras)):
             self.cameras[i].connect()
+    
+    
+    def disconnect(self):
+        for i in xrange(len(self.cameras)):
+            self.cameras[i].disconnect()
     
     
     def capture(self):
@@ -644,6 +658,9 @@ class FakeCameraPair(CameraPair):
     
     def connect(self):
         self.connected = [True, True]
+    
+    def disconnect(self):
+        pass
     
     def get_connected(self):
         return self.connected

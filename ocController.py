@@ -69,6 +69,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     def awakeFromNib(self):
         electrodeController.controller.Controller.__init__(self)
+        NSApp().setDelegate_(self)
         self.disable_motors()
         
         self.connect_cameras()
@@ -91,6 +92,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.update_frames_display()
         self.update_velocities()
         self.update_position()
+    
+    def applicationWillTerminate_(self, sender):
+        print "applicationWillTerminate called"
+        self.cameras.disconnect()
+        print "applicationWillTerminate done"
+        
     
     @IBAction
     def clearZoomPoints_(self, sender):
@@ -234,7 +241,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #        print "register_cnc requires 3 points with the same w position"
         ptsInCam = numpy.array(ptsInCam)
         angles = numpy.array(angles)
-        wPositions = numpy.array(wPositions
+        wPositions = numpy.array(wPositions)
         print "going to register_cnc in controller"
         self.register_cnc(ptsInCam, angles, wPositions)
         self.updateFramesDisplay_(sender)
