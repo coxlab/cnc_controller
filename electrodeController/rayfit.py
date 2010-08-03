@@ -32,9 +32,15 @@ def measure_rotation_plane(pts, angles, radii):
     xyzs = pts - mean(pts, 0)
     u, s, vh = svd(xyzs)
     mn = vh[s.argmin()] / norm(vh[s.argmin()])
+    mn = array([0,0,1])
 
     # project points onto plane
-    u = cross(mn, array([0,0,1]))
+    if sum((mn - array([0,0,1]))**2) < 0.001:
+        print "normal was 0,0,1"
+        u = cross(mn, array([0,1,0]))
+    else:
+        print "normal was not 0,0,1"
+        u = cross(mn, array([0,0,1]))
     v = cross(mn, u)
     u = u / norm(u)
     v = v / norm(v)
