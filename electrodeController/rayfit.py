@@ -4,11 +4,13 @@ import logging
 
 from pylab import *
 from scipy.optimize import leastsq
+from scipy.stats import linregress
 
 from mpl_toolkits.mplot3d import Axes3D
 
 import vector #bjg.vector
 
+debugPlotting = False#True
 
 def draw_circle(ax, center, normal, radius):
     r = radius
@@ -32,14 +34,12 @@ def measure_rotation_plane(pts, angles, radii):
     xyzs = pts - mean(pts, 0)
     u, s, vh = svd(xyzs)
     mn = vh[s.argmin()] / norm(vh[s.argmin()])
-    mn = array([0,0,1])
+    #mn = array([0,0,1])
 
     # project points onto plane
     if sum((mn - array([0,0,1]))**2) < 0.001:
-        print "normal was 0,0,1"
         u = cross(mn, array([0,1,0]))
     else:
-        print "normal was not 0,0,1"
         u = cross(mn, array([0,0,1]))
     v = cross(mn, u)
     u = u / norm(u)
@@ -56,32 +56,37 @@ def measure_rotation_plane(pts, angles, radii):
         ri = where(ur == r)[0][0]
         gd[ai,ri] = p
     
-    # print tpts
-    # print gd
-    # 
-    # print tpts[0], tpts[2]
-    # print gd[0,0], gd[0,1]
-    # 
-    # figure()
-    # for (i,p) in enumerate(tpts):
-    #     text(p[0],p[1],i)
-    # scatter(tpts[:,0],tpts[:,1])
+    if debugPlotting:
+        print tpts
+        print gd
+    
+        print tpts[0], tpts[2]
+        print gd[0,0], gd[0,1]
+    
+        figure()
+        for (i,p) in enumerate(tpts):
+            text(p[0],p[1],i)
+        scatter(tpts[:,0],tpts[:,1])
     
     # find  ray intersection
     ms = zeros(len(ua))
     bs = zeros(len(ua))
     for i in xrange(len(ua)):
-        # assume two points per ray for right now
-        ms[i] = (gd[i,1,1] - gd[i,0,1])/(gd[i,1,0] - gd[i,0,0])
-        bs[i] = gd[i,1,1] - ms[i] * gd[i,1,0]
+        r = linregress(gd[i,:,0], gd[i,:,1]) # r = slope, intercept r, ttp, stderr
+        ms[i] = r[0]
+        bs[i] = r[1]
+        ## assume two points per ray for right now
+        #ms[i] = (gd[i,1,1] - gd[i,0,1])/(gd[i,1,0] - gd[i,0,0])
+        #bs[i] = gd[i,1,1] - ms[i] * gd[i,1,0]
     
     # assume only two angles
     ix = (bs[1] - bs[0])/(ms[0] - ms[1])
     iy = ms[0] * ix + bs[0]
     
-    # scatter(ix,iy)
-    # for i in xrange(len(ua)):
-    #     plot([gd[i,1,0],gd[i,0,0]],[gd[i,1,1],gd[i,0,1]])
+    if debugPlotting:
+        scatter(ix,iy)
+        for i in xrange(len(ua)):
+            plot([gd[i,-1,0],gd[i,0,0]],[gd[i,-1,1],gd[i,0,1]])
     
     
     # reproject center to 3d
@@ -156,17 +161,19 @@ if __name__ == '__main__':
         v = cross(n,u)
         u = u / norm(u)
         v = v / norm(v)
-        r1 = 50.
-        r2 = 55.
+        r1 = 90.
+        r2 = 91.
+        r3 = 92.
         a1 = radians(40.)
         a2 = radians(45.)
-        radii = array([r1, r1, r2, r2])
-        angles = array([a1, a2, a1, a2])
+        radii = array([r1, r1, r2, r2, r3, r3])
+        angles = array([a1, a2, a1, a2, a1, a2])
         #pts = c + radii*cos(angles)*u + radii*sin(angles)*v
-        pts = array([ c + r1*cos(a1)*u + r1*sin(a1)*v,
-                    c + r1*cos(a2)*u + r1*sin(a2)*v,
-                    c + r2*cos(a1)*u + r2*sin(a1)*v,
-                    c + r2*cos(a2)*u + r2*sin(a2)*v])
+        pts = array([c + r*cos(a)*u + r*sin(a)*v for r,a, in zip(radii,angles)])
+        # pts = array([ c + r1*cos(a1)*u + r1*sin(a1)*v,
+        #             c + r1*cos(a2)*u + r1*sin(a2)*v,
+        #             c + r2*cos(a1)*u + r2*sin(a1)*v,
+        #             c + r2*cos(a2)*u + r2*sin(a2)*v])
         # add noise
         pts += (rand(*pts.shape) - 0.5) * cfg.noise
 
@@ -174,11 +181,13 @@ if __name__ == '__main__':
 
         mr1 = median((mrs[0],mrs[1]))
         mr2 = median((mrs[2],mrs[3]))
+        mr3 = median((mrs[4],mrs[5]))
 
         logit('Normal', n, mn)
         logit('Center(3d)', c, mc)
         logit('R1', r1, mr1)
         logit('R2', r2, mr2)
+        logit('R3', r3, mr3)
 
 
     # # -------------- Normal: measure normal of points --------------------
@@ -256,6 +265,7 @@ if __name__ == '__main__':
         ax.scatter([mc[0]],[mc[1]],[mc[2]], c='r')
         draw_circle(ax, mc, mn, mr1)
         draw_circle(ax, mc, mn, mr2)
+        draw_circle(ax, mc, mn, mr3)
         # scale 1:1:1
         xl = ax.get_xlim3d()
         yl = ax.get_ylim3d()
@@ -270,17 +280,17 @@ if __name__ == '__main__':
         ax.set_xlim3d(xl)
         ax.set_ylim3d(yl)
         ax.set_zlim3d(zl)
-    
-        print oxl
+        
+        
         ax.set_xlim3d(oxl)
         ax.set_ylim3d(oyl)
         ax.set_zlim3d(ozl)
-    
-    
+        
+        
         # figure()
         # scatter(tpts[:,0],tpts[:,1],c='b')
         # scatter(ix,iy,c='r')
         # plot([tpts[2,0],ix],[tpts[2,1],iy],c='g')
         # plot([tpts[3,0],ix],[tpts[3,1],iy],c='g')
-    
+        
         show()

@@ -80,7 +80,7 @@ class FiveAxisCNC:
         return self.arm_length
     
     def get_position_on_arm(self, angle, length):
-        return sin(angle)*length, 0., cos(angle)*length
+        return sin(angle)*length, -cos(angle)*length, 0.
     
     def get_tip_position_on_arm(self):
         b = radians(float(self.headAxes.get_position('b')['b']))

@@ -240,33 +240,38 @@ if __name__ == '__main__':
     plot_points_in_frame(ax, cTipPoints, fm, 'camera', plotFrame, c=colors[1], s=100, marker='s')
     
     # plot all matrices
-    def plot_matrix(m):
+    def plot_matrix(m, l1, l2):
         print "Translation:", m[3]
         ax = Axes3D(figure())
-        pts = array([[0,0,0,1],
+        points = array([[0,0,0,1],
                 [1,0,0,1],
                 [0,1,0,1],
                 [0,0,1,1]])
-        def plot_pts(ax, pts):
+        def plot_pts(ax, pts, l):
             ax.plot([pts[0][0],pts[1][0]],[pts[0][1],pts[1][1]],[pts[0][2],pts[1][2]], c='r')
             ax.plot([pts[0][0],pts[2][0]],[pts[0][1],pts[2][1]],[pts[0][2],pts[2][2]], c='g')
             ax.plot([pts[0][0],pts[3][0]],[pts[0][1],pts[3][1]],[pts[0][2],pts[3][2]], c='b')
-        plot_pts(ax, pts)
-        plot_pts(ax, array(pts * matrix(m)))
+            ax.text3D(pts[0][0],pts[0][1],pts[0][2],l)
+        plot_pts(ax, points, l1)
+        plot_pts(ax, array(points * matrix(m)), l2)
         # scale axes
-        yl = ax.get_ylim3d()
-        xl = ax.get_xlim3d()
-        zl = ax.get_zlim3d()
-        tl = (min(hstack((xl,yl,zl))), max(hstack((xl,yl,zl))))
-        #tl = (min(min(xl),min(yl),min(zl)), max(max(xl),max(yl),max(zl))
-        ax.set_xlim3d(tl)
-        ax.set_ylim3d(tl)
-        ax.set_zlim3d(tl)
+        # scale axes 1:1
+        ox, oy, oz = ax.get_xlim3d().copy(), ax.get_ylim3d().copy(), ax.get_zlim3d().copy()
+        rmax = max((abs(diff(ox)), abs(diff(oy)), abs(diff(oz))))
+        ox = (ox - mean(ox))/abs(diff(ox)) * rmax + mean(ox)
+        oy = (oy - mean(oy))/abs(diff(oy)) * rmax + mean(oy)
+        oz = (oz - mean(oz))/abs(diff(oz)) * rmax + mean(oz)
+        ax.set_xlim3d([ox[0],ox[1]])
+        ax.set_ylim3d([oy[0],oy[1]])
+        ax.set_zlim3d([oz[0],oz[1]])
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        ax.set_zlabel('z')
         
     
-    plot_matrix(fm.get_transformation_matrix('skull','tricorner'))
-    plot_matrix(fm.get_transformation_matrix('tricorner','camera'))
-    plot_matrix(fm.get_transformation_matrix('camera','cnc'))
+    plot_matrix(fm.get_transformation_matrix('skull','tricorner'),'skull','tricorner')
+    plot_matrix(fm.get_transformation_matrix('tricorner','camera'),'tricorner','camera')
+    plot_matrix(fm.get_transformation_matrix('camera','cnc'),'camera','cnc')
     
     # plot tcPoints as seen from camera
     

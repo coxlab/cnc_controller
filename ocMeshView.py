@@ -73,7 +73,7 @@ class Orbiter:
 
 class OCMeshView(NSOpenGLView):
     def awakeFromNib(self):
-        self.orbiter = Orbiter(rotation=[2.3561944901923448,0.,0.])
+        self.orbiter = Orbiter()#rotation=[2.3561944901923448,0.,0.])
         self.obj = None
         self.gl_inited = False
         self.leftDown = None
