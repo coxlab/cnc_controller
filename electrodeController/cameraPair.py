@@ -13,7 +13,10 @@ import os
 import numpy
 import pylab
 import cv
-import dc1394simple
+#import dc1394simple
+import pydc1394
+
+dc1394 = pydc1394.DC1394Library()
 
 # coordinates (post flip, see: '# flipped')
 #
@@ -160,6 +163,29 @@ def midpoint(p1, p2):
     return (p1[0] + p2[0])/2., (p1[1] + p2[1])/2., (p1[2] + p2[2])/2.
 
 
+class SimpleCamera(pydc1394.Camera):
+    def set_mode(self):
+        self.mode = self.modes[4]
+    def configure(self):
+        self.framerate.mode = 'manual'
+        self.framerate.val = 1.
+        self.exposure.mode = 'manual'
+        self.exposure.val = 1.
+        self.shutter.mode = 'manual'
+        self.shutter.val = 1000.
+    def capture_frame(self):
+        # TODO test
+        # i'm not 100% sure that the settings have enought time to take effect with this,
+        # it might be better to pull apart the start/stop iso transmission and capture so
+        # that I start transmission, configure, allow time for settings to take effect and
+        # then capture
+        self.start()
+        self.configure()
+        i = self.shot().reshape((1040,1392))
+        self.stop()
+        return i
+
+
 class CalibratedCamera:
     def __init__(self, camID=None):
         self.connected = False
@@ -182,13 +208,15 @@ class CalibratedCamera:
             return True
         
         if self.camID == None:
-            cams = dc1394simple.enumerate_cameras()
+            #cams = dc1394simple.enumerate_cameras()
+            cams = dc1394.enumerate_cameras()
             if len(cams) < 1:
                 raise IOError, "No cameras found"
-            self.camID = cams[0]
+            self.camID = cams[0]['guid']
         
         try:
-            self.camera = dc1394simple.SimpleCamera(self.camID)
+            #self.camera = dc1394simple.SimpleCamera(self.camID)
+            self.camera = SimpleCamera(dc1394,self.camID)
         except:
             print "Failed to connect to camera %i" % self.camID
             self.connected = False
@@ -514,10 +542,12 @@ class CameraPair:
     """A simple class that contains two CalibratedCamera objects"""
     def __init__(self, camIDs=None):
         if camIDs == None:
-            camIDs = dc1394simple.enumerate_cameras()[:2]
+            #camIDs = dc1394simple.enumerate_cameras()[:2]
+            cams = dc1394.enumerate_cameras()[:2]
             if len(camIDs) != 2:
                 raise IOError("Could not find two cameras")
-        self.cameras = [CalibratedCamera(camIDs[0]), CalibratedCamera(camIDs[1])]
+        #self.cameras = [CalibratedCamera(camIDs[0]), CalibratedCamera(camIDs[1])]
+        self.cameras = [dc1394.Camera(dc1394,cams[0]['guid']), dc1394.Camera(dc1394,cams[1]['guid'])]
         
         # for logging
         self.frameNum = 0
