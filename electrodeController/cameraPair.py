@@ -206,10 +206,10 @@ class SimpleCamera(pydc1394.Camera):
         i = self.shot().reshape((1040,1392))#.reshape((1040,1392)).astype('uint8')
         self.stop()
         
-        print i.dtype
+        #print i.dtype
         if i.dtype != 'uint8':
             i = (i * 2.**-8.).astype('uint8')
-        print i.dtype
+        #print i.dtype
         
         #print "max,min:", i.max(), i.min()
         #pylab.ion()
