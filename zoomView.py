@@ -269,6 +269,8 @@ class ZoomView:
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
         glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE8, self.imageSize[0], self.imageSize[1],
                     0, GL_LUMINANCE, GL_UNSIGNED_BYTE, self.imageData) # RADAR GL_UNSIGNED_BYTE may be wrong
+        #glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE16, self.imageSize[0], self.imageSize[1],
+        #            0, GL_LUMINANCE, GL_UNSIGNED_SHORT, self.imageData) # RADAR GL_UNSIGNED_BYTE may be wrong
         glBindTexture(GL_TEXTURE_2D, 0)
         
         self.generate_zoomed_texture()

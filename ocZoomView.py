@@ -5,6 +5,8 @@ from AppKit import *
 import objc
 from objc import IBAction, IBOutlet
 
+#import pylab, numpy
+
 
 from OpenGL.GL import *
 from OpenGL.GLUT import *
@@ -19,6 +21,12 @@ class OCZoomView(NSOpenGLView, ZoomView):
         self.mouseIsIn = True # make sure that the mouse is IN before passing on events
     
     def set_image_from_cv(self, image):
+        #pylab.ion()
+        #pylab.figure()
+        #a = numpy.fromstring(image.tostring(),numpy.uint8)
+        #a = a.reshape((1040,1392))
+        #pylab.imshow(a[:100,:100])
+        #pylab.gray()
         # need to set:
         # - self.imageSize
         self.imageSize = (image.width, image.height)
@@ -26,7 +34,7 @@ class OCZoomView(NSOpenGLView, ZoomView):
         frame = self.frame()
         self.scale = max(frame.size.width/float(self.imageSize[0]), frame.size.height/float(self.imageSize[1]))
         # - self.imageTexture
-        self.load_texture_from_string(image.tostring())
+        self.load_texture_from_string(image.tostring()) # "raw", "rgb", 0, -1
         self.scheduleRedisplay()
     
     @IBAction

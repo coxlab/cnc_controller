@@ -9,8 +9,10 @@ import fiveAxisCNC
 import frameManager
 import vector
 if cfg.fakeCameras:
+    import cameraPair
     from cameraPair import FakeCameraPair as CameraPair
 else:
+    import cameraPair
     from cameraPair import CameraPair
 
 # if cfg.useManualImageProcessor:
@@ -30,6 +32,10 @@ class Controller:
         self.cameras.logDirectory = cfg.cameraLogDir
         self.animal = None
         #self.imageProcessor = imageProcessing.Processor(self.cameras)
+    
+    def cleanup(self):
+        self.cameras.disconnect()
+        cameraPair.close_dc1394()
     
     
     def load_animal(self, animalCfgFile):

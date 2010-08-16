@@ -16,7 +16,24 @@ import cv
 #import dc1394simple
 import pydc1394
 
+# clean up the iso bus in case the previous time this program was open it crashed
+l = pydc1394.DC1394Library()
+cids = l.enumerate_cameras()
+cams = [pydc1394.Camera(l,cid['guid']) for cid in cids]
+[cam.close() for cam in cams]
+del cams
+l.close()
+del l 
+
+global dc1394
 dc1394 = pydc1394.DC1394Library()
+
+def close_dc1394():
+    global dc1394
+    #print "closing dc1394"
+    dc1394.close()
+    #print "deleting dc1394"
+    del dc1394
 
 # coordinates (post flip, see: '# flipped')
 #
@@ -61,6 +78,8 @@ def NumPy2Ipl(input):
     
     if input.dtype == numpy.uint8:
         depth = cv.IPL_DEPTH_8U
+    elif input.dtype == numpy.uint16:
+        depth = cv.IPL_DEPTH_16U
     elif input.dtype == numpy.float32:
         depth = cv.IPL_DEPTH_32F
     elif input.dtype == numpy.float64:
@@ -68,7 +87,10 @@ def NumPy2Ipl(input):
     
     # array.shape = (height, width)
     result = cv.CreateImage(input.shape[::-1], depth, channels)
-    cv.SetData(result, input.tostring(), input.shape[1])
+    if input.dtype == numpy.uint16:
+        cv.SetData(result, input.tostring(), input.shape[1]*2)
+    else:
+        cv.SetData(result, input.tostring(), input.shape[1])
     #result.imageData = input.tostring()
     
     return result
@@ -168,7 +190,7 @@ class SimpleCamera(pydc1394.Camera):
         self.mode = self.modes[4]
     def configure(self):
         self.framerate.mode = 'manual'
-        self.framerate.val = 1.
+        self.framerate.val = 0.5
         self.exposure.mode = 'manual'
         self.exposure.val = 1.
         self.shutter.mode = 'manual'
@@ -181,9 +203,27 @@ class SimpleCamera(pydc1394.Camera):
         # then capture
         self.start()
         self.configure()
-        i = self.shot().reshape((1040,1392))
+        i = self.shot().reshape((1040,1392))#.reshape((1040,1392)).astype('uint8')
         self.stop()
-        return i
+        
+        print i.dtype
+        if i.dtype != 'uint8':
+            i = (i * 2.**-8.).astype('uint8')
+        print i.dtype
+        
+        #print "max,min:", i.max(), i.min()
+        #pylab.ion()
+        #pylab.figure()
+        #pylab.subplot(131)
+        #pylab.imshow(i[:100,:100])
+        #i = i.reshape((1040,1392))
+        #pylab.subplot(132)
+        #pylab.imshow(i[:100,:100])
+        #i = (i * 2.**-8.).astype('uint8')
+        #pylab.subplot(133)
+        #pylab.imshow(i[:100,:100])
+        
+        return i#(i * 2.**-8.).astype('uint8')
 
 
 class CalibratedCamera:
@@ -206,7 +246,7 @@ class CalibratedCamera:
     def connect(self):
         if self.connected:
             return True
-        
+        global dc1394
         if self.camID == None:
             #cams = dc1394simple.enumerate_cameras()
             cams = dc1394.enumerate_cameras()
@@ -217,13 +257,23 @@ class CalibratedCamera:
         try:
             #self.camera = dc1394simple.SimpleCamera(self.camID)
             self.camera = SimpleCamera(dc1394,self.camID)
+            self.camera.set_mode()
+            self.camera.configure()
         except:
             print "Failed to connect to camera %i" % self.camID
             self.connected = False
             return False
         
         # TODO check if camera connected correctly?
-        
+        #try:
+        #    i = self.camera.capture_frame()
+        #except:
+        #    print "Camera reported error on capture_frame, closing and reopening camera"
+        #    self.camera.close()
+        #    del self.camera
+        #    self.camera = SimpleCamera(dc1394, self.camID)
+        #    self.camera.set_mode()
+        #    self.camera_configure()
         self.connected = True
         return True
     
@@ -231,6 +281,9 @@ class CalibratedCamera:
     def disconnect(self):
         if self.connected == True:
             self.connected = False
+            #print "closing camera"
+            self.camera.close()
+            #print "deleting camera"
             del self.camera
     
     def capture(self, undistort=True):
@@ -238,7 +291,12 @@ class CalibratedCamera:
             self.connect()
         
         frame = self.camera.capture_frame()
-        image = NumPy2Ipl(frame.astype('uint8'))
+        
+        #pylab.ion()
+        #pylab.figure()
+        #pylab.imshow(frame[:100,:100])
+        image = NumPy2Ipl(frame)#.astype('uint8'))
+        #image = NumPy2Ipl(frame.astype('uint16'))
         
         # TODO find a better way to do this
         if self.imageSize == (-1, -1):
@@ -543,11 +601,13 @@ class CameraPair:
     def __init__(self, camIDs=None):
         if camIDs == None:
             #camIDs = dc1394simple.enumerate_cameras()[:2]
+            global dc1394
             cams = dc1394.enumerate_cameras()[:2]
+            camIDs = [cam['guid'] for cam in cams]
             if len(camIDs) != 2:
                 raise IOError("Could not find two cameras")
-        #self.cameras = [CalibratedCamera(camIDs[0]), CalibratedCamera(camIDs[1])]
-        self.cameras = [dc1394.Camera(dc1394,cams[0]['guid']), dc1394.Camera(dc1394,cams[1]['guid'])]
+        self.cameras = [CalibratedCamera(camIDs[0]), CalibratedCamera(camIDs[1])]
+        #self.cameras = [pydc1394.Camera(dc1394,camIDs[0]), pydc1394.Camera(dc1394,camIDs[1])]
         
         # for logging
         self.frameNum = 0
