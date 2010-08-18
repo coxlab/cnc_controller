@@ -17,7 +17,7 @@ def print_timing(func):
 def LoadTexture(filename):
     im = Image.open(filename)
     im = im.transpose(Image.FLIP_TOP_BOTTOM)
-    imString = im.tostring()
+    imString = im.tostring("raw", "RGB", 0, -1)
     texId = 0
     glGenTextures(1, texId)
     w, h = im.size
