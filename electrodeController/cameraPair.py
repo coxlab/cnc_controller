@@ -207,11 +207,11 @@ class SimpleCamera(pydc1394.Camera):
         self.mode = self.modes[4]
     def configure(self):
         self.framerate.mode = 'manual'
-        self.framerate.val = 0.5
+        self.framerate.val = 1.0
         self.exposure.mode = 'manual'
         self.exposure.val = 1.
         self.shutter.mode = 'manual'
-        self.shutter.val = 1000.
+        self.shutter.val = 533.
     def capture_frame(self):
         # TODO test
         # i'm not 100% sure that the settings have enought time to take effect with this,
@@ -1096,12 +1096,12 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
 
 
 if __name__ == "__main__":
-    gridSize = (8,5)
-    gridBlockSize = 2.822
+    # gridSize = (8,5)
+    # gridBlockSize = 2.822
     # gridSize = (8,5)
     # gridBlockSize = 1.27
-    # gridSize = (8,6)
-    # gridBlockSize = 1.
+    gridSize = (8,6)
+    gridBlockSize = 1.
     
     #left = 49712223528793951
     #right = 49712223528793946
