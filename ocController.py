@@ -230,10 +230,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 angles.append(numpy.radians(z['angle']))
                 wPositions.append(float(z['w']))
         
-        if len(ptsInCam) != 4 or len(angles) != 4 or len(wPositions) != 4:
-            # TODO log error
-            print "register_cnc requires exactly 4 valid points"
-            return
+        #if len(ptsInCam) != 4 or len(angles) != 4 or len(wPositions) != 4:
+        #    # TODO log error
+        #    print "register_cnc requires exactly 4 valid points"
+        #    return
         
         # TODO check that all ws are the same
         #wPosition = ws[0]

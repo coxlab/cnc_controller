@@ -321,6 +321,6 @@ def test_error(nRadii, noise):
     return (radii - mrs)
 
 if __name__ == '__main__':
-    #basic_test()
-    plot_error()
+    basic_test()
+    #plot_error()
     

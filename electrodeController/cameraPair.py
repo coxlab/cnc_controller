@@ -96,12 +96,29 @@ def NumPy2Ipl(input):
     return result
 
 
-def CVtoNumPy(cvMatrix):
-    m = numpy.matrix(numpy.zeros([cvMatrix.height, cvMatrix.width]))
-    for r in xrange(cvMatrix.height):
-        for c in xrange(cvMatrix.width):
-            m[r,c] = cvMatrix[r,c]
-    return m
+def CVtoNumPy(im):
+    if im.depth == cv.IPL_DEPTH_8U:
+        d = numpy.uint8
+    elif im.depth == cv.IPL_DEPTH_16U:
+        d = numpy.uint16
+    elif im.depth == cv.IPL_DEPTH_32F:
+        d = numpy.float32
+    elif im.depth == cv.IPL_DEPTH_64F:
+        d = numpy.float64
+    else:
+        raise Exception, "unknown depth" + str(cv.depth)
+    #a = numpy.zeros((cv.height,cv.width),dtype=d)
+    a = numpy.fromstring(im.tostring(),dtype=d).reshape((im.height,im.width))
+    if (a.shape[0] != im.height) or (a.shape[1] != im.width):
+        raise Exception, "shapes don't match, something went wrong numpy:"+str(a.shape)+" cv:"+str(im.height)+"x"+str(im.width)
+    return a
+
+#def CVtoNumPy(cvMatrix):
+#    m = numpy.matrix(numpy.zeros([cvMatrix.height, cvMatrix.width]))
+#    for r in xrange(cvMatrix.height):
+#        for c in xrange(cvMatrix.width):
+#            m[r,c] = cvMatrix[r,c]
+#    return m
 
 
 def NumPytoCV(numpyMatrix, dataType=cv.CV_64FC1):
@@ -830,7 +847,11 @@ def test_single_camera(camID, gridSize, gridBlockSize, calibrationDirectory='cal
     cam.connect()
     # test capture
     print "Capture"
+    pylab.ion()
+    pylab.figure()
     im = cam.capture()
+    pylab.imshow(CVtoNumPy(im))
+    pylab.gray()
     print "Calibrate"
     while len(cam.calibrationImages) < 7:
         if poll_user("Capture next image?", "y", "n", 0):
@@ -838,6 +859,7 @@ def test_single_camera(camID, gridSize, gridBlockSize, calibrationDirectory='cal
             sys.exit(1)
         else:
             im, s = cam.capture_calibration_image(gridSize)
+            pylab.imshow(CVtoNumPy(im))
             if not s:
                 print "Grid not found"
             else:
@@ -1074,12 +1096,12 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
 
 
 if __name__ == "__main__":
-    # gridSize = (8,5)
-    # gridBlockSize = 2.822
+    gridSize = (8,5)
+    gridBlockSize = 2.822
     # gridSize = (8,5)
     # gridBlockSize = 1.27
-    gridSize = (8,6)
-    gridBlockSize = 1.
+    # gridSize = (8,6)
+    # gridBlockSize = 1.
     
     #left = 49712223528793951
     #right = 49712223528793946
