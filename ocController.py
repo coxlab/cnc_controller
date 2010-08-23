@@ -92,11 +92,17 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.update_frames_display()
         self.update_velocities()
         self.update_position()
+
+        self.timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.5, self, self.update_position, None, True)
+        NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSDefaultRunLoopMode)
+        #NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSEventTrackingRunLoopMode)
+
     
     def applicationWillTerminate_(self, sender):
         print "applicationWillTerminate called"
         self.cleanup()
         #self.cameras.disconnect()
+        self.timer.invalidate()
         print "applicationWillTerminate done"
         
     
