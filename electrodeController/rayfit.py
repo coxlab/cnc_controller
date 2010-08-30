@@ -26,7 +26,7 @@ def draw_circle(ax, center, normal, radius):
     ax.plot(pts[:,0],pts[:,1],pts[:,2])
 
 
-def measure_rotation_plane(pts, angles, radii, debugPlotting=False):
+def measure_rotation_plane(pts, angles, radii, debugPlotting=False, useRansac=False):
     pts = pts[:,:3] # remove extra dimension from homogeneous imputs
     # measure normal [mn]
     xyzs = pts - mean(pts, 0)
@@ -70,7 +70,27 @@ def measure_rotation_plane(pts, angles, radii, debugPlotting=False):
     ms = zeros(len(ua))
     bs = zeros(len(ua))
     for i in xrange(len(ua)):
-        r = linregress(gd[i,:,0], gd[i,:,1]) # r = slope, intercept r, ttp, stderr
+        # ransac?
+        xs = gd[i,:,0][:]
+        ys = gd[i,:,1][:]
+        if useRansac:
+            maxErr = 3.0
+            while maxErr > 2.0:
+                #r = linregress(gd[i,:,0], gd[i,:,1]) # r = slope, intercept r, ttp, stderr
+                r = linregress(xs,ys)
+                # measure error in fit
+                errs = r[0] * xs + r[1] - ys
+                # convert to z-scores
+                errs = abs((errs - mean(errs)) / std(errs))
+                print errs
+                # find maximum error
+                maxErr = max(errs)
+                # remove point with highest error
+                xs = delete(xs,errs.argmax())
+                ys = delete(ys,errs.argmax())
+                print maxErr
+        else:
+            r = linregress(xs,ys)
         ms[i] = r[0]
         bs[i] = r[1]
         ## assume two points per ray for right now
@@ -151,9 +171,10 @@ def basic_test():
         mc, mn, mrs = measure_rotation_plane(pts, angles, radii, cfg.plot)
         print "Center:", mc
         print "Normal:", mn
-        print "Radii:", mrs
+        print "Radii:", mrs + radii
         print
-        print "Radius", median(mrs - radii)
+        print "Radius", median(mrs + radii)
+        print "Arm radius (thorlabs stage + ripple): 180mm"
         
         # for plottings
         c = mc
@@ -230,9 +251,13 @@ def basic_test():
         ax.set_ylim3d(yl)
         ax.set_zlim3d(zl)
         
-        ax.set_xlim3d(oxl)
-        ax.set_ylim3d(oyl)
-        ax.set_zlim3d(ozl)
+        #ax.set_xlim3d(oxl)
+        #ax.set_ylim3d(oyl)
+        #ax.set_zlim3d(ozl)
+        
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        ax.set_zlabel('z')
         
         show()
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from image_proc import canny, hough_line_segments, array2cv
 from scipy.ndimage import binary_erosion, imread, map_coordinates, spline_filter, median_filter
 from scipy import convolve
@@ -242,10 +243,10 @@ def find_electrode_tip_with_refinement(im, base_im, angle_range, angle_resolutio
 if __name__ == "__main__":
     
     #load a test image
-    base_dir = "./test_images/0/"
-    #base_im = double(imread(base_dir + "0.png"))
-    base_im = None
-    im = double(imread(base_dir + "2.png"))
+    base_dir = "./test_images/4/0/"
+    base_im = double(imread(base_dir + "0.png"))
+    #base_im = None
+    im = double(imread(base_dir + "1.png"))
    
     tip = find_electrode_tip_with_refinement(im, base_im, (-7,7), 0.25)
     
