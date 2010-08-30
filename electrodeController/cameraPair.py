@@ -274,6 +274,7 @@ class CalibratedCamera:
         try:
             #self.camera = dc1394simple.SimpleCamera(self.camID)
             self.camera = SimpleCamera(dc1394,self.camID)
+            # self.camera.clear_iso()
             self.camera.set_mode()
             self.camera.configure()
         except:
@@ -1098,10 +1099,12 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
 if __name__ == "__main__":
     # gridSize = (8,5)
     # gridBlockSize = 2.822
+    gridSize = (8,5)
+    gridBlockSize = 3.5277777777
     # gridSize = (8,5)
     # gridBlockSize = 1.27
-    gridSize = (8,6)
-    gridBlockSize = 1.
+    # gridSize = (8,6)
+    # gridBlockSize = 1.
     
     #left = 49712223528793951
     #right = 49712223528793946
