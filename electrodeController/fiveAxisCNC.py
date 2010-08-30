@@ -36,6 +36,14 @@ class FiveAxisCNC:
         self.linearAxes.disable_motor()
         self.headAxes.disable_motor()
     
+    def motion_done(self):
+        ret = self.linearAxes.motion_done()
+        ret.update(self.headAxes.motion_done())
+        for r in ret.values():
+            if int(r) == 0:
+                return False
+        return True
+    
     def get_motor_status(self):
         # if ANY motor is on, return True
         ret = self.linearAxes.get_motor_status()
