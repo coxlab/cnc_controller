@@ -113,10 +113,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     def applicationWillTerminate_(self, sender):
         print "applicationWillTerminate called"
+        self.timer.invalidate()
         self.cleanup()
         #self.cameras.disconnect()
+<<<<<<< HEAD
         #self.timer.invalidate()
         self.stop_update_timer()
+=======
+>>>>>>> 5e4e875c8b57b70d1077375fb0b40428709047cc
         print "applicationWillTerminate done"
         
     
