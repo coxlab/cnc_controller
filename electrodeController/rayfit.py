@@ -174,7 +174,7 @@ def basic_test():
         print "Radii:", mrs + radii
         print
         print "Radius", median(mrs + radii)
-        print "Arm radius (thorlabs stage + ripple): 180mm"
+        print "Arm radius (thorlabs stage + ripple + probe): 175-190mm"
         
         # for plottings
         c = mc
@@ -251,9 +251,9 @@ def basic_test():
         ax.set_ylim3d(yl)
         ax.set_zlim3d(zl)
         
-        #ax.set_xlim3d(oxl)
-        #ax.set_ylim3d(oyl)
-        #ax.set_zlim3d(ozl)
+        ax.set_xlim3d(oxl)
+        ax.set_ylim3d(oyl)
+        ax.set_zlim3d(ozl)
         
         ax.set_xlabel('x')
         ax.set_ylabel('y')
