@@ -67,9 +67,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
     wVelocityField = objc.IBOutlet()
     bVelocityField = objc.IBOutlet()
     
+    timer = None
+    
     def awakeFromNib(self):
         electrodeController.controller.Controller.__init__(self)
         NSApp().setDelegate_(self)
+        self.timer = None
         self.disable_motors()
         
         self.connect_cameras()
@@ -92,17 +95,29 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.update_frames_display()
         self.update_velocities()
         self.update_position()
-
-        self.timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.5, self, self.update_position, None, True)
-        NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSDefaultRunLoopMode)
-        #NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSEventTrackingRunLoopMode)
-
+        
+        #self.timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.5, self, self.update_position, None, True)
+        #NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSDefaultRunLoopMode)
+        ##NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSEventTrackingRunLoopMode)
+    
+    def start_update_timer(self):
+        if self.timer == None:
+            self.timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.5, self, self.update_position, None, True)
+            NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSDefaultRunLoopMode)
+            #NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSEventTrackingRunLoopMode)
+    
+    def stop_update_timer(self):
+        if self.timer != None:
+            self.timer.invalidate()
+            self.timer = None
     
     def applicationWillTerminate_(self, sender):
         print "applicationWillTerminate called"
-        self.timer.invalidate()
+        #self.timer.invalidate()
         self.cleanup()
         #self.cameras.disconnect()
+        #self.timer.invalidate()
+        self.stop_update_timer()
         print "applicationWillTerminate done"
         
     
@@ -273,52 +288,62 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def moveXAxisLeft_(self, sender):
         self.cnc.linearAxes.move_relative(-self.ocXInc, 'x')
-        self.update_position()
+        #self.update_position()
+        self.start_update_timer()
     
     @IBAction
     def moveXAxisRight_(self, sender):
         self.cnc.linearAxes.move_relative(self.ocXInc, 'x')
-        self.update_position()
+        #self.update_position()
+        self.start_update_timer()
     
     @IBAction
     def moveYAxisForward_(self, sender):
         self.cnc.linearAxes.move_relative(self.ocYInc, 'y')
-        self.update_position()
+        #self.update_position()
+        self.start_update_timer()
     
     @IBAction
     def moveYAxisBack_(self, sender):
         self.cnc.linearAxes.move_relative(-self.ocYInc, 'y')
-        self.update_position()
+        #self.update_position()
+        self.start_update_timer()
     
     @IBAction
     def moveZAxisUp_(self, sender):
         self.cnc.linearAxes.move_relative(-self.ocZInc, 'z')
-        self.update_position()
+        #self.update_position()
+        self.start_update_timer()
     
     @IBAction
     def moveZAxisDown_(self, sender):
         self.cnc.linearAxes.move_relative(self.ocZInc, 'z')
-        self.update_position()
+        #self.update_position()
+        self.start_update_timer()
     
     @IBAction
     def moveWAxisUp_(self, sender):
         self.cnc.headAxes.move_relative(self.ocWInc, 'w')
-        self.update_position()
+        #self.update_position()
+        self.start_update_timer()
     
     @IBAction
     def moveWAxisDown_(self, sender):
         self.cnc.headAxes.move_relative(-self.ocWInc, 'w')
-        self.update_position()
+        #self.update_position()
+        self.start_update_timer()
     
     @IBAction
     def moveBAxisClockwise_(self, sender):
         self.cnc.headAxes.move_relative(-self.ocBInc, 'b')
-        self.update_position()
+        #self.update_position()
+        self.start_update_timer()
     
     @IBAction
     def moveBAxisCounterClockwise_(self, sender):
         self.cnc.headAxes.move_relative(self.ocBInc, 'b')
-        self.update_position()
+        #self.update_position()
+        self.start_update_timer()
     
     # ========================= UI related functions ==========================
     
@@ -391,7 +416,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.update_position()
     
     def update_position(self):
-        print "update_position:", self.ocFramesStatus
+        # check if all axes are still, if so, stop timer
+        if self.cnc.motion_done():
+            self.stop_update_timer()
+        
+        #print "update_position:", self.ocFramesStatus
         if int(self.ocFramesStatus) == 3: # all frames are a good
             #print "all frames are good to go"
             # don't read from linear axes
