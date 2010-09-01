@@ -8,12 +8,15 @@ import cfg
 import fiveAxisCNC
 import frameManager
 import vector
-if cfg.fakeCameras:
-    import cameraPair
-    from cameraPair import FakeCameraPair as CameraPair
-else:
-    import cameraPair
-    from cameraPair import CameraPair
+
+import stereocamera
+
+# if cfg.fakeCameras:
+#     import cameraPair
+#     from cameraPair import FakeCameraPair as CameraPair
+# else:
+#     import cameraPair
+#     from cameraPair import CameraPair
 
 # if cfg.useManualImageProcessor:
 #     import manualImageProcessing as imageProcessing
@@ -28,14 +31,15 @@ class Controller:
     def __init__(self):
         self.fManager = frameManager.FrameManager(['skull', 'tricorner', 'camera', 'cnc'])
         self.cnc = fiveAxisCNC.FiveAxisCNC()
-        self.cameras = CameraPair(cfg.camIDs)
+        self.cameras = stereocamera.stereodcamera.StereoCamera(cfg.camIDs, cfg.fakeCameras)
         self.cameras.logDirectory = cfg.cameraLogDir
         self.animal = None
         #self.imageProcessor = imageProcessing.Processor(self.cameras)
     
     def cleanup(self):
         self.cameras.disconnect()
-        cameraPair.close_dc1394()
+        if cfg.fakeCameras == False:
+            stereocamera.dc1394camera.close_dc1394()
     
     
     def load_animal(self, animalCfgFile):

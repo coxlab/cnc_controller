@@ -3,12 +3,24 @@
 import numpy
 import cv
 
-import camera
+import filecamera
+
+global dc1394Available
+dc1394Available = False
+try:
+    import dc1394camera
+    dc1394Available = True
+except:
+    dc1394Available = False
 
 class StereoCamera:
     """A simple class that contains two Camera objects"""
-    def __init__(self, camIDs=[None, None]):
-        self.cameras = [camera.Camera(camIDs[0]), camera.Camera(camIDs[1])]
+    def __init__(self, camIDs=[None, None], fakeCameras=False):
+        global dc1394Available
+        if fakeCameras or (dc1394Available == False):
+            self.cameras = [filecamera.FileCamera(camIDs[0]), filecamera.FileCamera(camIDs[1])]
+        else:
+            self.cameras = [dc1394camera.DC1394Camera(camIDs[0]), dc1394camera.DC1394Camera(camIDs[1])]
         
         # for logging #TODO find a better way to do this
         self.frameNum = 0
