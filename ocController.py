@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import os
+
 import numpy
 
 from electrodeController import cfg
@@ -78,7 +80,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.connect_cameras()
         
         if cfg.fakeCameras:
-            self.cameras.set_frame_directory(cfg.fakeFramesDir)
+            lFileList = ["%s/%s" % (cfg.leftFakeFramesDir, f) for f in os.listdir(cfg.leftFakeFramesDir)]
+            self.cameras.cameras[0].set_file_list(lFileList)
+            rFileList = ["%s/%s" % (cfg.rightFakeFramesDir, f) for f in os.listdir(cfg.rightFakeFramesDir)]
+            self.cameras.cameras[1].set_file_list(rFileList)
         
         self.zoomPoints.append({'c':'r','lx':1024.2244, 'ly': 847.3844, 'rx': 384.3434, 'ry': 0.01121, 'x': 0.43, 'y': 23.33, 'z': 400.4343})
         self.zoomPoints.append({'c':'b','lx':0.0, 'ly':0., 'rx':0., 'ry':0., 'x':0., 'y':0., 'z':0., 'angle':5.0})

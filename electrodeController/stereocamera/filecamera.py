@@ -28,12 +28,13 @@ class FileCamera(camera.Camera):
                 print "File list:", self.fileList
                 raise IOError, "Failed to find a valid frame"
         self.fileIndex += 1
-        
         # convert frame to grayscale
         if len(frame.shape) == 3:
             frame = pylab.mean(frame, 2)
-        
-        return frame.astype('uint8')
+        # type conversion
+        if frame.dtype == 'float32':
+            frame = (frame * 255).astype('uint8')
+        return frame
 
 # =========================================================================================
 # =========================================================================================

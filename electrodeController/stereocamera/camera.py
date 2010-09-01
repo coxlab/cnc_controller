@@ -3,6 +3,7 @@
 import os
 
 import numpy
+import cv
 
 import conversions
 
