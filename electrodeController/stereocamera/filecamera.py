@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from PIL import Image
 import pylab
 
 import camera
@@ -19,21 +20,26 @@ class FileCamera(camera.Camera):
         self.connected = False
     def capture_frame(self):
         try:
-            frame = pylab.imread(self.fileList[self.fileIndex])
+            im = Image.open(self.fileList[self.fileIndex])
+            # frame = pylab.imread(self.fileList[self.fileIndex])
         except:
             try:
                 self.fileIndex = 0
-                frame = pylab.imread(self.fileList[self.fileIndex])
+                im = Image.open(self.fileList[self.fileIndex])
+                # frame = pylab.imread(self.fileList[self.fileIndex])
             except:
                 print "File list:", self.fileList
                 raise IOError, "Failed to find a valid frame"
+        im.transpose(Image.FLIP_TOP_BOTTOM)
+        frame = pylab.asarray(im)
         self.fileIndex += 1
         # convert frame to grayscale
         if len(frame.shape) == 3:
-            frame = pylab.mean(frame, 2)
+            frame = pylab.mean(frame, 2).astype(frame.dtype)
         # type conversion
-        if frame.dtype == 'float32':
+        if frame.dtype in ['float32', 'float64']:
             frame = (frame * 255).astype('uint8')
+        
         return frame
 
 # =========================================================================================

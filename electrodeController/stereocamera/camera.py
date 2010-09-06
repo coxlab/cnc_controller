@@ -232,6 +232,49 @@ class Camera:
         else:
             return 0, 0, 0
 
+def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):
+    #print "t"
+    t = numpy.matrix([[1., 0., 0., 0.],
+                    [0., 1., 0., 0.],
+                    [0., 0., 1., 0.],
+                    [tVec[0,0], tVec[1,0], tVec[2,0], 1.]])
+    #print "r"
+    r = numpy.matrix([[rMatrix[0,0], rMatrix[0,1], rMatrix[0,2], 0.],
+                [rMatrix[1,0], rMatrix[1,1], rMatrix[1,2], 0.],
+                [rMatrix[2,0], rMatrix[2,1], rMatrix[2,2], 0.],
+                [0., 0., 0., 1.] ])
+    # r = numpy.matrix(([rMatrix[0,0], rMatrix[1,0], rMatrix[2,0], 0.],
+    #                 [rMatrix[0,1], rMatrix[1,1], rMatrix[2,1], 0.],
+    #                 [rMatrix[0,2], rMatrix[1,2], rMatrix[2,2], 0.],
+    #                 [0., 0., 0., 1.]))
+    info = t * r
+
+    # info = numpy.matrix([[rMatrix[0,0], rMatrix[0,1], rMatrix[0,2], tVec[0,0]],
+    #                     [rMatrix[1,0], rMatrix[1,1], rMatrix[1,2], tVec[1,0]],
+    #                     [rMatrix[2,0], rMatrix[2,1], rMatrix[2,2], tVec[2,0]],
+    #                     [0., 0., 0., 1.] ])
+    #return info
+
+    s = numpy.matrix([ [1., 0., 0., 0.],
+                [0., 1., 0., 0.],
+                [0., 0., 1., 0.],
+                [0., 0., 0., 1.] ])
+    s[0,0] = -1.
+    s[1,1] = -1.
+    s[2,2] = -1.
+
+    #return info
+
+    t = info * s
+    #return info
+    s[0,0] = 1. / camMatrix[0,0]
+    s[1,1] = 1. / camMatrix[1,1]
+    s[2,2] = 1.
+
+    info = s * t
+
+    return info
+
 # =========================================================================================
 # =========================================================================================
 # ================================== Testing ==============================================
