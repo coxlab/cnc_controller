@@ -59,6 +59,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
     rightZoomView = objc.IBOutlet()
     
     motorStatusButton = objc.IBOutlet()
+    XMotorStatusButton = objc.IBOutlet()
+    YMotorStatusButton = objc.IBOutlet()
+    ZMotorStatusButton = objc.IBOutlet()
+    WMotorStatusButton = objc.IBOutlet()
+    BMotorStatusButton = objc.IBOutlet()
     
     zoomPointsController = objc.IBOutlet()
     zoomPoints = NSMutableArray.array()
@@ -152,12 +157,22 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     # motor methods
     def enable_motors(self):
-        self.cnc.enable_motors()
+        #self.cnc.enable_motors()
+        self.enable_x_motor()
+        self.enable_y_motor()
+        self.enable_z_motor()
+        self.enable_w_motor()
+        self.enable_b_motor()
         self.motorStatusButton.setState_(True)
         self.motorStatusButton.setTitle_('Off')
     
     def disable_motors(self):
-        self.cnc.disable_motors()
+        self.disable_x_motor()
+        self.disable_y_motor()
+        self.disable_z_motor()
+        self.disable_w_motor()
+        self.disable_b_motor()
+        #self.cnc.disable_motors()
         self.motorStatusButton.setState_(False)
         self.motorStatusButton.setTitle_('On')
     
@@ -290,6 +305,27 @@ class OCController (NSObject, electrodeController.controller.Controller):
     #    raise Exception
     #    pass
     
+    def enable_x_motor(self):
+        self.cnc.linearAxes.enable_motor('x')
+        self.XMotorStatusButton.setState_(True)
+        self.XMotorStatusButton.setTitle_('Off')
+    
+    def disable_x_motor(self):
+        self.cnc.linearAxes.disable_motor('x')
+        self.XMotorStatusButton.setState_(False)
+        self.XMotorStatusButton.setTitle_('On')
+    
+    @IBAction
+    def toggleXMotor_(self, sender):
+        if self.XMotorStatusButton.state(): # off is 1, on is 0
+            self.enable_x_motor()
+        else:
+            self.disable_x_motor()
+    
+    @IBAction
+    def stopXAxis_(self, sender):
+        self.cnc.linearAxes.stop_motion('x')
+    
     @IBAction
     def moveXAxisLeft_(self, sender):
         self.cnc.linearAxes.move_relative(-self.ocXInc, 'x')
@@ -301,6 +337,27 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.cnc.linearAxes.move_relative(self.ocXInc, 'x')
         #self.update_position()
         self.start_update_timer()
+    
+    def enable_y_motor(self):
+        self.cnc.linearAxes.enable_motor('y')
+        self.YMotorStatusButton.setState_(True)
+        self.YMotorStatusButton.setTitle_('Off')
+    
+    def disable_y_motor(self):
+        self.cnc.linearAxes.disable_motor('y')
+        self.YMotorStatusButton.setState_(False)
+        self.YMotorStatusButton.setTitle_('On')
+    
+    @IBAction
+    def toggleYMotor_(self, sender):
+        if self.YMotorStatusButton.state(): # off is 1, on is 0
+            self.enable_y_motor()
+        else:
+            self.disable_y_motor()
+    
+    @IBAction
+    def stopYAxis_(self, sender):
+        self.cnc.linearAxes.stop_motion('y')
     
     @IBAction
     def moveYAxisForward_(self, sender):
@@ -314,6 +371,27 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #self.update_position()
         self.start_update_timer()
     
+    def enable_z_motor(self):
+        self.cnc.linearAxes.enable_motor('z')
+        self.ZMotorStatusButton.setState_(True)
+        self.ZMotorStatusButton.setTitle_('Off')
+    
+    def disable_z_motor(self):
+        self.cnc.linearAxes.disable_motor('z')
+        self.ZMotorStatusButton.setState_(False)
+        self.ZMotorStatusButton.setTitle_('On')
+    
+    @IBAction
+    def toggleZMotor_(self, sender):
+        if self.ZMotorStatusButton.state(): # off is 1, on is 0
+            self.enable_z_motor()
+        else:
+            self.disable_z_motor()
+    
+    @IBAction
+    def stopZAxis_(self, sender):
+        self.cnc.linearAxes.stop_motion('z')
+    
     @IBAction
     def moveZAxisUp_(self, sender):
         self.cnc.linearAxes.move_relative(-self.ocZInc, 'z')
@@ -326,6 +404,27 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #self.update_position()
         self.start_update_timer()
     
+    def enable_w_motor(self):
+        self.cnc.headAxes.enable_motor('w')
+        self.WMotorStatusButton.setState_(True)
+        self.WMotorStatusButton.setTitle_('Off')
+    
+    def disable_w_motor(self):
+        self.cnc.headAxes.disable_motor('w')
+        self.WMotorStatusButton.setState_(False)
+        self.WMotorStatusButton.setTitle_('On')
+    
+    @IBAction
+    def toggleWMotor_(self, sender):
+        if self.WMotorStatusButton.state(): # off is 1, on is 0
+            self.enable_w_motor()
+        else:
+            self.disable_w_motor()
+    
+    @IBAction
+    def stopWAxis_(self, sender):
+        self.cnc.headAxes.stop_motion('w')
+    
     @IBAction
     def moveWAxisUp_(self, sender):
         self.cnc.headAxes.move_relative(self.ocWInc, 'w')
@@ -337,6 +436,27 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.cnc.headAxes.move_relative(-self.ocWInc, 'w')
         #self.update_position()
         self.start_update_timer()
+    
+    def enable_b_motor(self):
+        self.cnc.headAxes.enable_motor('b')
+        self.BMotorStatusButton.setState_(True)
+        self.BMotorStatusButton.setTitle_('Off')
+    
+    def disable_b_motor(self):
+        self.cnc.headAxes.disable_motor('b')
+        self.BMotorStatusButton.setState_(False)
+        self.BMotorStatusButton.setTitle_('On')
+    
+    @IBAction
+    def toggleBMotor_(self, sender):
+        if self.BMotorStatusButton.state(): # off is 1, on is 0
+            self.enable_b_motor()
+        else:
+            self.disable_b_motor()
+    
+    @IBAction
+    def stopBAxis_(self, sender):
+        self.cnc.headAxes.stop_motion('b')
     
     @IBAction
     def moveBAxisClockwise_(self, sender):
