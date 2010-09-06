@@ -100,7 +100,7 @@ class Camera:
         self.calibrationImgPts.pop()
     
     def calibrate(self, gridSize, gridBlockSize):
-        self.calibrate_internals(gridSize, gridBlockSize)
+        return self.calibrate_internals(gridSize, gridBlockSize)
     
     def calibrate_internals(self, gridSize, gridBlockSize):
         # initialize camera matrices
@@ -112,8 +112,8 @@ class Camera:
         cv.SetZero(self.distCoeffs)
         
         nGrids = len(self.calibrationImgPts)
-        if nGrids != 7:
-            raise ValueError('Calibration should only be performed with 7 images')
+        #if nGrids != 7:
+        #    raise ValueError('Calibration should only be performed with 7 images')
         gridN = gridSize[0] * gridSize[1]
         
         imPts = cv.CreateMat(nGrids*gridN, 2, cv.CV_64FC1)
@@ -138,6 +138,45 @@ class Camera:
         
         # camera is now calibrated
         self.calibrated = True
+        
+        errs = self.measure_calibration_error(gridSize, gridBlockSize)
+        return errs
+    
+    def measure_calibration_error(self, gridSize, gridBlockSize):
+        if not self.calibrated:
+            raise Exception, "Attempted to measure calibration error of uncalibrated camera"
+        gridN = gridSize[0] * gridSize[1]
+        errs = []
+        for (i,im) in enumerate(self.calibrationImages):
+            # im = image with chessboard
+            corners = self.calibrationImgPts[i]
+            imPts = cv.CreateMat(gridN, 2, cv.CV_64FC1)
+            objPts = cv.CreateMat(gridN, 3, cv.CV_64FC1)
+            for j in xrange(gridN):
+                imPts[j,0] = corners[j][0]
+                imPts[j,1] = corners[j][1]
+                objPts[j,0] = j % gridSize[0] * gridBlockSize
+                objPts[j,1] = j / gridSize[0] * gridBlockSize
+                objPts[j,2] = 0.
+            
+            # measure rVec and tVec for this image
+            rVec = cv.CreateMat(3, 1, cv.CV_64FC1)
+            tVec = cv.CreateMat(3, 1, cv.CV_64FC1)
+            cv.FindExtrinsicCameraParams2(objPts, imPts, self.camMatrix,
+                self.distCoeffs, rVec, tVec)
+            
+            # reproject points
+            pimPts = cv.CreateMat(gridN, 2, cv.CV_64FC1)
+            cv.ProjectPoints2(objPts, rVec, tVec, self.camMatrix, self.distCoeffs, pimPts)
+            
+            # measure error
+            err = []
+            for j in xrange(gridN):
+                err.append([imPts[j,0] - pimPts[j,0], imPts[j,1] - pimPts[j,1]])
+            
+            errs.append(err)
+        
+        return errs
     
     def save_calibration(self, directory):
         if not self.calibrated:
@@ -159,7 +198,7 @@ class Camera:
             cv.Save("%s/rVec.xml" % directory, self.rVec)
             cv.Save("%s/tVec.xml" % directory, self.tVec)
             cv.Save("%s/itoWMatrix.xml" % directory, conversions.NumPytoCV(self.itoWMatrix))
-
+    
     def load_calibration(self, directory):
         directory = "%s/%i" % (directory, self.camID)
         
@@ -172,7 +211,6 @@ class Camera:
             self.tVec = cv.Load("%s/tVec.xml" % directory)
             self.itoWMatrix = conversions.CVtoNumPy(cv.Load("%s/itoWMatrix.xml" % directory))
             self.located = True
-    
     
     # ============================================
     #           Localization

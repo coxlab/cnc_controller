@@ -102,8 +102,10 @@ class StereoCamera:
     
     
     def calibrate(self, gridSize, gridBlockSize):
+        errs = []
         for c in self.cameras:
-            c.calibrate(gridSize, gridBlockSize)
+            errs.append(c.calibrate(gridSize, gridBlockSize))
+        return errs
     
     
     def locate(self, gridSize, gridBlockSize):
