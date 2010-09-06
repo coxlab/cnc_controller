@@ -87,11 +87,11 @@ xAxisConfig="""QM3
     OM2
     JH6.35
     JW3.175
-    VU12.7
-    VA6.35
-    AU6.35
-    AC6.35
-    AG6.35
+    VU6.35
+    VA3.175
+    AU3.175
+    AC3.175
+    AG3.175
     ZA323H
     ZB0H
     ZE3H
@@ -116,11 +116,11 @@ yAxisConfig="""QM3
     OM2
     JH6.35
     JW3.175
-    VU12.7
-    VA6.35
-    AU6.35
-    AC6.35
-    AG6.35
+    VU6.35
+    VA3.175
+    AU3.175
+    AC3.175
+    AG3.175
     ZA323H
     ZB0H
     ZE3H
@@ -145,11 +145,11 @@ zAxisConfig="""QM3
     OM2
     JH6.35
     JW3.175
-    VU12.7
-    VA6.35
-    AU6.35
-    AC6.35
-    AG6.35
+    VU6.35
+    VA3.175
+    AU3.175
+    AC3.175
+    AG3.175
     ZA323H
     ZB0H
     ZE3H
