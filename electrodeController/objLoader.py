@@ -16,8 +16,9 @@ def print_timing(func):
 
 def LoadTexture(filename):
     im = Image.open(filename)
-    im = im.transpose(Image.FLIP_TOP_BOTTOM)
-    imString = im.tostring("raw", "RGB", 0, -1)
+    #im = im.transpose(Image.FLIP_TOP_BOTTOM)
+    #imString = im.tostring("raw", "RGB", 0, -1)
+    #imString = im.tostring("raw", "RGB", 0, -1)
     texId = 0
     glGenTextures(1, texId)
     w, h = im.size
@@ -25,7 +26,9 @@ def LoadTexture(filename):
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-    gluBuild2DMipmaps(GL_TEXTURE_2D, 3, w, h, GL_RGB, GL_UNSIGNED_BYTE, imString)
+    glPixelStorei(GL_UNPACK_ALIGNMENT,1)
+    gluBuild2DMipmaps(GL_TEXTURE_2D, 3, w, h, GL_RGB, GL_UNSIGNED_BYTE, im.tostring("raw","RGB",0,-1))
+    #gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, w, h, GL_RGB, GL_UNSIGNED_BYTE, imString)
     #glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, imString)
     glBindTexture(GL_TEXTURE_2D, 0)
     return texId
