@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/opencv/!svn/ver/3073/trunk/opencv/doc/python_fragments
+END
+precornerdetect.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/opencv/!svn/ver/2932/trunk/opencv/doc/python_fragments/precornerdetect.py
+END
+calchist.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/3073/trunk/opencv/doc/python_fragments/calchist.py
+END
+findstereocorrespondence.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/opencv/!svn/ver/2932/trunk/opencv/doc/python_fragments/findstereocorrespondence.py
+END

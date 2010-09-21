@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/matplotlib/!svn/ver/8148/trunk/matplotlib/lib/matplotlib/tests
+END
+test_simplification.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/7900/trunk/matplotlib/lib/matplotlib/tests/test_simplification.py
+END
+test_mlab.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/8038/trunk/matplotlib/lib/matplotlib/tests/test_mlab.py
+END
+test_cbook.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/7697/trunk/matplotlib/lib/matplotlib/tests/test_cbook.py
+END
+test_agg.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/7696/trunk/matplotlib/lib/matplotlib/tests/test_agg.py
+END
+test_mathtext.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/8006/trunk/matplotlib/lib/matplotlib/tests/test_mathtext.py
+END
+test_transforms.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/7647/trunk/matplotlib/lib/matplotlib/tests/test_transforms.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/7883/trunk/matplotlib/lib/matplotlib/tests/__init__.py
+END
+test_axes.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/7921/trunk/matplotlib/lib/matplotlib/tests/test_axes.py
+END
+test_dates.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/7820/trunk/matplotlib/lib/matplotlib/tests/test_dates.py
+END
+test_basic.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/7701/trunk/matplotlib/lib/matplotlib/tests/test_basic.py
+END
+test_spines.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/7665/trunk/matplotlib/lib/matplotlib/tests/test_spines.py
+END
+test_image.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/8029/trunk/matplotlib/lib/matplotlib/tests/test_image.py
+END
+test_backend_svg.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/7736/trunk/matplotlib/lib/matplotlib/tests/test_backend_svg.py
+END

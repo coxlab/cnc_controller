@@ -1,0 +1,166 @@
+Downloading/unpacking sip
+  Getting page http://pypi.python.org/simple/sip
+  URLs to search for versions for sip:
+  * http://pypi.python.org/simple/sip/
+  Getting page http://pypi.python.org/simple/sip/
+  Getting page http://www.riverbankcomputing.com/software/sip/
+  Getting page http://www.riverbankcomputing.com/software/sip/download
+  Analyzing links from page http://pypi.python.org/simple/SIP/
+    Skipping link http://www.riverbankcomputing.com/software/sip/ (from http://pypi.python.org/simple/SIP/); not a file
+    Skipping link http://www.riverbankcomputing.com/software/sip/download (from http://pypi.python.org/simple/SIP/); not a file
+  Analyzing links from page http://www.riverbankcomputing.com/software/sip/intro
+    Skipping link http://www.riverbankcomputing.com/software/sip/intro/index.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/@@/resources/riverbank.css (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .css
+    Skipping link http://www.riverbankcomputing.com/@@/resources/logo_tn.png (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .png
+    Skipping link http://yui.yahooapis.com/2.5.2/build/menu/assets/skins/sam/menu.css (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .css
+    Skipping link http://www.riverbankcomputing.com/software/sip/intro/@@rcl_login.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.python.org/ (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pyqt (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.trolltech.com/ (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://qt.nokia.com/services-partners/partners/partner-directory/riverbank-computing (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/news/pyqt-473 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/news/sip-4102 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/news/pyqt-472 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/news/sip-4101 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/news/qscintilla-243 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pyqt/download (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/qscintilla/download (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/sip/download (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/vendorid/download (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pykde/download3 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pyqt/download3 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/qscintilla/download1 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt4/html/classes.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt4/pyqt4ref.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/QScintilla2/index.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/sip4/index.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/VendorID/vendorid.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyKDE3/index.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt3/PyQt.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link mailto:info@riverbankcomputing.com (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .com
+  Analyzing links from page http://www.riverbankcomputing.com/software/sip/download
+    Skipping link http://www.riverbankcomputing.com/software/sip/download/index.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/@@/resources/riverbank.css (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .css
+    Skipping link http://www.riverbankcomputing.com/@@/resources/logo_tn.png (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .png
+    Skipping link http://yui.yahooapis.com/2.5.2/build/menu/assets/skins/sam/menu.css (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .css
+    Skipping link http://www.riverbankcomputing.com/software/sip/download/@@rcl_login.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/hg/sip (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Found link http://www.riverbankcomputing.com/static/Downloads/sip4/sip-4.10.2.zip (from http://www.riverbankcomputing.com/software/sip/download), version: 4.10.2
+    Found link http://www.riverbankcomputing.com/static/Downloads/sip4/sip-4.10.2.tar.gz (from http://www.riverbankcomputing.com/software/sip/download), version: 4.10.2
+    Skipping link http://www.riverbankcomputing.com/static/Downloads/sip4/ChangeLog (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Found link http://www.riverbankcomputing.com/static/Downloads/sip4/sip-snapshot-4.10.3-cb323da88516.zip (from http://www.riverbankcomputing.com/software/sip/download), version: snapshot-4.10.3-cb323da88516
+    Found link http://www.riverbankcomputing.com/static/Downloads/sip4/sip-snapshot-4.10.3-cb323da88516.tar.gz (from http://www.riverbankcomputing.com/software/sip/download), version: snapshot-4.10.3-cb323da88516
+    Skipping link http://www.riverbankcomputing.com/static/Downloads/sip4/ChangeLog-snapshot-4.10.3-cb323da88516 (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .3-cb323da88516
+    Skipping link http://qt.nokia.com/services-partners/partners/partner-directory/riverbank-computing (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/news/pyqt-473 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/news/sip-4102 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/news/pyqt-472 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/news/sip-4101 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/news/qscintilla-243 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pyqt/download (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/qscintilla/download (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/sip/download (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/vendorid/download (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pykde/download3 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pyqt/download3 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/qscintilla/download1 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt4/html/classes.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt4/pyqt4ref.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/QScintilla2/index.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/sip4/index.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/VendorID/vendorid.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyKDE3/index.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt3/PyQt.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link mailto:info@riverbankcomputing.com (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .com
+  Analyzing links from page http://www.riverbankcomputing.com/software/sip/intro
+    Skipping link http://www.riverbankcomputing.com/software/sip/intro/index.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/@@/resources/riverbank.css (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .css
+    Skipping link http://www.riverbankcomputing.com/@@/resources/logo_tn.png (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .png
+    Skipping link http://yui.yahooapis.com/2.5.2/build/menu/assets/skins/sam/menu.css (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .css
+    Skipping link http://www.riverbankcomputing.com/software/sip/intro/@@rcl_login.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.python.org/ (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pyqt (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.trolltech.com/ (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://qt.nokia.com/services-partners/partners/partner-directory/riverbank-computing (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/news/pyqt-473 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/news/sip-4102 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/news/pyqt-472 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/news/sip-4101 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/news/qscintilla-243 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pyqt/download (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/qscintilla/download (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/sip/download (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/vendorid/download (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pykde/download3 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pyqt/download3 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/software/qscintilla/download1 (from http://www.riverbankcomputing.com/software/sip/intro); not a file
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt4/html/classes.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt4/pyqt4ref.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/QScintilla2/index.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/sip4/index.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/VendorID/vendorid.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyKDE3/index.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt3/PyQt.html (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .html
+    Skipping link mailto:info@riverbankcomputing.com (from http://www.riverbankcomputing.com/software/sip/intro); unknown archive format: .com
+  Analyzing links from page http://www.riverbankcomputing.com/software/sip/download
+    Skipping link http://www.riverbankcomputing.com/software/sip/download/index.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/@@/resources/riverbank.css (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .css
+    Skipping link http://www.riverbankcomputing.com/@@/resources/logo_tn.png (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .png
+    Skipping link http://yui.yahooapis.com/2.5.2/build/menu/assets/skins/sam/menu.css (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .css
+    Skipping link http://www.riverbankcomputing.com/software/sip/download/@@rcl_login.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/hg/sip (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Found link http://www.riverbankcomputing.com/static/Downloads/sip4/sip-4.10.2.zip (from http://www.riverbankcomputing.com/software/sip/download), version: 4.10.2
+    Found link http://www.riverbankcomputing.com/static/Downloads/sip4/sip-4.10.2.tar.gz (from http://www.riverbankcomputing.com/software/sip/download), version: 4.10.2
+    Skipping link http://www.riverbankcomputing.com/static/Downloads/sip4/ChangeLog (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Found link http://www.riverbankcomputing.com/static/Downloads/sip4/sip-snapshot-4.10.3-cb323da88516.zip (from http://www.riverbankcomputing.com/software/sip/download), version: snapshot-4.10.3-cb323da88516
+    Found link http://www.riverbankcomputing.com/static/Downloads/sip4/sip-snapshot-4.10.3-cb323da88516.tar.gz (from http://www.riverbankcomputing.com/software/sip/download), version: snapshot-4.10.3-cb323da88516
+    Skipping link http://www.riverbankcomputing.com/static/Downloads/sip4/ChangeLog-snapshot-4.10.3-cb323da88516 (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .3-cb323da88516
+    Skipping link http://qt.nokia.com/services-partners/partners/partner-directory/riverbank-computing (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/news/pyqt-473 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/news/sip-4102 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/news/pyqt-472 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/news/sip-4101 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/news/qscintilla-243 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pyqt/download (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/qscintilla/download (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/sip/download (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/vendorid/download (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pykde/download3 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/pyqt/download3 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/software/qscintilla/download1 (from http://www.riverbankcomputing.com/software/sip/download); not a file
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt4/html/classes.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt4/pyqt4ref.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/QScintilla2/index.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/sip4/index.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/VendorID/vendorid.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyKDE3/index.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link http://www.riverbankcomputing.com/static/Docs/PyQt3/PyQt.html (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .html
+    Skipping link mailto:info@riverbankcomputing.com (from http://www.riverbankcomputing.com/software/sip/download); unknown archive format: .com
+  Using version 4.10.2 (newest of versions: 4.10.2, 4.10.2, 4.10.2, 4.10.2, snapshot-4.10.3-cb323da88516, snapshot-4.10.3-cb323da88516, snapshot-4.10.3-cb323da88516, snapshot-4.10.3-cb323da88516)
+  Downloading from URL http://www.riverbankcomputing.com/static/Downloads/sip4/sip-4.10.2.zip (from http://www.riverbankcomputing.com/software/sip/download)
+  Running setup.py egg_info for package sip
+    Traceback (most recent call last):
+      File "<string>", line 14, in <module>
+    IOError: [Errno 2] No such file or directory: '/myPython/build/sip/setup.py'
+    Complete output from command python setup.py egg_info:
+    Traceback (most recent call last):
+
+  File "<string>", line 14, in <module>
+
+IOError: [Errno 2] No such file or directory: '/myPython/build/sip/setup.py'
+
+----------------------------------------
+Command python setup.py egg_info failed with error code 1
+Exception information:
+Traceback (most recent call last):
+  File "/Library/Python/2.6/site-packages/pip-0.6-py2.6.egg/pip.py", line 482, in main
+    self.run(options, args)
+  File "/Library/Python/2.6/site-packages/pip-0.6-py2.6.egg/pip.py", line 675, in run
+    requirement_set.install_files(finder, force_root_egg_info=self.bundle)
+  File "/Library/Python/2.6/site-packages/pip-0.6-py2.6.egg/pip.py", line 2452, in install_files
+    req_to_install.run_egg_info()
+  File "/Library/Python/2.6/site-packages/pip-0.6-py2.6.egg/pip.py", line 1827, in run_egg_info
+    command_desc='python setup.py egg_info')
+  File "/Library/Python/2.6/site-packages/pip-0.6-py2.6.egg/pip.py", line 4347, in call_subprocess
+    % (command_desc, proc.returncode))
+InstallationError: Command python setup.py egg_info failed with error code 1

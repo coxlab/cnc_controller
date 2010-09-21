@@ -1,0 +1,143 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/8169/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures
+END
+demo_colorbar_with_axes_divider.py
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svnroot/matplotlib/!svn/ver/7753/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/demo_colorbar_with_axes_divider.py
+END
+demo_ticklabel_alignment.py
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/8010/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/demo_ticklabel_alignment.py
+END
+demo_parasite_axes.py
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svnroot/matplotlib/!svn/ver/7761/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/demo_parasite_axes.py
+END
+demo_ticklabel_direction.py
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/8166/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/demo_ticklabel_direction.py
+END
+simple_axes_divider1.py
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/matplotlib/!svn/ver/7761/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/simple_axes_divider1.py
+END
+simple_axes_divider2.py
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/matplotlib/!svn/ver/7761/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/simple_axes_divider2.py
+END
+simple_axis_pad.py
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/matplotlib/!svn/ver/8169/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/simple_axis_pad.py
+END
+simple_axes_divider3.py
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/matplotlib/!svn/ver/7761/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/simple_axes_divider3.py
+END
+axis_direction_demo_step01.py
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/8166/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/axis_direction_demo_step01.py
+END
+axis_direction_demo_step02.py
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/8166/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/axis_direction_demo_step02.py
+END
+axis_direction_demo_step03.py
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/8166/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/axis_direction_demo_step03.py
+END
+axis_direction_demo_step04.py
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/8166/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/axis_direction_demo_step04.py
+END
+simple_axisline2.py
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/matplotlib/!svn/ver/7761/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/simple_axisline2.py
+END
+demo_axis_direction.py
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/matplotlib/!svn/ver/8010/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/demo_axis_direction.py
+END
+simple_axisline3.py
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/matplotlib/!svn/ver/7761/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/simple_axisline3.py
+END
+demo_fixed_size_axes.py
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/matplotlib/!svn/ver/7761/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/demo_fixed_size_axes.py
+END
+demo_colorbar_of_inset_axes.py
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/matplotlib/!svn/ver/7753/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/demo_colorbar_of_inset_axes.py
+END
+simple_axis_direction01.py
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/matplotlib/!svn/ver/8166/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/simple_axis_direction01.py
+END
+demo_new_colorbar.py
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/matplotlib/!svn/ver/7753/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/demo_new_colorbar.py
+END
+simple_axis_direction03.py
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/matplotlib/!svn/ver/8166/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/simple_axis_direction03.py
+END
+parasite_simple.py
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/matplotlib/!svn/ver/7761/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/parasite_simple.py
+END
+simple_rgb.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/matplotlib/!svn/ver/7761/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/simple_rgb.py
+END
+simple_axisline.py
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/matplotlib/!svn/ver/7761/trunk/matplotlib/doc/mpl_toolkits/axes_grid/figures/simple_axisline.py
+END

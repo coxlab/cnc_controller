@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/opencv/!svn/ver/3244/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors
+END
+fast_params.xml
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/opencv/!svn/ver/3146/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/fast_params.xml
+END
+harris_res.xml
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/opencv/!svn/ver/3093/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/harris_res.xml
+END
+star_res.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/opencv/!svn/ver/3210/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/star_res.xml
+END
+surf_params.xml
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/opencv/!svn/ver/3146/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/surf_params.xml
+END
+fast_res.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/opencv/!svn/ver/3210/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/fast_res.xml
+END
+gftt_params.xml
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/opencv/!svn/ver/3146/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/gftt_params.xml
+END
+sift_params.xml
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/opencv/!svn/ver/3146/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/sift_params.xml
+END
+surf_res.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/opencv/!svn/ver/3210/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/surf_res.xml
+END
+mser_params.xml
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/opencv/!svn/ver/3146/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/mser_params.xml
+END
+harris_params.xml
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/opencv/!svn/ver/3146/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/harris_params.xml
+END
+star_params.xml
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/opencv/!svn/ver/3146/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/star_params.xml
+END
+gftt_res.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/opencv/!svn/ver/3093/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/gftt_res.xml
+END
+sift_res.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/opencv/!svn/ver/3210/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/sift_res.xml
+END
+mser_res.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/opencv/!svn/ver/3210/trunk/opencv_extra/testdata/cv/detectors_descriptors_evaluation/detectors/mser_res.xml
+END

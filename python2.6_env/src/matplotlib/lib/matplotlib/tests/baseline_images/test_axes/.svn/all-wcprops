@@ -1,0 +1,425 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/matplotlib/!svn/ver/7990/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes
+END
+offset_points.svg
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/offset_points.svg
+END
+fill_units.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/fill_units.pdf
+END
+polar_wrap_360.png
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/matplotlib/!svn/ver/7718/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_wrap_360.png
+END
+polar_coords.svg
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_coords.svg
+END
+imshow_clip.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7921/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/imshow_clip.pdf
+END
+single_date.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/single_date.pdf
+END
+polar_wrap_180.svg
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_wrap_180.svg
+END
+formatter_ticker_001.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_001.pdf
+END
+polycollection_joinstyle.svg
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/matplotlib/!svn/ver/7921/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polycollection_joinstyle.svg
+END
+polar_units.svg
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_units.svg
+END
+formatter_ticker_002.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_002.pdf
+END
+formatter_ticker_003.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_003.pdf
+END
+formatter_ticker_004.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_004.pdf
+END
+formatter_ticker_005.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_005.pdf
+END
+single_point.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/single_point.pdf
+END
+axhspan_epoch.png
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7716/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/axhspan_epoch.png
+END
+const_xy.svg
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/const_xy.svg
+END
+fill_units.svg
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/fill_units.svg
+END
+imshow_clip.svg
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7878/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/imshow_clip.svg
+END
+single_date.svg
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/single_date.svg
+END
+shaped_data.png
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/shaped_data.png
+END
+polar_axes.png
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/matplotlib/!svn/ver/7895/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_axes.png
+END
+axvspan_epoch.png
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7716/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/axvspan_epoch.png
+END
+formatter_ticker_001.svg
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_001.svg
+END
+formatter_ticker_002.svg
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_002.svg
+END
+formatter_ticker_003.svg
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_003.svg
+END
+formatter_ticker_004.svg
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_004.svg
+END
+formatter_ticker_005.svg
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_005.svg
+END
+hexbin_extent.png
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7743/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/hexbin_extent.png
+END
+single_point.svg
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/single_point.svg
+END
+imshow.png
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/matplotlib/!svn/ver/7878/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/imshow.png
+END
+shaped data.svg
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/shaped%20data.svg
+END
+nonfinite_limits.png
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svnroot/matplotlib/!svn/ver/7777/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/nonfinite_limits.png
+END
+offset_points.png
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7716/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/offset_points.png
+END
+polar_wrap_360.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_wrap_360.pdf
+END
+polar_coords.png
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/matplotlib/!svn/ver/7716/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_coords.png
+END
+polar_wrap_180.png
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/matplotlib/!svn/ver/7716/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_wrap_180.png
+END
+polycollection_joinstyle.png
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/matplotlib/!svn/ver/7921/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polycollection_joinstyle.png
+END
+polar_units.png
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7716/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_units.png
+END
+axhspan_epoch.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/axhspan_epoch.pdf
+END
+const_xy.png
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/matplotlib/!svn/ver/7716/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/const_xy.png
+END
+fill_units.png
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/matplotlib/!svn/ver/7990/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/fill_units.png
+END
+polar_wrap_360.svg
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_wrap_360.svg
+END
+imshow_clip.png
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7878/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/imshow_clip.png
+END
+single_date.png
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7716/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/single_date.png
+END
+shaped_data.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/shaped_data.pdf
+END
+polar_axes.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_axes.pdf
+END
+axvspan_epoch.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/axvspan_epoch.pdf
+END
+formatter_ticker_001.png
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7716/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_001.png
+END
+formatter_ticker_002.png
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7718/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_002.png
+END
+formatter_ticker_003.png
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7723/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_003.png
+END
+formatter_ticker_004.png
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7723/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_004.png
+END
+formatter_ticker_005.png
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/matplotlib/!svn/ver/7723/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/formatter_ticker_005.png
+END
+hexbin_extent.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/hexbin_extent.pdf
+END
+single_point.png
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/matplotlib/!svn/ver/7716/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/single_point.png
+END
+axhspan_epoch.svg
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/axhspan_epoch.svg
+END
+imshow.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/matplotlib/!svn/ver/7878/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/imshow.pdf
+END
+nonfinite_limits.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/nonfinite_limits.pdf
+END
+offset_points.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/offset_points.pdf
+END
+shaped_data.svg
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/shaped_data.svg
+END
+polar_axes.svg
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_axes.svg
+END
+axvspan_epoch.svg
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/axvspan_epoch.svg
+END
+polar_coords.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_coords.pdf
+END
+hexbin_extent.svg
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/hexbin_extent.svg
+END
+imshow.svg
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/matplotlib/!svn/ver/7878/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/imshow.svg
+END
+polar_wrap_180.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_wrap_180.pdf
+END
+polycollection_joinstyle.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/matplotlib/!svn/ver/7921/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polycollection_joinstyle.pdf
+END
+polar_units.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/polar_units.pdf
+END
+nonfinite_limits.svg
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svnroot/matplotlib/!svn/ver/7875/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/nonfinite_limits.svg
+END
+const_xy.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/matplotlib/!svn/ver/7830/trunk/matplotlib/lib/matplotlib/tests/baseline_images/test_axes/const_xy.pdf
+END

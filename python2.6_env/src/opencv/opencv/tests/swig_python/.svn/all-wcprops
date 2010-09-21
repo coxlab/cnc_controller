@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/opencv/!svn/ver/2119/trunk/opencv/tests/swig_python
+END
+lsh_tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/2119/trunk/opencv/tests/swig_python/lsh_tests.py
+END
+roots_tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/2119/trunk/opencv/tests/swig_python/roots_tests.py
+END
+testall.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/opencv/!svn/ver/2119/trunk/opencv/tests/swig_python/testall.py
+END
+cvtestutils.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/2119/trunk/opencv/tests/swig_python/cvtestutils.py
+END
+feature_tree_tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/opencv/!svn/ver/2119/trunk/opencv/tests/swig_python/feature_tree_tests.py
+END
+test_adaptors.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/2119/trunk/opencv/tests/swig_python/test_adaptors.py
+END
+histogram_tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/opencv/!svn/ver/2119/trunk/opencv/tests/swig_python/histogram_tests.py
+END
+homography_tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/opencv/!svn/ver/2119/trunk/opencv/tests/swig_python/homography_tests.py
+END
+cmp_tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/2119/trunk/opencv/tests/swig_python/cmp_tests.py
+END
+moments_tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/2119/trunk/opencv/tests/swig_python/moments_tests.py
+END

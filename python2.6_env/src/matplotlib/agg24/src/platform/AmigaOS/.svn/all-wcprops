@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/platform/AmigaOS
+END
+agg_platform_support.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/platform/AmigaOS/agg_platform_support.cpp
+END

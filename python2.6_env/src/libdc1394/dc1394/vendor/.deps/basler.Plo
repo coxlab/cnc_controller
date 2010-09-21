@@ -1,0 +1,77 @@
+basler.lo basler.o: basler.c /usr/include/inttypes.h \
+  /usr/include/sys/cdefs.h /usr/include/_types.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/i386/_types.h \
+  /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stdint.h ../internal.h \
+  ../../config.h ../offsets.h ../platform.h ../../dc1394/camera.h \
+  ../../dc1394/log.h ../../dc1394/dc1394.h ../../dc1394/types.h \
+  /usr/include/stdio.h /usr/include/secure/_stdio.h \
+  /usr/include/secure/_common.h ../../dc1394/control.h \
+  ../../dc1394/capture.h ../../dc1394/video.h ../../dc1394/conversions.h \
+  ../../dc1394/format7.h ../../dc1394/iso.h ../../dc1394/register.h \
+  ../../dc1394/utils.h ../register.h ../utils.h ../control.h basler.h \
+  basler_sff.h basler_sff_registry.h
+
+/usr/include/inttypes.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/_types.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/i386/_types.h:
+
+/usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stdint.h:
+
+../internal.h:
+
+../../config.h:
+
+../offsets.h:
+
+../platform.h:
+
+../../dc1394/camera.h:
+
+../../dc1394/log.h:
+
+../../dc1394/dc1394.h:
+
+../../dc1394/types.h:
+
+/usr/include/stdio.h:
+
+/usr/include/secure/_stdio.h:
+
+/usr/include/secure/_common.h:
+
+../../dc1394/control.h:
+
+../../dc1394/capture.h:
+
+../../dc1394/video.h:
+
+../../dc1394/conversions.h:
+
+../../dc1394/format7.h:
+
+../../dc1394/iso.h:
+
+../../dc1394/register.h:
+
+../../dc1394/utils.h:
+
+../register.h:
+
+../utils.h:
+
+../control.h:
+
+basler.h:
+
+basler_sff.h:
+
+basler_sff_registry.h:

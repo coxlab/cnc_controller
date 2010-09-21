@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/matplotlib/!svn/ver/6143/trunk/matplotlib/lib/pytz
+END
+tzinfo.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/matplotlib/!svn/ver/6143/trunk/matplotlib/lib/pytz/tzinfo.py
+END
+tzfile.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/matplotlib/!svn/ver/6108/trunk/matplotlib/lib/pytz/tzfile.py
+END
+reference.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/matplotlib/!svn/ver/6108/trunk/matplotlib/lib/pytz/reference.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/matplotlib/!svn/ver/6108/trunk/matplotlib/lib/pytz/__init__.py
+END

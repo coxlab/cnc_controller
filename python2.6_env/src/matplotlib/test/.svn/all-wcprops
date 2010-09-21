@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/matplotlib/!svn/ver/8073/trunk/matplotlib/test
+END
+_buildbot_install.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/matplotlib/!svn/ver/7615/trunk/matplotlib/test/_buildbot_install.py
+END
+_buildbot_doc.sh
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/matplotlib/!svn/ver/8073/trunk/matplotlib/test/_buildbot_doc.sh
+END
+_buildbot_test_postmortem.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/7987/trunk/matplotlib/test/_buildbot_test_postmortem.py
+END
+TODO
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/matplotlib/!svn/ver/7720/trunk/matplotlib/test/TODO
+END
+_buildbot_util.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/matplotlib/!svn/ver/7539/trunk/matplotlib/test/_buildbot_util.py
+END
+README.build_slaves
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/7543/trunk/matplotlib/test/README.build_slaves
+END
+_buildbot_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/matplotlib/!svn/ver/8061/trunk/matplotlib/test/_buildbot_test.py
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/matplotlib/!svn/ver/7700/trunk/matplotlib/test/README.txt
+END
+_buildbot_mac_sage.sh
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/matplotlib/!svn/ver/7715/trunk/matplotlib/test/_buildbot_mac_sage.sh
+END
+matplotlibrc
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/matplotlib/!svn/ver/7729/trunk/matplotlib/test/matplotlibrc
+END

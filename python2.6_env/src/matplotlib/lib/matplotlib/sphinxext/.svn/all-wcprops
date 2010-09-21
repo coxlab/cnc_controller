@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/8148/trunk/matplotlib/lib/matplotlib/sphinxext
+END
+plot_directive.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/8148/trunk/matplotlib/lib/matplotlib/sphinxext/plot_directive.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/6917/trunk/matplotlib/lib/matplotlib/sphinxext/__init__.py
+END
+ipython_console_highlighting.py
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svnroot/matplotlib/!svn/ver/7798/trunk/matplotlib/lib/matplotlib/sphinxext/ipython_console_highlighting.py
+END
+mathmpl.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/8148/trunk/matplotlib/lib/matplotlib/sphinxext/mathmpl.py
+END
+only_directives.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/8148/trunk/matplotlib/lib/matplotlib/sphinxext/only_directives.py
+END

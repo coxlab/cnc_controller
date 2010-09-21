@@ -31,6 +31,9 @@ int main(int argc, char *argv[])
     //setenv("PYTHONHOME", "/System/Library/Frameworks/Python.framework/Versions/2.5/", 1);
     setenv("PYTHONPATH", [[pythonPathArray componentsJoinedByString:@":"] UTF8String], 1);
     
+    // This is to make the POS ctypes binding work
+    setenv("VIRTUAL_ENV", [[resourcePath stringByAppendingPathComponent:@"python2.6_env"] UTF8String], 1);
+    
     NSArray *possibleMainExtensions = [NSArray arrayWithObjects: @"py", @"pyc", @"pyo", nil];
     NSString *mainFilePath = nil;
     

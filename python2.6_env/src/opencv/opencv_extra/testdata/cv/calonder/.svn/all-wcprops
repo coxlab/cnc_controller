@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/opencv/!svn/ver/3422/trunk/opencv_extra/testdata/cv/calonder
+END
+ros_uchar_desc
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/opencv/!svn/ver/3422/trunk/opencv_extra/testdata/cv/calonder/ros_uchar_desc
+END
+keypoints.xml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/opencv/!svn/ver/3422/trunk/opencv_extra/testdata/cv/calonder/keypoints.xml
+END
+ros_float_desc
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/opencv/!svn/ver/3422/trunk/opencv_extra/testdata/cv/calonder/ros_float_desc
+END
+boat.png
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/3422/trunk/opencv_extra/testdata/cv/calonder/boat.png
+END
+classifier.rtc
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/opencv/!svn/ver/3422/trunk/opencv_extra/testdata/cv/calonder/classifier.rtc
+END

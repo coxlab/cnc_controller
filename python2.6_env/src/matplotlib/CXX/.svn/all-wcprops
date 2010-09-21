@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX
+END
+Objects.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX/Objects.hxx
+END
+cxxsupport.cxx
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX/cxxsupport.cxx
+END
+WrapPython.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX/WrapPython.h
+END
+cxx_extensions.cxx
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX/cxx_extensions.cxx
+END
+cxxextensions.c
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX/cxxextensions.c
+END
+Exception.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX/Exception.hxx
+END
+Extensions.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX/Extensions.hxx
+END
+IndirectPythonInterface.cxx
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX/IndirectPythonInterface.cxx
+END
+IndirectPythonInterface.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX/IndirectPythonInterface.hxx
+END
+Config.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX/Config.hxx
+END
+Version.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/matplotlib/!svn/ver/8090/trunk/matplotlib/CXX/Version.hxx
+END

@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/ctrl
+END
+agg_polygon_ctrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/ctrl/agg_polygon_ctrl.h
+END
+agg_scale_ctrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/ctrl/agg_scale_ctrl.h
+END
+agg_gamma_spline.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/ctrl/agg_gamma_spline.h
+END
+agg_rbox_ctrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/ctrl/agg_rbox_ctrl.h
+END
+agg_spline_ctrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/ctrl/agg_spline_ctrl.h
+END
+agg_cbox_ctrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/ctrl/agg_cbox_ctrl.h
+END
+agg_bezier_ctrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/ctrl/agg_bezier_ctrl.h
+END
+agg_ctrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/ctrl/agg_ctrl.h
+END
+agg_gamma_ctrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/ctrl/agg_gamma_ctrl.h
+END
+agg_slider_ctrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/ctrl/agg_slider_ctrl.h
+END

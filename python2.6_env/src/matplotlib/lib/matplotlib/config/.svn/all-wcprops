@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/matplotlib/!svn/ver/7712/trunk/matplotlib/lib/matplotlib/config
+END
+rcparams.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/6143/trunk/matplotlib/lib/matplotlib/config/rcparams.py
+END
+tconfig.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/4249/trunk/matplotlib/lib/matplotlib/config/tconfig.py
+END
+mplconfig.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/7712/trunk/matplotlib/lib/matplotlib/config/mplconfig.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/3634/trunk/matplotlib/lib/matplotlib/config/__init__.py
+END
+mpltraits.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/4248/trunk/matplotlib/lib/matplotlib/config/mpltraits.py
+END
+cutils.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/6143/trunk/matplotlib/lib/matplotlib/config/cutils.py
+END
+rcsetup.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/7712/trunk/matplotlib/lib/matplotlib/config/rcsetup.py
+END
+verbose.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/6463/trunk/matplotlib/lib/matplotlib/config/verbose.py
+END
+checkdep.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/4183/trunk/matplotlib/lib/matplotlib/config/checkdep.py
+END
+matplotlib.conf.default
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/matplotlib/!svn/ver/4275/trunk/matplotlib/lib/matplotlib/config/matplotlib.conf.default
+END

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/msw
+END
+README-MSW
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/libdc1394/!svn/ver/414/trunk/libdc1394/dc1394/msw/README-MSW
+END
+control-msw.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/libdc1394/!svn/ver/564/trunk/libdc1394/dc1394/msw/control-msw.c
+END
+msw1394.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/libdc1394/!svn/ver/527/trunk/libdc1394/dc1394/msw/msw1394.c
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/msw/Makefile.am
+END
+compat.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/libdc1394/!svn/ver/527/trunk/libdc1394/dc1394/msw/compat.h
+END
+msw.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/libdc1394/!svn/ver/563/trunk/libdc1394/dc1394/msw/msw.h
+END
+msw1394.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/libdc1394/!svn/ver/564/trunk/libdc1394/dc1394/msw/msw1394.h
+END

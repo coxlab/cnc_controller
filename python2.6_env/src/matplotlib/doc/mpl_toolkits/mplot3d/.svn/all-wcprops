@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/7735/trunk/matplotlib/doc/mpl_toolkits/mplot3d
+END
+api.rst
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/7317/trunk/matplotlib/doc/mpl_toolkits/mplot3d/api.rst
+END
+tutorial.rst
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/7735/trunk/matplotlib/doc/mpl_toolkits/mplot3d/tutorial.rst
+END
+index.rst
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/7203/trunk/matplotlib/doc/mpl_toolkits/mplot3d/index.rst
+END

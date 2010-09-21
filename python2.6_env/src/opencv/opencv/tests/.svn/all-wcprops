@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/opencv/!svn/ver/3602/trunk/opencv/tests
+END
+test_cv.sh
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/opencv/!svn/ver/3060/trunk/opencv/tests/test_cv.sh
+END
+test_ml.sh
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/opencv/!svn/ver/3060/trunk/opencv/tests/test_ml.sh
+END
+test_cxcore.sh
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/opencv/!svn/ver/3060/trunk/opencv/tests/test_cxcore.sh
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/opencv/!svn/ver/3407/trunk/opencv/tests/CMakeLists.txt
+END

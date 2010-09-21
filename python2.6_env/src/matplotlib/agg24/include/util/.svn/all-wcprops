@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/util
+END
+agg_color_conv.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/util/agg_color_conv.h
+END
+agg_color_conv_rgb16.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/util/agg_color_conv_rgb16.h
+END
+agg_color_conv_rgb8.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/include/util/agg_color_conv_rgb8.h
+END

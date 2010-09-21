@@ -1,0 +1,209 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/opencv/!svn/ver/3273/trunk/opencv/modules/video/src
+END
+camshift.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/camshift.cpp
+END
+blobtrackanalysishist.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackanalysishist.cpp
+END
+bgfg_estimation.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/bgfg_estimation.cpp
+END
+optflowgf.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/optflowgf.cpp
+END
+bgfg_common.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/bgfg_common.cpp
+END
+blobtrackingmsfg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackingmsfg.cpp
+END
+blobtrackgen1.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackgen1.cpp
+END
+blobtrackgenyml.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackgenyml.cpp
+END
+blobtrackanalysisior.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackanalysisior.cpp
+END
+bgfg_acmmm2003.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/bgfg_acmmm2003.cpp
+END
+bgfg_gaussmix.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/bgfg_gaussmix.cpp
+END
+blobtrackpostproclinear.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackpostproclinear.cpp
+END
+blobtrackpostproclist.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackpostproclist.cpp
+END
+blobtrackingauto.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackingauto.cpp
+END
+blobtrackinglist.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackinglist.cpp
+END
+blobtrackingmsfgs.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackingmsfgs.cpp
+END
+kalman.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/kalman.cpp
+END
+precomp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/precomp.cpp
+END
+blobtrackanalysis.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackanalysis.cpp
+END
+blobtrackingcc.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackingcc.cpp
+END
+optflowbm.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/optflowbm.cpp
+END
+enteringblobdetection.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/enteringblobdetection.cpp
+END
+bgfg_codebook.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/bgfg_codebook.cpp
+END
+precomp.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/3273/trunk/opencv/modules/video/src/precomp.hpp
+END
+motempl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/motempl.cpp
+END
+enteringblobdetectionreal.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/enteringblobdetectionreal.cpp
+END
+blobtrackanalysistrackdist.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackanalysistrackdist.cpp
+END
+optflowlk.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/optflowlk.cpp
+END
+blobtrackpostprockalman.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackpostprockalman.cpp
+END
+optflowhs.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/optflowhs.cpp
+END
+blobtrackingkalman.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackingkalman.cpp
+END
+blobtrackingccwithcr.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/blobtrackingccwithcr.cpp
+END
+testseq.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/testseq.cpp
+END
+lkpyramid.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/video/src/lkpyramid.cpp
+END

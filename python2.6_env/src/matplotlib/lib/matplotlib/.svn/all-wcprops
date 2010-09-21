@@ -1,0 +1,323 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/matplotlib/!svn/ver/8182/trunk/matplotlib/lib/matplotlib
+END
+mpl.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/matplotlib/!svn/ver/4894/trunk/matplotlib/lib/matplotlib/mpl.py
+END
+tight_bbox.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/matplotlib/!svn/ver/8108/trunk/matplotlib/lib/matplotlib/tight_bbox.py
+END
+type1font.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/matplotlib/!svn/ver/6718/trunk/matplotlib/lib/matplotlib/type1font.py
+END
+docstring.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/matplotlib/!svn/ver/7496/trunk/matplotlib/lib/matplotlib/docstring.py
+END
+patheffects.py
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/matplotlib/!svn/ver/7969/trunk/matplotlib/lib/matplotlib/patheffects.py
+END
+cbook.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/8059/trunk/matplotlib/lib/matplotlib/cbook.py
+END
+mathtext.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/matplotlib/!svn/ver/8026/trunk/matplotlib/lib/matplotlib/mathtext.py
+END
+legend.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/8105/trunk/matplotlib/lib/matplotlib/legend.py
+END
+_cm.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/matplotlib/!svn/ver/8051/trunk/matplotlib/lib/matplotlib/_cm.py
+END
+transforms.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/matplotlib/!svn/ver/8161/trunk/matplotlib/lib/matplotlib/transforms.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/matplotlib/!svn/ver/8128/trunk/matplotlib/lib/matplotlib/__init__.py
+END
+cm.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/matplotlib/!svn/ver/7902/trunk/matplotlib/lib/matplotlib/cm.py
+END
+dates.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/8182/trunk/matplotlib/lib/matplotlib/dates.py
+END
+colors.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/7971/trunk/matplotlib/lib/matplotlib/colors.py
+END
+spines.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/8048/trunk/matplotlib/lib/matplotlib/spines.py
+END
+textpath.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/matplotlib/!svn/ver/7948/trunk/matplotlib/lib/matplotlib/textpath.py
+END
+finance.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/matplotlib/!svn/ver/8176/trunk/matplotlib/lib/matplotlib/finance.py
+END
+afm.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/matplotlib/!svn/ver/7941/trunk/matplotlib/lib/matplotlib/afm.py
+END
+backend_bases.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/8141/trunk/matplotlib/lib/matplotlib/backend_bases.py
+END
+artist.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/8176/trunk/matplotlib/lib/matplotlib/artist.py
+END
+lines.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/8170/trunk/matplotlib/lib/matplotlib/lines.py
+END
+quiver.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/7993/trunk/matplotlib/lib/matplotlib/quiver.py
+END
+bezier.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/7704/trunk/matplotlib/lib/matplotlib/bezier.py
+END
+ticker.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/8177/trunk/matplotlib/lib/matplotlib/ticker.py
+END
+_mathtext_data.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/7945/trunk/matplotlib/lib/matplotlib/_mathtext_data.py
+END
+hatch.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/6744/trunk/matplotlib/lib/matplotlib/hatch.py
+END
+patches.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/matplotlib/!svn/ver/8176/trunk/matplotlib/lib/matplotlib/patches.py
+END
+pyplot.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/8151/trunk/matplotlib/lib/matplotlib/pyplot.py
+END
+_pylab_helpers.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/6943/trunk/matplotlib/lib/matplotlib/_pylab_helpers.py
+END
+contour.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/matplotlib/!svn/ver/8098/trunk/matplotlib/lib/matplotlib/contour.py
+END
+fontconfig_pattern.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/6342/trunk/matplotlib/lib/matplotlib/fontconfig_pattern.py
+END
+texmanager.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/matplotlib/!svn/ver/7764/trunk/matplotlib/lib/matplotlib/texmanager.py
+END
+path.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/matplotlib/!svn/ver/8138/trunk/matplotlib/lib/matplotlib/path.py
+END
+offsetbox.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/matplotlib/!svn/ver/8157/trunk/matplotlib/lib/matplotlib/offsetbox.py
+END
+font_manager.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/matplotlib/!svn/ver/8102/trunk/matplotlib/lib/matplotlib/font_manager.py
+END
+axes.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/matplotlib/!svn/ver/8177/trunk/matplotlib/lib/matplotlib/axes.py
+END
+units.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/7905/trunk/matplotlib/lib/matplotlib/units.py
+END
+colorbar.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/matplotlib/!svn/ver/8149/trunk/matplotlib/lib/matplotlib/colorbar.py
+END
+axis.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/matplotlib/!svn/ver/8048/trunk/matplotlib/lib/matplotlib/axis.py
+END
+windowing.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/matplotlib/!svn/ver/4894/trunk/matplotlib/lib/matplotlib/windowing.py
+END
+widgets.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/matplotlib/!svn/ver/8150/trunk/matplotlib/lib/matplotlib/widgets.py
+END
+blocking_input.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/8112/trunk/matplotlib/lib/matplotlib/blocking_input.py
+END
+pylab.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/7975/trunk/matplotlib/lib/matplotlib/pylab.py
+END
+mlab.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/matplotlib/!svn/ver/8136/trunk/matplotlib/lib/matplotlib/mlab.py
+END
+pyparsing.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/matplotlib/!svn/ver/5473/trunk/matplotlib/lib/matplotlib/pyparsing.py
+END
+dviread.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/matplotlib/!svn/ver/7797/trunk/matplotlib/lib/matplotlib/dviread.py
+END
+collections.py
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/matplotlib/!svn/ver/8111/trunk/matplotlib/lib/matplotlib/collections.py
+END
+figure.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/8049/trunk/matplotlib/lib/matplotlib/figure.py
+END
+image.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/8178/trunk/matplotlib/lib/matplotlib/image.py
+END
+text.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/matplotlib/!svn/ver/8163/trunk/matplotlib/lib/matplotlib/text.py
+END
+rcsetup.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/matplotlib/!svn/ver/8140/trunk/matplotlib/lib/matplotlib/rcsetup.py
+END
+scale.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/7491/trunk/matplotlib/lib/matplotlib/scale.py
+END
+table.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/7491/trunk/matplotlib/lib/matplotlib/table.py
+END

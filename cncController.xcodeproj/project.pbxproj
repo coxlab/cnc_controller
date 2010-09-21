@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
-		689091E412085E4A007BCF46 /* electrodeController in Resources */ = {isa = PBXBuildFile; fileRef = 6890918212085E4A007BCF46 /* electrodeController */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -16,13 +15,14 @@
 		BF0C00E011C5A0B200D994B0 /* quaternion.py in Resources */ = {isa = PBXBuildFile; fileRef = BF0C00DF11C5A0B200D994B0 /* quaternion.py */; };
 		BF1E318F10CB3A2E00163053 /* clockwiseArrows.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1E318D10CB3A2E00163053 /* clockwiseArrows.png */; };
 		BF1E319010CB3A2E00163053 /* counterclockwiseArrows.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */; };
-		BF39087E12187E8300FFD999 /* python2.6_env in Resources */ = {isa = PBXBuildFile; fileRef = BF39F1EF12187E8000FFD999 /* python2.6_env */; };
+		BF2C463512494EF400C86D0F /* python2.6_env in Resources */ = {isa = PBXBuildFile; fileRef = BF2CC57E12494ED500C86D0F /* python2.6_env */; };
 		BF43D6AC10CB2BB900F1F642 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = BF43D6AB10CB2BB900F1F642 /* main.py */; };
 		BF54661111D8D4A70095F0ED /* ocAtlasView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF54661011D8D4A70095F0ED /* ocAtlasView.py */; };
 		BF5E23BE11C138FD003EF057 /* ocController.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E23BD11C138FD003EF057 /* ocController.py */; };
 		BF5E3AF811C15608003EF057 /* Interface.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF5E3AF711C15608003EF057 /* Interface.xib */; };
 		BF5E3B8811C16EC8003EF057 /* ocZoomView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E3B8711C16EC8003EF057 /* ocZoomView.py */; };
 		BF91F36111D5366000049A44 /* zoomView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF91F36011D5366000049A44 /* zoomView.py */; };
+		BF944EFD1247A54C00120CE9 /* electrodeController in Resources */ = {isa = PBXBuildFile; fileRef = BF944E701247A54B00120CE9 /* electrodeController */; };
 		BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BF9C84D711527B5100C68A5A /* physiology_icon.icns */; };
 		BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */ = {isa = PBXBuildFile; fileRef = BFD1491511D3EE5E002CA13F /* a_10.obj */; };
 		BFDBF0D110CDBF7C00962C45 /* example.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDBF0D010CDBF7C00962C45 /* example.png */; };
@@ -38,20 +38,20 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		6890918212085E4A007BCF46 /* electrodeController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = electrodeController; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* cncController-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "cncController-Info.plist"; sourceTree = "<group>"; };
 		BF0C00D011C5773700D994B0 /* ocMeshView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocMeshView.py; sourceTree = "<group>"; };
 		BF0C00DF11C5A0B200D994B0 /* quaternion.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = quaternion.py; sourceTree = "<group>"; };
 		BF1E318D10CB3A2E00163053 /* clockwiseArrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clockwiseArrows.png; path = media/clockwiseArrows.png; sourceTree = "<group>"; };
 		BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = counterclockwiseArrows.png; path = media/counterclockwiseArrows.png; sourceTree = "<group>"; };
+		BF2CC57E12494ED500C86D0F /* python2.6_env */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python2.6_env; sourceTree = "<group>"; };
 		BF330D4610CD46D10009217F /* cncController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cncController.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF39F1EF12187E8000FFD999 /* python2.6_env */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python2.6_env; sourceTree = "<group>"; };
 		BF43D6AB10CB2BB900F1F642 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		BF54661011D8D4A70095F0ED /* ocAtlasView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocAtlasView.py; sourceTree = "<group>"; };
 		BF5E23BD11C138FD003EF057 /* ocController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocController.py; sourceTree = "<group>"; };
 		BF5E3AF711C15608003EF057 /* Interface.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Interface.xib; sourceTree = "<group>"; };
 		BF5E3B8711C16EC8003EF057 /* ocZoomView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocZoomView.py; sourceTree = "<group>"; };
 		BF91F36011D5366000049A44 /* zoomView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = zoomView.py; sourceTree = "<group>"; };
+		BF944E701247A54B00120CE9 /* electrodeController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = electrodeController; sourceTree = "<group>"; };
 		BF9C84D711527B5100C68A5A /* physiology_icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = physiology_icon.icns; sourceTree = "<group>"; };
 		BFD1491511D3EE5E002CA13F /* a_10.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = a_10.obj; path = media/a_10.obj; sourceTree = "<group>"; };
 		BFDBF0D010CDBF7C00962C45 /* example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = example.png; path = media/example.png; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				6890918212085E4A007BCF46 /* electrodeController */,
+				BF944E701247A54B00120CE9 /* electrodeController */,
 				BF0C00DF11C5A0B200D994B0 /* quaternion.py */,
 				256AC3F00F4B6AF500CF3369 /* cncController_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -136,7 +136,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BF39F1EF12187E8000FFD999 /* python2.6_env */,
+				BF2CC57E12494ED500C86D0F /* python2.6_env */,
 				BF9C84D711527B5100C68A5A /* physiology_icon.icns */,
 				BF1E318C10CB3A0E00163053 /* media */,
 				8D1107310486CEB800E47090 /* cncController-Info.plist */,
@@ -226,8 +226,8 @@
 				BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */,
 				BF91F36111D5366000049A44 /* zoomView.py in Resources */,
 				BF54661111D8D4A70095F0ED /* ocAtlasView.py in Resources */,
-				689091E412085E4A007BCF46 /* electrodeController in Resources */,
-				BF39087E12187E8300FFD999 /* python2.6_env in Resources */,
+				BF944EFD1247A54C00120CE9 /* electrodeController in Resources */,
+				BF2C463512494EF400C86D0F /* python2.6_env in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +285,29 @@
 					"\"$(SRCROOT)/python2.6_env/lib/python2.6/config\"",
 					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages\"",
 					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages/numpy/core/lib\"",
+					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages/monkeyworks\"",
+					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages/mwkDataFile\"",
+					"\"$(SRCROOT)/python2.6_env/lib/vtk-5.6\"",
+					"\"$(SRCROOT)/python2.6_env/src/AntTweakBar/examples\"",
+					"\"$(SRCROOT)/python2.6_env/src/AntTweakBar/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/freetype-2.4.2/objs/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/libdc1394/dc1394/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/libdc1394/dc1394/macosx/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/libdc1394/dc1394/vendor/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/libpng-1.4.3/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_libdc1394/libdc1394/dc1394/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_libdc1394/libdc1394/dc1394/macosx/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_libdc1394/libdc1394/dc1394/vendor/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/3rdparty/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/release/3rdparty/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/release/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/xcode/3rdparty/lib/Debug\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/xcode/lib/Debug\"",
+					"\"$(SRCROOT)/python2.6_env/src/opencv/opencv/3rdparty/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/opencv/opencv/release/3rdparty/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/opencv/opencv/release/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/zlib-1.2.5\"",
 				);
 				OTHER_LDFLAGS = (
 					"-L/usr/lib/python2.6",
@@ -311,6 +334,29 @@
 					"\"$(SRCROOT)/python2.6_env/lib/python2.6/config\"",
 					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages\"",
 					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages/numpy/core/lib\"",
+					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages/monkeyworks\"",
+					"\"$(SRCROOT)/python2.6_env/lib/python2.6/site-packages/mwkDataFile\"",
+					"\"$(SRCROOT)/python2.6_env/lib/vtk-5.6\"",
+					"\"$(SRCROOT)/python2.6_env/src/AntTweakBar/examples\"",
+					"\"$(SRCROOT)/python2.6_env/src/AntTweakBar/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/freetype-2.4.2/objs/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/libdc1394/dc1394/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/libdc1394/dc1394/macosx/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/libdc1394/dc1394/vendor/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/libpng-1.4.3/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_libdc1394/libdc1394/dc1394/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_libdc1394/libdc1394/dc1394/macosx/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_libdc1394/libdc1394/dc1394/vendor/.libs\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/3rdparty/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/release/3rdparty/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/release/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/xcode/3rdparty/lib/Debug\"",
+					"\"$(SRCROOT)/python2.6_env/src/old_opencv/opencv/xcode/lib/Debug\"",
+					"\"$(SRCROOT)/python2.6_env/src/opencv/opencv/3rdparty/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/opencv/opencv/release/3rdparty/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/opencv/opencv/release/lib\"",
+					"\"$(SRCROOT)/python2.6_env/src/zlib-1.2.5\"",
 				);
 				PRODUCT_NAME = cncController;
 			};

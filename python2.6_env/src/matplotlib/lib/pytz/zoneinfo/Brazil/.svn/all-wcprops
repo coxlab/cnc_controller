@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/6108/trunk/matplotlib/lib/pytz/zoneinfo/Brazil
+END
+West
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/matplotlib/!svn/ver/6108/trunk/matplotlib/lib/pytz/zoneinfo/Brazil/West
+END
+Acre
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/matplotlib/!svn/ver/6108/trunk/matplotlib/lib/pytz/zoneinfo/Brazil/Acre
+END
+East
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/matplotlib/!svn/ver/6108/trunk/matplotlib/lib/pytz/zoneinfo/Brazil/East
+END
+DeNoronha
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/6108/trunk/matplotlib/lib/pytz/zoneinfo/Brazil/DeNoronha
+END

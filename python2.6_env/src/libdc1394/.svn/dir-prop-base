@@ -1,0 +1,26 @@
+K 10
+svn:ignore
+V 228
+Makefile
+Makefile.in
+configure
+config.sub
+config.log
+config.status
+config.h
+config.h.in
+config.guess
+autom4te.cache
+libtool
+ltmain.sh
+aclocal.m4
+compile
+stamp-h1
+mkinstalldirs
+missing
+install-sh
+depcomp
+.DS_Store
+libdc1394-2.pc
+
+END

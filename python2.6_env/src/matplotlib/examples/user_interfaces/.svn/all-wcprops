@@ -1,0 +1,167 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/7384/trunk/matplotlib/examples/user_interfaces
+END
+embedding_in_gtk2.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/matplotlib/!svn/ver/7070/trunk/matplotlib/examples/user_interfaces/embedding_in_gtk2.py
+END
+embedding_in_qt4.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/embedding_in_qt4.py
+END
+embedding_in_gtk3.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/embedding_in_gtk3.py
+END
+rec_edit_gtk_simple.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/matplotlib/!svn/ver/7384/trunk/matplotlib/examples/user_interfaces/rec_edit_gtk_simple.py
+END
+fourier_demo_wx.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/6786/trunk/matplotlib/examples/user_interfaces/fourier_demo_wx.py
+END
+printing_in_wx.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/printing_in_wx.py
+END
+interactive2.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/5187/trunk/matplotlib/examples/user_interfaces/interactive2.py
+END
+lineprops_dialog_gtk.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/matplotlib/!svn/ver/5187/trunk/matplotlib/examples/user_interfaces/lineprops_dialog_gtk.py
+END
+wxcursor_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/wxcursor_demo.py
+END
+embedding_in_tk.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/embedding_in_tk.py
+END
+README.wx
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/README.wx
+END
+mpl_with_glade.glade
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/mpl_with_glade.glade
+END
+embedding_in_wx2.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/6973/trunk/matplotlib/examples/user_interfaces/embedding_in_wx2.py
+END
+embedding_in_wx3.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/7384/trunk/matplotlib/examples/user_interfaces/embedding_in_wx3.py
+END
+embedding_in_wx4.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/6973/trunk/matplotlib/examples/user_interfaces/embedding_in_wx4.py
+END
+embedding_in_wx5.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/6973/trunk/matplotlib/examples/user_interfaces/embedding_in_wx5.py
+END
+pylab_with_gtk.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/5187/trunk/matplotlib/examples/user_interfaces/pylab_with_gtk.py
+END
+embedding_in_qt.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/embedding_in_qt.py
+END
+embedding_in_gtk.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/7070/trunk/matplotlib/examples/user_interfaces/embedding_in_gtk.py
+END
+histogram_demo_canvasagg.py
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/histogram_demo_canvasagg.py
+END
+gtk_spreadsheet.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/gtk_spreadsheet.py
+END
+mathtext_wx.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/5577/trunk/matplotlib/examples/user_interfaces/mathtext_wx.py
+END
+interactive.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/5187/trunk/matplotlib/examples/user_interfaces/interactive.py
+END
+rec_edit_gtk_custom.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/matplotlib/!svn/ver/7384/trunk/matplotlib/examples/user_interfaces/rec_edit_gtk_custom.py
+END
+mpl_with_glade.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/mpl_with_glade.py
+END
+embedding_in_tk2.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/5151/trunk/matplotlib/examples/user_interfaces/embedding_in_tk2.py
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/5158/trunk/matplotlib/examples/user_interfaces/README.txt
+END

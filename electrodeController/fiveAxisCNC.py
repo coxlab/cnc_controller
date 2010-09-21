@@ -8,7 +8,8 @@ else:
 #import cncAxes
 from numpy import *
 
-from rayfit import measure_rotation_plane
+#from rayfit import measure_rotation_plane
+from linefit import fit_3d_line
 
 class FiveAxisCNC:
     """
@@ -26,6 +27,7 @@ class FiveAxisCNC:
         self.headAxes.configure_axis('w',cfg.wAxisConfig)
         self.headAxes.save_settings_to_controller()
         self.arm_length = None
+        self.pathParams = None#[0., 0., 0., 0., 1., 0.]
         self.disable_motors()
     
     def enable_motors(self):
@@ -52,6 +54,28 @@ class FiveAxisCNC:
             if int(r) == 1:
                 return True
         return False
+    
+    def measure_tip_path(self, tipLocations):
+        """
+        Fit a 3d line to a collection of tip locations to determine the path 
+        of the electrode in the camera frame [the frame of the tip locations]
+        """
+        pathParams = fit_3d_line(tipLocations) # [x0, y0, z0, a, b, c]
+        self.pathParams = pathParams
+        return self.pathParams
+    
+    def calculate_tip_position(self, t):
+        """
+        Given:
+            -the location of the tip on the path (defined by the w-axis)
+            -the pathParams
+        Calculate:
+            -the location of the tip in the same frame as the pathParams
+        """
+        o = array(self.pathParams[:3])
+        m = array(self.pathParams[3:])
+        p = o + t * m
+        return p
     
     def calculate_arm_length(self, tipLocations, angles, wPositions):
         """Requires 3 measurements of the tip location at 3 angles"""

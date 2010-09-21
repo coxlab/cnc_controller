@@ -11,10 +11,10 @@
 			<string key="NS.object.0">788</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="907"/>
-			<integer value="871"/>
-			<integer value="368"/>
 			<integer value="930"/>
+			<integer value="907"/>
+			<integer value="811"/>
+			<integer value="871"/>
 			<integer value="29"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -1323,6 +1323,28 @@
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
+						<object class="NSToolbarItem" key="4C6377B8-BF97-44AC-B165-27F4285072E9" id="823968504">
+							<object class="NSMutableString" key="NSToolbarItemIdentifier">
+								<characters key="NS.bytes">4C6377B8-BF97-44AC-B165-27F4285072E9</characters>
+							</object>
+							<string key="NSToolbarItemLabel">Measure Path</string>
+							<string key="NSToolbarItemPaletteLabel">Measure Path</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">NSInvalidDataFreestandingTemplate</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
 						<object class="NSToolbarItem" key="88E466A8-8BE3-47A7-ADF1-027E894A6C41" id="482059594">
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">88E466A8-8BE3-47A7-ADF1-027E894A6C41</characters>
@@ -1470,11 +1492,12 @@
 						<reference ref="482059594"/>
 						<reference ref="403700122"/>
 						<reference ref="429747870"/>
+						<reference ref="823968504"/>
 					</array>
 					<array class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<reference ref="325475918"/>
 						<reference ref="676646529"/>
-						<reference ref="371452767"/>
+						<reference ref="823968504"/>
 						<reference ref="429747870"/>
 						<reference ref="519792981"/>
 						<reference ref="434821934"/>
@@ -6078,6 +6101,14 @@
 					</object>
 					<int key="connectionID">1391</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">measurePath:</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="823968504"/>
+					</object>
+					<int key="connectionID">1393</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -7706,6 +7737,7 @@
 							<reference ref="325475918"/>
 							<reference ref="519792981"/>
 							<reference ref="429747870"/>
+							<reference ref="823968504"/>
 						</array>
 						<reference key="parent" ref="513744381"/>
 					</object>
@@ -8941,6 +8973,11 @@
 						<reference key="object" ref="571276679"/>
 						<reference key="parent" ref="862342745"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1392</int>
+						<reference key="object" ref="823968504"/>
+						<reference key="parent" ref="100332142"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -9155,6 +9192,7 @@
 				<string key="1374.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1375.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1376.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1392.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="143.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="143.ImportedFromIB2"/>
 				<string key="144.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9333,7 +9371,7 @@
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="81.ImportedFromIB2"/>
 				<string key="81.editorWindowContentRectSynchronizationRect">{{323, 672}, {199, 203}}</string>
-				<string key="811.IBEditorWindowLastContentRect">{{334, 739}, {616, 0}}</string>
+				<string key="811.IBEditorWindowLastContentRect">{{334, 512}, {616, 227}}</string>
 				<string key="811.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="82.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="82.ImportedFromIB2"/>
@@ -9471,7 +9509,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1391</int>
+			<int key="maxID">1393</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9525,6 +9563,7 @@
 						<string key="goToTarget:">id</string>
 						<string key="loadAnimal:">id</string>
 						<string key="locateCameras:">id</string>
+						<string key="measurePath:">id</string>
 						<string key="moveBAxisClockwise:">id</string>
 						<string key="moveBAxisCounterClockwise:">id</string>
 						<string key="moveWAxisDown:">id</string>
@@ -9572,6 +9611,10 @@
 						</object>
 						<object class="IBActionInfo" key="locateCameras:">
 							<string key="name">locateCameras:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="measurePath:">
+							<string key="name">measurePath:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="moveBAxisClockwise:">
@@ -10632,6 +10675,7 @@
 			<string key="NSAddTemplate">{8, 8}</string>
 			<string key="NSExitFullScreenTemplate">{16, 15}</string>
 			<string key="NSFollowLinkFreestandingTemplate">{10, 10}</string>
+			<string key="NSInvalidDataFreestandingTemplate">{18, 18}</string>
 			<string key="NSMenuCheckmark">{9, 8}</string>
 			<string key="NSMenuMixedState">{7, 2}</string>
 			<string key="NSQuickLookTemplate">{19, 11}</string>

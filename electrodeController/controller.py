@@ -76,6 +76,9 @@ class Controller:
         cfg.framesLog.info(ptsInCamera)
         self.fManager.add_transformation_matrix('tricorner', 'camera', tcToCam)
     
+    def measure_tip_path(self, ptsInCamera):
+        pathParams = self.cnc.measure_tip_path(ptsInCamera)
+        cfg.cncLog.info('Found tip path params: %+.2f %+.2f %+.2f %.2f %.2f %.2f' % pathParams)
     
     def register_cnc(self, ptsInCamera, angles, wPositions):
         armLength = self.cnc.calculate_arm_length(ptsInCamera, angles, wPositions)

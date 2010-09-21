@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/opencv/!svn/ver/3591/trunk/opencv/samples/cpp
+END
+contours2.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/opencv/!svn/ver/3360/trunk/opencv/samples/cpp/contours2.cpp
+END
+morphology2.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/opencv/!svn/ver/3015/trunk/opencv/samples/cpp/morphology2.cpp
+END
+select3dobj.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/opencv/!svn/ver/3360/trunk/opencv/samples/cpp/select3dobj.cpp
+END
+generic_descriptor_match.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/opencv/!svn/ver/3360/trunk/opencv/samples/cpp/generic_descriptor_match.cpp
+END
+build3dmodel.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/opencv/!svn/ver/3220/trunk/opencv/samples/cpp/build3dmodel.cpp
+END
+calibration.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/opencv/!svn/ver/3591/trunk/opencv/samples/cpp/calibration.cpp
+END
+connected_components.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/opencv/!svn/ver/3017/trunk/opencv/samples/cpp/connected_components.cpp
+END
+3calibration.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/opencv/!svn/ver/3591/trunk/opencv/samples/cpp/3calibration.cpp
+END
+fern_params.xml
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/opencv/!svn/ver/3194/trunk/opencv/samples/cpp/fern_params.xml
+END
+meanshift_segmentation.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/opencv/!svn/ver/3439/trunk/opencv/samples/cpp/meanshift_segmentation.cpp
+END
+segment_objects.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3360/trunk/opencv/samples/cpp/segment_objects.cpp
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/opencv/!svn/ver/3182/trunk/opencv/samples/cpp/CMakeLists.txt
+END
+descriptor_extractor_matcher.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/opencv/!svn/ver/3557/trunk/opencv/samples/cpp/descriptor_extractor_matcher.cpp
+END
+matcher_simple.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/3207/trunk/opencv/samples/cpp/matcher_simple.cpp
+END

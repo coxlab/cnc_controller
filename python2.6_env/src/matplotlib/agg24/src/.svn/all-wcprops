@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/matplotlib/!svn/ver/5071/trunk/matplotlib/agg24/src
+END
+agg_embedded_raster_fonts.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_embedded_raster_fonts.cpp
+END
+agg_sqrt_tables.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_sqrt_tables.cpp
+END
+authors
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/authors
+END
+agg_vpgen_segmentator.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_vpgen_segmentator.cpp
+END
+ChangeLog
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/ChangeLog
+END
+agg_vcgen_stroke.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_vcgen_stroke.cpp
+END
+agg_bspline.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_bspline.cpp
+END
+agg_trans_double_path.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_trans_double_path.cpp
+END
+agg_vpgen_clip_polygon.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_vpgen_clip_polygon.cpp
+END
+agg_trans_affine.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_trans_affine.cpp
+END
+agg_trans_warp_magnifier.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_trans_warp_magnifier.cpp
+END
+agg_vcgen_dash.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_vcgen_dash.cpp
+END
+agg_vpgen_clip_polyline.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_vpgen_clip_polyline.cpp
+END
+agg_gsv_text.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_gsv_text.cpp
+END
+agg_trans_single_path.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_trans_single_path.cpp
+END
+agg_bezier_arc.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_bezier_arc.cpp
+END
+agg_arc.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_arc.cpp
+END
+agg_curves.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/5071/trunk/matplotlib/agg24/src/agg_curves.cpp
+END
+agg_line_profile_aa.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_line_profile_aa.cpp
+END
+copying
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/copying
+END
+agg_image_filters.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_image_filters.cpp
+END
+agg_vcgen_contour.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_vcgen_contour.cpp
+END
+agg_line_aa_basics.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_line_aa_basics.cpp
+END
+agg_arrowhead.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_arrowhead.cpp
+END
+agg_rounded_rect.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_rounded_rect.cpp
+END
+agg_vcgen_markers_term.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_vcgen_markers_term.cpp
+END
+agg_vcgen_bspline.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_vcgen_bspline.cpp
+END
+agg_vcgen_smooth_poly1.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/4817/trunk/matplotlib/agg24/src/agg_vcgen_smooth_poly1.cpp
+END

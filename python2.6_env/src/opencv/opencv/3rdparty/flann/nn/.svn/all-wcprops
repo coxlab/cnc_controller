@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/nn
+END
+index_testing.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/nn/index_testing.cpp
+END
+simplex_downhill.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/nn/simplex_downhill.h
+END
+ground_truth.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/nn/ground_truth.h
+END
+index_testing.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/nn/index_testing.h
+END

@@ -1,0 +1,317 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/opencv/!svn/ver/3525/trunk/opencv/doc
+END
+cv_feature_detection.tex
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/opencv/!svn/ver/3209/trunk/opencv/doc/cv_feature_detection.tex
+END
+helvetica.sty
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/opencv/!svn/ver/2096/trunk/opencv/doc/helvetica.sty
+END
+cxcore_array_operations.tex
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3123/trunk/opencv/doc/cxcore_array_operations.tex
+END
+HighGui.tex
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/opencv/!svn/ver/3472/trunk/opencv/doc/HighGui.tex
+END
+MachineLearning.tex
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/opencv/!svn/ver/2890/trunk/opencv/doc/MachineLearning.tex
+END
+pattern.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/opencv/!svn/ver/304/trunk/opencv/doc/pattern.pdf
+END
+cxcore_basic_structures.tex
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3123/trunk/opencv/doc/cxcore_basic_structures.tex
+END
+opencv_cheatsheet.tex
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/opencv/!svn/ver/3170/trunk/opencv/doc/opencv_cheatsheet.tex
+END
+opencv.tex
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/opencv/!svn/ver/2855/trunk/opencv/doc/opencv.tex
+END
+cv_object_recognition.tex
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/3525/trunk/opencv/doc/cv_object_recognition.tex
+END
+opencv-logo2.png
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/opencv/!svn/ver/1346/trunk/opencv/doc/opencv-logo2.png
+END
+opencv_cheatsheet.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/opencv/!svn/ver/3170/trunk/opencv/doc/opencv_cheatsheet.pdf
+END
+license.txt
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/opencv/!svn/ver/2628/trunk/opencv/doc/license.txt
+END
+packaging.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/opencv/!svn/ver/1991/trunk/opencv/doc/packaging.txt
+END
+opencv.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/opencv/!svn/ver/3525/trunk/opencv/doc/opencv.pdf
+END
+opencvref_body.tex
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/opencv/!svn/ver/3525/trunk/opencv/doc/opencvref_body.tex
+END
+cv_calibration_3d.tex
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/opencv/!svn/ver/3032/trunk/opencv/doc/cv_calibration_3d.tex
+END
+cv_planar_subdivisions.tex
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/2932/trunk/opencv/doc/cv_planar_subdivisions.tex
+END
+cxcore_clustering_search.tex
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/3123/trunk/opencv/doc/cxcore_clustering_search.tex
+END
+FAQ.tex
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/opencv/!svn/ver/2096/trunk/opencv/doc/FAQ.tex
+END
+cxcore_utilities_system_functions.tex
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/opencv/!svn/ver/3087/trunk/opencv/doc/cxcore_utilities_system_functions.tex
+END
+opencv.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/opencv/!svn/ver/27/trunk/opencv/doc/opencv.jpg
+END
+cvaux_3d.tex
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/opencv/!svn/ver/2321/trunk/opencv/doc/cvaux_3d.tex
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/opencv/!svn/ver/3103/trunk/opencv/doc/CMakeLists.txt
+END
+cv_motion_tracking.tex
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/opencv/!svn/ver/3303/trunk/opencv/doc/cv_motion_tracking.tex
+END
+ChangeLog.htm
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/opencv/!svn/ver/3219/trunk/opencv/doc/ChangeLog.htm
+END
+cvcam.rtf
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/opencv/!svn/ver/35/trunk/opencv/doc/cvcam.rtf
+END
+cxcore_introduction.tex
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/opencv/!svn/ver/3087/trunk/opencv/doc/cxcore_introduction.tex
+END
+opencv.bib
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/opencv/!svn/ver/2994/trunk/opencv/doc/opencv.bib
+END
+CvAux.tex
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/opencv/!svn/ver/2332/trunk/opencv/doc/CvAux.tex
+END
+cxcore_drawing_functions.tex
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/2991/trunk/opencv/doc/cxcore_drawing_functions.tex
+END
+cxcore_persistence.tex
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/opencv/!svn/ver/2890/trunk/opencv/doc/cxcore_persistence.tex
+END
+HighGui_Qt.tex
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/opencv/!svn/ver/3472/trunk/opencv/doc/HighGui_Qt.tex
+END
+Doxyfile.in
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/opencv/!svn/ver/3101/trunk/opencv/doc/Doxyfile.in
+END
+cxcore_dynamic_structures.tex
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/2943/trunk/opencv/doc/cxcore_dynamic_structures.tex
+END
+cv_object_detection.tex
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/opencv/!svn/ver/2967/trunk/opencv/doc/cv_object_detection.tex
+END
+verbdef.sty
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/opencv/!svn/ver/2096/trunk/opencv/doc/verbdef.sty
+END
+cv_struct_shape_analysis.tex
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/3016/trunk/opencv/doc/cv_struct_shape_analysis.tex
+END
+haartraining.htm
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/opencv/!svn/ver/43/trunk/opencv/doc/haartraining.htm
+END
+index.htm
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/opencv/!svn/ver/2995/trunk/opencv/doc/index.htm
+END
+cv_image_warping.tex
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/opencv/!svn/ver/2939/trunk/opencv/doc/cv_image_warping.tex
+END
+cv_image_transform.tex
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/opencv/!svn/ver/3219/trunk/opencv/doc/cv_image_transform.tex
+END
+go
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/opencv/!svn/ver/2103/trunk/opencv/doc/go
+END
+common.m4
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/opencv/!svn/ver/2096/trunk/opencv/doc/common.m4
+END
+cv_histograms.tex
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/opencv/!svn/ver/3083/trunk/opencv/doc/cv_histograms.tex
+END
+opencv.sty
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/opencv/!svn/ver/2967/trunk/opencv/doc/opencv.sty
+END
+cvaux_object_detection.tex
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/2988/trunk/opencv/doc/cvaux_object_detection.tex
+END
+cvaux_bgfg.tex
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/opencv/!svn/ver/2321/trunk/opencv/doc/cvaux_bgfg.tex
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/opencv/!svn/ver/2902/trunk/opencv/doc/README.txt
+END
+online-opencv.tex
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/opencv/!svn/ver/3491/trunk/opencv/doc/online-opencv.tex
+END
+opencv-logo.png
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/opencv/!svn/ver/1346/trunk/opencv/doc/opencv-logo.png
+END
+cv_image_filtering.tex
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/opencv/!svn/ver/3123/trunk/opencv/doc/cv_image_filtering.tex
+END

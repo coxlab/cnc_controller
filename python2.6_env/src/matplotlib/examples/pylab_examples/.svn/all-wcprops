@@ -1,0 +1,1307 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/8163/trunk/matplotlib/examples/pylab_examples
+END
+line_styles.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/8059/trunk/matplotlib/examples/pylab_examples/line_styles.py
+END
+barchart_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/barchart_demo.py
+END
+mathtext_examples.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/6874/trunk/matplotlib/examples/pylab_examples/mathtext_examples.py
+END
+multi_image.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/7494/trunk/matplotlib/examples/pylab_examples/multi_image.py
+END
+fancybox_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/6664/trunk/matplotlib/examples/pylab_examples/fancybox_demo2.py
+END
+axis_equal_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/axis_equal_demo.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/__init__.py
+END
+layer_images.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/layer_images.py
+END
+demo_bboximage.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/7423/trunk/matplotlib/examples/pylab_examples/demo_bboximage.py
+END
+polar_bar.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/7131/trunk/matplotlib/examples/pylab_examples/polar_bar.py
+END
+legend_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/legend_demo.py
+END
+mri_with_eeg.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/7382/trunk/matplotlib/examples/pylab_examples/mri_with_eeg.py
+END
+image_interp.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/image_interp.py
+END
+date_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/date_demo2.py
+END
+filledmarker_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/8138/trunk/matplotlib/examples/pylab_examples/filledmarker_demo.py
+END
+dannys_example.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/dannys_example.py
+END
+accented_text.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/accented_text.py
+END
+quadmesh_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/7478/trunk/matplotlib/examples/pylab_examples/quadmesh_demo.py
+END
+figimage_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/7994/trunk/matplotlib/examples/pylab_examples/figimage_demo.py
+END
+matplotlib_icon.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/matplotlib_icon.py
+END
+legend_translucent.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/matplotlib/!svn/ver/7279/trunk/matplotlib/examples/pylab_examples/legend_translucent.py
+END
+log_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/log_test.py
+END
+gradient_bar.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/gradient_bar.py
+END
+color_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/color_demo.py
+END
+matshow.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/matshow.py
+END
+log_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/7315/trunk/matplotlib/examples/pylab_examples/log_demo.py
+END
+invert_axes.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/invert_axes.py
+END
+shading_example.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/7581/trunk/matplotlib/examples/pylab_examples/shading_example.py
+END
+shared_axis_across_figures.py
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/examples/pylab_examples/shared_axis_across_figures.py
+END
+colorbar_tick_labelling_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/matplotlib/!svn/ver/6359/trunk/matplotlib/examples/pylab_examples/colorbar_tick_labelling_demo.py
+END
+date_demo_rrule.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/date_demo_rrule.py
+END
+scatter_hist.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6921/trunk/matplotlib/examples/pylab_examples/scatter_hist.py
+END
+histogram_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/5683/trunk/matplotlib/examples/pylab_examples/histogram_demo.py
+END
+fill_between_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/7181/trunk/matplotlib/examples/pylab_examples/fill_between_demo.py
+END
+contourf_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/8081/trunk/matplotlib/examples/pylab_examples/contourf_demo.py
+END
+interp_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6135/trunk/matplotlib/examples/pylab_examples/interp_demo.py
+END
+finance_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/finance_demo.py
+END
+text_rotation_relative_to_line.py
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/matplotlib/!svn/ver/6363/trunk/matplotlib/examples/pylab_examples/text_rotation_relative_to_line.py
+END
+boxplot_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/8148/trunk/matplotlib/examples/pylab_examples/boxplot_demo2.py
+END
+alignment_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/alignment_test.py
+END
+quiver_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6047/trunk/matplotlib/examples/pylab_examples/quiver_demo.py
+END
+fancytextbox_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/6102/trunk/matplotlib/examples/pylab_examples/fancytextbox_demo.py
+END
+stock_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/stock_demo.py
+END
+image_origin.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/image_origin.py
+END
+unicode_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/unicode_demo.py
+END
+contour_label_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/matplotlib/!svn/ver/5799/trunk/matplotlib/examples/pylab_examples/contour_label_demo.py
+END
+subplot_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6202/trunk/matplotlib/examples/pylab_examples/subplot_demo.py
+END
+dolphin.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/7961/trunk/matplotlib/examples/pylab_examples/dolphin.py
+END
+shared_axis_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/shared_axis_demo.py
+END
+show_colormaps.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/6885/trunk/matplotlib/examples/pylab_examples/show_colormaps.py
+END
+annotation_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/6999/trunk/matplotlib/examples/pylab_examples/annotation_demo2.py
+END
+contourf_log.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/contourf_log.py
+END
+xcorr_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/5682/trunk/matplotlib/examples/pylab_examples/xcorr_demo.py
+END
+line_collection.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/6067/trunk/matplotlib/examples/pylab_examples/line_collection.py
+END
+major_minor_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/major_minor_demo2.py
+END
+barcode_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/barcode_demo.py
+END
+equal_aspect_ratio.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/equal_aspect_ratio.py
+END
+ganged_plots.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/ganged_plots.py
+END
+toggle_images.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/toggle_images.py
+END
+multiple_figs_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/multiple_figs_demo.py
+END
+image_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/7383/trunk/matplotlib/examples/pylab_examples/image_demo2.py
+END
+data_helper.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/7389/trunk/matplotlib/examples/pylab_examples/data_helper.py
+END
+cohere_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/5683/trunk/matplotlib/examples/pylab_examples/cohere_demo.py
+END
+ginput_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/examples/pylab_examples/ginput_demo.py
+END
+barchart_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/7346/trunk/matplotlib/examples/pylab_examples/barchart_demo2.py
+END
+fancybox_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/6102/trunk/matplotlib/examples/pylab_examples/fancybox_demo.py
+END
+csd_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/5683/trunk/matplotlib/examples/pylab_examples/csd_demo.py
+END
+psd_demo3.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/6550/trunk/matplotlib/examples/pylab_examples/psd_demo3.py
+END
+dash_control.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/dash_control.py
+END
+histogram_demo_extended.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/matplotlib/!svn/ver/6527/trunk/matplotlib/examples/pylab_examples/histogram_demo_extended.py
+END
+cursor_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/examples/pylab_examples/cursor_demo.py
+END
+pie_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/6202/trunk/matplotlib/examples/pylab_examples/pie_demo.py
+END
+errorbar_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/errorbar_demo.py
+END
+text_handles.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/text_handles.py
+END
+webapp_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/webapp_demo.py
+END
+legend_scatter.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/legend_scatter.py
+END
+legend_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/legend_demo2.py
+END
+subplots_adjust.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/subplots_adjust.py
+END
+legend_auto.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/legend_auto.py
+END
+figlegend_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/5688/trunk/matplotlib/examples/pylab_examples/figlegend_demo.py
+END
+clippedline.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/8054/trunk/matplotlib/examples/pylab_examples/clippedline.py
+END
+font_table_ttf.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/examples/pylab_examples/font_table_ttf.py
+END
+contour_image.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/contour_image.py
+END
+table_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/table_demo.py
+END
+custom_ticker1.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/custom_ticker1.py
+END
+simple_plot_fps.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/simple_plot_fps.py
+END
+multiline.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/7120/trunk/matplotlib/examples/pylab_examples/multiline.py
+END
+arctest.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/arctest.py
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/README
+END
+customize_rc.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/customize_rc.py
+END
+newscalarformatter_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/newscalarformatter_demo.py
+END
+subplot_toolbar.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/subplot_toolbar.py
+END
+annotation_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/annotation_demo.py
+END
+usetex_baseline_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/matplotlib/!svn/ver/6734/trunk/matplotlib/examples/pylab_examples/usetex_baseline_test.py
+END
+findobj_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/7297/trunk/matplotlib/examples/pylab_examples/findobj_demo.py
+END
+step_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/step_demo.py
+END
+psd_demo_complex.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/7121/trunk/matplotlib/examples/pylab_examples/psd_demo_complex.py
+END
+image_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/5883/trunk/matplotlib/examples/pylab_examples/image_demo.py
+END
+centered_ticklabels.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/matplotlib/!svn/ver/7377/trunk/matplotlib/examples/pylab_examples/centered_ticklabels.py
+END
+finance_work2.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/7196/trunk/matplotlib/examples/pylab_examples/finance_work2.py
+END
+hyperlinks.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6372/trunk/matplotlib/examples/pylab_examples/hyperlinks.py
+END
+scatter_masked.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/scatter_masked.py
+END
+color_by_yvalue.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/color_by_yvalue.py
+END
+contour_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/contour_demo.py
+END
+coords_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/coords_demo.py
+END
+print_stdout.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/examples/pylab_examples/print_stdout.py
+END
+custom_figure_class.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/custom_figure_class.py
+END
+pcolor_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/pcolor_demo.py
+END
+hline_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/hline_demo.py
+END
+stix_fonts_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/6059/trunk/matplotlib/examples/pylab_examples/stix_fonts_demo.py
+END
+image_clip_path.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/6302/trunk/matplotlib/examples/pylab_examples/image_clip_path.py
+END
+ginput_manual_clabel.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/examples/pylab_examples/ginput_manual_clabel.py
+END
+load_converter.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/7383/trunk/matplotlib/examples/pylab_examples/load_converter.py
+END
+image_masked.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/image_masked.py
+END
+demo_agg_filter.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/7488/trunk/matplotlib/examples/pylab_examples/demo_agg_filter.py
+END
+poormans_contour.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/poormans_contour.py
+END
+ellipse_collection.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/matplotlib/!svn/ver/6113/trunk/matplotlib/examples/pylab_examples/ellipse_collection.py
+END
+masked_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6278/trunk/matplotlib/examples/pylab_examples/masked_demo.py
+END
+custom_cmap.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/7309/trunk/matplotlib/examples/pylab_examples/custom_cmap.py
+END
+broken_barh.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/broken_barh.py
+END
+patheffect_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/7892/trunk/matplotlib/examples/pylab_examples/patheffect_demo.py
+END
+geo_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/7248/trunk/matplotlib/examples/pylab_examples/geo_demo.py
+END
+boxplot_demo3.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/8127/trunk/matplotlib/examples/pylab_examples/boxplot_demo3.py
+END
+hexbin_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/5705/trunk/matplotlib/examples/pylab_examples/hexbin_demo.py
+END
+fig_subplot_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/8151/trunk/matplotlib/examples/pylab_examples/fig_subplot_demo.py
+END
+vline_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/vline_demo.py
+END
+aspect_loglog.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/7098/trunk/matplotlib/examples/pylab_examples/aspect_loglog.py
+END
+line_collection2.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/6516/trunk/matplotlib/examples/pylab_examples/line_collection2.py
+END
+break.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/break.py
+END
+demo_ribbon_box.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/7511/trunk/matplotlib/examples/pylab_examples/demo_ribbon_box.py
+END
+simple_plot.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6202/trunk/matplotlib/examples/pylab_examples/simple_plot.py
+END
+dashpointlabel.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/dashpointlabel.py
+END
+text_themes.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/text_themes.py
+END
+fill_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/5683/trunk/matplotlib/examples/pylab_examples/fill_demo.py
+END
+psd_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/psd_demo.py
+END
+fill_betweenx_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/matplotlib/!svn/ver/7181/trunk/matplotlib/examples/pylab_examples/fill_betweenx_demo.py
+END
+transoffset.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/transoffset.py
+END
+annotation_demo3.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/8163/trunk/matplotlib/examples/pylab_examples/annotation_demo3.py
+END
+bar_stacked.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/5682/trunk/matplotlib/examples/pylab_examples/bar_stacked.py
+END
+date_demo1.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6290/trunk/matplotlib/examples/pylab_examples/date_demo1.py
+END
+spy_demos.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/spy_demos.py
+END
+text_rotation.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/text_rotation.py
+END
+axes_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/axes_demo.py
+END
+image_demo3.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/7385/trunk/matplotlib/examples/pylab_examples/image_demo3.py
+END
+loadrec.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/7383/trunk/matplotlib/examples/pylab_examples/loadrec.py
+END
+scatter_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/scatter_demo.py
+END
+zorder_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/zorder_demo.py
+END
+tex_unicode_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/tex_unicode_demo.py
+END
+symlog_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/symlog_demo.py
+END
+fancyarrow_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/8023/trunk/matplotlib/examples/pylab_examples/fancyarrow_demo.py
+END
+axes_zoom_effect.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/7300/trunk/matplotlib/examples/pylab_examples/axes_zoom_effect.py
+END
+date_demo_convert.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/date_demo_convert.py
+END
+usetex_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/7036/trunk/matplotlib/examples/pylab_examples/usetex_demo.py
+END
+plotfile_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/7383/trunk/matplotlib/examples/pylab_examples/plotfile_demo.py
+END
+griddata_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/7966/trunk/matplotlib/examples/pylab_examples/griddata_demo.py
+END
+coords_report.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/coords_report.py
+END
+pythonic_matplotlib.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/matplotlib/!svn/ver/6875/trunk/matplotlib/examples/pylab_examples/pythonic_matplotlib.py
+END
+legend_demo3.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6988/trunk/matplotlib/examples/pylab_examples/legend_demo3.py
+END
+scatter_profile.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/scatter_profile.py
+END
+anscombe.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/anscombe.py
+END
+hatch_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/7270/trunk/matplotlib/examples/pylab_examples/hatch_demo.py
+END
+boxplot_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/boxplot_demo.py
+END
+mri_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/7390/trunk/matplotlib/examples/pylab_examples/mri_demo.py
+END
+system_monitor.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/examples/pylab_examples/system_monitor.py
+END
+image_nonuniform.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/6059/trunk/matplotlib/examples/pylab_examples/image_nonuniform.py
+END
+fonts_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/fonts_demo.py
+END
+fonts_demo_kw.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/fonts_demo_kw.py
+END
+arrow_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/arrow_demo.py
+END
+pcolor_log.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/pcolor_log.py
+END
+fill_spiral.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/fill_spiral.py
+END
+logo.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/7385/trunk/matplotlib/examples/pylab_examples/logo.py
+END
+mathtext_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/mathtext_demo.py
+END
+polar_scatter.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/polar_scatter.py
+END
+hexbin_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6743/trunk/matplotlib/examples/pylab_examples/hexbin_demo2.py
+END
+image_slices_viewer.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/matplotlib/!svn/ver/5853/trunk/matplotlib/examples/pylab_examples/image_slices_viewer.py
+END
+log_bar.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/log_bar.py
+END
+specgram_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/specgram_demo.py
+END
+stem_plot.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/stem_plot.py
+END
+barb_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/7619/trunk/matplotlib/examples/pylab_examples/barb_demo.py
+END
+spine_placement_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/matplotlib/!svn/ver/8048/trunk/matplotlib/examples/pylab_examples/spine_placement_demo.py
+END
+demo_text_rotation_mode.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/matplotlib/!svn/ver/7215/trunk/matplotlib/examples/pylab_examples/demo_text_rotation_mode.py
+END
+nan_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/5981/trunk/matplotlib/examples/pylab_examples/nan_test.py
+END
+ellipse_rotated.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/ellipse_rotated.py
+END
+barh_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/examples/pylab_examples/barh_demo.py
+END
+polar_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6287/trunk/matplotlib/examples/pylab_examples/polar_demo.py
+END
+figure_title.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/figure_title.py
+END
+movie_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/examples/pylab_examples/movie_demo.py
+END
+pcolor_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/pcolor_demo2.py
+END
+scatter_custom_symbol.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/scatter_custom_symbol.py
+END
+demo_annotation_box.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/matplotlib/!svn/ver/7440/trunk/matplotlib/examples/pylab_examples/demo_annotation_box.py
+END
+date_index_formatter.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/matplotlib/!svn/ver/7383/trunk/matplotlib/examples/pylab_examples/date_index_formatter.py
+END
+polar_legend.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/polar_legend.py
+END
+scatter_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/7377/trunk/matplotlib/examples/pylab_examples/scatter_demo2.py
+END
+hist_colormapped.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/hist_colormapped.py
+END
+anchored_artists.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/matplotlib/!svn/ver/7094/trunk/matplotlib/examples/pylab_examples/anchored_artists.py
+END
+errorbar_limits.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/errorbar_limits.py
+END
+ellipse_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/ellipse_demo.py
+END
+major_minor_demo1.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/major_minor_demo1.py
+END
+manual_axis.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/7213/trunk/matplotlib/examples/pylab_examples/manual_axis.py
+END
+scatter_star_poly.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/scatter_star_poly.py
+END
+usetex_fonteffects.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/matplotlib/!svn/ver/6718/trunk/matplotlib/examples/pylab_examples/usetex_fonteffects.py
+END
+demo_text_path.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/matplotlib/!svn/ver/7636/trunk/matplotlib/examples/pylab_examples/demo_text_path.py
+END
+tex_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/tex_demo.py
+END
+to_numeric.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/7769/trunk/matplotlib/examples/pylab_examples/to_numeric.py
+END
+axhspan_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/7160/trunk/matplotlib/examples/pylab_examples/axhspan_demo.py
+END
+vertical_ticklabels.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/vertical_ticklabels.py
+END
+integral_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/integral_demo.py
+END
+fill_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/fill_demo2.py
+END
+psd_demo2.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/6550/trunk/matplotlib/examples/pylab_examples/psd_demo2.py
+END
+set_and_get.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/5674/trunk/matplotlib/examples/pylab_examples/set_and_get.py
+END
+multipage_pdf.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/7964/trunk/matplotlib/examples/pylab_examples/multipage_pdf.py
+END
+pstest.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/pstest.py
+END
+axes_props.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/6961/trunk/matplotlib/examples/pylab_examples/axes_props.py
+END
+multiple_yaxis_with_spines.py
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/matplotlib/!svn/ver/7908/trunk/matplotlib/examples/pylab_examples/multiple_yaxis_with_spines.py
+END
+colours.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/examples/pylab_examples/colours.py
+END
+pcolor_small.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/matplotlib/!svn/ver/5376/trunk/matplotlib/examples/pylab_examples/pcolor_small.py
+END
+agg_buffer_to_array.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/matplotlib/!svn/ver/6535/trunk/matplotlib/examples/pylab_examples/agg_buffer_to_array.py
+END

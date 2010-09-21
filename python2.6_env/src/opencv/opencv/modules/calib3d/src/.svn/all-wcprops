@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/opencv/!svn/ver/3591/trunk/opencv/modules/calib3d/src
+END
+calibinit.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/3216/trunk/opencv/modules/calib3d/src/calibinit.cpp
+END
+posit.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/calib3d/src/posit.cpp
+END
+triangulate.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/calib3d/src/triangulate.cpp
+END
+_modelest.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/calib3d/src/_modelest.h
+END
+stereobm.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/3343/trunk/opencv/modules/calib3d/src/stereobm.cpp
+END
+precomp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/calib3d/src/precomp.cpp
+END
+calibration.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/3591/trunk/opencv/modules/calib3d/src/calibration.cpp
+END
+fundam.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/3148/trunk/opencv/modules/calib3d/src/fundam.cpp
+END
+precomp.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3273/trunk/opencv/modules/calib3d/src/precomp.hpp
+END
+stereosgbm.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/3343/trunk/opencv/modules/calib3d/src/stereosgbm.cpp
+END
+checkchessboard.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/calib3d/src/checkchessboard.cpp
+END
+stereogc.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/3060/trunk/opencv/modules/calib3d/src/stereogc.cpp
+END
+modelest.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/3355/trunk/opencv/modules/calib3d/src/modelest.cpp
+END

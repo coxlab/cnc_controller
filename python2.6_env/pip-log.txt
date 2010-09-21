@@ -1,0 +1,557 @@
+Downloading/unpacking pyvisa
+  Getting page http://pypi.python.org/simple/pyvisa
+  URLs to search for versions for pyvisa:
+  * http://pypi.python.org/simple/pyvisa/
+  Getting page http://pypi.python.org/simple/pyvisa/
+  Getting page http://pyvisa.sourceforge.net
+  Getting page http://sourceforge.net/projects/pyvisa/
+  Analyzing links from page http://pypi.python.org/simple/PyVISA
+    Found link http://pypi.python.org/packages/source/P/PyVISA/PyVISA-1.3.tar.gz#md5=9cbab71afcf66e0c4bd98f9934bf9099 (from http://pypi.python.org/simple/PyVISA), version: 1.3
+    Found link http://pypi.python.org/packages/any/P/PyVISA/PyVISA-1.3.linux-x86_64.tar.gz#md5=52fd276ab5f0d65b7f9da6e3b0825eb8 (from http://pypi.python.org/simple/PyVISA), version: 1.3.linux-x86_64
+    Skipping link http://pypi.python.org/packages/2.5/P/PyVISA/PyVISA-1.3-py2.5.egg#md5=f730fcbca50bc4158ffce9cd14384380 (from http://pypi.python.org/simple/PyVISA); unknown archive format: .egg
+    Skipping link http://pyvisa.sourceforge.net (from http://pypi.python.org/simple/PyVISA); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://pypi.python.org/simple/PyVISA); not a file
+  Analyzing links from page http://pyvisa.sourceforge.net
+    Skipping link http://pyvisa.sourceforge.net/default.css (from http://pyvisa.sourceforge.net); unknown archive format: .css
+    Skipping link mailto:bronger&#64;physik.rwth-aachen.de (from http://pyvisa.sourceforge.net); unknown archive format: .de
+    Skipping link http://pyvisa.sourceforge.net/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/vpp43.html (from http://pyvisa.sourceforge.net); unknown archive format: .html
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvlab.sourceforge.net/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id2 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id1 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id4 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://www.python.org (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id3 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/pyvisa.pdf (from http://pyvisa.sourceforge.net); unknown archive format: .pdf
+    Skipping link http://www.ivifoundation.org/Downloads/Specifications.htm (from http://pyvisa.sourceforge.net); unknown archive format: .htm
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp43.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp432.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://ni.com/visa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/266526277DFF74F786256ADC0065C50C (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/87E52268CF9ACCEE86256D0F006E860D (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/21992F3750B967ED86256F47007B00B3 (from http://pyvisa.sourceforge.net); not a file
+  Analyzing links from page http://sourceforge.net/projects/pyvisa/
+    Skipping link http://a.fsdn.com/con/img/favicon.ico (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .ico
+    Skipping link http://a.fsdn.com/con/css/sf.min.css?1259266502 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .css
+    Skipping link http://sourceforge.net/export/rss2_keepsake.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/api/file/index/project-id/133616/rss (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link http://sourceforge.net/projects/pyvisa/tags_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link https://sourceforge.net/account/login.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/account/registration/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/develop/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/register/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/getsupport (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/about (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/bronger (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/gth (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/develop (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/1.3/PyVISA-1.3.tar.gz/download (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://pyvisa.sourceforge.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=386 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=219 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=201 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=188 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=3 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=367 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=178 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link https://sourceforge.net/account/login.php?return_to=/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/users/kingswood (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/support/tracker.php?aid=2155051 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://pyvisa.svn.sourceforge.net/viewvc/pyvisa?view=rev&amp;revision=336 (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.win32.exe/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .exe
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-py2.5.egg/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .egg
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.linux-x86_64.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3.linux-x86_64
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.src.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.noarch.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/eagledaq/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/dbimage.php?id=222820 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/nofdpidss/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/nightshade/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/project/report_inappropriate.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/careers/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/advertising/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/search/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/top/topalltime.php?type=downloads (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/top/mostactive.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/register-project/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/people/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/new/new_projects.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/community/forum/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/blog/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://twitter.com/sourceforge (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/?function=calendar (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/WikiStart (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/Support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/wordpress/sourceforge/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/feedback/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/terms (from http://sourceforge.net/projects/pyvisa/); not a file
+  Analyzing links from page http://pyvisa.sourceforge.net
+    Skipping link http://pyvisa.sourceforge.net/default.css (from http://pyvisa.sourceforge.net); unknown archive format: .css
+    Skipping link mailto:bronger&#64;physik.rwth-aachen.de (from http://pyvisa.sourceforge.net); unknown archive format: .de
+    Skipping link http://pyvisa.sourceforge.net/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/vpp43.html (from http://pyvisa.sourceforge.net); unknown archive format: .html
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvlab.sourceforge.net/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id2 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id1 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id4 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://www.python.org (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id3 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/pyvisa.pdf (from http://pyvisa.sourceforge.net); unknown archive format: .pdf
+    Skipping link http://www.ivifoundation.org/Downloads/Specifications.htm (from http://pyvisa.sourceforge.net); unknown archive format: .htm
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp43.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp432.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://ni.com/visa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/266526277DFF74F786256ADC0065C50C (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/87E52268CF9ACCEE86256D0F006E860D (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/21992F3750B967ED86256F47007B00B3 (from http://pyvisa.sourceforge.net); not a file
+  Analyzing links from page http://sourceforge.net/projects/pyvisa/
+    Skipping link http://a.fsdn.com/con/img/favicon.ico (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .ico
+    Skipping link http://a.fsdn.com/con/css/sf.min.css?1259266502 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .css
+    Skipping link http://sourceforge.net/export/rss2_keepsake.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/api/file/index/project-id/133616/rss (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link http://sourceforge.net/projects/pyvisa/tags_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link https://sourceforge.net/account/login.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/account/registration/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/develop/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/register/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/getsupport (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/about (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/bronger (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/gth (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/develop (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/1.3/PyVISA-1.3.tar.gz/download (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://pyvisa.sourceforge.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=386 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=219 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=201 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=188 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=3 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=367 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=178 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link https://sourceforge.net/account/login.php?return_to=/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/users/kingswood (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/support/tracker.php?aid=2155051 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://pyvisa.svn.sourceforge.net/viewvc/pyvisa?view=rev&amp;revision=336 (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.win32.exe/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .exe
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-py2.5.egg/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .egg
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.linux-x86_64.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3.linux-x86_64
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.src.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.noarch.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/eagledaq/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/dbimage.php?id=222820 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/nofdpidss/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/nightshade/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/project/report_inappropriate.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/careers/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/advertising/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/search/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/top/topalltime.php?type=downloads (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/top/mostactive.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/register-project/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/people/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/new/new_projects.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/community/forum/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/blog/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://twitter.com/sourceforge (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/?function=calendar (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/WikiStart (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/Support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/wordpress/sourceforge/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/feedback/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/terms (from http://sourceforge.net/projects/pyvisa/); not a file
+  Analyzing links from page http://pyvisa.sourceforge.net
+    Skipping link http://pyvisa.sourceforge.net/default.css (from http://pyvisa.sourceforge.net); unknown archive format: .css
+    Skipping link mailto:bronger&#64;physik.rwth-aachen.de (from http://pyvisa.sourceforge.net); unknown archive format: .de
+    Skipping link http://pyvisa.sourceforge.net/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/vpp43.html (from http://pyvisa.sourceforge.net); unknown archive format: .html
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvlab.sourceforge.net/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id2 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id1 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id4 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://www.python.org (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id3 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/pyvisa.pdf (from http://pyvisa.sourceforge.net); unknown archive format: .pdf
+    Skipping link http://www.ivifoundation.org/Downloads/Specifications.htm (from http://pyvisa.sourceforge.net); unknown archive format: .htm
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp43.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp432.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://ni.com/visa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/266526277DFF74F786256ADC0065C50C (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/87E52268CF9ACCEE86256D0F006E860D (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/21992F3750B967ED86256F47007B00B3 (from http://pyvisa.sourceforge.net); not a file
+  Analyzing links from page http://sourceforge.net/projects/pyvisa/
+    Skipping link http://a.fsdn.com/con/img/favicon.ico (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .ico
+    Skipping link http://a.fsdn.com/con/css/sf.min.css?1259266502 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .css
+    Skipping link http://sourceforge.net/export/rss2_keepsake.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/api/file/index/project-id/133616/rss (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link http://sourceforge.net/projects/pyvisa/tags_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link https://sourceforge.net/account/login.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/account/registration/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/develop/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/register/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/getsupport (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/about (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/bronger (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/gth (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/develop (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/1.3/PyVISA-1.3.tar.gz/download (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://pyvisa.sourceforge.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=386 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=219 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=201 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=188 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=3 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=367 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=178 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link https://sourceforge.net/account/login.php?return_to=/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/users/kingswood (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/support/tracker.php?aid=2155051 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://pyvisa.svn.sourceforge.net/viewvc/pyvisa?view=rev&amp;revision=336 (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.win32.exe/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .exe
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-py2.5.egg/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .egg
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.linux-x86_64.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3.linux-x86_64
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.src.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.noarch.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/eagledaq/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/dbimage.php?id=222820 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/nofdpidss/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/nightshade/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/project/report_inappropriate.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/careers/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/advertising/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/search/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/top/topalltime.php?type=downloads (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/top/mostactive.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/register-project/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/people/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/new/new_projects.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/community/forum/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/blog/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://twitter.com/sourceforge (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/?function=calendar (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/WikiStart (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/Support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/wordpress/sourceforge/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/feedback/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/terms (from http://sourceforge.net/projects/pyvisa/); not a file
+  Analyzing links from page http://pyvisa.sourceforge.net
+    Skipping link http://pyvisa.sourceforge.net/default.css (from http://pyvisa.sourceforge.net); unknown archive format: .css
+    Skipping link mailto:bronger&#64;physik.rwth-aachen.de (from http://pyvisa.sourceforge.net); unknown archive format: .de
+    Skipping link http://pyvisa.sourceforge.net/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/vpp43.html (from http://pyvisa.sourceforge.net); unknown archive format: .html
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvlab.sourceforge.net/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id2 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id1 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id4 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://www.python.org (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id3 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/pyvisa.pdf (from http://pyvisa.sourceforge.net); unknown archive format: .pdf
+    Skipping link http://www.ivifoundation.org/Downloads/Specifications.htm (from http://pyvisa.sourceforge.net); unknown archive format: .htm
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp43.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp432.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://ni.com/visa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/266526277DFF74F786256ADC0065C50C (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/87E52268CF9ACCEE86256D0F006E860D (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/21992F3750B967ED86256F47007B00B3 (from http://pyvisa.sourceforge.net); not a file
+  Analyzing links from page http://sourceforge.net/projects/pyvisa/
+    Skipping link http://a.fsdn.com/con/img/favicon.ico (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .ico
+    Skipping link http://a.fsdn.com/con/css/sf.min.css?1259266502 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .css
+    Skipping link http://sourceforge.net/export/rss2_keepsake.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/api/file/index/project-id/133616/rss (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link http://sourceforge.net/projects/pyvisa/tags_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link https://sourceforge.net/account/login.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/account/registration/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/develop/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/register/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/getsupport (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/about (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/bronger (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/gth (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/develop (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/1.3/PyVISA-1.3.tar.gz/download (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://pyvisa.sourceforge.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=386 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=219 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=201 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=188 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=3 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=367 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=178 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link https://sourceforge.net/account/login.php?return_to=/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/users/kingswood (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/support/tracker.php?aid=2155051 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://pyvisa.svn.sourceforge.net/viewvc/pyvisa?view=rev&amp;revision=336 (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.win32.exe/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .exe
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-py2.5.egg/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .egg
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.linux-x86_64.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3.linux-x86_64
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.src.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.noarch.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/eagledaq/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/dbimage.php?id=222820 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/nofdpidss/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/nightshade/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/project/report_inappropriate.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/careers/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/advertising/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/search/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/top/topalltime.php?type=downloads (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/top/mostactive.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/register-project/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/people/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/new/new_projects.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/community/forum/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/blog/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://twitter.com/sourceforge (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/?function=calendar (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/WikiStart (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/Support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/wordpress/sourceforge/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/feedback/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/terms (from http://sourceforge.net/projects/pyvisa/); not a file
+  Analyzing links from page http://pyvisa.sourceforge.net
+    Skipping link http://pyvisa.sourceforge.net/default.css (from http://pyvisa.sourceforge.net); unknown archive format: .css
+    Skipping link mailto:bronger&#64;physik.rwth-aachen.de (from http://pyvisa.sourceforge.net); unknown archive format: .de
+    Skipping link http://pyvisa.sourceforge.net/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/vpp43.html (from http://pyvisa.sourceforge.net); unknown archive format: .html
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvlab.sourceforge.net/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id2 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id1 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id4 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://www.python.org (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id3 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/pyvisa.pdf (from http://pyvisa.sourceforge.net); unknown archive format: .pdf
+    Skipping link http://www.ivifoundation.org/Downloads/Specifications.htm (from http://pyvisa.sourceforge.net); unknown archive format: .htm
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp43.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp432.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://ni.com/visa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/266526277DFF74F786256ADC0065C50C (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/87E52268CF9ACCEE86256D0F006E860D (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/21992F3750B967ED86256F47007B00B3 (from http://pyvisa.sourceforge.net); not a file
+  Analyzing links from page http://sourceforge.net/projects/pyvisa/
+    Skipping link http://a.fsdn.com/con/img/favicon.ico (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .ico
+    Skipping link http://a.fsdn.com/con/css/sf.min.css?1259266502 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .css
+    Skipping link http://sourceforge.net/export/rss2_keepsake.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/api/file/index/project-id/133616/rss (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link http://sourceforge.net/projects/pyvisa/tags_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link https://sourceforge.net/account/login.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/account/registration/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/develop/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/register/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/getsupport (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/about (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/bronger (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/gth (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/develop (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/1.3/PyVISA-1.3.tar.gz/download (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://pyvisa.sourceforge.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=386 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=219 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=201 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=188 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=3 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=367 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=178 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link https://sourceforge.net/account/login.php?return_to=/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/users/kingswood (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/support/tracker.php?aid=2155051 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://pyvisa.svn.sourceforge.net/viewvc/pyvisa?view=rev&amp;revision=336 (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.win32.exe/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .exe
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-py2.5.egg/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .egg
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.linux-x86_64.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3.linux-x86_64
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.src.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.noarch.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/eagledaq/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/dbimage.php?id=222820 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/nofdpidss/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/nightshade/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/project/report_inappropriate.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/careers/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/advertising/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/search/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/top/topalltime.php?type=downloads (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/top/mostactive.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/register-project/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/people/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/new/new_projects.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/community/forum/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/blog/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://twitter.com/sourceforge (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/?function=calendar (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/WikiStart (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/Support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/wordpress/sourceforge/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/feedback/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/terms (from http://sourceforge.net/projects/pyvisa/); not a file
+  Analyzing links from page http://pyvisa.sourceforge.net
+    Skipping link http://pyvisa.sourceforge.net/default.css (from http://pyvisa.sourceforge.net); unknown archive format: .css
+    Skipping link mailto:bronger&#64;physik.rwth-aachen.de (from http://pyvisa.sourceforge.net); unknown archive format: .de
+    Skipping link http://pyvisa.sourceforge.net/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/vpp43.html (from http://pyvisa.sourceforge.net); unknown archive format: .html
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvlab.sourceforge.net/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id2 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id1 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id4 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://www.python.org (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net#id3 (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://pyvisa.sourceforge.net/pyvisa.pdf (from http://pyvisa.sourceforge.net); unknown archive format: .pdf
+    Skipping link http://www.ivifoundation.org/Downloads/Specifications.htm (from http://pyvisa.sourceforge.net); unknown archive format: .htm
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp43.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://www.ivifoundation.org/Downloads/Class%20Specifications/vpp432.doc (from http://pyvisa.sourceforge.net); unknown archive format: .doc
+    Skipping link http://ni.com/visa/ (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/266526277DFF74F786256ADC0065C50C (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/87E52268CF9ACCEE86256D0F006E860D (from http://pyvisa.sourceforge.net); not a file
+    Skipping link http://digital.ni.com/manuals.nsf/websearch/21992F3750B967ED86256F47007B00B3 (from http://pyvisa.sourceforge.net); not a file
+  Analyzing links from page http://sourceforge.net/projects/pyvisa/
+    Skipping link http://a.fsdn.com/con/img/favicon.ico (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .ico
+    Skipping link http://a.fsdn.com/con/css/sf.min.css?1259266502 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .css
+    Skipping link http://sourceforge.net/export/rss2_keepsake.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/api/file/index/project-id/133616/rss (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link http://sourceforge.net/projects/pyvisa/tags_feed.rss (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rss
+    Skipping link https://sourceforge.net/account/login.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/account/registration/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/develop/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/register/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/getsupport (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/about (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/bronger (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/users/gth (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/develop (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/1.3/PyVISA-1.3.tar.gz/download (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://pyvisa.sourceforge.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=386 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=219 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=201 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=188 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=3 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=367 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/softwaremap/trove_list.php?form_cat=178 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/pyvisa/reviews (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link https://sourceforge.net/account/login.php?return_to=/projects/pyvisa/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/users/kingswood (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/support/tracker.php?aid=2155051 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://pyvisa.svn.sourceforge.net/viewvc/pyvisa?view=rev&amp;revision=336 (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.win32.exe/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .exe
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-py2.5.egg/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .egg
+    Found link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3.linux-x86_64.tar.gz/ (from http://sourceforge.net/projects/pyvisa/), version: 1.3.linux-x86_64
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.src.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/pyvisa/files/PyVISA/PyVISA-1.3-1.noarch.rpm/ (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .rpm
+    Skipping link http://sourceforge.net/projects/eagledaq/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/dbimage.php?id=222820 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/projects/nofdpidss/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/projects/nightshade/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/project/report_inappropriate.php?group_id=133616 (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/careers/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net/advertising/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/search/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/top/topalltime.php?type=downloads (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/top/mostactive.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/register-project/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/people/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/new/new_projects.php (from http://sourceforge.net/projects/pyvisa/); unknown archive format: .php
+    Skipping link http://sourceforge.net/community/forum/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/blog/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://twitter.com/sourceforge (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/community/?function=calendar (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/WikiStart (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/trac/sourceforge/wiki/Support (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/apps/wordpress/sourceforge/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://sourceforge.net/feedback/ (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://geek.net (from http://sourceforge.net/projects/pyvisa/); not a file
+    Skipping link http://p.sf.net/sourceforge/terms (from http://sourceforge.net/projects/pyvisa/); not a file
+  Using version 1.3.linux-x86_64 (newest of versions: 1.3.linux-x86_64, 1.3.linux-x86_64, 1.3.linux-x86_64, 1.3.linux-x86_64, 1.3.linux-x86_64, 1.3.linux-x86_64, 1.3.linux-x86_64, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3)
+  Downloading from URL http://pypi.python.org/packages/any/P/PyVISA/PyVISA-1.3.linux-x86_64.tar.gz#md5=52fd276ab5f0d65b7f9da6e3b0825eb8 (from http://pypi.python.org/simple/PyVISA)
+  Running setup.py egg_info for package pyvisa
+    Traceback (most recent call last):
+      File "<string>", line 14, in <module>
+    IOError: [Errno 2] No such file or directory: '/myPython/build/pyvisa/setup.py'
+    Complete output from command python setup.py egg_info:
+    Traceback (most recent call last):
+
+  File "<string>", line 14, in <module>
+
+IOError: [Errno 2] No such file or directory: '/myPython/build/pyvisa/setup.py'
+
+----------------------------------------
+Command python setup.py egg_info failed with error code 1
+Exception information:
+Traceback (most recent call last):
+  File "/Library/Python/2.6/site-packages/pip-0.6-py2.6.egg/pip.py", line 482, in main
+    self.run(options, args)
+  File "/Library/Python/2.6/site-packages/pip-0.6-py2.6.egg/pip.py", line 675, in run
+    requirement_set.install_files(finder, force_root_egg_info=self.bundle)
+  File "/Library/Python/2.6/site-packages/pip-0.6-py2.6.egg/pip.py", line 2452, in install_files
+    req_to_install.run_egg_info()
+  File "/Library/Python/2.6/site-packages/pip-0.6-py2.6.egg/pip.py", line 1827, in run_egg_info
+    command_desc='python setup.py egg_info')
+  File "/Library/Python/2.6/site-packages/pip-0.6-py2.6.egg/pip.py", line 4347, in call_subprocess
+    % (command_desc, proc.returncode))
+InstallationError: Command python setup.py egg_info failed with error code 1

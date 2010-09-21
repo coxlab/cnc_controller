@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/libdc1394/!svn/ver/594/trunk/libdc1394/dc1394
+END
+iso.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/libdc1394/!svn/ver/538/trunk/libdc1394/dc1394/iso.h
+END
+utils.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/libdc1394/!svn/ver/592/trunk/libdc1394/dc1394/utils.c
+END
+bayer.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/libdc1394/!svn/ver/586/trunk/libdc1394/dc1394/bayer.c
+END
+capture.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/capture.c
+END
+utils.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/libdc1394/!svn/ver/538/trunk/libdc1394/dc1394/utils.h
+END
+conversions.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/libdc1394/!svn/ver/594/trunk/libdc1394/dc1394/conversions.c
+END
+capture.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/libdc1394/!svn/ver/552/trunk/libdc1394/dc1394/capture.h
+END
+types.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/libdc1394/!svn/ver/592/trunk/libdc1394/dc1394/types.h
+END
+video.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/libdc1394/!svn/ver/538/trunk/libdc1394/dc1394/video.h
+END
+internal.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/libdc1394/!svn/ver/527/trunk/libdc1394/dc1394/internal.c
+END
+dc1394.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/libdc1394/!svn/ver/538/trunk/libdc1394/dc1394/dc1394.h
+END
+conversions.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/libdc1394/!svn/ver/586/trunk/libdc1394/dc1394/conversions.h
+END
+offsets.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/libdc1394/!svn/ver/527/trunk/libdc1394/dc1394/offsets.h
+END
+format7.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/libdc1394/!svn/ver/527/trunk/libdc1394/dc1394/format7.c
+END
+control.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/libdc1394/!svn/ver/592/trunk/libdc1394/dc1394/control.c
+END
+internal.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/libdc1394/!svn/ver/578/trunk/libdc1394/dc1394/internal.h
+END
+log.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/libdc1394/!svn/ver/544/trunk/libdc1394/dc1394/log.c
+END
+format7.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/libdc1394/!svn/ver/538/trunk/libdc1394/dc1394/format7.h
+END
+register.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/register.c
+END
+control.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/libdc1394/!svn/ver/538/trunk/libdc1394/dc1394/control.h
+END
+enumeration.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/libdc1394/!svn/ver/578/trunk/libdc1394/dc1394/enumeration.c
+END
+log.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/libdc1394/!svn/ver/538/trunk/libdc1394/dc1394/log.h
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/libdc1394/!svn/ver/578/trunk/libdc1394/dc1394/Makefile.am
+END
+platform.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/platform.h
+END
+register.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/register.h
+END
+iso.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/iso.c
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/libdc1394/!svn/ver/306/trunk/libdc1394/dc1394/.cvsignore
+END
+camera.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/libdc1394/!svn/ver/548/trunk/libdc1394/dc1394/camera.h
+END

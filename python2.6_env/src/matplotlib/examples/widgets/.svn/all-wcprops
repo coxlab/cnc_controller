@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/matplotlib/!svn/ver/8150/trunk/matplotlib/examples/widgets
+END
+multicursor.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/5847/trunk/matplotlib/examples/widgets/multicursor.py
+END
+check_buttons.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/3371/trunk/matplotlib/examples/widgets/check_buttons.py
+END
+radio_buttons.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/3371/trunk/matplotlib/examples/widgets/radio_buttons.py
+END
+cursor.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/matplotlib/!svn/ver/1650/trunk/matplotlib/examples/widgets/cursor.py
+END
+buttons.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/matplotlib/!svn/ver/3371/trunk/matplotlib/examples/widgets/buttons.py
+END
+span_selector.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/3393/trunk/matplotlib/examples/widgets/span_selector.py
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/matplotlib/!svn/ver/5611/trunk/matplotlib/examples/widgets/README.txt
+END
+menu.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/5707/trunk/matplotlib/examples/widgets/menu.py
+END
+rectangle_selector.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/8150/trunk/matplotlib/examples/widgets/rectangle_selector.py
+END
+slider_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/6425/trunk/matplotlib/examples/widgets/slider_demo.py
+END

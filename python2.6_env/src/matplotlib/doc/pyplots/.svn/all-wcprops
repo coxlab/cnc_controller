@@ -1,0 +1,245 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/matplotlib/!svn/ver/8148/trunk/matplotlib/doc/pyplots
+END
+pyplot_text.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/matplotlib/!svn/ver/5513/trunk/matplotlib/doc/pyplots/pyplot_text.py
+END
+boxplot_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/doc/pyplots/boxplot_demo.py
+END
+fig_x.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/matplotlib/!svn/ver/5513/trunk/matplotlib/doc/pyplots/fig_x.py
+END
+plotmap.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/6203/trunk/matplotlib/doc/pyplots/plotmap.pdf
+END
+whats_new_99_spines.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/7405/trunk/matplotlib/doc/pyplots/whats_new_99_spines.py
+END
+annotate_transform.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/7524/trunk/matplotlib/doc/pyplots/annotate_transform.py
+END
+pyplot_mathtext.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/matplotlib/!svn/ver/5513/trunk/matplotlib/doc/pyplots/pyplot_mathtext.py
+END
+matplotlibrc
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/7196/trunk/matplotlib/doc/pyplots/matplotlibrc
+END
+text_commands.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/matplotlib/!svn/ver/5519/trunk/matplotlib/doc/pyplots/text_commands.py
+END
+plotmap.png
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/6203/trunk/matplotlib/doc/pyplots/plotmap.png
+END
+annotation_basic.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/5513/trunk/matplotlib/doc/pyplots/annotation_basic.py
+END
+plotmap.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/matplotlib/!svn/ver/7346/trunk/matplotlib/doc/pyplots/plotmap.py
+END
+pyplot_annotate.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/matplotlib/!svn/ver/5513/trunk/matplotlib/doc/pyplots/pyplot_annotate.py
+END
+fig_axes_labels_simple.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/5513/trunk/matplotlib/doc/pyplots/fig_axes_labels_simple.py
+END
+plotmap.hires.png
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/matplotlib/!svn/ver/6203/trunk/matplotlib/doc/pyplots/plotmap.hires.png
+END
+tex_demo.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/doc/pyplots/tex_demo.pdf
+END
+pyplot_formatstr.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/5513/trunk/matplotlib/doc/pyplots/pyplot_formatstr.py
+END
+tex_unicode_demo.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/doc/pyplots/tex_unicode_demo.pdf
+END
+tex_demo.png
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/7196/trunk/matplotlib/doc/pyplots/tex_demo.png
+END
+pyplot_simple.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/matplotlib/!svn/ver/7994/trunk/matplotlib/doc/pyplots/pyplot_simple.py
+END
+fig_axes_customize_simple.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/5674/trunk/matplotlib/doc/pyplots/fig_axes_customize_simple.py
+END
+tex_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/doc/pyplots/tex_demo.py
+END
+compound_path_demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/matplotlib/!svn/ver/7524/trunk/matplotlib/doc/pyplots/compound_path_demo.py
+END
+align_ylabels.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/matplotlib/!svn/ver/5597/trunk/matplotlib/doc/pyplots/align_ylabels.py
+END
+whats_new_99_axes_grid.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/matplotlib/!svn/ver/7405/trunk/matplotlib/doc/pyplots/whats_new_99_axes_grid.py
+END
+tex_unicode_demo.png
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/doc/pyplots/tex_unicode_demo.png
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/matplotlib/!svn/ver/8148/trunk/matplotlib/doc/pyplots/README
+END
+annotation_polar.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/matplotlib/!svn/ver/5513/trunk/matplotlib/doc/pyplots/annotation_polar.py
+END
+tex_demo.hires.png
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/doc/pyplots/tex_demo.hires.png
+END
+dollar_ticks.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/matplotlib/!svn/ver/5513/trunk/matplotlib/doc/pyplots/dollar_ticks.py
+END
+pyplot_two_subplots.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/5513/trunk/matplotlib/doc/pyplots/pyplot_two_subplots.py
+END
+auto_subplots_adjust.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/5673/trunk/matplotlib/doc/pyplots/auto_subplots_adjust.py
+END
+make.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/matplotlib/!svn/ver/6198/trunk/matplotlib/doc/pyplots/make.py
+END
+pyplot_three.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/matplotlib/!svn/ver/5513/trunk/matplotlib/doc/pyplots/pyplot_three.py
+END
+tex_unicode_demo.hires.png
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/matplotlib/!svn/ver/6251/trunk/matplotlib/doc/pyplots/tex_unicode_demo.hires.png
+END
+whats_new_98_4_legend.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/6561/trunk/matplotlib/doc/pyplots/whats_new_98_4_legend.py
+END
+text_layout.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/matplotlib/!svn/ver/5519/trunk/matplotlib/doc/pyplots/text_layout.py
+END
+whats_new_98_4_fill_between.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/matplotlib/!svn/ver/6550/trunk/matplotlib/doc/pyplots/whats_new_98_4_fill_between.py
+END
+whats_new_98_4_fancy.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/6550/trunk/matplotlib/doc/pyplots/whats_new_98_4_fancy.py
+END
+whats_new_99_mplot3d.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/matplotlib/!svn/ver/7405/trunk/matplotlib/doc/pyplots/whats_new_99_mplot3d.py
+END

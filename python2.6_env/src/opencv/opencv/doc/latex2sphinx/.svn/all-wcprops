@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/opencv/!svn/ver/3248/trunk/opencv/doc/latex2sphinx
+END
+buildall_pdf
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/3124/trunk/opencv/doc/latex2sphinx/buildall_pdf
+END
+latexparser.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/2967/trunk/opencv/doc/latex2sphinx/latexparser.py
+END
+pythonapi.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/2878/trunk/opencv/doc/latex2sphinx/pythonapi.py
+END
+latex.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/opencv/!svn/ver/3248/trunk/opencv/doc/latex2sphinx/latex.py
+END
+qfile.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/opencv/!svn/ver/2878/trunk/opencv/doc/latex2sphinx/qfile.py
+END
+buildall
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/opencv/!svn/ver/3008/trunk/opencv/doc/latex2sphinx/buildall
+END
+building.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/2912/trunk/opencv/doc/latex2sphinx/building.jpg
+END
+conf.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/opencv/!svn/ver/3124/trunk/opencv/doc/latex2sphinx/conf.py
+END
+mymath.sty
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/opencv/!svn/ver/2852/trunk/opencv/doc/latex2sphinx/mymath.sty
+END
+opencv-logo2.png
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/2852/trunk/opencv/doc/latex2sphinx/opencv-logo2.png
+END
+lena.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/opencv/!svn/ver/2939/trunk/opencv/doc/latex2sphinx/lena.jpg
+END

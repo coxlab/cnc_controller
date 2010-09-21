@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/opencv/!svn/ver/3461/trunk/opencv/tests/ml/src
+END
+aemknearestkmeans.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/2806/trunk/opencv/tests/ml/src/aemknearestkmeans.cpp
+END
+precomp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/opencv/!svn/ver/1672/trunk/opencv/tests/ml/src/precomp.cpp
+END
+slmltests.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/opencv/!svn/ver/3362/trunk/opencv/tests/ml/src/slmltests.cpp
+END
+mltests.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/opencv/!svn/ver/2166/trunk/opencv/tests/ml/src/mltests.cpp
+END
+amltests.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/opencv/!svn/ver/3461/trunk/opencv/tests/ml/src/amltests.cpp
+END
+mltest_main.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/opencv/!svn/ver/1622/trunk/opencv/tests/ml/src/mltest_main.cpp
+END
+mltest.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/opencv/!svn/ver/2184/trunk/opencv/tests/ml/src/mltest.h
+END

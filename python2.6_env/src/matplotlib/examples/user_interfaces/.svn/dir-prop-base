@@ -1,0 +1,16 @@
+K 10
+svn:ignore
+V 78
+matplotlibrc
+matplotlib.conf
+*.eps
+*.jpeg
+*.jpg
+*.pdf
+*.png
+*.ps
+*.pyc
+*.svg
+
+
+END

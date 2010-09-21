@@ -1,0 +1,8 @@
+K 10
+svn:ignore
+V 30
+*_pdf.png
+*_eps.png
+*_svg.png
+
+END

@@ -82,6 +82,7 @@ class OCMeshView(NSOpenGLView):
         self.meshFilename = None
         self.drawElectrode = True
         self.electrodeMatrix = numpy.matrix(numpy.identity(4,dtype=numpy.float64))
+        self.pathParams = numpy.array([0., 0., 0., 0., 0., 1.])
     
     @IBAction
     def showHelp_(self, sender):
@@ -209,6 +210,17 @@ class OCMeshView(NSOpenGLView):
         if self.meshFilename != None:
             self.load_obj(self.meshFilename, self.meshTextureFilename)
     
+    def draw_tip_path(self):
+        o = numpy.array(self.pathParams[:3])
+        m = numpy.array(self.pathParams[3:])
+        p0 = o + (-1000. * m)
+        p1 = o + (1000. * m)
+        glColor(1., 0., 0., 1.)
+        glBegin(GL_LINES)
+        glVertex3f(*p0)
+        glVertex3f(*p1)
+        glEnd()
+    
     def draw_electrode_path(self):
         glColor(1., 0., 0., 1.)
         glBegin(GL_LINES)
@@ -229,10 +241,12 @@ class OCMeshView(NSOpenGLView):
         if self.obj != None:
             self.obj.display()
         
+        self.draw_tip_path()
+        
         if self.electrode != None and self.drawElectrode:
             glPushMatrix()
             glMultMatrixd(numpy.array(self.electrodeMatrix))
-            self.draw_electrode_path()
+            #self.draw_electrode_path()
             self.electrode.display()
             glPopMatrix()
         

@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/libdc1394/!svn/ver/593/trunk/libdc1394/examples
+END
+grab_gray_image.c
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/libdc1394/!svn/ver/571/trunk/libdc1394/examples/grab_gray_image.c
+END
+dc1394_reset_bus.1
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/libdc1394/!svn/ver/541/trunk/libdc1394/examples/dc1394_reset_bus.1
+END
+dc1394_vloopback.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/libdc1394/!svn/ver/571/trunk/libdc1394/examples/dc1394_vloopback.c
+END
+grab_partial_image.1
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/libdc1394/!svn/ver/593/trunk/libdc1394/examples/grab_partial_image.1
+END
+grab_partial_pvn.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/libdc1394/!svn/ver/571/trunk/libdc1394/examples/grab_partial_pvn.c
+END
+grab_color_image.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/libdc1394/!svn/ver/571/trunk/libdc1394/examples/grab_color_image.c
+END
+helloworld.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/libdc1394/!svn/ver/571/trunk/libdc1394/examples/helloworld.c
+END
+dc1394_multiview.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/examples/dc1394_multiview.c
+END
+grab_gray_image.1
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/libdc1394/!svn/ver/593/trunk/libdc1394/examples/grab_gray_image.1
+END
+basler_sff_extended_data.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/libdc1394/!svn/ver/571/trunk/libdc1394/examples/basler_sff_extended_data.c
+END
+basler_sff_info.c
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/libdc1394/!svn/ver/571/trunk/libdc1394/examples/basler_sff_info.c
+END
+dc1394_reset_bus.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/libdc1394/!svn/ver/578/trunk/libdc1394/examples/dc1394_reset_bus.c
+END
+dc1394_vloopback.1
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/libdc1394/!svn/ver/541/trunk/libdc1394/examples/dc1394_vloopback.1
+END
+ladybug.c
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/libdc1394/!svn/ver/571/trunk/libdc1394/examples/ladybug.c
+END
+affine.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/libdc1394/!svn/ver/519/trunk/libdc1394/examples/affine.c
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/libdc1394/!svn/ver/593/trunk/libdc1394/examples/Makefile.am
+END
+grab_color_image.1
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/libdc1394/!svn/ver/593/trunk/libdc1394/examples/grab_color_image.1
+END
+grab_partial_image.c
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/libdc1394/!svn/ver/571/trunk/libdc1394/examples/grab_partial_image.c
+END
+dc1394_multiview.1
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/libdc1394/!svn/ver/593/trunk/libdc1394/examples/dc1394_multiview.1
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/libdc1394/!svn/ver/305/trunk/libdc1394/examples/.cvsignore
+END
+grab_color_image2.c
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/libdc1394/!svn/ver/571/trunk/libdc1394/examples/grab_color_image2.c
+END
+affine.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/libdc1394/!svn/ver/519/trunk/libdc1394/examples/affine.h
+END

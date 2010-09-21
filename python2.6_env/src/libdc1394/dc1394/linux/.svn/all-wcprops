@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/libdc1394/!svn/ver/584/trunk/libdc1394/dc1394/linux
+END
+control.c
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/linux/control.c
+END
+capture.c
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/linux/capture.c
+END
+linux.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/linux/linux.h
+END
+control.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/libdc1394/!svn/ver/558/trunk/libdc1394/dc1394/linux/control.h
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/linux/Makefile.am
+END
+capture.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/libdc1394/!svn/ver/584/trunk/libdc1394/dc1394/linux/capture.h
+END
+kernel-video1394.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/libdc1394/!svn/ver/519/trunk/libdc1394/dc1394/linux/kernel-video1394.h
+END

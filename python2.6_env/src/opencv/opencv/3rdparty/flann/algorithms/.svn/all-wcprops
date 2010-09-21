@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/algorithms
+END
+composite_index.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/algorithms/composite_index.h
+END
+dist.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/algorithms/dist.cpp
+END
+autotuned_index.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/algorithms/autotuned_index.h
+END
+linear_index.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/algorithms/linear_index.h
+END
+nn_index.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/algorithms/nn_index.h
+END
+dist.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/algorithms/dist.h
+END
+kdtree_index.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/algorithms/kdtree_index.h
+END
+kmeans_index.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/opencv/!svn/ver/3094/trunk/opencv/3rdparty/flann/algorithms/kmeans_index.h
+END

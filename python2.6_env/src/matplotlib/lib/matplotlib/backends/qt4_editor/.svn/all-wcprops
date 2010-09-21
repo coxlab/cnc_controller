@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/8091/trunk/matplotlib/lib/matplotlib/backends/qt4_editor
+END
+figureoptions.py
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/matplotlib/!svn/ver/8091/trunk/matplotlib/lib/matplotlib/backends/qt4_editor/figureoptions.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/matplotlib/!svn/ver/8064/trunk/matplotlib/lib/matplotlib/backends/qt4_editor/__init__.py
+END
+formlayout.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/matplotlib/!svn/ver/8091/trunk/matplotlib/lib/matplotlib/backends/qt4_editor/formlayout.py
+END

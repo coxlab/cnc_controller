@@ -90,8 +90,15 @@ class OCController (NSObject, electrodeController.controller.Controller):
             rFileList = ["%s/%s" % (cfg.rightFakeFramesDir, f) for f in os.listdir(cfg.rightFakeFramesDir)]
             self.cameras.cameras[1].set_file_list(rFileList)
         
-        self.zoomPoints.append({'c':'r','lx':1024.2244, 'ly': 847.3844, 'rx': 384.3434, 'ry': 0.01121, 'x': 0.43, 'y': 23.33, 'z': 400.4343})
-        self.zoomPoints.append({'c':'b','lx':0.0, 'ly':0., 'rx':0., 'ry':0., 'x':0., 'y':0., 'z':0., 'angle':5.0})
+        self.zoomPoints.append({'c':'r','lx':313.302540599, 'ly': 328.81604072, 'rx': 284.939403378, 'ry': 348.635889153, 'x': -42.3456234131, 'y': -1.78845750399, 'z': -0.641684310712, 'angle': 12.0, 'w':-0.39959})
+        self.zoomPoints.append({'c':'r','lx':316.743317476, 'ly': 347.294286908, 'rx': 290.644721184, 'ry': 366.060238127, 'x': -42.2258470538, 'y': -2.87006594517, 'z': -0.795638750719, 'angle': 12.0, 'w': -1.3996})
+        self.zoomPoints.append({'c':'r','lx':320.566402894, 'ly': 365.007916012, 'rx': 296.041643433, 'ry': 384.101378216, 'x': -42.0373785465, 'y': -3.94557101801, 'z': -0.784179556811, 'angle': 12.0, 'w': -2.3996})
+        self.zoomPoints.append({'c':'r','lx':324.516924493, 'ly': 384.123343103, 'rx': 301.746961238, 'ry': 401.063133854, 'x': -41.9450601303, 'y': -5.03543038535, 'z': -1.04855227966, 'angle': 12.0, 'w': -3.39961})
+        self.zoomPoints.append({'c':'r','lx':328.08513755, 'ly': 401.582099846, 'rx': 307.760674601, 'ry': 419.258471721, 'x': -41.7187588127, 'y': -6.11143462708, 'z': -0.970481809585, 'angle': 12.0, 'w': -4.39962})
+        self.zoomPoints.append({'c':'r','lx':332.545403871, 'ly': 420.060346034, 'rx': 313.465992407, 'ry': 436.528622917, 'x': -41.5596850022, 'y': -7.19192871413, 'z': -1.10992178527, 'angle': 12.0, 'w': -5.39963})
+        self.zoomPoints.append({'c':'r','lx':335.858744567, 'ly': 437.773975138, 'rx': 319.633903548, 'ry': 453.952971891, 'x': -41.3741330393, 'y': -8.25584253428, 'z': -1.13178715622, 'angle': 12.0, 'w': -6.39963})
+        self.zoomPoints.append({'c':'r','lx':340.573883249, 'ly': 456.124785145, 'rx': 325.030825797, 'ry': 471.068925308, 'x': -41.2101402046, 'y': -9.32781793284, 'z': -1.25822032043, 'angle': 12.0, 'w': -7.39964})
+        
         self.zoomPointsController.rearrangeObjects()
         
         # set default movement increments
@@ -252,6 +259,17 @@ class OCController (NSObject, electrodeController.controller.Controller):
             return
         
         self.register_cameras(numpy.array(ptsInCam))
+        self.updateFramesDisplay_(sender)
+    
+    @IBAction
+    def measurePath_(self, sender):
+        ptsInCam = []
+        for z in self.zoomPoints:
+            if all((z.has_key('x'),z.has_key('y'),z.has_key('z'))):
+                ptsInCam.append([z['x'],z['y'],z['z']])
+        
+        print "going to measure_tip_path in controller"
+        self.measure_tip_path(ptsInCam)
         self.updateFramesDisplay_(sender)
     
     @IBAction
@@ -546,7 +564,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.stop_update_timer()
         
         #print "update_position:", self.ocFramesStatus
-        if int(self.ocFramesStatus) == 3: # all frames are a good
+        if int(self.ocFramesStatus) == 3: # all frames are mapped
             #print "all frames are good to go"
             # don't read from linear axes
             cncCoord = numpy.ones(4,dtype=numpy.float64)
@@ -587,6 +605,33 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self._.ocZ = float(self.cnc.linearAxes.get_position('z')['z'])
         self._.ocB = float(self.cnc.headAxes.get_position('b')['b'])
         self._.ocW = float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
+        
+        # if the path of the electrode has been fit...
+        if self.cnc.pathParams != None:
+            # use self.ocW to calculate the position in the camera frame and then map that to skull coordinates
+            tipPosition = self.cnc.calculate_tip_position(self.ocW)
+            tipPosition = vector.make_homogeneous(tipPosition)
+            skullCoord = self.fManager.transform_point(tipPosition, "camera", "skull")[0]
+            
+            # ML = X
+            self._.ocML = skullCoord[0]
+            # AP = Y
+            self._.ocAP = skullCoord[1]
+            # DV = Z
+            self._.ocDV = skullCoord[2]
+            
+            # draw the path and position of the electrode
+            o = vector.make_homogeneous(self.cnc.pathParams[:3])
+            m = vector.make_homogeneous(self.cnc.pathParams[3:])
+            oInS = self.fManager.transform_point(o, "camera", "skull")[0]
+            mInS = self.fManager.transform_point(m, "camera", "skull")[0]
+            self.meshView.pathParams = [oInS[0], oInS[1], oInS[2], mInS[0], mInS[1], mInS[2]]
+            # TODO add the rotation as defined by the path etc...
+            self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], 0., 0., 0.))
+            self.meshView.drawElectrode = True
+            self.meshView.scheduleRedisplay()
+            
+            cfg.log.info('ML:%.3f AP:%.3f DV:%.3f' % (self.ocML, self.ocAP, self.ocDV))
         
         # logging
         cfg.cncLog.info('X:%.3f Y:%.3f Z:%.3f B:%.3f W:%.3f' % (self.ocX, self.ocY, self.ocZ, self.ocB, self.ocW))

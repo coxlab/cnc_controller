@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/matplotlib/!svn/ver/8182/trunk/matplotlib/lib
+END
+mpl_examples
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/matplotlib/!svn/ver/5683/trunk/matplotlib/lib/mpl_examples
+END
+pylab.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/matplotlib/!svn/ver/3533/trunk/matplotlib/lib/pylab.py
+END

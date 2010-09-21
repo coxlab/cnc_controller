@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/opencv/!svn/ver/3593/trunk/opencv/modules/gpu/src/cuda
+END
+safe_call.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/3408/trunk/opencv/modules/gpu/src/cuda/safe_call.hpp
+END
+beliefpropagation.cu
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/opencv/!svn/ver/3588/trunk/opencv/modules/gpu/src/cuda/beliefpropagation.cu
+END
+color.cu
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/3588/trunk/opencv/modules/gpu/src/cuda/color.cu
+END
+imgproc.cu
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/3588/trunk/opencv/modules/gpu/src/cuda/imgproc.cu
+END
+stereobm.cu
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/3593/trunk/opencv/modules/gpu/src/cuda/stereobm.cu
+END
+cuda_shared.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/opencv/!svn/ver/3588/trunk/opencv/modules/gpu/src/cuda/cuda_shared.hpp
+END
+saturate_cast.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/opencv/!svn/ver/3467/trunk/opencv/modules/gpu/src/cuda/saturate_cast.hpp
+END
+bilateral_filter.cu
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/opencv/!svn/ver/3588/trunk/opencv/modules/gpu/src/cuda/bilateral_filter.cu
+END
+constantspacebp.cu
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/opencv/!svn/ver/3588/trunk/opencv/modules/gpu/src/cuda/constantspacebp.cu
+END
+matrix_operations.cu
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/opencv/!svn/ver/3588/trunk/opencv/modules/gpu/src/cuda/matrix_operations.cu
+END

@@ -1,0 +1,126 @@
+10
+
+dir
+3603
+https://code.ros.org/svn/opencv/trunk/opencv/3rdparty
+https://code.ros.org/svn/opencv
+
+
+
+2010-09-02T14:01:04.361740Z
+3585
+vp153
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+73c94f0f-984f-4a5f-82bc-2d8db8d8ee08
+
+libtiff
+dir
+
+zlib
+dir
+
+include
+dir
+
+lib
+dir
+
+lapack
+dir
+
+libjasper
+dir
+
+libpng
+dir
+
+readme.txt
+file
+
+
+
+
+2010-09-10T19:28:17.000000Z
+ca9ea613ea1455a04ce0537a0d5530d6
+2010-08-05T17:24:41.750653Z
+3480
+vp153
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5988
+
+libjpeg
+dir
+
+ilmimf
+dir
+
+CMakeLists.txt
+file
+
+
+
+
+2010-09-10T19:28:17.000000Z
+5e20d19c8c8ec847791f968ac31d2b9c
+2009-12-25T20:27:44.220308Z
+2490
+vp153
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+347
+
+flann
+dir
+

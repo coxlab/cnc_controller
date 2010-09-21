@@ -1,0 +1,167 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/opencv/!svn/ver/2928/trunk/opencv/interfaces/swig/octave
+END
+octerror.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/1359/trunk/opencv/interfaces/swig/octave/octerror.cpp
+END
+cv_wrap.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/2212/trunk/opencv/interfaces/swig/octave/cv_wrap.cpp
+END
+ml_wrap.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/2212/trunk/opencv/interfaces/swig/octave/ml_wrap.cpp
+END
+DESCRIPTION
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/1109/trunk/opencv/interfaces/swig/octave/DESCRIPTION
+END
+PKG_ADD_template
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/opencv/!svn/ver/1152/trunk/opencv/interfaces/swig/octave/PKG_ADD_template
+END
+octerror.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/1359/trunk/opencv/interfaces/swig/octave/octerror.h
+END
+opencv.m
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/1109/trunk/opencv/interfaces/swig/octave/opencv.m
+END
+octhelpers.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/opencv/!svn/ver/1140/trunk/opencv/interfaces/swig/octave/octhelpers.cpp
+END
+adapters.i
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/1151/trunk/opencv/interfaces/swig/octave/adapters.i
+END
+highgui_wrap.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/opencv/!svn/ver/2199/trunk/opencv/interfaces/swig/octave/highgui_wrap.cpp
+END
+octhelpers.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/2199/trunk/opencv/interfaces/swig/octave/octhelpers.h
+END
+cvshadow.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/1140/trunk/opencv/interfaces/swig/octave/cvshadow.cpp
+END
+cv.i
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/opencv/!svn/ver/1359/trunk/opencv/interfaces/swig/octave/cv.i
+END
+ml.i
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/opencv/!svn/ver/1109/trunk/opencv/interfaces/swig/octave/ml.i
+END
+octhelpers.i
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/1140/trunk/opencv/interfaces/swig/octave/octhelpers.i
+END
+octtypemaps.i
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/opencv/!svn/ver/1109/trunk/opencv/interfaces/swig/octave/octtypemaps.i
+END
+cvaliases.i
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/1109/trunk/opencv/interfaces/swig/octave/cvaliases.i
+END
+imagedata.i
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/1109/trunk/opencv/interfaces/swig/octave/imagedata.i
+END
+cvshadow.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/1109/trunk/opencv/interfaces/swig/octave/cvshadow.h
+END
+cvarr.i
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/1140/trunk/opencv/interfaces/swig/octave/cvarr.i
+END
+cvshadow.i
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/2928/trunk/opencv/interfaces/swig/octave/cvshadow.i
+END
+INDEX
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/opencv/!svn/ver/1109/trunk/opencv/interfaces/swig/octave/INDEX
+END
+cvseq.i
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/1150/trunk/opencv/interfaces/swig/octave/cvseq.i
+END
+COPYING
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/1109/trunk/opencv/interfaces/swig/octave/COPYING
+END
+highgui.i
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/1123/trunk/opencv/interfaces/swig/octave/highgui.i
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/opencv/!svn/ver/1400/trunk/opencv/interfaces/swig/octave/CMakeLists.txt
+END
+octcvseq.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/1150/trunk/opencv/interfaces/swig/octave/octcvseq.hpp
+END

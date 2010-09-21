@@ -1,0 +1,26 @@
+Determining if the include file libavformat/avformat.h exists failed with the following output:
+Change Dir: /myPython/src/opencv/opencv/release/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+/usr/local/Cellar/cmake/2.8.2/bin/cmake -E cmake_progress_report /myPython/src/opencv/opencv/release/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc    -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /myPython/src/opencv/opencv/release/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/myPython/src/opencv/opencv/release/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:34: error: libavformat/avformat.h: No such file or directory
+make[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o] Error 1
+make: *** [cmTryCompileExec/fast] Error 2
+
+
+Determining if the include file ffmpeg/avformat.h exists failed with the following output:
+Change Dir: /myPython/src/opencv/opencv/release/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+/usr/local/Cellar/cmake/2.8.2/bin/cmake -E cmake_progress_report /myPython/src/opencv/opencv/release/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc    -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /myPython/src/opencv/opencv/release/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/myPython/src/opencv/opencv/release/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:29: error: ffmpeg/avformat.h: No such file or directory
+make[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o] Error 1
+make: *** [cmTryCompileExec/fast] Error 2
+
+

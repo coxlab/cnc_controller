@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/matplotlib/!svn/ver/8010/trunk/matplotlib/doc/mpl_toolkits/axes_grid/api
+END
+axes_grid_api.rst
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/matplotlib/!svn/ver/8010/trunk/matplotlib/doc/mpl_toolkits/axes_grid/api/axes_grid_api.rst
+END
+axes_divider_api.rst
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/matplotlib/!svn/ver/7056/trunk/matplotlib/doc/mpl_toolkits/axes_grid/api/axes_divider_api.rst
+END
+axes_size_api.rst
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/matplotlib/!svn/ver/7056/trunk/matplotlib/doc/mpl_toolkits/axes_grid/api/axes_size_api.rst
+END
+axis_artist_api.rst
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/matplotlib/!svn/ver/8010/trunk/matplotlib/doc/mpl_toolkits/axes_grid/api/axis_artist_api.rst
+END
+index.rst
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/matplotlib/!svn/ver/8010/trunk/matplotlib/doc/mpl_toolkits/axes_grid/api/index.rst
+END

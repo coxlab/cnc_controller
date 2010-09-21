@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/opencv/!svn/ver/3481/trunk/opencv/modules/imgproc/include/opencv2/imgproc
+END
+imgproc.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/opencv/!svn/ver/3481/trunk/opencv/modules/imgproc/include/opencv2/imgproc/imgproc.hpp
+END
+imgproc_c.h
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/opencv/!svn/ver/3061/trunk/opencv/modules/imgproc/include/opencv2/imgproc/imgproc_c.h
+END
+compat_c.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/opencv/!svn/ver/3360/trunk/opencv/modules/imgproc/include/opencv2/imgproc/compat_c.h
+END
+types_c.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/opencv/!svn/ver/3421/trunk/opencv/modules/imgproc/include/opencv2/imgproc/types_c.h
+END

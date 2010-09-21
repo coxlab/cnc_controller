@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/matplotlib/!svn/ver/8148/trunk/matplotlib/doc/sphinxext
+END
+gen_gallery.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/matplotlib/!svn/ver/8148/trunk/matplotlib/doc/sphinxext/gen_gallery.py
+END
+inheritance_diagram.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/matplotlib/!svn/ver/6926/trunk/matplotlib/doc/sphinxext/inheritance_diagram.py
+END
+gen_rst.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/matplotlib/!svn/ver/8148/trunk/matplotlib/doc/sphinxext/gen_rst.py
+END
+mathml.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/matplotlib/!svn/ver/5266/trunk/matplotlib/doc/sphinxext/mathml.py
+END
+math_symbol_table.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/matplotlib/!svn/ver/7805/trunk/matplotlib/doc/sphinxext/math_symbol_table.py
+END

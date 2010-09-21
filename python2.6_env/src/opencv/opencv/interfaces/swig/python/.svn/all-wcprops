@@ -1,0 +1,197 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/opencv/!svn/ver/2928/trunk/opencv/interfaces/swig/python
+END
+pycvseq.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/732/trunk/opencv/interfaces/swig/python/pycvseq.hpp
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/1087/trunk/opencv/interfaces/swig/python/__init__.py
+END
+_cv.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/2212/trunk/opencv/interfaces/swig/python/_cv.cpp
+END
+_ml.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/2212/trunk/opencv/interfaces/swig/python/_ml.cpp
+END
+pyhelpers.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/opencv/!svn/ver/2313/trunk/opencv/interfaces/swig/python/pyhelpers.cpp
+END
+matlab_syntax.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/opencv/!svn/ver/1089/trunk/opencv/interfaces/swig/python/matlab_syntax.py
+END
+ml.i
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/opencv/!svn/ver/1093/trunk/opencv/interfaces/swig/python/ml.i
+END
+cv.i
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/opencv/!svn/ver/1544/trunk/opencv/interfaces/swig/python/cv.i
+END
+cvshadow.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/2313/trunk/opencv/interfaces/swig/python/cvshadow.cpp
+END
+cvaliases.i
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/1983/trunk/opencv/interfaces/swig/python/cvaliases.i
+END
+pytypemaps.i
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/1806/trunk/opencv/interfaces/swig/python/pytypemaps.i
+END
+_highgui.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/opencv/!svn/ver/2199/trunk/opencv/interfaces/swig/python/_highgui.cpp
+END
+cvseq.i
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/852/trunk/opencv/interfaces/swig/python/cvseq.i
+END
+highgui.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/2199/trunk/opencv/interfaces/swig/python/highgui.py
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/897/trunk/opencv/interfaces/swig/python/.cvsignore
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/opencv/!svn/ver/2115/trunk/opencv/interfaces/swig/python/CMakeLists.txt
+END
+error.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/opencv/!svn/ver/131/trunk/opencv/interfaces/swig/python/error.h
+END
+cvaliases_autogen.i
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/opencv/!svn/ver/1983/trunk/opencv/interfaces/swig/python/cvaliases_autogen.i
+END
+cvswigmacros.i
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/opencv/!svn/ver/1570/trunk/opencv/interfaces/swig/python/cvswigmacros.i
+END
+ml.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/opencv/!svn/ver/2212/trunk/opencv/interfaces/swig/python/ml.py
+END
+cv.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/opencv/!svn/ver/2199/trunk/opencv/interfaces/swig/python/cv.py
+END
+nointpb.i
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/1411/trunk/opencv/interfaces/swig/python/nointpb.i
+END
+pyhelpers.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/1722/trunk/opencv/interfaces/swig/python/pyhelpers.h
+END
+pyhelpers.i
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/1543/trunk/opencv/interfaces/swig/python/pyhelpers.i
+END
+imagedata.i
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/1411/trunk/opencv/interfaces/swig/python/imagedata.i
+END
+adaptors.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/opencv/!svn/ver/1507/trunk/opencv/interfaces/swig/python/adaptors.py
+END
+cvarr.i
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/opencv/!svn/ver/1499/trunk/opencv/interfaces/swig/python/cvarr.i
+END
+cvshadow.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/1499/trunk/opencv/interfaces/swig/python/cvshadow.h
+END
+cvshadow.i
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/opencv/!svn/ver/2928/trunk/opencv/interfaces/swig/python/cvshadow.i
+END
+setup-for-win.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/opencv/!svn/ver/1342/trunk/opencv/interfaces/swig/python/setup-for-win.py
+END
+error.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/opencv/!svn/ver/479/trunk/opencv/interfaces/swig/python/error.cpp
+END
+highgui.i
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/opencv/!svn/ver/1570/trunk/opencv/interfaces/swig/python/highgui.i
+END

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/libdc1394/!svn/ver/576/trunk/libdc1394/dc1394/macosx
+END
+macosx.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/macosx/macosx.h
+END
+control.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/macosx/control.c
+END
+capture.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/libdc1394/!svn/ver/576/trunk/libdc1394/dc1394/macosx/capture.c
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/libdc1394/!svn/ver/572/trunk/libdc1394/dc1394/macosx/Makefile.am
+END
+capture.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/libdc1394/!svn/ver/527/trunk/libdc1394/dc1394/macosx/capture.h
+END

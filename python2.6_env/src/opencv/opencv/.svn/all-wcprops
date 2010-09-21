@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/opencv/!svn/ver/3603/trunk/opencv
+END
+opencv.pc.cmake.in
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/opencv/!svn/ver/3068/trunk/opencv/opencv.pc.cmake.in
+END
+OpenCVModule.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/opencv/!svn/ver/3298/trunk/opencv/OpenCVModule.cmake
+END
+Package.cmake.in
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/opencv/!svn/ver/2995/trunk/opencv/Package.cmake.in
+END
+OpenCVPCHSupport.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/opencv/!svn/ver/3314/trunk/opencv/OpenCVPCHSupport.cmake
+END
+OpenCVFindPkgConfig.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/opencv/!svn/ver/1526/trunk/opencv/OpenCVFindPkgConfig.cmake
+END
+OpenCVInstallRequiredSystemLibraries.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/opencv/!svn/ver/2197/trunk/opencv/OpenCVInstallRequiredSystemLibraries.cmake
+END
+cvconfig.h.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/opencv/!svn/ver/3528/trunk/opencv/cvconfig.h.cmake
+END
+OpenCVConfig.cmake.in
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/opencv/!svn/ver/3563/trunk/opencv/OpenCVConfig.cmake.in
+END
+OpenCVFindLATEX.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/opencv/!svn/ver/1993/trunk/opencv/OpenCVFindLATEX.cmake
+END
+OpenCVFindOpenEXR.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/opencv/!svn/ver/3310/trunk/opencv/OpenCVFindOpenEXR.cmake
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/opencv/!svn/ver/3135/trunk/opencv/README
+END
+cmake_uninstall.cmake.in
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/opencv/!svn/ver/1391/trunk/opencv/cmake_uninstall.cmake.in
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/opencv/!svn/ver/3599/trunk/opencv/CMakeLists.txt
+END
