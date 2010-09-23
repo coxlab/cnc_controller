@@ -16,7 +16,6 @@
 		BF0C00E011C5A0B200D994B0 /* quaternion.py in Resources */ = {isa = PBXBuildFile; fileRef = BF0C00DF11C5A0B200D994B0 /* quaternion.py */; };
 		BF1E318F10CB3A2E00163053 /* clockwiseArrows.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1E318D10CB3A2E00163053 /* clockwiseArrows.png */; };
 		BF1E319010CB3A2E00163053 /* counterclockwiseArrows.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */; };
-		BF2C463512494EF400C86D0F /* python2.6_env in Resources */ = {isa = PBXBuildFile; fileRef = BF2CC57E12494ED500C86D0F /* python2.6_env */; };
 		BF43D6AC10CB2BB900F1F642 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = BF43D6AB10CB2BB900F1F642 /* main.py */; };
 		BF54661111D8D4A70095F0ED /* ocAtlasView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF54661011D8D4A70095F0ED /* ocAtlasView.py */; };
 		BF5E23BE11C138FD003EF057 /* ocController.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E23BD11C138FD003EF057 /* ocController.py */; };
@@ -44,7 +43,6 @@
 		BF0C00DF11C5A0B200D994B0 /* quaternion.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = quaternion.py; sourceTree = "<group>"; };
 		BF1E318D10CB3A2E00163053 /* clockwiseArrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clockwiseArrows.png; path = media/clockwiseArrows.png; sourceTree = "<group>"; };
 		BF1E318E10CB3A2E00163053 /* counterclockwiseArrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = counterclockwiseArrows.png; path = media/counterclockwiseArrows.png; sourceTree = "<group>"; };
-		BF2CC57E12494ED500C86D0F /* python2.6_env */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python2.6_env; sourceTree = "<group>"; };
 		BF330D4610CD46D10009217F /* cncController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cncController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF43D6AB10CB2BB900F1F642 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		BF54661011D8D4A70095F0ED /* ocAtlasView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocAtlasView.py; sourceTree = "<group>"; };
@@ -136,7 +134,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BF2CC57E12494ED500C86D0F /* python2.6_env */,
 				BF9C84D711527B5100C68A5A /* physiology_icon.icns */,
 				BF1E318C10CB3A0E00163053 /* media */,
 				8D1107310486CEB800E47090 /* cncController-Info.plist */,
@@ -226,7 +223,6 @@
 				BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */,
 				BF91F36111D5366000049A44 /* zoomView.py in Resources */,
 				BF54661111D8D4A70095F0ED /* ocAtlasView.py in Resources */,
-				BF2C463512494EF400C86D0F /* python2.6_env in Resources */,
 				6873995C124B98FF00445001 /* electrodeController in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
