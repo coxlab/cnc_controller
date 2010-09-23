@@ -264,12 +264,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def measurePath_(self, sender):
         ptsInCam = []
+        wPositions = []
         for z in self.zoomPoints:
-            if all((z.has_key('x'),z.has_key('y'),z.has_key('z'))):
+            if all((z.has_key('x'),z.has_key('y'),z.has_key('z'), z.has_key('w'))):
                 ptsInCam.append([z['x'],z['y'],z['z']])
-        
+                wPositions.append(float(z['w']))
+            
         print "going to measure_tip_path in controller"
-        self.measure_tip_path(ptsInCam)
+        self.measure_tip_path(ptsInCam, wPositions)
         self.updateFramesDisplay_(sender)
     
     @IBAction
@@ -609,9 +611,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
         # if the path of the electrode has been fit...
         if self.cnc.pathParams != None:
             # use self.ocW to calculate the position in the camera frame and then map that to skull coordinates
-            tipPosition = self.cnc.calculate_tip_position(self.ocW)
-            tipPosition = vector.make_homogeneous(tipPosition)
-            skullCoord = self.fManager.transform_point(tipPosition, "camera", "skull")[0]
+            print "trying to update mesh views pathParams"
+            tipPosition = numpy.ones(4,dtype=numpy.float64)
+            tipPosition[:3] = self.cnc.calculate_tip_position(self.ocW)
+            print tipPosition
+            skullCoord = numpy.array(self.fManager.transform_point(tipPosition, "camera", "skull"))[0]
+            print skullCoord
             
             # ML = X
             self._.ocML = skullCoord[0]
@@ -621,13 +626,20 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self._.ocDV = skullCoord[2]
             
             # draw the path and position of the electrode
-            o = vector.make_homogeneous(self.cnc.pathParams[:3])
-            m = vector.make_homogeneous(self.cnc.pathParams[3:])
-            oInS = self.fManager.transform_point(o, "camera", "skull")[0]
-            mInS = self.fManager.transform_point(m, "camera", "skull")[0]
+            o = numpy.ones(4,dtype=numpy.float64)
+            o[:3] = self.cnc.pathParams[:3]
+            m = numpy.ones(4,dtype=numpy.float64)
+            m[:3] = self.cnc.pathParams[3:]
+            print o, m
+            #o = vector.make_homogeneous(self.cnc.pathParams[:3])
+            #m = vector.make_homogeneous(self.cnc.pathParams[3:])
+            oInS = numpy.array(self.fManager.transform_point(o, "camera", "skull"))[0]
+            mInS = numpy.array(self.fManager.transform_point(m, "camera", "skull"))[0]
+            print oInS, mInS
             self.meshView.pathParams = [oInS[0], oInS[1], oInS[2], mInS[0], mInS[1], mInS[2]]
             # TODO add the rotation as defined by the path etc...
             self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], 0., 0., 0.))
+            print self.meshView.electrodeMatrix
             self.meshView.drawElectrode = True
             self.meshView.scheduleRedisplay()
             

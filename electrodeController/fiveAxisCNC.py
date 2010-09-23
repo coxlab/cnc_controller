@@ -55,13 +55,14 @@ class FiveAxisCNC:
                 return True
         return False
     
-    def measure_tip_path(self, tipLocations):
+    def measure_tip_path(self, tipLocations, wPositions):
         """
         Fit a 3d line to a collection of tip locations to determine the path 
         of the electrode in the camera frame [the frame of the tip locations]
         """
-        pathParams = fit_3d_line(tipLocations) # [x0, y0, z0, a, b, c]
+        pathParams = fit_3d_line(tipLocations, wPositions) # [x0, y0, z0, a, b, c]
         self.pathParams = pathParams
+        print pathParams
         return self.pathParams
     
     def calculate_tip_position(self, t):
