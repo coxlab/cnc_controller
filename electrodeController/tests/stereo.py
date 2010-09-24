@@ -18,6 +18,8 @@ rFrameDir = 'blender_stereo/right'
 imageExt = '.jpg'
 lFileList = [lFrameDir + '/' + f for f in os.listdir(lFrameDir) if imageExt in f]
 rFileList = [rFrameDir + '/' + f for f in os.listdir(rFrameDir) if imageExt in f]
+lFileList.sort()
+rFileList.sort()
 
 sCam = stereocamera.stereocamera.StereoCamera(fakeCameras=True)
 sCam.cameras[0].set_file_list(lFileList)
