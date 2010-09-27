@@ -81,7 +81,8 @@ class StereoCamera:
     def capture_calibration_images(self, gridSize):
         ims = []
         for c in self.cameras:
-            if len(c.calibrationImages) < 7:
+            #if len(c.calibrationImages) < 7:
+            if True: # get lots of calibration images
                 im, s = c.capture_calibration_image(gridSize)
                 ims.append((im, s))
             else:

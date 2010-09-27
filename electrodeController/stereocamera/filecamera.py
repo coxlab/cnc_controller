@@ -32,6 +32,7 @@ class FileCamera(camera.Camera):
                 raise IOError, "Failed to find a valid frame"
         im.transpose(Image.FLIP_TOP_BOTTOM)
         frame = pylab.asarray(im)
+        #print "loaded %s" % self.fileList[self.fileIndex]
         self.fileIndex += 1
         # convert frame to grayscale
         if len(frame.shape) == 3:

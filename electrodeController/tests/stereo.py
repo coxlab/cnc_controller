@@ -9,7 +9,7 @@ sys.path.append('../..')
 from electrodeController import stereocamera
 from electrodeController.stereocamera import conversions
 
-gridSize = (5,5) #(8,5)
+gridSize = (7,7) #(8,5)
 gridBlockSize = 2.
 
 # order of these frames within the directory is critically important!!!
@@ -27,7 +27,9 @@ sCam.cameras[1].set_file_list(rFileList)
 
 print "Capturing calibration images"
 pylab.ion()
-for i in xrange(len(lFrameDir)-2):
+#for i in xrange(len(lFileList)-1):
+nCalImgs = 12
+for i in xrange(nCalImgs):
     rs = sCam.capture_calibration_images(gridSize)
     print "Found grid?", rs[0][1], rs[1][1]
     if (rs[0][1] == False) or (rs[1][1] == False):
@@ -40,6 +42,9 @@ for i in xrange(len(lFrameDir)-2):
         pylab.gray()
         pylab.colorbar()
         pylab.show()
+
+for i in xrange(len(lFileList) - nCalImgs - 1): # capture the remaining images to get to the localization frame
+    sCam.capture()
 
 print "Calibrating cameras"
 errs = sCam.calibrate(gridSize, gridBlockSize)

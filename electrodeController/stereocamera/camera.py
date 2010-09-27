@@ -111,7 +111,7 @@ class Camera:
         self.distCoeffs = cv.CreateMat(5, 1, cv.CV_64FC1)
         cv.SetZero(self.distCoeffs)
         
-        nGrids = len(self.calibrationImgPts)
+        nGrids = len(self.calibrationImages)
         #if nGrids != 7:
         #    raise ValueError('Calibration should only be performed with 7 images')
         gridN = gridSize[0] * gridSize[1]
