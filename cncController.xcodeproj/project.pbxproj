@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
-		6873995C124B98FF00445001 /* electrodeController in Resources */ = {isa = PBXBuildFile; fileRef = 687398A4124B98FE00445001 /* electrodeController */; };
+		68E1C297125296CC00267576 /* electrodeController in Resources */ = {isa = PBXBuildFile; fileRef = 68E1C160125296CC00267576 /* electrodeController */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -37,7 +37,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		687398A4124B98FE00445001 /* electrodeController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = electrodeController; sourceTree = "<group>"; };
+		68E1C160125296CC00267576 /* electrodeController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = electrodeController; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* cncController-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "cncController-Info.plist"; sourceTree = "<group>"; };
 		BF0C00D011C5773700D994B0 /* ocMeshView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocMeshView.py; sourceTree = "<group>"; };
 		BF0C00DF11C5A0B200D994B0 /* quaternion.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = quaternion.py; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				687398A4124B98FE00445001 /* electrodeController */,
+				68E1C160125296CC00267576 /* electrodeController */,
 				BF0C00DF11C5A0B200D994B0 /* quaternion.py */,
 				256AC3F00F4B6AF500CF3369 /* cncController_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -223,7 +223,7 @@
 				BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */,
 				BF91F36111D5366000049A44 /* zoomView.py in Resources */,
 				BF54661111D8D4A70095F0ED /* ocAtlasView.py in Resources */,
-				6873995C124B98FF00445001 /* electrodeController in Resources */,
+				68E1C297125296CC00267576 /* electrodeController in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

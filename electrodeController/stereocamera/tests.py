@@ -8,6 +8,7 @@ import pylab
 import filecamera
 import camera
 import conversions
+import stereocamera
 
 global dc1394Available
 dc1394Available = False
@@ -26,7 +27,7 @@ def test_stereo_localization(camIDs, gridSize, gridBlockSize, calibrationDirecto
             c.frameIndex = 3
     else:
         print "CameraPair"
-        cp = CameraPair(camIDs)
+        cp = stereocamera.StereoCamera(camIDs)
     print "Connect"
     cp.connect()
     print "Capture"
@@ -101,6 +102,9 @@ def test_stereo_localization(camIDs, gridSize, gridBlockSize, calibrationDirecto
         pylab.subplot(122)
         pylab.imshow(numpy.array(conversions.CVtoNumPy(ims[1])))
         pylab.gray()
+    
+    cp.disconnect()
+    del cp
 
 def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='calibrations', frameDirectory=None):
     print "Create"
@@ -217,8 +221,11 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
     #cp.save_calibrations(calibrationDirectory)
 
 def test_single_camera(camID, gridSize, gridBlockSize, calibrationDirectory='calibrations'):
+    if dc1394Available == False:
+        print "dc1394 not found"
+        sys.exit(1)
     print "Create"
-    cam = CalibratedCamera(camID)
+    cam = dc1394camera.DC1394Camera(camID)
     print "Connect"
     cam.connect()
     # test capture
@@ -229,10 +236,12 @@ def test_single_camera(camID, gridSize, gridBlockSize, calibrationDirectory='cal
     pylab.imshow(conversions.CVtoNumPy(im))
     pylab.gray()
     print "Calibrate"
-    while len(cam.calibrationImages) < 7:
+    #while len(cam.calibrationImages) < 7:
+    while True:
         if poll_user("Capture next image?", "y", "n", 0):
             print "Quitting calibration"
-            sys.exit(1)
+            #sys.exit(1)
+            break
         else:
             im, s = cam.capture_calibration_image(gridSize)
             pylab.imshow(conversions.CVtoNumPy(im))
@@ -256,6 +265,8 @@ def test_single_camera(camID, gridSize, gridBlockSize, calibrationDirectory='cal
     
     print "Save calibration"
     cam.save_calibration(calibrationDirectory)
+    cam.disconnect()
+    del cam
 
 def test_file_camera(camID, frameDir):
     print "Create"
@@ -297,8 +308,8 @@ if __name__ == "__main__":
     # gridBlockSize = 1.27
     # gridSize = (8,6)
     # gridBlockSize = 1.
-    gridSize = (8,6)
-    gridBlockSize = 1.
+    gridSize = (7,6)
+    gridBlockSize = 4.
     
     #left = 49712223528793951
     #right = 49712223528793946
