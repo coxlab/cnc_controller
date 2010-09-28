@@ -31,7 +31,10 @@ class Controller:
     def __init__(self):
         self.fManager = frameManager.FrameManager(['skull', 'tricorner', 'camera', 'cnc'])
         self.cnc = fiveAxisCNC.FiveAxisCNC()
-        self.cameras = stereocamera.stereocamera.StereoCamera(cfg.camIDs, cfg.fakeCameras)
+        if cfg.fakeCameras = True:
+            self.cameras = stereocamera.stereocamera.StereoCamera(cfg.camIds, stereocamera.filecamera.FileCamera)
+        else:
+            self.cameras = stereocamera.stereocamera.StereoCamera(cfg.camIDs, stereocamera.dc1394camera.DC1394Camera)
         self.cameras.logDirectory = cfg.cameraLogDir
         self.animal = None
         #self.imageProcessor = imageProcessing.Processor(self.cameras)

@@ -80,6 +80,39 @@ class Camera:
         if len(corners) != gridN:
             return image, corners, False
         
+        # check order of corners
+        # # check that grid is not rotated
+        # dyh = abs(corners[1][1] - corners[0][1])
+        # dyv = abs(corners[gridSize[0]][1] - corners[0][1])
+        # if dyh > dyv:
+        #     # grid is rotated (columns and rows are swapped)
+        #     newCorners = []
+        #     for i in xrange(len(corners)):
+        #         divmod(i,gridSize[0])
+        #          * gridSize
+        #         newCorners.append()
+        # xs should be ascending
+        if corners[0][0] > corners[1][0]:
+            #print "flipping rows"
+            for r in xrange(gridSize[1]):
+                for c in xrange(gridSize[0]/2):
+                    i = c + r * gridSize[0]
+                    i2 = (gridSize[0] - c - 1) + r * gridSize[0]
+                    o = corners[i]
+                    corners[i] = corners[i2]
+                    corners[i2] = o
+        
+        # ys should be descending
+        if corners[0][1] < corners[gridSize[0]][1]:
+            #print "flipping columns"
+            for c in xrange(gridSize[0]):
+                for r in xrange(gridSize[1]/2):
+                    i = c + r * gridSize[0]
+                    i2 = c + (gridSize[1] - r - 1) * gridSize[0]
+                    o = corners[i]
+                    corners[i] = corners[i2]
+                    corners[i2] = o
+        
         return image, corners, True
     
     
@@ -258,6 +291,7 @@ class Camera:
             # flipping y and z to make this left-handed
             return self.itoWMatrix[3,0], -self.itoWMatrix[3,1], -self.itoWMatrix[3,2]
         else:
+            raise Exception
             return 0, 0, 0
     
     def get_3d_position(self, x, y):
@@ -265,9 +299,17 @@ class Camera:
             #tp = numpy.matrix([ x - self.camMatrix[0,2], y - self.camMatrix[1,2], 1., 1. ])
             tp = numpy.array([x - self.camMatrix[0,2], y - self.camMatrix[1,2], 1., 1.])
             tr = numpy.array(tp * self.itoWMatrix)[0]
+            # trm = numpy.zeros(4,dtype=numpy.float64)
+            # for i in xrange(4):
+            #     for j in xrange(4):
+            #         trm[i] += tp[j] * self.itoWMatrix[j,i]
+            # if sum(numpy.abs(tr - trm)) > 1e-9:
+            #     print tr, trm
+            #     tr = trm
             # flipping y and z to make this left-handed
             return tr[0]/tr[3], -tr[1]/tr[3], -tr[2]/tr[3]
         else:
+            raise Exception
             return 0, 0, 0
 
 def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):

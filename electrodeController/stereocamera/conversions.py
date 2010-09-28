@@ -36,7 +36,27 @@ def NumPy2Ipl(input):
     return result
 
 
-def CVtoNumPy(im):
+def CVtoNumPy(m):
+    if type(m) == cv.cvmat:
+        return matToNumPy(m)
+    else:
+        return imToNumPy(m)
+
+def matToNumPy(m):
+    if m.type == cv.CV_64F:
+        d = numpy.float64
+    elif m.type == cv.CV_32F:
+        d = numpy.float32
+    elif m.type == cv.CV_8U:
+        d = numpy.uint8
+    elif m.type == cv.CV_16U:
+        d = numpy.uint16
+    else:
+        raise Exception, "unknown type" + str(m.type)
+    a = numpy.fromstring(m.tostring(),dtype=d).reshape((m.height, m.width))
+    return a
+
+def imToNumPy(im):
     if im.depth == cv.IPL_DEPTH_8U:
         d = numpy.uint8
     elif im.depth == cv.IPL_DEPTH_16U:
@@ -46,7 +66,7 @@ def CVtoNumPy(im):
     elif im.depth == cv.IPL_DEPTH_64F:
         d = numpy.float64
     else:
-        raise Exception, "unknown depth" + str(cv.depth)
+        raise Exception, "unknown depth" + str(im.depth)
     #a = numpy.zeros((cv.height,cv.width),dtype=d)
     a = numpy.fromstring(im.tostring(),dtype=d).reshape((im.height,im.width))
     if (a.shape[0] != im.height) or (a.shape[1] != im.width):

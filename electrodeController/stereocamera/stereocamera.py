@@ -15,12 +15,21 @@ except:
 
 class StereoCamera:
     """A simple class that contains two Camera objects"""
-    def __init__(self, camIDs=[None, None], fakeCameras=False):
+    #def __init__(self, camIDs=[None, None], fakeCameras=False):
+    def __init__(self, camIDs=[None, None], cameraClass=None):
         global dc1394Available
-        if fakeCameras or (dc1394Available == False):
-            self.cameras = [filecamera.FileCamera(camIDs[0]), filecamera.FileCamera(camIDs[1])]
+        if cameraClass == None:
+            if dc1394Available:
+                self.cameras = [dc1394camera.DC1394Camera(camIDs[0]), dc1394camera.DC1394Camera(camIDs[1])]
+            else:
+                self.cameras = [filecamera.FileCamera(camIDs[0]), filecamera.FileCamera(camIDs[1])]
         else:
-            self.cameras = [dc1394camera.DC1394Camera(camIDs[0]), dc1394camera.DC1394Camera(camIDs[1])]
+            self.cameras = [cameraClass(camIDs[0]), cameraClass(camIDs[1])]
+        
+        # if fakeCameras or (dc1394Available == False):
+        #     self.cameras = [filecamera.FileCamera(camIDs[0]), filecamera.FileCamera(camIDs[1])]
+        # else:
+        #     self.cameras = [dc1394camera.DC1394Camera(camIDs[0]), dc1394camera.DC1394Camera(camIDs[1])]
         
         # for logging #TODO find a better way to do this
         self.frameNum = 0
@@ -110,6 +119,8 @@ class StereoCamera:
     
     
     def locate(self, gridSize, gridBlockSize):
+        if gridSize[0] == gridSize[1]:
+            raise ValueError, "The grid must not be square"
         for c in self.cameras:
             c.locate(gridSize, gridBlockSize)
     
@@ -132,6 +143,7 @@ class StereoCamera:
     
     
     def get_3d_position(self, points):
+        #print "0 0 0 0 %+.2f %+.2f 0 %+.2f %+.2f 0" % (points[0][0], points[0][1], points[1][0], points[1][1])
         #TODO make this accept >2 cameras
         if len(points) != len(self.cameras):
             raise ValueError, "number of points must equal the number of cameras"
@@ -143,7 +155,6 @@ class StereoCamera:
         
         r1, r2 = intersection(self.cameras[0].get_position(), p3ds[0],
             self.cameras[1].get_position(), p3ds[1])
-        
         return midpoint(r1, r2)
 
 def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):
@@ -191,28 +202,63 @@ def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):
 
 
 def intersection(o1, p1, o2, p2):
-    x = numpy.array(o2) - numpy.array(o1)
-    d1 = numpy.array(p1) - numpy.array(o1)
-    d2 = numpy.array(p2) - numpy.array(o2)
+    # http://softsurfer.com/Archive/algorithm_0106/algorithm_0106.htm
+    p0 = numpy.array(o1)
+    q0 = numpy.array(o2)
+    u = numpy.array(p1) - numpy.array(p0)
+    v = numpy.array(p2) - numpy.array(q0)
+    # lines are:
+    #  p0 + s*u
+    #  q0 + t*v
+    w0 = p0 - q0
     
-    c = numpy.array([d1[1]*d2[2] - d1[2]*d2[1],
-            d1[2]*d2[0] - d1[0]*d2[2],
-            d1[0]*d2[1] - d1[1]*d2[0]])
-    den = c[0]**2 + c[1]**2 + c[2]**2
+    # check if lines are parallel
+    a = numpy.dot(u,u)
+    b = numpy.dot(u,v)
+    c = numpy.dot(v,v)
+    d = numpy.dot(u,w0)
+    e = numpy.dot(v,w0)
+    denom = a * c - b**2
+    if denom < 1e-9:
+        # lines are parallel!
+        print "Lines are parallel, 3d localization is invalid"
     
-    if den < 1e-9:
-        print "3d localization is invalid"
+    sc = (b*e - c*d)/denom
+    tc = (a*e - b*d)/denom
     
-    def det(v1, v2, v3):
-        return v1[0]*v2[1]*v3[2] + v1[2]*v2[0]*v3[1] + v1[1]*v2[2]*v3[0] - v1[2]*v2[1]*v3[0] - v1[0]*v2[2]*v3[1] - v1[1]*v2[0]*v3[2]
+    # calculate vector bridging closest point
+    #wc = p(sc) - q(tc)
+    r1 = p0 + sc*u
+    r2 = q0 + tc*v
+    wc = r1 - r2
+    #print "Vectors get this close:", numpy.linalg.norm(wc)
     
-    t1 = det(x, d2, c) / den
-    t2 = det(x, d1, c) / den
-    
-    r1 = o1 + d1 * t1
-    r2 = o2 + d2 * t2
+    #print "0 0 0 0 %+.2f %+.2f %+.2f %+.2f %+.2f %+.2f" % (r1[0], r1[1], r1[2], r2[0], r2[1], r2[2])
     
     return r1, r2
+    
+    # x = numpy.array(o2) - numpy.array(o1)
+    # d1 = numpy.array(p1) - numpy.array(o1)
+    # d2 = numpy.array(p2) - numpy.array(o2)
+    # 
+    # c = numpy.array([d1[1]*d2[2] - d1[2]*d2[1],
+    #         d1[2]*d2[0] - d1[0]*d2[2],
+    #         d1[0]*d2[1] - d1[1]*d2[0]])
+    # den = c[0]**2 + c[1]**2 + c[2]**2
+    # 
+    # if den < 1e-9:
+    #     print "3d localization is invalid"
+    # 
+    # def det(v1, v2, v3):
+    #     return v1[0]*v2[1]*v3[2] + v1[2]*v2[0]*v3[1] + v1[1]*v2[2]*v3[0] - v1[2]*v2[1]*v3[0] - v1[0]*v2[2]*v3[1] - v1[1]*v2[0]*v3[2]
+    # 
+    # t1 = det(x, d2, c) / den
+    # t2 = det(x, d1, c) / den
+    # 
+    # r1 = o1 + d1 * t1
+    # r2 = o2 + d2 * t2
+    # 
+    # return r1, r2
 
 
 def midpoint(p1, p2):
