@@ -3,8 +3,8 @@
 import logging
 log = logging.getLogger(__name__)
 
-import conversions, filecamera, stereocamera
-__all__ = ['conversions', 'filecamera', 'stereocamera']
+import conversions, filecamera, stereocamera, stringcamera
+__all__ = ['conversions', 'filecamera', 'stereocamera', 'stringcamera']
 
 # try to load dc1394camera
 # this will fail if python cannot find pydc1394
