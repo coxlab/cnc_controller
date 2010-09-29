@@ -292,18 +292,30 @@ def test_frame_manager():
     print "Testing routes:"
     test_routes(); print
     
-    m = vector.transform_to_matrix(10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5),
-                                    10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5))
+    tR = 10.
+    rR = 6.28
+    randomTransforms = True
+    if randomTransforms:
+        m = vector.transform_to_matrix(tR*(random.rand()-0.5), tR*(random.rand()-0.5), tR*(random.rand()-0.5),
+                                    rR*(random.rand()-0.5), rR*(random.rand()-0.5), rR*(random.rand()-0.5))
+    else:
+        m = vector.transform_to_matrix(tR, tR, tR, rR, rR, rR)
     fm.add_transformation_matrix('skull','tc',m)
     test_routes(); print
     
-    m = vector.transform_to_matrix(10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5),
-                                    10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5))
+    if randomTransforms:
+        m = vector.transform_to_matrix(tR*(random.rand()-0.5), tR*(random.rand()-0.5), tR*(random.rand()-0.5),
+                                    rR*(random.rand()-0.5), rR*(random.rand()-0.5), rR*(random.rand()-0.5))
+    else:
+        m = vector.transform_to_matrix(tR, tR, tR, rR, rR, rR)
     fm.add_transformation_matrix('tc','camera',m)
     test_routes(); print
     
-    m = vector.transform_to_matrix(10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5),
-                                    10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5))
+    if randomTransforms:
+        m = vector.transform_to_matrix(tR*(random.rand()-0.5), tR*(random.rand()-0.5), tR*(random.rand()-0.5),
+                                    rR*(random.rand()-0.5), rR*(random.rand()-0.5), rR*(random.rand()-0.5))
+    else:
+        m = vector.transform_to_matrix(tR, tR, tR, rR, rR, rR)
     fm.add_transformation_matrix('camera','cnc',m)
     test_routes(); print
     
@@ -350,6 +362,43 @@ def test_frame_manager():
                 print 'sse:   ',sse
             if errMatrix: print '%.4f\t' % sse,
         if errMatrix: print
+    
+    print
+    print "Checking: s-e = inv(e-s)"
+    print '\t',
+    for f in fm.frameNames:
+        print '%s\t' % f,
+    print
+    
+    for s in fm.frameNames:
+        print '%s\t' % s,
+        for e in fm.frameNames:
+            #sPoint = points[s]
+            #ePoint = points[s] * fm.get_transformation_matrix(s,e)
+            #rPoint = points[e] * fm.get_transformation_matrix(e,s)
+            #sse = sum(array(ePoint - rPoint)**2)
+            sem = fm.get_transformation_matrix(s,e)
+            esm = fm.get_transformation_matrix(e,s)
+            sse = sum((sem*esm - identity(4))**2)
+            print '%.4f\t' % sse,
+        print
+    
+    print
+    print "Reverse projections"
+    print '\t',
+    for f in fm.frameNames:
+        print '%s\t' % f,
+    print
+    
+    for s in fm.frameNames:
+        print '%s\t' % s,
+        for e in fm.frameNames:
+            sPoint = points[s]
+            ePoint = points[s] * fm.get_transformation_matrix(s,e)
+            rPoint = points[e] * fm.get_transformation_matrix(e,s)
+            sse = sum(array(sPoint - rPoint)**2)
+            print '%.4f\t' % sse,
+        print
 
 def test_frame_translation():
     testFrameNames = []
