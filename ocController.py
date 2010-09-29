@@ -191,6 +191,39 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.disable_motors()
     
     @IBAction
+    def loadLog_(self, sender):
+        panel = NSOpenPanel.openPanel()
+        panel.setCanChooseDirectories_(YES)
+        panel.setCanChooseFiles_(NO)
+        panel.setAllowsMultipleSelection_(NO)
+        #panel.setAllowedFileTypes_(['obj'])
+        
+        def url_to_string(url):
+            return str(url)[16:]
+        
+        panel.setTitle_("Select the log directory you'd like to replay")
+        retValue = panel.runModal()
+        logDir = ""
+        if retValue:
+            logDir = url_to_string(panel.URLs()[0])
+        else:
+            print "Log directory selection canceled"
+            return
+        
+        # load log directory
+        if cfg.fakeCameras:
+            lCamDir = logDir + '/camera/0/'
+            lFileList = [lCamDir + f for f in os.listdir(lCamDir)]
+            self.cameras.cameras[0].set_file_list(lFileList)
+            rCamDir = logDir + '/camera/1/'
+            rFileList = [rCamDir + f for f in os.listdir(rCamDir)]
+            self.cameras.cameras[1].set_file_list(rFileList)
+        
+        # TODO load frames
+        
+        self.updateFramesDisplay_(sender)
+    
+    @IBAction
     def loadAnimal_(self, sender):
         # I need to switch to the mesh view first because of a bug in load_obj that
         # fubars other textures and prevents the obj from loading properly
@@ -626,17 +659,30 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self._.ocDV = skullCoord[2]
             
             # draw the path and position of the electrode
-            o = numpy.ones(4,dtype=numpy.float64)
-            o[:3] = self.cnc.pathParams[:3]
-            m = numpy.ones(4,dtype=numpy.float64)
-            m[:3] = self.cnc.pathParams[3:]
-            print o, m
-            #o = vector.make_homogeneous(self.cnc.pathParams[:3])
-            #m = vector.make_homogeneous(self.cnc.pathParams[3:])
-            oInS = numpy.array(self.fManager.transform_point(o, "camera", "skull"))[0]
-            mInS = numpy.array(self.fManager.transform_point(m, "camera", "skull"))[0]
-            print oInS, mInS
-            self.meshView.pathParams = [oInS[0], oInS[1], oInS[2], mInS[0], mInS[1], mInS[2]]
+            o = numpy.array(self.cnc.pathParams[:3])
+            m = numpy.array(self.cnc.pathParams[3:])
+            p1 = numpy.ones(4, dtype=numpy.float64)
+            p2 = numpy.ones(4, dtype=numpy.float64)
+            p1[:3] = o - 1000.*m
+            p2[:3] = o + 1000.*m
+            
+            p1InS = numpy.array(self.fManager.transform_point(p1, "camera", "skull"))[0]
+            p2InS = numpy.array(self.fManager.transform_point(p2, "camera", "skull"))[0]
+            print p1, p2
+            self.meshView.pathParams = [p1[0], p1[1], p1[2], p2[0], p2[1], p2[2]]
+            
+            #o = numpy.ones(4,dtype=numpy.float64)
+            #o[:3] = self.cnc.pathParams[:3]
+            #m = numpy.ones(4,dtype=numpy.float64)
+            #m[:3] = self.cnc.pathParams[3:]
+            #print o, m
+            ##o = vector.make_homogeneous(self.cnc.pathParams[:3])
+            ##m = vector.make_homogeneous(self.cnc.pathParams[3:])
+            #oInS = numpy.array(self.fManager.transform_point(o, "camera", "skull"))[0]
+            #mInS = numpy.array(self.fManager.transform_point(m, "camera", "skull"))[0]
+            #print oInS, mInS
+            #self.meshView.pathParams = [oInS[0], oInS[1], oInS[2], mInS[0], mInS[1], mInS[2]]
+            
             # TODO add the rotation as defined by the path etc...
             self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], 0., 0., 0.))
             print self.meshView.electrodeMatrix

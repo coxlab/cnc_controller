@@ -5,11 +5,10 @@ import os
 import numpy
 
 import cfg
-import fiveAxisCNC
+import camera
+import cnc
 import frameManager
 import vector
-
-import stereocamera
 
 # if cfg.fakeCameras:
 #     import cameraPair
@@ -29,21 +28,39 @@ import stereocamera
 
 class Controller:
     def __init__(self):
-        self.fManager = frameManager.FrameManager(['skull', 'tricorner', 'camera', 'cnc'])
-        self.cnc = fiveAxisCNC.FiveAxisCNC()
-        if cfg.fakeCameras = True:
-            self.cameras = stereocamera.stereocamera.StereoCamera(cfg.camIds, stereocamera.filecamera.FileCamera)
+        # construct cameras
+        if cfg.fakeCameras == True:
+            self.cameras = camera.stereocamera.StereoCamera(cfg.camIDs, camera.filecamera.FileCamera)
         else:
-            self.cameras = stereocamera.stereocamera.StereoCamera(cfg.camIDs, stereocamera.dc1394camera.DC1394Camera)
+            self.cameras = camera.stereocamera.StereoCamera(cfg.camIDs, camera.dc1394camera.DC1394Camera)
         self.cameras.logDirectory = cfg.cameraLogDir
+        self.connect_cameras()
+        
+        # create frame manager
+        self.fManager = frameManager.FrameManager(['skull', 'tricorner', 'camera', 'cnc'])
+        # TODO load tc to camera matrix
+        
+        # construct cnc
+        self.cnc = cnc.cnc.FiveAxisCNC()
+        
         self.animal = None
-        #self.imageProcessor = imageProcessing.Processor(self.cameras)
+    
+    def connect_cameras(self):
+        # check if cameras are connected, if not, connect
+        if not all(self.cameras.get_connected()):
+            self.cameras.connect()
+        
+        # check if cameras are calibrated, if not, load calibration
+        if not all(self.cameras.get_calibrated()):
+            self.cameras.load_calibrations(cfg.calibrationDirectory)
     
     def cleanup(self):
         self.cameras.disconnect()
         if cfg.fakeCameras == False:
-            stereocamera.dc1394camera.close_dc1394()
+            camera.dc1394camera.close_dc1394()
     
+    
+    # --- frame constructing/loading ---
     
     def load_animal(self, animalCfgFile):
         # load animal configuration file
@@ -55,15 +72,6 @@ class Controller:
         # load skull-to-tricorner transformation matrix and add to frameStack
         self.fManager.add_transformation_matrix('skull', 'tricorner', numpy.matrix(numpy.loadtxt(cfg.skullToTCMatrixFile)))
     
-    
-    def connect_cameras(self):
-        # check if cameras are connected, if not, connect
-        if not all(self.cameras.get_connected()):
-            self.cameras.connect()
-        
-        # check if cameras are calibrated, if not, load calibration
-        if not all(self.cameras.get_calibrated()):
-            self.cameras.load_calibrations(cfg.calibrationDirectory)
     
     def register_cameras(self, ptsInCamera):
         # # find location of 3 tricorner reference points
@@ -83,7 +91,13 @@ class Controller:
         pathParams = self.cnc.measure_tip_path(ptsInCamera, wPositions)
         cfg.cncLog.info('Found tip path params: %+.2f %+.2f %+.2f %.2f %.2f %.2f' % (pathParams[0], pathParams[1], pathParams[2], pathParams[3], pathParams[4], pathParams[5]))
     
+    # ----- Dead function only beyond this point -----
+    # ----- Dead function only beyond this point -----
+    # ----- Dead function only beyond this point -----
+    # ----- Dead function only beyond this point -----
+    
     def register_cnc(self, ptsInCamera, angles, wPositions):
+        raise Exception, "Does not work"
         armLength = self.cnc.calculate_arm_length(ptsInCamera, angles, wPositions)
         cfg.cncLog.info('Found arm length: %f' % armLength)
         
@@ -104,8 +118,9 @@ class Controller:
         cfg.framesLog.info(ptsInCamera)
         cfg.framesLog.info(ptsInCNC)
         self.fManager.add_transformation_matrix('camera', 'cnc', camToCNC)
-        
+    
     def automated_find_tip(self):
+        raise Exception, "Does not work"
         # enable axis motors
         self.cnc.enable_motors()
         

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
-		68E1C297125296CC00267576 /* electrodeController in Resources */ = {isa = PBXBuildFile; fileRef = 68E1C160125296CC00267576 /* electrodeController */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -25,6 +24,7 @@
 		BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BF9C84D711527B5100C68A5A /* physiology_icon.icns */; };
 		BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */ = {isa = PBXBuildFile; fileRef = BFD1491511D3EE5E002CA13F /* a_10.obj */; };
 		BFDBF0D110CDBF7C00962C45 /* example.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDBF0D010CDBF7C00962C45 /* example.png */; };
+		BFF60B0F1253C06900AE861B /* electrodeController in Resources */ = {isa = PBXBuildFile; fileRef = BFF60AAE1253C06900AE861B /* electrodeController */; };
 		BFF6149011C3D7CF00B76C8A /* ocCenteringSlider.py in Resources */ = {isa = PBXBuildFile; fileRef = BFF6148F11C3D7CF00B76C8A /* ocCenteringSlider.py */; };
 /* End PBXBuildFile section */
 
@@ -37,7 +37,6 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		68E1C160125296CC00267576 /* electrodeController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = electrodeController; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* cncController-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "cncController-Info.plist"; sourceTree = "<group>"; };
 		BF0C00D011C5773700D994B0 /* ocMeshView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocMeshView.py; sourceTree = "<group>"; };
 		BF0C00DF11C5A0B200D994B0 /* quaternion.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = quaternion.py; sourceTree = "<group>"; };
@@ -53,6 +52,7 @@
 		BF9C84D711527B5100C68A5A /* physiology_icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = physiology_icon.icns; sourceTree = "<group>"; };
 		BFD1491511D3EE5E002CA13F /* a_10.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = a_10.obj; path = media/a_10.obj; sourceTree = "<group>"; };
 		BFDBF0D010CDBF7C00962C45 /* example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = example.png; path = media/example.png; sourceTree = "<group>"; };
+		BFF60AAE1253C06900AE861B /* electrodeController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = electrodeController; sourceTree = "<group>"; };
 		BFF6148F11C3D7CF00B76C8A /* ocCenteringSlider.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocCenteringSlider.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,7 +116,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				68E1C160125296CC00267576 /* electrodeController */,
+				BFF60AAE1253C06900AE861B /* electrodeController */,
 				BF0C00DF11C5A0B200D994B0 /* quaternion.py */,
 				256AC3F00F4B6AF500CF3369 /* cncController_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -223,7 +223,7 @@
 				BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */,
 				BF91F36111D5366000049A44 /* zoomView.py in Resources */,
 				BF54661111D8D4A70095F0ED /* ocAtlasView.py in Resources */,
-				68E1C297125296CC00267576 /* electrodeController in Resources */,
+				BFF60B0F1253C06900AE861B /* electrodeController in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
-import cfg
+from .. import cfg
+import axes
 if cfg.fakeCNC:
-    from cncAxes import FakeAxes as Axes
+    from axes import FakeAxes as Axes
 else:
-    from cncAxes import Axes
+    from axes import Axes
 #import cncAxes
 from numpy import *
 
@@ -80,6 +81,7 @@ class FiveAxisCNC:
     
     def calculate_arm_length(self, tipLocations, angles, wPositions):
         """Requires 3 measurements of the tip location at 3 angles"""
+        raise Exception, "Does not work"
         cfg.cncLog.info("measuring arm length with (wPositions, angles, tipLocations):")
         cfg.cncLog.info(wPositions)
         cfg.cncLog.info(angles)
@@ -113,9 +115,11 @@ class FiveAxisCNC:
         return self.arm_length
     
     def get_position_on_arm(self, angle, length):
+        raise Exception, "Does not work"
         return sin(angle)*length, -cos(angle)*length, 0.
     
     def get_tip_position_on_arm(self):
+        raise Exception, "Does not work"
         b = radians(float(self.headAxes.get_position('b')['b']))
         w = float(self.headAxes.get_position('w')['w']) #FIXME w axis flip
         return self.get_position_on_arm(radians(b), self.arm_length - w)

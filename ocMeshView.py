@@ -211,10 +211,12 @@ class OCMeshView(NSOpenGLView):
             self.load_obj(self.meshFilename, self.meshTextureFilename)
     
     def draw_tip_path(self):
-        o = numpy.array(self.pathParams[:3])
-        m = numpy.array(self.pathParams[3:])
-        p0 = o + (-1000. * m)
-        p1 = o + (1000. * m)
+        #o = numpy.array(self.pathParams[:3])
+        #m = numpy.array(self.pathParams[3:])
+        #p0 = o + (-1000. * m)
+        #p1 = o + (1000. * m)
+        p0 = self.pathParams[:3]
+        p1 = self.pathParams[3:]
         glColor(1., 0., 0., 1.)
         glBegin(GL_LINES)
         glVertex3f(*p0)

@@ -179,6 +179,7 @@ class FrameManager:
         self.frameStack = [] # fill this with None at first
         for i in xrange(len(self.frameNames)-1):
             self.frameStack.append(None)
+        self.points = []
     
     def add_transformation_matrix(self, fromFrame, toFrame, tMatrix):
         fromIndex = self.frameNames.index(fromFrame)
@@ -236,6 +237,28 @@ class FrameManager:
             return self.frameStack[fromIndex] * self._get_transformation_matrix_with_indices(fromIndex+1, toIndex)
         else:
             return inv(self.frameStack[fromIndex-1]) * self._get_transformation_matrix_with_indices(fromIndex-1, toIndex)
+    
+    # ------------------------------------
+    # --------- Point management ---------
+    # ------------------------------------
+    
+    def add_point(self, frame, x, y, z, **kwargs):
+        newPoint = {}
+        newPoint['frame'] = frame
+        newPoint['x'] = x
+        newPoint['y'] = y
+        newPoint['z'] = z
+        for k, v in kwargs.iteritems():
+            newPoint[k] = v
+        self.points.append(newPoint)
+    
+    def get_points_in_frame(self, frame):
+        r = []
+        for p in self.points:
+            if p['frame'] == frame:
+                r.append(p)
+        return r
+
 
 # # use a list ('stack') of frames, moving from one to the next
 # def get_transformation_matrix(frameStack, fromFrameIndex, toFrameIndex):
@@ -350,8 +373,8 @@ def test_frame_manager():
         if errMatrix: print '%s\t' % s,
         for e in fm.frameNames:
             tPoint = points[e]
-            M = fm.get_transformation_matrix(s,e)
-            cPoint = points[s] * M
+            #M = fm.get_transformation_matrix(s,e)
+            cPoint = fm.transform_point(points[s],s,e)#points[s] * M
             sse = sum(array(tPoint - cPoint)**2)
             if singleTransforms:
                 print '--from %s to %s' % (s, e)
@@ -393,10 +416,12 @@ def test_frame_manager():
     for s in fm.frameNames:
         print '%s\t' % s,
         for e in fm.frameNames:
-            sPoint = points[s]
-            ePoint = points[s] * fm.get_transformation_matrix(s,e)
-            rPoint = points[e] * fm.get_transformation_matrix(e,s)
-            sse = sum(array(sPoint - rPoint)**2)
+            ePoint = fm.transform_point(points[s],s,e)
+            rPoint = fm.transform_point(ePoint,e,s)
+            # sPoint = points[s]
+            # ePoint = points[s] * fm.get_transformation_matrix(s,e)
+            # rPoint = points[e] * fm.get_transformation_matrix(e,s)
+            sse = sum(array(points[s] - rPoint)**2)
             print '%.4f\t' % sse,
         print
 

@@ -46,7 +46,7 @@ if __name__ == '__main__':
     f = open('%s/root.log' % logDir, 'r')
     
     colors = [(0,0,1,1), (1,0,0,1), (0,1,0,1), (1,1,0,1), (1,0,1,1), (0,1,1,0)]
-    viewFrame = 'skull'
+    viewFrame = 'tricorner'
     
     locations = plotLog.get_camera_locations(f)
     matrices = plotLog.get_matrices(f)
@@ -73,9 +73,6 @@ if __name__ == '__main__':
     camLocs = array(fm.transform_point(camLocs, 'camera', viewFrame))
     tcPoints = array(fm.transform_point(tcPoints, 'tricorner', viewFrame))
     cTcPoints = array(fm.transform_point(cTcPoints, 'camera', viewFrame))
-    print tcPoints
-    print cTcPoints
-    print tcPoints - cTcPoints
     if False:
         tipPoints = array(fm.transform_point(tipPoints, 'cnc', viewFrame))
         cTipPoints = array(fm.transform_point(cTipPoints, 'camera', viewFrame))

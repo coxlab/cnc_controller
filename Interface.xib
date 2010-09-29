@@ -12,10 +12,10 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<integer value="930"/>
-			<integer value="907"/>
+			<integer value="81"/>
 			<integer value="811"/>
 			<integer value="871"/>
-			<integer value="29"/>
+			<integer value="907"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -186,7 +186,7 @@
 								</object>
 								<object class="NSMenuItem" id="722745758">
 									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">Open…</string>
+									<string key="NSTitle">Load Log</string>
 									<string key="NSKeyEquiv">o</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -6109,6 +6109,14 @@
 					</object>
 					<int key="connectionID">1393</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">loadLog:</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="722745758"/>
+					</object>
+					<int key="connectionID">1395</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -6189,7 +6197,6 @@
 							<reference ref="1023925487"/>
 							<reference ref="117038363"/>
 							<reference ref="49223823"/>
-							<reference ref="722745758"/>
 							<reference ref="705341025"/>
 							<reference ref="1025936716"/>
 							<reference ref="294629803"/>
@@ -6197,6 +6204,7 @@
 							<reference ref="579971712"/>
 							<reference ref="1010469920"/>
 							<reference ref="425164168"/>
+							<reference ref="722745758"/>
 						</array>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -9509,7 +9517,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1393</int>
+			<int key="maxID">1395</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9562,6 +9570,7 @@
 						<string key="clearZoomPoints:">id</string>
 						<string key="goToTarget:">id</string>
 						<string key="loadAnimal:">id</string>
+						<string key="loadLog:">id</string>
 						<string key="locateCameras:">id</string>
 						<string key="measurePath:">id</string>
 						<string key="moveBAxisClockwise:">id</string>
@@ -9607,6 +9616,10 @@
 						</object>
 						<object class="IBActionInfo" key="loadAnimal:">
 							<string key="name">loadAnimal:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="loadLog:">
+							<string key="name">loadLog:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="locateCameras:">
