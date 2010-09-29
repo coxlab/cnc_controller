@@ -201,16 +201,19 @@ if __name__ == '__main__':
     sTipPoints = get_skull_positions(f)
     
     # construct frame manager from data
-    fm = frameManager.FrameManager(['skull','tricorner','camera','cnc'])
+    fm = frameManager.FrameManager(['skull','tricorner','camera'])
+    #fm = frameManager.FrameManager(['skull','tricorner','camera','cnc'])
     for (n,m) in matrices.iteritems():
         fromFrame = n.split()[0]
         toFrame = n.split()[2]
         #if toFrame == 'cnc':
         #    m = inv(m)
+        print fromFrame, toFrame
         fm.add_transformation_matrix(fromFrame, toFrame, matrix(m))
     
     tcPoints, cTcPoints = points['cameras']
-    cTipPoints, tipPoints = points['cnc']
+    if False:
+        cTipPoints, tipPoints = points['cnc']
     # tcPoints : tricorner refs : in tricorner frame
     # cTcPoints : tricorner refs : in camera frame
     # cTipPoints : tip locations : in camera frame
@@ -236,8 +239,9 @@ if __name__ == '__main__':
     plot_points_in_frame(ax, tcPoints, fm, 'tricorner', plotFrame, c=colors[0], s=100, marker='^')
     plot_points_in_frame(ax, cTcPoints, fm, 'camera', plotFrame, c=colors[1], s=100, marker='^')
     
-    plot_points_in_frame(ax, tipPoints, fm, 'cnc', plotFrame, c=colors[0], s=100, marker='s')
-    plot_points_in_frame(ax, cTipPoints, fm, 'camera', plotFrame, c=colors[1], s=100, marker='s')
+    if False:
+        plot_points_in_frame(ax, tipPoints, fm, 'cnc', plotFrame, c=colors[0], s=100, marker='s')
+        plot_points_in_frame(ax, cTipPoints, fm, 'camera', plotFrame, c=colors[1], s=100, marker='s')
     
     # plot all matrices
     def plot_matrix(m, l1, l2):
@@ -271,7 +275,8 @@ if __name__ == '__main__':
     
     plot_matrix(fm.get_transformation_matrix('skull','tricorner'),'skull','tricorner')
     plot_matrix(fm.get_transformation_matrix('tricorner','camera'),'tricorner','camera')
-    plot_matrix(fm.get_transformation_matrix('camera','cnc'),'camera','cnc')
+    if False:
+        plot_matrix(fm.get_transformation_matrix('camera','cnc'),'camera','cnc')
     
     # plot tcPoints as seen from camera
     

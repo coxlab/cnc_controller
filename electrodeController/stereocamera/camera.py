@@ -288,8 +288,8 @@ class Camera:
         #if not self.calibrated:
         #    raise Exception, "Camera must be calibrated before calling get_position"
         if self.located:
-            # flipping y and z to make this left-handed
-            return self.itoWMatrix[3,0], -self.itoWMatrix[3,1], -self.itoWMatrix[3,2]
+            # Undid flip: flipping y and z to make this left-handed
+            return self.itoWMatrix[3,0], self.itoWMatrix[3,1], self.itoWMatrix[3,2]
         else:
             raise Exception
             return 0, 0, 0
@@ -306,8 +306,8 @@ class Camera:
             # if sum(numpy.abs(tr - trm)) > 1e-9:
             #     print tr, trm
             #     tr = trm
-            # flipping y and z to make this left-handed
-            return tr[0]/tr[3], -tr[1]/tr[3], -tr[2]/tr[3]
+            # Undid flip: flipping y and z to make this left-handed
+            return tr[0]/tr[3], tr[1]/tr[3], tr[2]/tr[3]
         else:
             raise Exception
             return 0, 0, 0

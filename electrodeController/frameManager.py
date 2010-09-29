@@ -233,32 +233,32 @@ class FrameManager:
         elif direction == -1:
             return inv(self.frameStack[toIndex])
         elif direction > 1:
-            return self._get_transformation_matrix_with_indices(fromIndex+1, toIndex) * self.frameStack[fromIndex]
+            return self.frameStack[fromIndex] * self._get_transformation_matrix_with_indices(fromIndex+1, toIndex)
         else:
             return inv(self.frameStack[fromIndex-1]) * self._get_transformation_matrix_with_indices(fromIndex-1, toIndex)
 
-# use a list ('stack') of frames, moving from one to the next
-def get_transformation_matrix(frameStack, fromFrameIndex, toFrameIndex):
-    """
-    frameStack = list of transformation matrices (of length N-1 where N is the number of frames)
-    """
-    #print fromFrameIndex, toFrameIndex
-    direction = toFrameIndex - fromFrameIndex
-    #A = matrix(identity(4,dtype=float64))
-    if direction == 0:
-        return matrix(identity(4, dtype=float64))
-    if direction == 1:
-        return frameStack[fromFrameIndex] # moving up stack, use stored matrix
-    elif direction == -1:
-        return inv(frameStack[toFrameIndex]) # moving down stack, use inverse
-    elif direction > 1:
-        # trying to move up more than one step, use recursion?
-        return get_transformation_matrix(frameStack, fromFrameIndex+1, toFrameIndex) * frameStack[fromFrameIndex]
-        #raise Exception('trying to move more than one step')
-    elif direction < -1:
-        # trying to move down more than one step, use recursion?
-        return inv(frameStack[fromFrameIndex-1]) * get_transformation_matrix(frameStack, fromFrameIndex-1, toFrameIndex)
-        #raise Exception('trying to move more than one step')
+# # use a list ('stack') of frames, moving from one to the next
+# def get_transformation_matrix(frameStack, fromFrameIndex, toFrameIndex):
+#     """
+#     frameStack = list of transformation matrices (of length N-1 where N is the number of frames)
+#     """
+#     #print fromFrameIndex, toFrameIndex
+#     direction = toFrameIndex - fromFrameIndex
+#     #A = matrix(identity(4,dtype=float64))
+#     if direction == 0:
+#         return matrix(identity(4, dtype=float64))
+#     if direction == 1:
+#         return frameStack[fromFrameIndex] # moving up stack, use stored matrix
+#     elif direction == -1:
+#         return inv(frameStack[toFrameIndex]) # moving down stack, use inverse
+#     elif direction > 1:
+#         # trying to move up more than one step, use recursion?
+#         return get_transformation_matrix(frameStack, fromFrameIndex+1, toFrameIndex) * frameStack[fromFrameIndex]
+#         #raise Exception('trying to move more than one step')
+#     elif direction < -1:
+#         # trying to move down more than one step, use recursion?
+#         return inv(frameStack[fromFrameIndex-1]) * get_transformation_matrix(frameStack, fromFrameIndex-1, toFrameIndex)
+#         #raise Exception('trying to move more than one step')
 
 # def test_frame_manager():
 #     fm = FrameManager()
@@ -266,7 +266,7 @@ def get_transformation_matrix(frameStack, fromFrameIndex, toFrameIndex):
 #     fm.add_transform('tricorner','camera',vector.transform_to_matrix(ty=1.))
 #     fm.add_transform('camera','cnc',vector.transform_to_matrix(tz=1.))
 #     
-#     skullPoint = matrix([ [10*(rand()-0.5), 10*(rand()-0.5), 10*(rand()-0.5), 1.] ])
+#     skullPoint = matrix([ [10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5), 1.] ])
 #     
 #     frames = ['tricorner', 'camera', 'cnc']
 #     for f in frames:
@@ -289,17 +289,21 @@ def test_frame_manager():
                 print '%s\t' % fm.test_route(f, tf),
             print
     
+    print "Testing routes:"
     test_routes(); print
     
-    m = vector.transform_to_matrix(tx=1.)
+    m = vector.transform_to_matrix(10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5),
+                                    10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5))
     fm.add_transformation_matrix('skull','tc',m)
     test_routes(); print
     
-    m = vector.transform_to_matrix(ty=1.)
+    m = vector.transform_to_matrix(10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5),
+                                    10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5))
     fm.add_transformation_matrix('tc','camera',m)
     test_routes(); print
     
-    m = vector.transform_to_matrix(tz=1.)
+    m = vector.transform_to_matrix(10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5),
+                                    10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5))
     fm.add_transformation_matrix('camera','cnc',m)
     test_routes(); print
     
@@ -308,7 +312,7 @@ def test_frame_manager():
         print f
     print
     
-    startingPoint = matrix([ [10*(rand()-0.5), 10*(rand()-0.5), 10*(rand()-0.5), 1.] ])
+    startingPoint = matrix([ [10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5), 1.] ])
     points = {}
     points['skull'] = startingPoint
     point = startingPoint
@@ -362,7 +366,7 @@ def test_frame_translation():
     testFrameStack.append(vector.transform_to_matrix(tz=1.))
     testFrameNames.append('z')
     
-    startingPoint = matrix([ [10*(rand()-0.5), 10*(rand()-0.5), 10*(rand()-0.5), 1.] ])
+    startingPoint = matrix([ [10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5), 1.] ])
     #print "at home:"
     #print startingPoint
     points = {}
