@@ -33,7 +33,7 @@ def reassign_origin(o, m, p, t):
     return newO, m
 
 def fit_3d_line(pts, ts):
-    print "in fit_3d_line"
+    #print "in fit_3d_line"
     #TODO add some sort of ransac type cleaning of the data
     pts = numpy.array(pts)
     ptsCentroid = pts.mean(0)
@@ -63,5 +63,5 @@ def fit_3d_line(pts, ts):
     #print newOs
     mO = numpy.median(newOs, 0)
     
-    print "leaving fit_3d_line"
+    #print "leaving fit_3d_line"
     return numpy.hstack((mO, m))

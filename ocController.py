@@ -663,8 +663,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
             m = numpy.array(self.cnc.pathParams[3:])
             p1 = numpy.ones(4, dtype=numpy.float64)
             p2 = numpy.ones(4, dtype=numpy.float64)
-            p1[:3] = o - 1000.*m
-            p2[:3] = o + 1000.*m
+            p1[:3] = o #- 50.*m
+            p2[:3] = o - 50.*m
             
             p1InS = numpy.array(self.fManager.transform_point(p1, "camera", "skull"))[0]
             p2InS = numpy.array(self.fManager.transform_point(p2, "camera", "skull"))[0]

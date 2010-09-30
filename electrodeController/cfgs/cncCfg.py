@@ -162,7 +162,7 @@ zAxisConfig="""QM3
 bInc = 1.0
 
 # -- W --
-wInc = 1.0
+wInc = 0.5
 wDirection = 1.0 # for flipping the w-axis
 wAxisConfig = """QM1
 	SN2

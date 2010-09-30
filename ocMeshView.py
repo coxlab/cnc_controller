@@ -55,15 +55,15 @@ class Orbiter:
         glPopMatrix()
         
         #glTranslate(0.,0.,-1.)
-        glPushMatrix() # Y, blue
+        glPushMatrix() # Y, green
         glRotatef(-90,1,0,0)
-        glColor(0.,0.,1.,1.)
+        glColor(0.,1.,0.,1.)
         gluCylinder(gluNewQuadric(), 0.05, 0.05, 0.5, 10, 3)
         glTranslate(0.,0.,0.5)
         glutSolidCone(0.1, 0.2, 10, 3)
         glPopMatrix()
         
-        glColor(0.,1.,0.,1.) # Z, green
+        glColor(0.,0.,1.,1.) # Z, blue
         glPushMatrix()
         gluCylinder(gluNewQuadric(), 0.05, 0.05, 0.5, 10, 3)
         glTranslate(0.,0.,0.5)
@@ -201,7 +201,7 @@ class OCMeshView(NSOpenGLView):
         glDepthFunc(GL_LEQUAL)
         glClearColor(0., 0., 0., 1.)
         glMatrixMode(GL_PROJECTION)
-        gluPerspective(10.,1.,0.1,10000.0)
+        gluPerspective(10.,1.,1.,1000.0)
         
         self.load_electrode(cfg.electrodeMesh, cfg.electrodeTexture)
         
@@ -247,7 +247,8 @@ class OCMeshView(NSOpenGLView):
         
         if self.electrode != None and self.drawElectrode:
             glPushMatrix()
-            glMultMatrixd(numpy.array(self.electrodeMatrix))
+            glTranslatef(self.electrodeMatrix[3,0], self.electrodeMatrix[3,1], self.electrodeMatrix[3,2])
+            #glMultMatrixd(numpy.array(self.electrodeMatrix))
             #self.draw_electrode_path()
             self.electrode.display()
             glPopMatrix()

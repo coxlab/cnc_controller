@@ -5,6 +5,7 @@ import os
 import numpy
 
 import cfg
+cfg.start_logging()
 import camera
 import cnc
 import frameManager

@@ -14,8 +14,8 @@ useManualImageProcessor = True
 fakeCNC = True
 fakeCameras = True
 #fakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/fakeFrames' % os.getlogin()
-leftFakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/inLogs/1279205629/camera/0' % os.getlogin()
-rightFakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/inLogs/1279205629/camera/1' % os.getlogin()
+leftFakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/inLogs/1285709674/camera/0' % os.getlogin()
+rightFakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/inLogs/1285709674/camera/1' % os.getlogin()
 
 cfgDir = '/Users/%s/Repositories/coxlab/cncController/electrodeController/cfgs' % os.getlogin()
 externalCfgs = ['atlasCfg.py', 'cameraCfg.py', 'cncCfg.py', 'framesCfg.py', 'electrodeCfg.py']
@@ -32,44 +32,62 @@ for e in externalCfgs:
     else:
         raise Exception ('%s does not exist' % eCfg)
 
+# this is really ugly and should be fixed
+global loggingStarted, logDir, log, cameraLogDir, cameraLog, cncLogDir, cncLog, framesLogDir, framesLog
+loggingStarted = False
 
-# setup logging
-# TODO I can't timestamp this at the moment because I don't know how to pass
-# logDir to the external cfgs
+# make logs but don't connect them yet
 logDir = '/Users/%s/Repositories/coxlab/cncController/logs/%i' % (os.getlogin(), time.time())
-if not os.path.exists(logDir): os.makedirs(logDir)
-# create instance of root logger
-# TODO I also don't know how to pass this on :(
-logLevel = logging.DEBUG
-logging.basicConfig(level=logLevel, filename='%s/root.log' % logDir)
 log = logging.root
-
-
 cameraLogDir = '%s/camera' % logDir
-#cameraLogDir = '/Users/%s/Repositories/coxlab/cncController/logs/camera/' % os.getlogin()
-if not os.path.exists(cameraLogDir): os.makedirs(cameraLogDir)
-if not os.path.exists(cameraLogDir+'/0'): os.makedirs(cameraLogDir+'/0')
-if not os.path.exists(cameraLogDir+'/1'): os.makedirs(cameraLogDir+'/1')
-
-
 cameraLog = logging.getLogger('camera')
-cameraLog.setLevel(logLevel)
-cameraLog.addHandler(logging.FileHandler('%s/camera.log' % cameraLogDir))
-
-
 cncLogDir = '%s/cnc' % logDir
-#cncLogDir = '/Users/%s/Repositories/coxlab/cncController/logs/cnc/' % os.getlogin()
-if not os.path.exists(cncLogDir): os.makedirs(cncLogDir)
-
 cncLog = logging.getLogger('cnc')
-cncLog.setLevel(logLevel)
-cncLog.addHandler(logging.FileHandler('%s/cnc.log' % cncLogDir))
-
-
 framesLogDir = '%s/frames' % logDir
-#framesLogDir = '/Users/%s/Repositories/coxlab/cncController/logs/frames/' % os.getlogin()
-if not os.path.exists(framesLogDir): os.makedirs(framesLogDir)
-
 framesLog = logging.getLogger('frames')
-framesLog.setLevel(logLevel)
-framesLog.addHandler(logging.FileHandler('%s/frames.log' % framesLogDir))
+
+def start_logging():
+    global loggingStarted
+    if loggingStarted == True:
+        return
+    global logDir, log, cameraLogDir, cameraLog, cncLogDir, cncLog, framesLogDir, framesLog
+    # setup logging
+    # TODO I can't timestamp this at the moment because I don't know how to pass
+    # logDir to the external cfgs
+    if not os.path.exists(logDir): os.makedirs(logDir)
+    # create instance of root logger
+    # TODO I also don't know how to pass this on :(
+    logLevel = logging.DEBUG
+    logging.basicConfig(level=logLevel, filename='%s/root.log' % logDir)
+    # log = logging.root
+
+
+    
+    #cameraLogDir = '/Users/%s/Repositories/coxlab/cncController/logs/camera/' % os.getlogin()
+    if not os.path.exists(cameraLogDir): os.makedirs(cameraLogDir)
+    if not os.path.exists(cameraLogDir+'/0'): os.makedirs(cameraLogDir+'/0')
+    if not os.path.exists(cameraLogDir+'/1'): os.makedirs(cameraLogDir+'/1')
+
+
+    # cameraLog = logging.getLogger('camera')
+    cameraLog.setLevel(logLevel)
+    cameraLog.addHandler(logging.FileHandler('%s/camera.log' % cameraLogDir))
+
+
+    
+    #cncLogDir = '/Users/%s/Repositories/coxlab/cncController/logs/cnc/' % os.getlogin()
+    if not os.path.exists(cncLogDir): os.makedirs(cncLogDir)
+
+    # cncLog = logging.getLogger('cnc')
+    cncLog.setLevel(logLevel)
+    cncLog.addHandler(logging.FileHandler('%s/cnc.log' % cncLogDir))
+    
+    
+    #framesLogDir = '/Users/%s/Repositories/coxlab/cncController/logs/frames/' % os.getlogin()
+    if not os.path.exists(framesLogDir): os.makedirs(framesLogDir)
+
+    # framesLog = logging.getLogger('frames')
+    framesLog.setLevel(logLevel)
+    framesLog.addHandler(logging.FileHandler('%s/frames.log' % framesLogDir))
+    
+    loggingStarted = True
