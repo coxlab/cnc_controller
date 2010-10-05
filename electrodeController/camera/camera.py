@@ -13,6 +13,8 @@ class Camera:
         self.calibrated = False
         self.located = False
         
+        self.logDir = None
+        
         self.imageSize = (-1, -1)
         self.camID = camID
         
@@ -40,7 +42,7 @@ class Camera:
     # ==========================
     
     
-    def capture(self, undistort=True):
+    def capture(self, undistort=True, filename=None):
         if not self.connected:
             self.connect()
         
@@ -48,6 +50,11 @@ class Camera:
         
         image = conversions.NumPy2Ipl(frame)#.astype('uint8'))
         #image = NumPy2Ipl(frame.astype('uint16'))
+        
+        #print self.logDir, filename
+        if self.logDir != None and filename != None:
+            # save image
+            cv.SaveImage("%s/%s" % (self.logDir, filename), image)
         
         # TODO find a better way to do this
         if self.imageSize == (-1, -1):
@@ -309,7 +316,7 @@ class Camera:
             # flipping y and z to make this left-handed
             return tr[0]/tr[3], -tr[1]/tr[3], -tr[2]/tr[3]
         else:
-            raise Exception
+            raise Exception, "camera was not localized prior to call to get_3d_position"
             return 0, 0, 0
 
 def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):

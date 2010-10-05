@@ -89,26 +89,26 @@ if __name__ == '__main__':
         view.add_array(tipPoints, bjg.gl3dview.Char, color=colors[4], char='t') # tip
         view.add_array(cTipPoints, bjg.gl3dview.Char, color=colors[5], char='T') # transformed Tip
     
-    # load objects and transforms
-    tcSeat = TransformObj()
-    tcSeat.load('media/meshes/tcSeat.obj', 'media/meshes/tcSeat.jpg')
-    tcSeat.showPointCloud = True
-    tcSeat.showMesh = False
-    tcSeat.showTexture = False
-    tcSeat.color = (0.5, 0.5, 0.5, 0.5)
-    tcSeat.prep_lists()
-    tcSeat.set_transform(fm.get_transformation_matrix('tricorner',viewFrame))
-    view.objects.append(tcSeat)
+    # # load objects and transforms
+    # tcSeat = TransformObj()
+    # tcSeat.load('media/meshes/tcSeat.obj', 'media/meshes/tcSeat.jpg')
+    # tcSeat.showPointCloud = True
+    # tcSeat.showMesh = False
+    # tcSeat.showTexture = False
+    # tcSeat.color = (0.5, 0.5, 0.5, 0.5)
+    # tcSeat.prep_lists()
+    # tcSeat.set_transform(fm.get_transformation_matrix('tricorner',viewFrame))
+    # view.objects.append(tcSeat)
     
-    bridge = TransformObj()
-    bridge.load('media/meshes/bridge.obj', 'media/meshes/bridge.jpg')
-    bridge.showPointCloud = True
-    bridge.showMesh = False
-    bridge.showTexture = False
-    bridge.color = (0.5, 0.5, 0.5, 0.5)
-    bridge.prep_lists()
-    bridge.set_transform(fm.get_transformation_matrix('tricorner',viewFrame))
-    view.objects.append(bridge)
+    # bridge = TransformObj()
+    # bridge.load('media/meshes/bridge.obj', 'media/meshes/bridge.jpg')
+    # bridge.showPointCloud = True
+    # bridge.showMesh = False
+    # bridge.showTexture = False
+    # bridge.color = (0.5, 0.5, 0.5, 0.5)
+    # bridge.prep_lists()
+    # bridge.set_transform(fm.get_transformation_matrix('tricorner',viewFrame))
+    # view.objects.append(bridge)
     
     view.run()
         

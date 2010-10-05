@@ -34,6 +34,15 @@ class Controller:
             self.cameras = camera.stereocamera.StereoCamera(cfg.camIDs, camera.filecamera.FileCamera)
         else:
             self.cameras = camera.stereocamera.StereoCamera(cfg.camIDs, camera.dc1394camera.DC1394Camera)
+        
+        self.logDir = cfg.logDir
+        
+        # new logging
+        for i in xrange(len(self.cameras.cameras)):
+            cLogDir = '%s/cameras/%i' % (cfg.logDir, self.cameras.cameras[i].camID)
+            if not os.path.exists(cLogDir): os.makedirs(cLogDir)
+            self.cameras.cameras[i].logDir = cLogDir
+        
         self.cameras.logDirectory = cfg.cameraLogDir
         self.connect_cameras()
         

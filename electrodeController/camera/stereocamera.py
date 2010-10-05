@@ -67,10 +67,10 @@ class StereoCamera:
             self.cameras[i].disconnect()
     
     
-    def capture(self):
+    def capture(self, filename=None):
         ims = []
         for c in self.cameras:
-            ims.append(c.capture())
+            ims.append(c.capture(filename=filename))
         for (i, im) in enumerate(ims):
             cv.SaveImage("%s/%i/%i.png" % (self.logDirectory, i, self.frameNum), im)
         self.frameNum += 1

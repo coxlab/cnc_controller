@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os
+import os, time
 
 import numpy
 
@@ -269,6 +269,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         
         self.load_animal(animalCfg)
+        
+        numpy.savetxt(self.logDir+'/skull_to_tricorner', self.fManager.get_transformation_matrix('skull', 'tricorner'))
+        
         #print cfg.animalMesh, cfg.animalTexture
         self.meshView.load_obj(cfg.animalMesh, cfg.animalTexture)
         #self.meshView.load_obj("%s/skull.obj" % cfg.meshDir, "%s/Texture/texture.jpg" % cfg.meshDir)
@@ -281,6 +284,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
     def registerCameras_(self, sender):
         # get points from saved points (or zoom view)
         ptsInCam = []
+        
         for z in self.zoomPoints:
             if all((z.has_key('x'),z.has_key('y'),z.has_key('z'))):
                 # point is valid
@@ -290,6 +294,13 @@ class OCController (NSObject, electrodeController.controller.Controller):
             # TODO log error
             print "register_cameras requires exactly 3 valid points"
             return
+        
+        
+        ptsToLog = []
+        for p in self.zoomPoints:
+            if all((p.has_key('lx'),p.has_key('ly'),p.has_key('rx'),p.has_key('ry'))):
+                ptsToLog.append([p['lx'],p['ly'],p['rx'],p['ry']])
+        numpy.savetxt(self.logDir+'/registerCameraPts', ptsToLog)
         
         self.register_cameras(numpy.array(ptsInCam))
         self.updateFramesDisplay_(sender)
@@ -302,7 +313,13 @@ class OCController (NSObject, electrodeController.controller.Controller):
             if all((z.has_key('x'),z.has_key('y'),z.has_key('z'), z.has_key('w'))):
                 ptsInCam.append([z['x'],z['y'],z['z']])
                 wPositions.append(float(z['w']))
-            
+        
+        ptsToLog = []
+        for p in self.zoomPoints:
+            if all((p.has_key('lx'),p.has_key('ly'),p.has_key('rx'),p.has_key('ry'),p.has_key('w'))):
+                ptsToLog.append([p['lx'],p['ly'],p['rx'],p['ry'],p['w']])
+        numpy.savetxt(self.logDir+'/measurePathPts', ptsToLog)
+        
         print "going to measure_tip_path in controller"
         self.measure_tip_path(ptsInCam, wPositions)
         self.updateFramesDisplay_(sender)
@@ -598,6 +615,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if self.cnc.motion_done():
             self.stop_update_timer()
         
+        timeOfUpdate = time.time()
+        
         #print "update_position:", self.ocFramesStatus
         if int(self.ocFramesStatus) == 3: # all frames are mapped
             #print "all frames are good to go"
@@ -692,7 +711,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             cfg.log.info('ML:%.3f AP:%.3f DV:%.3f' % (self.ocML, self.ocAP, self.ocDV))
         
         # logging
-        cfg.cncLog.info('X:%.3f Y:%.3f Z:%.3f B:%.3f W:%.3f' % (self.ocX, self.ocY, self.ocZ, self.ocB, self.ocW))
+        cfg.cncLog.info('%.2f %.3f %.3f %.3f %.3f %.3f' % (float(timeOfUpdate), self.ocX, self.ocY, self.ocZ, self.ocB, self.ocW))
     
     def update_frames_display(self):
         state = 0
@@ -715,7 +734,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
     def update_zoom_views(self):
         if not self.cameras.get_connected():
             return
-        im0, im1 = self.cameras.capture()
+        im0, im1 = self.cameras.capture(filename='%i.png' % int(time.time()))
         self.leftZoomView.set_image_from_cv(im0)
         self.rightZoomView.set_image_from_cv(im1)
     

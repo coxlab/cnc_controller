@@ -46,7 +46,12 @@ def fit_3d_line(pts, ts):
     
     # make sure that the direction was not flipped
     # method to fix flipping the direction of the line (especially when m is parallel to an axis)
-    coarseM = pts[1] - pts[0]
+    if ts[1] > ts[0]:
+        coarseM = pts[1] - pts[0]
+    elif ts[0] > ts[1]:
+        coarseM = pts[0] - pts[1]
+    else:
+        raise ValueError, "ts[0] == ts[1], they should be different"
     coarseM = coarseM / numpy.linalg.norm(coarseM)
     angle = numpy.arccos(numpy.dot(coarseM, m)) # both vectors were previously normalized
     if angle > (numpy.pi/2.):
