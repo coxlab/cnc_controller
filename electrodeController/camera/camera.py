@@ -60,7 +60,7 @@ class Camera:
         if self.imageSize == (-1, -1):
             self.imageSize = (image.width, image.height)
         
-        if self.calibrated and undistort:
+        if self.calibrated and undistort and False: #TODO no undistortion is taking place
             # undistort image
             undistortedImage = cv.CreateImage((image.width, image.height),
                                             image.depth, image.nChannels)
@@ -74,14 +74,14 @@ class Camera:
         #if not self.calibrated:
         #    raise IOError('Camera must be calibrated before capturing grid')
         
-        image = self.capture()
+        image = self.capture(undistort=False)
         success, corners = cv.FindChessboardCorners(image, gridSize)
         
         if not success:
             return image, corners, False
         
         corners = cv.FindCornerSubPix(image, corners, (5,5), (-1, -1),
-                    (cv.CV_TERMCRIT_EPS + cv.CV_TERMCRIT_ITER, 30, 0.1))
+                    (cv.CV_TERMCRIT_EPS + cv.CV_TERMCRIT_ITER, 30, 0.01))
         
         gridN = gridSize[0] * gridSize[1]
         if len(corners) != gridN:

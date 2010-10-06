@@ -243,7 +243,9 @@ class OCMeshView(NSOpenGLView):
         if self.obj != None:
             self.obj.display()
         
+        glPushMatrix()
         self.draw_tip_path()
+        glPopMatrix()
         
         if self.electrode != None and self.drawElectrode:
             glPushMatrix()

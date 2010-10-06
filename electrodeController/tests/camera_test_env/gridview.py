@@ -56,9 +56,9 @@ def flatten_list(x):
 
 #===== Camera functions ======
 def test_points():
-    xs = pylab.arange(-6,6,3)
-    ys = pylab.arange(-6,6,3)
-    zs = pylab.arange(-6,6,3)
+    xs = pylab.arange(-7,7.1,3.5)
+    ys = pylab.arange(-6,6.1,3)
+    zs = pylab.arange(-10,10.1,5)
     print "#lx  ly  rx  ry   mx   my   mz    x    y    z"
     for z in zs:
         for y in ys:
@@ -76,9 +76,13 @@ def find_point():
     gridZ.value = cameraZ.value * 10.
     # capture images
     cameraX.value = -camX.value
+    cameraY.value = camY.value
+    cameraZ.value = camZ.value
     b = capture_scene()
     sCam.cameras[0].set_string_buffer(b, (h, w, 3), pylab.uint8)
     cameraX.value = camX.value
+    cameraY.value = camY.value
+    cameraZ.value = camZ.value
     b = capture_scene()
     sCam.cameras[1].set_string_buffer(b, (h, w, 3), pylab.uint8)
     lim, rim = sCam.capture()
@@ -100,6 +104,8 @@ def find_grid():
     x, y, w, h = glGetIntegerv(GL_VIEWPORT)
     # render left
     cameraX.value = -camX.value
+    cameraY.value = camY.value
+    cameraZ.value = camZ.value
     b = capture_scene()
     sCam.cameras[0].set_string_buffer(b, (h, w, 3), pylab.uint8)
     lim, lPts, s = sCam.cameras[0].capture_grid_image((7,6))
@@ -107,6 +113,8 @@ def find_grid():
         return
     # render right
     cameraX.value = camX.value
+    cameraY.value = camY.value
+    cameraZ.value = camZ.value
     b = capture_scene()
     sCam.cameras[1].set_string_buffer(b, (h, w, 3), pylab.uint8)
     rim, rPts, s = sCam.cameras[1].capture_grid_image((7,6))
@@ -197,11 +205,15 @@ def locate():
     x, y, w, h = glGetIntegerv(GL_VIEWPORT)
     # move camera 0
     cameraX.value = -camX.value
+    cameraY.value = camY.value
+    cameraZ.value = camZ.value
     b = capture_scene()
     sCam.cameras[0].set_string_buffer(b, (h, w, 3), pylab.uint8)
     
     # move camera 1
     cameraX.value = camX.value
+    cameraY.value = camY.value
+    cameraZ.value = camZ.value
     b = capture_scene()
     sCam.cameras[1].set_string_buffer(b, (h, w, 3), pylab.uint8)
     
@@ -213,7 +225,7 @@ def locate():
         ps = sCam.get_camera_positions()
         c1 = pylab.array(ps[0])
         c2 = pylab.array(ps[1])
-        print "# Distance between cameras: %+.2f" % ((sum((c1 - c2)**2))**0.5)
+        print "# Distance between cameras: %+.2f (%+.2f)" % ((sum((c1 - c2)**2))**0.5, camX.value*2.)
         # calculate error in localization of corners (distance between corners)
         errs = []
         for i in xrange(len(sCam.cameras[0].localizationCorners)):
@@ -238,11 +250,15 @@ def take_pictures():
     x, y, w, h = glGetIntegerv(GL_VIEWPORT)
     # move camera 0
     cameraX.value = -camX.value
+    cameraY.value = camY.value
+    cameraZ.value = camZ.value
     b = capture_scene()
     sCam.cameras[0].set_string_buffer(b, (h, w, 3), pylab.uint8)
     
     # move camera 1
     cameraX.value = camX.value
+    cameraY.value = camY.value
+    cameraZ.value = camZ.value
     b = capture_scene()
     sCam.cameras[1].set_string_buffer(b, (h, w, 3), pylab.uint8)
     
@@ -474,6 +490,8 @@ if __name__ == '__main__':
     #cameraRotation = (c_float*4)(1., 1., 0., 0.) # quaternion
     
     camX = c_float(8.)
+    camY = c_float(4.)
+    camZ = c_float(40.)
     
     pointX = c_float(0.)
     pointY = c_float(0.)
@@ -498,6 +516,8 @@ if __name__ == '__main__':
     bar.add_var("Camera/cY", cameraY, step=0.5)
     bar.add_var("Camera/cZ", cameraZ, step=0.5)
     bar.add_var("Camera/camX", camX, step=0.5)
+    bar.add_var("Camera/camY", camY, step=0.5)
+    bar.add_var("Camera/camZ", camZ, step=0.5)
     #bar.add_var("Camera/cRotation", cameraRotation, vtype=atb.TW_TYPE_QUAT4F)
     
     # bar.add_var("Light/State", lighted)

@@ -157,108 +157,62 @@ class StereoCamera:
             self.cameras[1].get_position(), p3ds[1])
         return midpoint(r1, r2)
 
-def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):
-    #print "t"
-    t = numpy.matrix([[1., 0., 0., 0.],
-                    [0., 1., 0., 0.],
-                    [0., 0., 1., 0.],
-                    [tVec[0,0], tVec[1,0], tVec[2,0], 1.]])
-    #print "r"
-    r = numpy.matrix([[rMatrix[0,0], rMatrix[0,1], rMatrix[0,2], 0.],
-                [rMatrix[1,0], rMatrix[1,1], rMatrix[1,2], 0.],
-                [rMatrix[2,0], rMatrix[2,1], rMatrix[2,2], 0.],
-                [0., 0., 0., 1.] ])
-    # r = numpy.matrix(([rMatrix[0,0], rMatrix[1,0], rMatrix[2,0], 0.],
-    #                 [rMatrix[0,1], rMatrix[1,1], rMatrix[2,1], 0.],
-    #                 [rMatrix[0,2], rMatrix[1,2], rMatrix[2,2], 0.],
-    #                 [0., 0., 0., 1.]))
-    info = t * r
-    
-    # info = numpy.matrix([[rMatrix[0,0], rMatrix[0,1], rMatrix[0,2], tVec[0,0]],
-    #                     [rMatrix[1,0], rMatrix[1,1], rMatrix[1,2], tVec[1,0]],
-    #                     [rMatrix[2,0], rMatrix[2,1], rMatrix[2,2], tVec[2,0]],
-    #                     [0., 0., 0., 1.] ])
-    #return info
-    
-    s = numpy.matrix([ [1., 0., 0., 0.],
-                [0., 1., 0., 0.],
-                [0., 0., 1., 0.],
-                [0., 0., 0., 1.] ])
-    s[0,0] = -1.
-    s[1,1] = -1.
-    s[2,2] = -1.
-    
-    #return info
-    
-    t = info * s
-    #return info
-    s[0,0] = 1. / camMatrix[0,0]
-    s[1,1] = 1. / camMatrix[1,1]
-    s[2,2] = 1.
-    
-    info = s * t
-    
-    return info
-
-
 def intersection(o1, p1, o2, p2):
-    # http://softsurfer.com/Archive/algorithm_0106/algorithm_0106.htm
-    p0 = numpy.array(o1)
-    q0 = numpy.array(o2)
-    u = numpy.array(p1) - numpy.array(p0)
-    v = numpy.array(p2) - numpy.array(q0)
-    # lines are:
-    #  p0 + s*u
-    #  q0 + t*v
-    w0 = p0 - q0
+    # # http://softsurfer.com/Archive/algorithm_0106/algorithm_0106.htm
+    # p0 = numpy.array(o1)
+    # q0 = numpy.array(o2)
+    # u = numpy.array(p1) - numpy.array(p0)
+    # v = numpy.array(p2) - numpy.array(q0)
+    # # lines are:
+    # #  p0 + s*u
+    # #  q0 + t*v
+    # w0 = p0 - q0
+    # 
+    # # check if lines are parallel
+    # a = numpy.dot(u,u)
+    # b = numpy.dot(u,v)
+    # c = numpy.dot(v,v)
+    # d = numpy.dot(u,w0)
+    # e = numpy.dot(v,w0)
+    # denom = a * c - b**2
+    # if denom < 1e-9:
+    #     # lines are parallel!
+    #     print "Lines are parallel, 3d localization is invalid"
+    # 
+    # sc = (b*e - c*d)/denom
+    # tc = (a*e - b*d)/denom
+    # 
+    # # calculate vector bridging closest point
+    # #wc = p(sc) - q(tc)
+    # r1 = p0 + sc*u
+    # r2 = q0 + tc*v
+    # wc = r1 - r2
+    # #print "Vectors get this close:", numpy.linalg.norm(wc)
+    # #print "0 0 0 0 %+.2f %+.2f %+.2f %+.2f %+.2f %+.2f" % (r1[0], r1[1], r1[2], r2[0], r2[1], r2[2])
+    # return r1, r2
     
-    # check if lines are parallel
-    a = numpy.dot(u,u)
-    b = numpy.dot(u,v)
-    c = numpy.dot(v,v)
-    d = numpy.dot(u,w0)
-    e = numpy.dot(v,w0)
-    denom = a * c - b**2
-    if denom < 1e-9:
-        # lines are parallel!
-        print "Lines are parallel, 3d localization is invalid"
+    x = numpy.array(o2) - numpy.array(o1)
+    d1 = numpy.array(p1) - numpy.array(o1)
+    d2 = numpy.array(p2) - numpy.array(o2)
     
-    sc = (b*e - c*d)/denom
-    tc = (a*e - b*d)/denom
+    c = numpy.array([d1[1]*d2[2] - d1[2]*d2[1],
+            d1[2]*d2[0] - d1[0]*d2[2],
+            d1[0]*d2[1] - d1[1]*d2[0]])
+    den = c[0]**2 + c[1]**2 + c[2]**2
     
-    # calculate vector bridging closest point
-    #wc = p(sc) - q(tc)
-    r1 = p0 + sc*u
-    r2 = q0 + tc*v
-    wc = r1 - r2
-    #print "Vectors get this close:", numpy.linalg.norm(wc)
+    if den < 1e-9:
+        print "3d localization is invalid"
     
-    #print "0 0 0 0 %+.2f %+.2f %+.2f %+.2f %+.2f %+.2f" % (r1[0], r1[1], r1[2], r2[0], r2[1], r2[2])
+    def det(v1, v2, v3):
+        return v1[0]*v2[1]*v3[2] + v1[2]*v2[0]*v3[1] + v1[1]*v2[2]*v3[0] - v1[2]*v2[1]*v3[0] - v1[0]*v2[2]*v3[1] - v1[1]*v2[0]*v3[2]
+    
+    t1 = det(x, d2, c) / den
+    t2 = det(x, d1, c) / den
+    
+    r1 = o1 + d1 * t1
+    r2 = o2 + d2 * t2
     
     return r1, r2
-    
-    # x = numpy.array(o2) - numpy.array(o1)
-    # d1 = numpy.array(p1) - numpy.array(o1)
-    # d2 = numpy.array(p2) - numpy.array(o2)
-    # 
-    # c = numpy.array([d1[1]*d2[2] - d1[2]*d2[1],
-    #         d1[2]*d2[0] - d1[0]*d2[2],
-    #         d1[0]*d2[1] - d1[1]*d2[0]])
-    # den = c[0]**2 + c[1]**2 + c[2]**2
-    # 
-    # if den < 1e-9:
-    #     print "3d localization is invalid"
-    # 
-    # def det(v1, v2, v3):
-    #     return v1[0]*v2[1]*v3[2] + v1[2]*v2[0]*v3[1] + v1[1]*v2[2]*v3[0] - v1[2]*v2[1]*v3[0] - v1[0]*v2[2]*v3[1] - v1[1]*v2[0]*v3[2]
-    # 
-    # t1 = det(x, d2, c) / den
-    # t2 = det(x, d1, c) / den
-    # 
-    # r1 = o1 + d1 * t1
-    # r2 = o2 + d2 * t2
-    # 
-    # return r1, r2
 
 
 def midpoint(p1, p2):

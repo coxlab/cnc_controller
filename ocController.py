@@ -108,14 +108,18 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self._.ocBInc = cfg.bInc
         self._.ocWInc = cfg.wInc
         
+        #self.timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.5, self, self.update_position, None, True)
+        #NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSDefaultRunLoopMode)
+        ##NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSEventTrackingRunLoopMode)
+        
+        if 'inLogDir' in dir(cfg):
+            print "Loading log directory: %s" % cfg.inLogDir
+            self.load_log(cfg.inLogDir)
+        
         # update bindings with correct values
         self.update_frames_display()
         self.update_velocities()
         self.update_position()
-        
-        #self.timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.5, self, self.update_position, None, True)
-        #NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSDefaultRunLoopMode)
-        ##NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSEventTrackingRunLoopMode)
     
     def start_update_timer(self):
         if self.timer == None:
@@ -190,6 +194,69 @@ class OCController (NSObject, electrodeController.controller.Controller):
         else:
             self.disable_motors()
     
+    def load_log(self, logDir):
+        # load log directory
+        if cfg.fakeCameras:
+            print "assigning frame directories"
+            lCamDir = logDir + '/camera/0/'
+            lFileList = [lCamDir + f for f in os.listdir(lCamDir)]
+            self.cameras.cameras[0].set_file_list(lFileList)
+            rCamDir = logDir + '/camera/1/'
+            rFileList = [rCamDir + f for f in os.listdir(rCamDir)]
+            self.cameras.cameras[1].set_file_list(rFileList)
+        
+        # TODO load frames
+        stt = logDir + '/skull_to_tricorner'
+        if os.path.exists(stt):
+            self.fManager.add_transformation_matrix('skull', 'tricorner', numpy.matrix(numpy.loadtxt(stt)))
+            numpy.savetxt(self.logDir+'/skull_to_tricorner', self.fManager.get_transformation_matrix('skull', 'tricorner'))
+        
+        rcpts = logDir + '/registerCameraPts'
+        if os.path.exists(rcpts):
+            print "loading rcpts: %s" % rcpts
+            # convert pts(lx,ly,rx,ry) to (x,y,z)
+            if not all(self.cameras.get_located()):
+                print "locating cameras"
+                ims, s = self.cameras.capture_localization_images(cfg.gridSize)
+                print ims, s
+                #self.leftZoomView.set_image_from_cv(ims[0][0])
+                #self.rightZoomView.set_image_from_cv(ims[1][0])
+                print s
+                if s == True:
+                    self.cameras.locate(cfg.gridSize, cfg.gridBlockSize)
+                else:
+                    raise Exception, "Cameras failed to localize when trying to load registerCameraPts"
+                #self.locateCameras_(None)
+                print "testing localization result"
+                if not all(self.cameras.get_located()):
+                    raise Exception, "Cameras failed to localize when trying to load registerCameraPts"
+            pts = numpy.loadtxt(rcpts)
+            numpy.savetxt(self.logDir+'/registerCameraPts', pts)
+            ptsInCam = []
+            for p in pts:
+                xyz = self.cameras.get_3d_position([[p[0],p[1]],[p[2],p[3]]])
+                ptsInCam.append([xyz[0],xyz[1],xyz[2],1.])
+            self.register_cameras(numpy.array(ptsInCam))
+        
+        mppts = logDir + '/measurePathPts'
+        if os.path.exists(mppts):
+            print "loading mppts: %s" % mppts
+            # check if frames are flushed out
+            if not self.fManager.test_route('skull','camera'):
+                raise Exception, "attempting to add path points with an incomplete frame stack"
+            pts = numpy.loadtxt(mppts)
+            numpy.savetxt(self.logDir+'/measurePathPts', pts)
+            
+            ptsIncam = []
+            wPositions = []
+            for p in pts:
+                xyz = self.cameras.get_3d_position([[p[0],p[1]],[p[2],p[3]]])
+                ptsInCam.append([xyz[0],xyz[1],xyz[2],1.])
+                wPositions.append(p[4])
+            self.measure_tip_path(ptsInCam, wPositions)
+        
+        #self.updateFramesDisplay_(sender)
+    
     @IBAction
     def loadLog_(self, sender):
         panel = NSOpenPanel.openPanel()
@@ -210,18 +277,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             print "Log directory selection canceled"
             return
         
-        # load log directory
-        if cfg.fakeCameras:
-            lCamDir = logDir + '/camera/0/'
-            lFileList = [lCamDir + f for f in os.listdir(lCamDir)]
-            self.cameras.cameras[0].set_file_list(lFileList)
-            rCamDir = logDir + '/camera/1/'
-            rFileList = [rCamDir + f for f in os.listdir(rCamDir)]
-            self.cameras.cameras[1].set_file_list(rFileList)
-        
-        # TODO load frames
-        
-        self.updateFramesDisplay_(sender)
+        self.load_log(logDir)
     
     @IBAction
     def loadAnimal_(self, sender):
@@ -666,9 +722,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
             print "trying to update mesh views pathParams"
             tipPosition = numpy.ones(4,dtype=numpy.float64)
             tipPosition[:3] = self.cnc.calculate_tip_position(self.ocW)
-            print tipPosition
+            #print tipPosition
             skullCoord = numpy.array(self.fManager.transform_point(tipPosition, "camera", "skull"))[0]
-            print skullCoord
+            #print skullCoord
             
             # ML = X
             self._.ocML = skullCoord[0]
@@ -684,11 +740,13 @@ class OCController (NSObject, electrodeController.controller.Controller):
             p2 = numpy.ones(4, dtype=numpy.float64)
             p1[:3] = o #- 50.*m
             p2[:3] = o - 50.*m
+            p1[:3] = self.cnc.calculate_tip_position(0.)
+            p2[:3] = self.cnc.calculate_tip_position(-50.)
             
             p1InS = numpy.array(self.fManager.transform_point(p1, "camera", "skull"))[0]
             p2InS = numpy.array(self.fManager.transform_point(p2, "camera", "skull"))[0]
-            print p1, p2
-            self.meshView.pathParams = [p1[0], p1[1], p1[2], p2[0], p2[1], p2[2]]
+            #print p1InS, p2InS
+            self.meshView.pathParams = [p1InS[0], p1InS[1], p1InS[2], p2InS[0], p2InS[1], p2InS[2]]
             
             #o = numpy.ones(4,dtype=numpy.float64)
             #o[:3] = self.cnc.pathParams[:3]
@@ -704,7 +762,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             
             # TODO add the rotation as defined by the path etc...
             self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], 0., 0., 0.))
-            print self.meshView.electrodeMatrix
+            #print self.meshView.electrodeMatrix
             self.meshView.drawElectrode = True
             self.meshView.scheduleRedisplay()
             

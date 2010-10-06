@@ -32,7 +32,12 @@ ax.set_xlabel('X')
 ax.set_ylabel('Y')
 ax.set_zlabel('Z')
 
-maxError = max(abs(x - mx).max(), abs(y - my).max(), abs(z - mz).max())
+maxXErr = abs(x-mx).max()
+maxYErr = abs(y-my).max()
+maxZErr = abs(z-mz).max()
+print "Max Errors: X: %.2f Y: %.2f Z: %.2f mm" % (maxXErr, maxYErr, maxZErr)
+
+maxError = max(maxXErr, maxYErr, maxZErr)
 print "Max Error: %.2f mm (post z-flip and offset)" % maxError
 
 show()

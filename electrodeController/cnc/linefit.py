@@ -69,4 +69,4 @@ def fit_3d_line(pts, ts):
     mO = numpy.median(newOs, 0)
     
     #print "leaving fit_3d_line"
-    return numpy.hstack((mO, m))
+    return numpy.hstack((mO[:3], m[:3]))
