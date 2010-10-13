@@ -19,7 +19,8 @@ class FileCamera(camera.Camera):
     def disconnect(self):
         self.connected = False
     def capture_frame(self):
-        im = Image.open(self.fileList[self.fileIndex])
+        #print self.fileList[self.fileIndex]
+        #im = Image.open(self.fileList[self.fileIndex])
         try:
             im = Image.open(self.fileList[self.fileIndex])
             # frame = pylab.imread(self.fileList[self.fileIndex])

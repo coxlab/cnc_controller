@@ -11,12 +11,12 @@ from electrodeController.camera.stereocamera import StereoCamera
 from electrodeController.camera.filecamera import FileCamera
 from electrodeController.camera.conversions import *
 
-# logDir = 'inLogs/1286399377' # TODO find most recent
-logDir = 'logs/1286963673'
+logDir = 'inLogs/1286990302' # TODO find most recent
+#logDir = 'logs/1286963673'
 calDir = 'electrodeController/calibrations'
 leftCamID = 49712223528793951
 rightCamID = 49712223528793946
-gridSize = (8,6)
+gridSize = (11,9)#(8,6)
 gridBlockSize = 1.
 
 rcPts = loadtxt(logDir+'/registerCameraPts') # lx ly rx ry
@@ -32,7 +32,12 @@ sCam.rightCamera.set_file_list(rCamImages)
 
 # calibrate and locate cameras
 sCam.load_calibrations(calDir)
-sCam.capture_localization_images(gridSize)
+lr, rr = sCam.capture_localization_images(gridSize)
+if lr[1] == True and rr[1] == True:
+    print "Cameras located!"
+else:
+    print "Cameras could not be located"
+sCam.locate(gridSize, gridBlockSize)
 
 figure()
 lpts = array(sCam.leftCamera.localizationCorners)
@@ -51,8 +56,6 @@ plot(rpts[:,0], rpts[:,1], c='r')
 scatter(rpts[:,0], rpts[:,1], c='r')
 scatter(rpts[0,0], rpts[0,1], c='k')
 scatter(rcPts[:,2], rcPts[:,3], c='g')
-
-sCam.locate(gridSize, gridBlockSize)
 
 ax = Axes3D(figure())
 
