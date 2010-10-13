@@ -86,9 +86,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         if cfg.fakeCameras:
             lFileList = ["%s/%s" % (cfg.leftFakeFramesDir, f) for f in os.listdir(cfg.leftFakeFramesDir)]
-            self.cameras.cameras[0].set_file_list(lFileList)
+            self.cameras.leftCamera.set_file_list(lFileList)
             rFileList = ["%s/%s" % (cfg.rightFakeFramesDir, f) for f in os.listdir(cfg.rightFakeFramesDir)]
-            self.cameras.cameras[1].set_file_list(rFileList)
+            self.cameras.rightCamera.set_file_list(rFileList)
         
         self.zoomPoints.append({'c':'r','lx':313.302540599, 'ly': 328.81604072, 'rx': 284.939403378, 'ry': 348.635889153, 'x': -42.3456234131, 'y': -1.78845750399, 'z': -0.641684310712, 'angle': 12.0, 'w':-0.39959})
         self.zoomPoints.append({'c':'r','lx':316.743317476, 'ly': 347.294286908, 'rx': 290.644721184, 'ry': 366.060238127, 'x': -42.2258470538, 'y': -2.87006594517, 'z': -0.795638750719, 'angle': 12.0, 'w': -1.3996})
@@ -157,7 +157,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             newPoint = {'c': l['c'], 'lx': l['x'], 'ly': l['y'], 'rx': r['x'], 'ry': r['y']}
             # check if 3d localization is possible
             if all(self.cameras.get_calibrated()) and all(self.cameras.get_located()):
-                l3d = self.cameras.get_3d_position([ [l['x'],l['y']], [r['x'],r['y']] ])
+                l3d = self.cameras.get_3d_position([l['x'],l['y']], [r['x'],r['y']])
                 newPoint['x'] = l3d[0]
                 newPoint['y'] = l3d[1]
                 newPoint['z'] = l3d[2]
@@ -198,12 +198,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
         # load log directory
         if cfg.fakeCameras:
             print "assigning frame directories"
-            lCamDir = logDir + '/camera/0/'
+            lCamDir = logDir + '/cameras/'+ str(cfg.leftCamID) + '/'
             lFileList = [lCamDir + f for f in os.listdir(lCamDir)]
-            self.cameras.cameras[0].set_file_list(lFileList)
-            rCamDir = logDir + '/camera/1/'
+            rCamDir = logDir + '/cameras/'+ str(cfg.rightCamID) + '/'
             rFileList = [rCamDir + f for f in os.listdir(rCamDir)]
-            self.cameras.cameras[1].set_file_list(rFileList)
+            self.cameras.leftCamera.set_file_list(lFileList)
+            self.cameras.rightCamera.set_file_list(rFileList)
         
         # TODO load frames
         stt = logDir + '/skull_to_tricorner'
@@ -217,24 +217,30 @@ class OCController (NSObject, electrodeController.controller.Controller):
             # convert pts(lx,ly,rx,ry) to (x,y,z)
             if not all(self.cameras.get_located()):
                 print "locating cameras"
-                ims, s = self.cameras.capture_localization_images(cfg.gridSize)
-                print ims, s
+                lr, rr = self.cameras.capture_localization_images(cfg.gridSize)
+                print lr[1], rr[1]
                 #self.leftZoomView.set_image_from_cv(ims[0][0])
                 #self.rightZoomView.set_image_from_cv(ims[1][0])
-                print s
-                if s == True:
+                if lr[1] == True and rr[1] == True:
                     self.cameras.locate(cfg.gridSize, cfg.gridBlockSize)
                 else:
                     raise Exception, "Cameras failed to localize when trying to load registerCameraPts"
                 #self.locateCameras_(None)
                 print "testing localization result"
-                if not all(self.cameras.get_located()):
+                if all(self.cameras.get_located()):
+                    print "Cameras located"
+                    cfg.cameraLog.info('Cameras Located Successfully')
+                    cfg.cameraLog.info('\tID\t\t\tX\tY\tZ')
+                    for c in [self.cameras.leftCamera, self.cameras.rightCamera]:
+                        p = c.get_position()
+                        cfg.cameraLog.info('\t%i\t%.3f\t%.3f\t%.3f' % (c.camID, p[0], p[1], p[2]))
+                else:
                     raise Exception, "Cameras failed to localize when trying to load registerCameraPts"
             pts = numpy.loadtxt(rcpts)
             numpy.savetxt(self.logDir+'/registerCameraPts', pts)
             ptsInCam = []
             for p in pts:
-                xyz = self.cameras.get_3d_position([[p[0],p[1]],[p[2],p[3]]])
+                xyz = self.cameras.get_3d_position([p[0],p[1]], [p[2],p[3]])
                 ptsInCam.append([xyz[0],xyz[1],xyz[2],1.])
             self.register_cameras(numpy.array(ptsInCam))
         
@@ -250,7 +256,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             ptsIncam = []
             wPositions = []
             for p in pts:
-                xyz = self.cameras.get_3d_position([[p[0],p[1]],[p[2],p[3]]])
+                xyz = self.cameras.get_3d_position([p[0],p[1]], [p[2],p[3]])
                 ptsInCam.append([xyz[0],xyz[1],xyz[2],1.])
                 wPositions.append(p[4])
             self.measure_tip_path(ptsInCam, wPositions)
@@ -790,7 +796,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.update_zoom_views()
     
     def update_zoom_views(self):
-        if not self.cameras.get_connected():
+        if not all(self.cameras.get_connected()):
             return
         im0, im1 = self.cameras.capture(filename='%i.png' % int(time.time()))
         self.leftZoomView.set_image_from_cv(im0)
@@ -798,12 +804,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def locateCameras_(self, sender):
-        ims, s = self.cameras.capture_localization_images(cfg.gridSize)
-        print ims, s
-        self.leftZoomView.set_image_from_cv(ims[0][0])
-        self.rightZoomView.set_image_from_cv(ims[1][0])
-        print s
-        if s == True:
+        lr, rr = self.cameras.capture_localization_images(cfg.gridSize)
+        self.leftZoomView.set_image_from_cv(lr[0])
+        self.rightZoomView.set_image_from_cv(rr[0])
+        if lr[1] == True and rr[1] == True:
             self.cameras.locate(cfg.gridSize, cfg.gridBlockSize)
         
         located = self.cameras.get_located()
@@ -812,7 +816,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
             print "Cameras located"
             cfg.cameraLog.info('Cameras Located Successfully')
             cfg.cameraLog.info('\tID\t\t\tX\tY\tZ')
-            for c in self.cameras.cameras:
+            
+            for c in [self.cameras.leftCamera, self.cameras.rightCamera]:
                 p = c.get_position()
                 cfg.cameraLog.info('\t%i\t%.3f\t%.3f\t%.3f' % (c.camID, p[0], p[1], p[2]))
         else:

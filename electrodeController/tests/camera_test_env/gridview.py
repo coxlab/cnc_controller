@@ -57,8 +57,8 @@ def flatten_list(x):
 #===== Camera functions ======
 def test_points():
     xs = pylab.arange(-7,7.1,3.5)
-    ys = pylab.arange(-6,6.1,3)
-    zs = pylab.arange(-10,10.1,5)
+    ys = [0]#pylab.arange(-6,6.1,3)
+    zs = [0]#pylab.arange(-10,10.1,5)
     print "#lx  ly  rx  ry   mx   my   mz    x    y    z"
     for z in zs:
         for y in ys:
@@ -79,12 +79,12 @@ def find_point():
     cameraY.value = camY.value
     cameraZ.value = camZ.value
     b = capture_scene()
-    sCam.cameras[0].set_string_buffer(b, (h, w, 3), pylab.uint8)
+    sCam.leftCamera.set_string_buffer(b, (h, w, 3), pylab.uint8)
     cameraX.value = camX.value
     cameraY.value = camY.value
     cameraZ.value = camZ.value
     b = capture_scene()
-    sCam.cameras[1].set_string_buffer(b, (h, w, 3), pylab.uint8)
+    sCam.rightCamera.set_string_buffer(b, (h, w, 3), pylab.uint8)
     lim, rim = sCam.capture()
     lim = conversions.CVtoNumPy(lim)
     rim = conversions.CVtoNumPy(rim)
@@ -95,7 +95,7 @@ def find_point():
         return False, None
     ly, lx = divmod(lim.argmax(), w)
     ry, rx = divmod(rim.argmax(), w)
-    x, y, z = sCam.get_3d_position(((lx,ly),(rx,ry)))
+    x, y, z = sCam.get_3d_position((lx,ly),(rx,ry))
     #print x, y, z
     return True, (lx, ly, rx, ry, x, y, z)
 
@@ -107,8 +107,8 @@ def find_grid():
     cameraY.value = camY.value
     cameraZ.value = camZ.value
     b = capture_scene()
-    sCam.cameras[0].set_string_buffer(b, (h, w, 3), pylab.uint8)
-    lim, lPts, s = sCam.cameras[0].capture_grid_image((7,6))
+    sCam.leftCamera.set_string_buffer(b, (h, w, 3), pylab.uint8)
+    lim, lPts, s = sCam.leftCamera.capture_grid_image((8,6))
     if not s:
         return
     # render right
@@ -116,8 +116,8 @@ def find_grid():
     cameraY.value = camY.value
     cameraZ.value = camZ.value
     b = capture_scene()
-    sCam.cameras[1].set_string_buffer(b, (h, w, 3), pylab.uint8)
-    rim, rPts, s = sCam.cameras[1].capture_grid_image((7,6))
+    sCam.rightCamera.set_string_buffer(b, (h, w, 3), pylab.uint8)
+    rim, rPts, s = sCam.rightCamera.capture_grid_image((8,6))
     if not s:
         return
     # calculate 3d and measure error
@@ -128,7 +128,7 @@ def find_grid():
     for i in xrange(len(lPts)):
         l = lPts[i]
         r = rPts[i]
-        p = pylab.array(sCam.get_3d_position((l,r)))
+        p = pylab.array(sCam.get_3d_position(l,r))
         ps.append(p)
         pp = pylab.array((divmod(i,7)[1] + gridX.value, -divmod(i,7)[0] + gridY.value, gridZ.value))
         pps.append(pp)
@@ -181,9 +181,9 @@ def calibrate():
         gridX.value, gridY.value, gridZ.value = pose[0]
         gridAX.value, gridAY.value, gridAZ.value = pose[1]
         capture_calibration_image()
-        print len(sCam.cameras[0].calibrationImages),
+        print len(sCam.leftCamera.calibrationImages),
     
-    errs = sCam.calibrate((7,6),1.)
+    errs = sCam.calibrate((8,6),1.)
     print "calibrated"
     
     # return grid to center
@@ -208,19 +208,19 @@ def locate():
     cameraY.value = camY.value
     cameraZ.value = camZ.value
     b = capture_scene()
-    sCam.cameras[0].set_string_buffer(b, (h, w, 3), pylab.uint8)
+    sCam.leftCamera.set_string_buffer(b, (h, w, 3), pylab.uint8)
     
     # move camera 1
     cameraX.value = camX.value
     cameraY.value = camY.value
     cameraZ.value = camZ.value
     b = capture_scene()
-    sCam.cameras[1].set_string_buffer(b, (h, w, 3), pylab.uint8)
+    sCam.rightCamera.set_string_buffer(b, (h, w, 3), pylab.uint8)
     
-    ims, s = sCam.capture_localization_images((7,6))
+    ims, s = sCam.capture_localization_images((8,6))
     if s:
         blockSize = 1.
-        sCam.locate((7,6), blockSize)
+        sCam.locate((8,6), blockSize)
         # calculate distance between cameras
         ps = sCam.get_camera_positions()
         c1 = pylab.array(ps[0])
@@ -228,15 +228,16 @@ def locate():
         print "# Distance between cameras: %+.2f (%+.2f)" % ((sum((c1 - c2)**2))**0.5, camX.value*2.)
         # calculate error in localization of corners (distance between corners)
         errs = []
-        for i in xrange(len(sCam.cameras[0].localizationCorners)):
-            l = sCam.cameras[0].localizationCorners[i]
-            r = sCam.cameras[1].localizationCorners[i]
-            p = pylab.array(sCam.get_3d_position((l,r)))
+        for i in xrange(len(sCam.leftCamera.localizationCorners)):
+            l = sCam.leftCamera.localizationCorners[i]
+            r = sCam.rightCamera.localizationCorners[i]
+            p = pylab.array(sCam.get_3d_position(l,r))
             pp = pylab.array((divmod(i,7)[1] * blockSize, -divmod(i,7)[0] * blockSize, 0.))
             err = (sum((p - pp)**2))**0.5
             errs.append(err)
         print "# Max Error: %+.2f" % max(errs)
-        
+    if not os.path.exists('calibrations'): os.makedirs('calibrations')
+    sCam.save_calibrations('calibrations/')
 
 
 def take_pictures():
@@ -253,16 +254,16 @@ def take_pictures():
     cameraY.value = camY.value
     cameraZ.value = camZ.value
     b = capture_scene()
-    sCam.cameras[0].set_string_buffer(b, (h, w, 3), pylab.uint8)
+    sCam.leftCamera.set_string_buffer(b, (h, w, 3), pylab.uint8)
     
     # move camera 1
     cameraX.value = camX.value
     cameraY.value = camY.value
     cameraZ.value = camZ.value
     b = capture_scene()
-    sCam.cameras[1].set_string_buffer(b, (h, w, 3), pylab.uint8)
+    sCam.rightCamera.set_string_buffer(b, (h, w, 3), pylab.uint8)
     
-    #ims, s = sCam.capture_localization_images((7,6))
+    #ims, s = sCam.capture_localization_images((8,6))
     ims = sCam.capture()
     for i in xrange(len(ims)):
         cv.SaveImage("%i.png" % i, ims[i])
@@ -271,14 +272,14 @@ def capture_calibration_image():
     x, y, w, h = glGetIntegerv(GL_VIEWPORT)
     b = capture_scene()
     global sCam
-    sCam.cameras[0].set_string_buffer(b, (h, w, 3), pylab.uint8) # numpy is flipped (hence the h, w; not w,h)
-    sCam.cameras[1].set_string_buffer(b, (h, w, 3), pylab.uint8) # numpy is flipped (hence the h, w; not w,h)
+    sCam.leftCamera.set_string_buffer(b, (h, w, 3), pylab.uint8) # numpy is flipped (hence the h, w; not w,h)
+    sCam.rightCamera.set_string_buffer(b, (h, w, 3), pylab.uint8) # numpy is flipped (hence the h, w; not w,h)
     #im = Image.fromstring('RGB', (w,h), b)
     #im.save('foo.png')
-    im, s = sCam.capture_calibration_images((7,6))
+    im, s = sCam.capture_calibration_images((8,6))
     # print "Found grid?:", s
     # if len(sCam.calibrationImages) > 0:
-    #     err = sCam.calibrate((7,6), 1.)
+    #     err = sCam.calibrate((8,6), 1.)
     #     
     #     # # setup fake projection
     #     # glMatrixMode(GL_PROJECTION)
@@ -292,10 +293,10 @@ def capture_calibration_image():
     #     # print conversions.CVtoNumPy(sCam.camMatrix)
     #     
     #     print "\tMax Calibration Error:", max(flatten_list(err))
-    #     im, s = sCam.capture_localization_image((7,6))
+    #     im, s = sCam.capture_localization_image((8,6))
     #     print "\tLocalized?:", s
     #     if s:
-    #         sCam.locate((7,6), 1.)
+    #         sCam.locate((8,6), 1.)
     #         cx, cy, cz = sCam.get_position()
     #         print "\t\tLocation: %+.2f %+.2f %+.2f" % (cx, cy, cz)
     #         ex = cx - cameraX.value
@@ -318,7 +319,7 @@ def draw_point():
 def draw_grid():
     global texId
     if texId == None:
-        texId = loadTexture('grid_8x7.png')
+        texId = loadTexture('grid_9x7.png')
     glEnable(GL_TEXTURE_2D)
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
@@ -332,13 +333,13 @@ def draw_grid():
     glRotate(gridAZ.value, 0, 0, 1)
     glBegin(GL_QUADS)
     glTexCoord2f(0.,0.)
-    glVertex3f(-5.,4.5,0.)
+    glVertex3f(-5.5,4.5,0.)
     glTexCoord2f(1.,0.)
-    glVertex3f(5.,4.5,0.)
+    glVertex3f(5.5,4.5,0.)
     glTexCoord2f(1.,1.)
-    glVertex3f(5.,-4.5,0.)
+    glVertex3f(5.5,-4.5,0.)
     glTexCoord2f(0.,1.)
-    glVertex3f(-5.,-4.5,0.)
+    glVertex3f(-5.5,-4.5,0.)
     glEnd()
     glBindTexture(GL_TEXTURE_2D, 0)
     glPopMatrix()
@@ -467,7 +468,7 @@ if __name__ == '__main__':
         commands = list(sys.argv[1])
     #global sCam
     #sCam = stringcamera.StringCamera(0)
-    sCam = stereocamera.StereoCamera([0,1], stringcamera.StringCamera)
+    sCam = stereocamera.StereoCamera(0,1, stringcamera.StringCamera)
     
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)

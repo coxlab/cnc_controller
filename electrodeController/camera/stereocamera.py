@@ -16,15 +16,21 @@ except:
 class StereoCamera:
     """A simple class that contains two Camera objects"""
     #def __init__(self, camIDs=[None, None], fakeCameras=False):
-    def __init__(self, camIDs=[None, None], cameraClass=None):
+    def __init__(self, leftCamID=None, rightCamID=None, cameraClass=None):
         global dc1394Available
         if cameraClass == None:
             if dc1394Available:
-                self.cameras = [dc1394camera.DC1394Camera(camIDs[0]), dc1394camera.DC1394Camera(camIDs[1])]
+                self.leftCamera = dc1394camera.DC1394Camera(leftCamID)
+                self.rightCamera = dc1394camera.DC1394Camera(rightCamID)
+                #self.cameras = [dc1394camera.DC1394Camera(camIDs[0]), dc1394camera.DC1394Camera(camIDs[1])]
             else:
-                self.cameras = [filecamera.FileCamera(camIDs[0]), filecamera.FileCamera(camIDs[1])]
+                self.leftCamera = filecamera.FileCamera(leftCamID)
+                self.rightCamera = filecamera.FileCamera(rightCamID)
+                #self.cameras = [filecamera.FileCamera(camIDs[0]), filecamera.FileCamera(camIDs[1])]
         else:
-            self.cameras = [cameraClass(camIDs[0]), cameraClass(camIDs[1])]
+            self.leftCamera = cameraClass(leftCamID)
+            self.rightCamera = cameraClass(rightCamID)
+            #self.cameras = [cameraClass(camIDs[0]), cameraClass(camIDs[1])]
         
         # if fakeCameras or (dc1394Available == False):
         #     self.cameras = [filecamera.FileCamera(camIDs[0]), filecamera.FileCamera(camIDs[1])]
@@ -37,24 +43,27 @@ class StereoCamera:
     
     
     def get_connected(self):
-        connected = []
-        for c in self.cameras:
-            connected.append(c.connected)
-        return connected
+        return [self.leftCamera.connected, self.rightCamera.connected]
+        # connected = []
+        # for c in self.cameras:
+        #     connected.append(c.connected)
+        # return connected
     
     
     def get_calibrated(self):
-        calibrated = []
-        for c in self.cameras:
-            calibrated.append(c.calibrated)
-        return calibrated
+        return [self.leftCamera.calibrated, self.rightCamera.calibrated]
+        # calibrated = []
+        # for c in self.cameras:
+        #     calibrated.append(c.calibrated)
+        # return calibrated
     
     
     def get_located(self):
-        located = []
-        for c in self.cameras:
-            located.append(c.located)
-        return located
+        return [self.leftCamera.located, self.rightCamera.located]
+        # located = []
+        # for c in self.cameras:
+        #     located.append(c.located)
+        # return located
     
     
     def connect(self):
@@ -63,99 +72,118 @@ class StereoCamera:
     
     
     def disconnect(self):
-        for i in xrange(len(self.cameras)):
-            self.cameras[i].disconnect()
+        self.leftCamera.disconnect()
+        self.rightCamera.disconnect()
+        # for i in xrange(len(self.cameras)):
+        #     self.cameras[i].disconnect()
     
     
     def capture(self, filename=None):
-        ims = []
-        for c in self.cameras:
-            ims.append(c.capture(filename=filename))
-        for (i, im) in enumerate(ims):
-            cv.SaveImage("%s/%i/%i.png" % (self.logDirectory, i, self.frameNum), im)
-        self.frameNum += 1
-        return ims
+        return self.leftCamera.capture(filename=filename), self.rightCamera.capture(filename=filename)
+        # ims = []
+        # for c in self.cameras:
+        #     ims.append(c.capture(filename=filename))
+        # for (i, im) in enumerate(ims):
+        #     cv.SaveImage("%s/%i/%i.png" % (self.logDirectory, i, self.frameNum), im)
+        # self.frameNum += 1
+        # return ims
     
     def locate_grid(self, gridSize):
-        lim, lcorners, lsuccess = self.cameras[0].capture_grid_image(gridSize)
-        rim, rcorners, rsuccess = self.cameras[1].capture_grid_image(gridSize)
+        lim, lcorners, lsuccess = self.leftCamera.capture_grid_image(gridSize)
+        rim, rcorners, rsuccess = self.rightCamera.capture_grid_image(gridSize)
         if not (lsuccess and rsuccess):
             return (lim,rim), None, False
         pts = []
         for (l, r) in zip(lcorners, rcorners):
-            p = self.get_3d_position((l,r))
-            pts.append(p)
+            pts.append(self.get_3d_position(l,r))
         return (lim,rim), pts, True
     
     def capture_calibration_images(self, gridSize):
-        ims = []
-        for c in self.cameras:
-            #if len(c.calibrationImages) < 7:
-            if True: # get lots of calibration images
-                im, s = c.capture_calibration_image(gridSize)
-                ims.append((im, s))
-            else:
-                # already enough calibration images
-                im = c.capture()
-                ims.append((im, True))
-        return ims
+        return self.leftCamera.capture_calibration_image(gridSize), self.rightCamera.capture_calibration_image(gridSize)
+        # ims = []
+        # for c in self.cameras:
+        #     #if len(c.calibrationImages) < 7:
+        #     if True: # get lots of calibration images
+        #         im, s = c.capture_calibration_image(gridSize)
+        #         ims.append((im, s))
+        #     else:
+        #         # already enough calibration images
+        #         im = c.capture()
+        #         ims.append((im, True))
+        # return ims
     
     
     def capture_localization_images(self, gridSize):
-        ims = []
-        success = True
-        for c in self.cameras:
-            im, s = c.capture_localization_image(gridSize)
-            success = success and s
-            ims.append((im, s))
-        return ims, success
+        return self.leftCamera.capture_localization_image(gridSize), self.rightCamera.capture_localization_image(gridSize)
+        # ims = []
+        # success = True
+        # for c in self.cameras:
+        #     im, s = c.capture_localization_image(gridSize)
+        #     success = success and s
+        #     ims.append((im, s))
+        # return ims, success
     
     
     def calibrate(self, gridSize, gridBlockSize):
-        errs = []
-        for c in self.cameras:
-            errs.append(c.calibrate(gridSize, gridBlockSize))
-        return errs
+        return self.leftCamera.calibrate(gridSize, gridBlockSize), self.rightCamera.calibrate(gridSize, gridBlockSize)
+        # errs = []
+        # for c in self.cameras:
+        #     errs.append(c.calibrate(gridSize, gridBlockSize))
+        # return errs
     
     
     def locate(self, gridSize, gridBlockSize):
-        if gridSize[0] == gridSize[1]:
-            raise ValueError, "The grid must not be square"
-        for c in self.cameras:
-            c.locate(gridSize, gridBlockSize)
+        return self.leftCamera.locate(gridSize, gridBlockSize), self.rightCamera.locate(gridSize, gridBlockSize)
+        # if gridSize[0] == gridSize[1]:
+        #     raise ValueError, "The grid must not be square"
+        # for c in self.cameras:
+        #     c.locate(gridSize, gridBlockSize)
     
     
     def save_calibrations(self, directory):
-        for i in xrange(len(self.cameras)):
-            self.cameras[i].save_calibration(directory)
+        self.leftCamera.save_calibration(directory)
+        self.rightCamera.save_calibration(directory)
+        # for i in xrange(len(self.cameras)):
+        #     self.cameras[i].save_calibration(directory)
     
     
     def load_calibrations(self, directory):
-        for i in xrange(len(self.cameras)):
-            self.cameras[i].load_calibration(directory)
+        self.leftCamera.load_calibration(directory)
+        self.rightCamera.load_calibration(directory)
+        # for i in xrange(len(self.cameras)):
+        #     self.cameras[i].load_calibration(directory)
     
     
     def get_camera_positions(self):
-        ps = []
-        for c in self.cameras:
-            ps.append(c.get_position())
-        return ps
+        return self.leftCamera.get_position(), self.rightCamera.get_position()
+        # ps = []
+        # for c in self.cameras:
+        #     ps.append(c.get_position())
+        # return ps
     
     
-    def get_3d_position(self, points):
+    def get_3d_position(self, lpt, rpt, andRays=False):
         #print "0 0 0 0 %+.2f %+.2f 0 %+.2f %+.2f 0" % (points[0][0], points[0][1], points[1][0], points[1][1])
         #TODO make this accept >2 cameras
-        if len(points) != len(self.cameras):
-            raise ValueError, "number of points must equal the number of cameras"
+        # if len(points) != len(self.cameras):
+        #     raise ValueError, "number of points must equal the number of cameras"
         
-        # point 1 corresponds to camera 1, point 2 to camera 2, etc...
-        p3ds = []
-        for i in xrange(len(points)):
-            p3ds.append(self.cameras[i].get_3d_position(*points[i]))
-        
-        r1, r2 = intersection(self.cameras[0].get_position(), p3ds[0],
-            self.cameras[1].get_position(), p3ds[1])
-        return midpoint(r1, r2)
+        # # point 1 corresponds to camera 1, point 2 to camera 2, etc...
+        # p3ds = []
+        # for i in xrange(len(points)):
+        #     p3ds.append(self.cameras[i].get_3d_position(*points[i]))
+        lpt3d = self.leftCamera.get_3d_position(*lpt)
+        rpt3d = self.rightCamera.get_3d_position(*rpt)
+        lc = self.leftCamera.get_position()
+        rc = self.rightCamera.get_position()
+        r1, r2 = intersection(lc, lpt3d, rc, rpt3d)
+        p = midpoint(r1, r2)
+        # flip z-axis
+        p = (p[0], p[1], p[2])
+        if andRays:
+            return p, lpt3d, rpt3d
+        else:
+            return p
 
 def intersection(o1, p1, o2, p2):
     # # http://softsurfer.com/Archive/algorithm_0106/algorithm_0106.htm

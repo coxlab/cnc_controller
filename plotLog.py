@@ -243,6 +243,10 @@ if __name__ == '__main__':
         plot_points_in_frame(ax, tipPoints, fm, 'cnc', plotFrame, c=colors[0], s=100, marker='s')
         plot_points_in_frame(ax, cTipPoints, fm, 'camera', plotFrame, c=colors[1], s=100, marker='s')
     
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    
     # plot all matrices
     def plot_matrix(m, l1, l2):
         print "Translation:", m[3]

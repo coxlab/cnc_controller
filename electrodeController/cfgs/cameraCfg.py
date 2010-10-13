@@ -5,7 +5,8 @@ import logging
 
 # ----- Camera Calibration Settings -----
 # ordered as 'left', 'right'
-camIDs = [49712223528793951, 49712223528793946]
+leftCamID = 49712223528793951
+rightCamID = 49712223528793946
 gridSize = (8,6)#(7,6)
 gridBlockSize = 1.
 

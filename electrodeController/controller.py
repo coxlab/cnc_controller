@@ -31,17 +31,17 @@ class Controller:
     def __init__(self):
         # construct cameras
         if cfg.fakeCameras == True:
-            self.cameras = camera.stereocamera.StereoCamera(cfg.camIDs, camera.filecamera.FileCamera)
+            self.cameras = camera.stereocamera.StereoCamera(cfg.leftCamID, cfg.rightCamID, camera.filecamera.FileCamera)
         else:
-            self.cameras = camera.stereocamera.StereoCamera(cfg.camIDs, camera.dc1394camera.DC1394Camera)
+            self.cameras = camera.stereocamera.StereoCamera(cfg.leftCamID, cfg.rightCamID, camera.dc1394camera.DC1394Camera)
         
         self.logDir = cfg.logDir
         
         # new logging
-        for i in xrange(len(self.cameras.cameras)):
-            cLogDir = '%s/cameras/%i' % (cfg.logDir, self.cameras.cameras[i].camID)
+        for c in [self.cameras.leftCamera, self.cameras.rightCamera]:
+            cLogDir = '%s/cameras/%i' % (cfg.logDir, c.camID)
             if not os.path.exists(cLogDir): os.makedirs(cLogDir)
-            self.cameras.cameras[i].logDir = cLogDir
+            c.logDir = cLogDir
         
         self.cameras.logDirectory = cfg.cameraLogDir
         self.connect_cameras()

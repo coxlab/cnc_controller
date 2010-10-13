@@ -70,6 +70,12 @@ class Camera:
             
         return image
     
+    def undistort_image(self, image):
+        undistortedImage = cv.CreateImage((image.width, image.height),
+                                            image.depth, image.nChannels)
+        cv.Undistort2(image, undistortedImage, self.camMatrix, self.distCoeffs)
+        return undistortedImage
+    
     def capture_grid_image(self, gridSize):
         #if not self.calibrated:
         #    raise IOError('Camera must be calibrated before capturing grid')
@@ -80,7 +86,7 @@ class Camera:
         if not success:
             return image, corners, False
         
-        corners = cv.FindCornerSubPix(image, corners, (5,5), (-1, -1),
+        corners = cv.FindCornerSubPix(image, corners, (11,11), (-1, -1),
                     (cv.CV_TERMCRIT_EPS + cv.CV_TERMCRIT_ITER, 30, 0.01))
         
         gridN = gridSize[0] * gridSize[1]
@@ -99,26 +105,26 @@ class Camera:
         #          * gridSize
         #         newCorners.append()
         # xs should be ascending
-        if corners[0][0] > corners[1][0]:
-            #print "flipping rows"
-            for r in xrange(gridSize[1]):
-                for c in xrange(gridSize[0]/2):
-                    i = c + r * gridSize[0]
-                    i2 = (gridSize[0] - c - 1) + r * gridSize[0]
-                    o = corners[i]
-                    corners[i] = corners[i2]
-                    corners[i2] = o
-        
-        # ys should be descending
-        if corners[0][1] < corners[gridSize[0]][1]:
-            #print "flipping columns"
-            for c in xrange(gridSize[0]):
-                for r in xrange(gridSize[1]/2):
-                    i = c + r * gridSize[0]
-                    i2 = c + (gridSize[1] - r - 1) * gridSize[0]
-                    o = corners[i]
-                    corners[i] = corners[i2]
-                    corners[i2] = o
+        # if corners[0][0] > corners[1][0]:
+        #     #print "flipping rows"
+        #     for r in xrange(gridSize[1]):
+        #         for c in xrange(gridSize[0]/2):
+        #             i = c + r * gridSize[0]
+        #             i2 = (gridSize[0] - c - 1) + r * gridSize[0]
+        #             o = corners[i]
+        #             corners[i] = corners[i2]
+        #             corners[i2] = o
+        # 
+        # # ys should be descending
+        # if corners[0][1] > corners[gridSize[0]][1]:
+        #     #print "flipping columns"
+        #     for c in xrange(gridSize[0]):
+        #         for r in xrange(gridSize[1]/2):
+        #             i = c + r * gridSize[0]
+        #             i2 = c + (gridSize[1] - r - 1) * gridSize[0]
+        #             o = corners[i]
+        #             corners[i] = corners[i2]
+        #             corners[i2] = o
         
         return image, corners, True
     
@@ -166,8 +172,8 @@ class Camera:
                 imPts[j+i*gridN, 0] = c[j][0]
                 imPts[j+i*gridN, 1] = c[j][1]
                 # TODO should thes be actual points? how do I know what they are?
-                objPts[j+i*gridN, 0] = j % gridSize[0] * gridBlockSize
-                objPts[j+i*gridN, 1] = j / gridSize[0] * gridBlockSize
+                objPts[j+i*gridN, 0] = (j % gridSize[0]) * gridBlockSize
+                objPts[j+i*gridN, 1] = (j / gridSize[0]) * gridBlockSize
                 objPts[j+i*gridN, 2] = 0.
             ptCounts[i,0] = len(c)
         
@@ -195,8 +201,8 @@ class Camera:
             for j in xrange(gridN):
                 imPts[j,0] = corners[j][0]
                 imPts[j,1] = corners[j][1]
-                objPts[j,0] = j % gridSize[0] * gridBlockSize
-                objPts[j,1] = j / gridSize[0] * gridBlockSize
+                objPts[j,0] = (j % gridSize[0]) * gridBlockSize
+                objPts[j,1] = (j / gridSize[0]) * gridBlockSize
                 objPts[j,2] = 0.
             
             # measure rVec and tVec for this image
@@ -233,8 +239,12 @@ class Camera:
         cv.Save("%s/distCoeffs.xml" % directory, self.distCoeffs)
         for (i,im) in enumerate(self.calibrationImages):
             cv.SaveImage("%s/images/%i.png" % (directory, i), im)
+            corners = numpy.array(self.calibrationImgPts[i])
+            numpy.savetxt("%s/images/%i.pts" % (directory, i), corners)
         
         if self.located:
+            cv.SaveImage("%s/localizationImage.png" % (directory), self.localizationImage)
+            numpy.savetxt("%s/localizationPts.pts" % (directory), numpy.array(self.localizationCorners))
             cv.Save("%s/rVec.xml" % directory, self.rVec)
             cv.Save("%s/tVec.xml" % directory, self.tVec)
             cv.Save("%s/itoWMatrix.xml" % directory, conversions.NumPytoCV(self.itoWMatrix))
@@ -277,12 +287,17 @@ class Camera:
         for j in xrange(gridN):
             imPts[j,0] = self.localizationCorners[j][0]
             imPts[j,1] = self.localizationCorners[j][1]
-            objPts[j,0] = j % gridSize[0] * gridBlockSize
-            objPts[j,1] = j / gridSize[0] * gridBlockSize
+            objPts[j,0] = (j % gridSize[0]) * gridBlockSize
+            objPts[j,1] = (j / gridSize[0]) * gridBlockSize
             objPts[j,2] = 0.
+        
+        #for i in xrange(gridN):
+        #    print imPts[i,0], imPts[i,1], objPts[i,0], objPts[i,1], objPts[i,2]
         
         cv.FindExtrinsicCameraParams2(objPts, imPts, self.camMatrix,
             self.distCoeffs, self.rVec, self.tVec)
+        
+        #print self.tVec[0,0], self.tVec[1,0], self.tVec[2,0], self.rVec[0,0], self.rVec[1,0], self.rVec[2,0]
         
         # convert rVec to rMatrix
         rMatrix = cv.CreateMat(3, 3, cv.CV_64FC1)
@@ -296,15 +311,24 @@ class Camera:
         #    raise Exception, "Camera must be calibrated before calling get_position"
         if self.located:
             # flipping y and z to make this left-handed
-            return self.itoWMatrix[3,0], -self.itoWMatrix[3,1], -self.itoWMatrix[3,2]
+            #return self.tVec[0,0], self.tVec[1,0], self.tVec[2,0]
+            return self.itoWMatrix[3,0], self.itoWMatrix[3,1], self.itoWMatrix[3,2]
         else:
             raise Exception
             return 0, 0, 0
     
     def get_3d_position(self, x, y):
+        src = cv.CreateMat(1, 1, cv.CV_64FC2)
+        dst = cv.CreateMat(1, 1, cv.CV_64FC2)
+        src[0,0] = (x, y)
+        cv.UndistortPoints(src, dst, self.camMatrix, self.distCoeffs)
+        x, y = dst[0,0]
+        #print src[0,0], dst[0,0]
+        
         if self.located:
             #tp = numpy.matrix([ x - self.camMatrix[0,2], y - self.camMatrix[1,2], 1., 1. ])
-            tp = numpy.array([x - self.camMatrix[0,2], y - self.camMatrix[1,2], 1., 1.])
+            #tp = numpy.array([x - self.camMatrix[0,2], y - self.camMatrix[1,2], 1., 1.])
+            tp = numpy.array([x, y, 1., 1.])
             tr = numpy.array(tp * self.itoWMatrix)[0]
             # trm = numpy.zeros(4,dtype=numpy.float64)
             # for i in xrange(4):
@@ -314,22 +338,36 @@ class Camera:
             #     print tr, trm
             #     tr = trm
             # flipping y and z to make this left-handed
-            return tr[0]/tr[3], -tr[1]/tr[3], -tr[2]/tr[3]
+            return tr[0]/tr[3], tr[1]/tr[3], tr[2]/tr[3]
         else:
             raise Exception, "camera was not localized prior to call to get_3d_position"
             return 0, 0, 0
 
 def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):
     #print "t"
+    
+    # open CV is [col,row]
     t = numpy.matrix([[1., 0., 0., 0.],
                     [0., 1., 0., 0.],
                     [0., 0., 1., 0.],
-                    [tVec[0,0], tVec[1,0], tVec[2,0], 1.]])
+                    [cv.Get1D(tVec,0)[0], cv.Get1D(tVec,1)[0], cv.Get1D(tVec,2)[0], 1.]])
+    # t = numpy.matrix([[1., 0., 0., 0.],
+    #                 [0., 1., 0., 0.],
+    #                 [0., 0., 1., 0.],
+    #                 [tVec[0,0], tVec[1,0], tVec[2,0], 1.]])
+    # t = numpy.matrix([[1., 0., 0., tVec[0,0]],
+    #                 [0., 1., 0., tVec[1,0]],
+    #                 [0., 0., 1., tVec[2,0]],
+    #                 [0., 0., 0., 1.]])
     #print "r"
-    r = numpy.matrix([[rMatrix[0,0], rMatrix[0,1], rMatrix[0,2], 0.],
-                [rMatrix[1,0], rMatrix[1,1], rMatrix[1,2], 0.],
-                [rMatrix[2,0], rMatrix[2,1], rMatrix[2,2], 0.],
+    r = numpy.matrix([[cv.Get1D(rMatrix,0)[0], cv.Get1D(rMatrix,1)[0], cv.Get1D(rMatrix,2)[0], 0.],
+                [cv.Get1D(rMatrix,3)[0], cv.Get1D(rMatrix,4)[0], cv.Get1D(rMatrix,5)[0], 0.],
+                [cv.Get1D(rMatrix,6)[0], cv.Get1D(rMatrix,7)[0], cv.Get1D(rMatrix,8)[0], 0.],
                 [0., 0., 0., 1.] ])
+    # r = numpy.matrix([[rMatrix[0,0], rMatrix[0,1], rMatrix[0,2], 0.],
+    #             [rMatrix[1,0], rMatrix[1,1], rMatrix[1,2], 0.],
+    #             [rMatrix[2,0], rMatrix[2,1], rMatrix[2,2], 0.],
+    #             [0., 0., 0., 1.] ])
     # r = numpy.matrix(([rMatrix[0,0], rMatrix[1,0], rMatrix[2,0], 0.],
     #                 [rMatrix[0,1], rMatrix[1,1], rMatrix[2,1], 0.],
     #                 [rMatrix[0,2], rMatrix[1,2], rMatrix[2,2], 0.],
@@ -349,16 +387,17 @@ def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):
     s[0,0] = -1.
     s[1,1] = -1.
     s[2,2] = -1.
-
+    
     #return info
-
+    
     t = info * s
-    #return info
-    s[0,0] = 1. / camMatrix[0,0]
-    s[1,1] = 1. / camMatrix[1,1]
-    s[2,2] = 1.
-
-    info = s * t
+    info = t
+    # #return info
+    # s[0,0] = 1. / camMatrix[0,0]
+    # s[1,1] = 1. / camMatrix[1,1]
+    # s[2,2] = 1.
+    # 
+    # info = s * t
 
     return info
 
