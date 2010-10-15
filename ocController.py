@@ -2,6 +2,7 @@
 
 import os, time
 
+import cv
 import numpy
 
 from electrodeController import cfg
@@ -37,6 +38,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     #framesDisplay = objc.IBOutlet()
     ocFramesStatus = objc.ivar(u"ocFramesStatus")
+    ocShowDeltaImage = objc.ivar(u"ocShowDeltaImage")
+    ocJoystickControl = objc.ivar(u"ocJoystickControl")
     
     meshView = objc.IBOutlet()
     tabView = objc.IBOutlet()
@@ -77,6 +80,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
     timer = None
     
     def awakeFromNib(self):
+        self._.ocShowDeltaImage = False
+        self._.ocJoystickControl = False
         electrodeController.controller.Controller.__init__(self)
         NSApp().setDelegate_(self)
         self.timer = None
@@ -436,6 +441,15 @@ class OCController (NSObject, electrodeController.controller.Controller):
     #    #depthLevelIndicator = objc.IBOutlet()
     #    raise Exception
     #    pass
+    
+    @IBAction
+    def toggleJoystickControl_(self, sender):
+        if self.ocJoystickControl:
+            print "Joystick control turned on"
+            self.cnc.linearAxes.enable_joystick()
+        else:
+            print "Joystick control turned off"
+            self.cnc.linearAxes.disable_joystick()
     
     def enable_x_motor(self):
         self.cnc.linearAxes.enable_motor('x')
@@ -798,9 +812,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     def update_zoom_views(self):
         if not all(self.cameras.get_connected()):
             return
-        im0, im1 = self.cameras.capture(filename='%i.png' % int(time.time()))
-        self.leftZoomView.set_image_from_cv(im0)
-        self.rightZoomView.set_image_from_cv(im1)
+        li, ri = self.cameras.capture(filename='%i.png' % int(time.time()))
+        print self.ocShowDeltaImage
+        if self.ocShowDeltaImage:
+            # abs(bg - im)
+            cv.AbsDiff(li, self.cameras.leftCamera.localizationImage, li)
+            cv.AbsDiff(ri, self.cameras.rightCamera.localizationImage, ri)
+        self.leftZoomView.set_image_from_cv(li)
+        self.rightZoomView.set_image_from_cv(ri)
     
     @IBAction
     def locateCameras_(self, sender):
