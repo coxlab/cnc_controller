@@ -249,8 +249,8 @@ class OCMeshView(NSOpenGLView):
         
         if self.electrode != None and self.drawElectrode:
             glPushMatrix()
-            glTranslatef(self.electrodeMatrix[3,0], self.electrodeMatrix[3,1], self.electrodeMatrix[3,2])
-            #glMultMatrixd(numpy.array(self.electrodeMatrix))
+            #glTranslatef(self.electrodeMatrix[3,0], self.electrodeMatrix[3,1], self.electrodeMatrix[3,2])
+            glMultMatrixd(numpy.array(self.electrodeMatrix))
             #self.draw_electrode_path()
             self.electrode.display()
             glPopMatrix()

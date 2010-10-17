@@ -258,11 +258,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
             pts = numpy.loadtxt(mppts)
             numpy.savetxt(self.logDir+'/measurePathPts', pts)
             
-            ptsIncam = []
+            ptsInCam = []
             wPositions = []
             for p in pts:
                 xyz = self.cameras.get_3d_position([p[0],p[1]], [p[2],p[3]])
-                ptsInCam.append([xyz[0],xyz[1],xyz[2],1.])
+                ptsInCam.append([xyz[0],xyz[1],xyz[2]])
                 wPositions.append(p[4])
             self.measure_tip_path(ptsInCam, wPositions)
         
@@ -781,7 +781,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
             #self.meshView.pathParams = [oInS[0], oInS[1], oInS[2], mInS[0], mInS[1], mInS[2]]
             
             # TODO add the rotation as defined by the path etc...
-            self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], 0., 0., 0.))
+            newZ = p1InS - p2InS # use points in skull as calculated above
+            newZ = newZ / numpy.linalg.norm(newZ)
+            zxLength = (newZ[2]**2 + newZ[0]**2)**0.5
+            newZLength = numpy.linalg.norm(newZ)
+            dY = numpy.arccos(newZ[2] / zxLength)
+            dX = numpy.arccos(zxLength / newZLength)
+            print "dX:", numpy.degrees(dX), "dY:", numpy.degrees(dY)
+            self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], dX, dY, 0.))
             #print self.meshView.electrodeMatrix
             self.meshView.drawElectrode = True
             self.meshView.scheduleRedisplay()
