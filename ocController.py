@@ -869,7 +869,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if not all(self.cameras.get_connected()):
             return
         li, ri = self.cameras.capture(filename='%i.png' % int(time.time()))
-        print self.ocShowDeltaImage
+        #print self.ocShowDeltaImage
         if self.ocShowDeltaImage:
             # abs(bg - im)
             cv.AbsDiff(li, self.cameras.leftCamera.localizationImage, li)
