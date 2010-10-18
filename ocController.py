@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, time
+import os, sys, time
 
 import cv
 import numpy
@@ -14,6 +14,25 @@ import objc
 from objc import IBAction, IBOutlet
 
 import electrodeController.controller
+
+mwConduitAvailable = False
+
+try:
+    sys.path.append("/Library/Application Support/MWorks/Scripting/Python")
+    import mworks.conduit
+    # mworks conduit: "cnc"
+    ORIGIN_X = 0
+    ORIGIN_Y = 1
+    ORIGIN_Z = 2
+    SLOPE_X = 3
+    SLOPE_Y = 4
+    SLOPE_Z = 5
+    DEPTH = 6
+    PATH_INFO = 7
+    mwConduitAvailable = True
+    print "Found mwconduit module"
+except Exception, e:
+    print "Unable to load MW Conduit: %s", e
 
 # TODO when linear axes are moved, invalidate camera to cnc transform
 
@@ -83,6 +102,19 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self._.ocShowDeltaImage = False
         self._.ocJoystickControl = False
         electrodeController.controller.Controller.__init__(self)
+        
+        self.mwConduit =  None
+        # configure mw_conduit
+        if mwConduitAvailable:
+            self.mwConduit = mworks.conduit.IPCServerConduit("cnc")
+            print "Constructed conduit: %s" % str(self.mwConduit)
+        
+        if self.mwConduit != None:
+            self.mwConduit.initialize()
+            self.mwConduit.send_data(PATH_INFO, (-1000, -1000, -1000, -1000, -1000, -1000, -1000))
+        else:
+            print "Error conduit still None"
+        
         NSApp().setDelegate_(self)
         self.timer = None
         self.disable_motors()
@@ -144,6 +176,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #self.cameras.disconnect()
         #self.timer.invalidate()
         self.stop_update_timer()
+        
+        self.mwConduit.finalize()
         print "applicationWillTerminate done"
         
     
@@ -791,6 +825,17 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], dX, dY, 0.))
             #print self.meshView.electrodeMatrix
             self.meshView.drawElectrode = True
+            
+            # pump data into mworks conduit
+            if mwConduitAvailable:
+                # send: origin_x/y/z slope_x/y/z depth (all in skull coordinates)
+                # p1InS, mInS? depth
+                mInS = p2InS - p1InS
+                mInS = mInS / numpy.linalg.norm(mInS)
+                payload = (p1InS[0], p1InS[2], p1InS[3], mInS[0], mInS[1], mInS[2], self.ocW)
+                print "Sending data on mw conduit", PATH_INFO, payload
+                self.mwConduit.send_data(PATH_INFO, (p1InS[0], p1InS[2], p1InS[3], mInS[0], mInS[1], mInS[2], self.ocW))
+            
             self.meshView.scheduleRedisplay()
             
             cfg.log.info('ML:%.3f AP:%.3f DV:%.3f' % (self.ocML, self.ocAP, self.ocDV))
