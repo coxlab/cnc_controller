@@ -93,7 +93,7 @@ class Camera:
         if len(corners) != gridN:
             return image, corners, False
         
-        # check order of corners
+        # # check order of corners
         # # check that grid is not rotated
         # dyh = abs(corners[1][1] - corners[0][1])
         # dyv = abs(corners[gridSize[0]][1] - corners[0][1])
@@ -105,26 +105,26 @@ class Camera:
         #          * gridSize
         #         newCorners.append()
         # xs should be ascending
-        # if corners[0][0] > corners[1][0]:
-        #     #print "flipping rows"
-        #     for r in xrange(gridSize[1]):
-        #         for c in xrange(gridSize[0]/2):
-        #             i = c + r * gridSize[0]
-        #             i2 = (gridSize[0] - c - 1) + r * gridSize[0]
-        #             o = corners[i]
-        #             corners[i] = corners[i2]
-        #             corners[i2] = o
-        # 
-        # # ys should be descending
-        # if corners[0][1] > corners[gridSize[0]][1]:
-        #     #print "flipping columns"
-        #     for c in xrange(gridSize[0]):
-        #         for r in xrange(gridSize[1]/2):
-        #             i = c + r * gridSize[0]
-        #             i2 = c + (gridSize[1] - r - 1) * gridSize[0]
-        #             o = corners[i]
-        #             corners[i] = corners[i2]
-        #             corners[i2] = o
+        if corners[0][0] > corners[1][0]:
+            #print "flipping rows"
+            for r in xrange(gridSize[1]):
+                for c in xrange(gridSize[0]/2):
+                    i = c + r * gridSize[0]
+                    i2 = (gridSize[0] - c - 1) + r * gridSize[0]
+                    o = corners[i]
+                    corners[i] = corners[i2]
+                    corners[i2] = o
+        
+        # ys should be descending
+        if corners[0][1] > corners[gridSize[0]][1]:
+            #print "flipping columns"
+            for c in xrange(gridSize[0]):
+                for r in xrange(gridSize[1]/2):
+                    i = c + r * gridSize[0]
+                    i2 = c + (gridSize[1] - r - 1) * gridSize[0]
+                    o = corners[i]
+                    corners[i] = corners[i2]
+                    corners[i2] = o
         
         return image, corners, True
     

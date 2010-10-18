@@ -11,7 +11,8 @@ from electrodeController.camera.stereocamera import StereoCamera
 from electrodeController.camera.filecamera import FileCamera
 from electrodeController.camera.conversions import *
 
-logDir = 'inLogs/1286990302' # TODO find most recent
+logDir = 'inLogs/1287438569'
+#logDir = 'inLogs/1286990302' # TODO find most recent
 #logDir = 'logs/1286963673'
 calDir = 'electrodeController/calibrations'
 leftCamID = 49712223528793951
