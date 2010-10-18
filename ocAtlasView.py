@@ -104,8 +104,8 @@ class OCAtlasView (NSObject):
         
         
         def draw_atlas_location(ml, ap, dv, radius=2.5, color=NSColor.blackColor()):
-            #if ap <= apMax and ap >= apMin:
-            draw_circle(mm_to_canvas(ml, dv), radius, color)
+            if ap <= apMax and ap >= apMin:
+                draw_circle(mm_to_canvas(ml, dv), radius, color)
         
         # drawing tests
         #draw_line(mm_to_canvas(0.0,-1.0),mm_to_canvas(1.0,-2.0),NSColor.greenColor(),4)
