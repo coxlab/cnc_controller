@@ -12,10 +12,10 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<integer value="848"/>
-			<integer value="930"/>
-			<integer value="871"/>
-			<integer value="907"/>
 			<integer value="81"/>
+			<integer value="907"/>
+			<integer value="871"/>
+			<integer value="930"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6231,6 +6231,14 @@
 					</object>
 					<int key="connectionID">1408</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">atlasView</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="29224094"/>
+					</object>
+					<int key="connectionID">1409</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -9682,7 +9690,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1408</int>
+			<int key="maxID">1409</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9915,6 +9923,7 @@
 						<string key="XMotorStatusButton">id</string>
 						<string key="YMotorStatusButton">id</string>
 						<string key="ZMotorStatusButton">id</string>
+						<string key="atlasView">id</string>
 						<string key="bVelocityField">id</string>
 						<string key="depthLevelIndicator">id</string>
 						<string key="depthTargetField">id</string>
@@ -9957,6 +9966,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="ZMotorStatusButton">
 							<string key="name">ZMotorStatusButton</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="atlasView">
+							<string key="name">atlasView</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="bVelocityField">

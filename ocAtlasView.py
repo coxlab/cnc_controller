@@ -18,10 +18,17 @@ class OCAtlasView (NSObject):
     
     def awakeFromNib(self):
         self._.ocFigureIndex = int(cfg.defaultAtlasImage.split('.')[0])
+        self.pathParams = None
         pass
+    
+    def updateView(self):
+        #self.atlasImageView.setNeedsDisplay_(True)
+        self.positionChanged_(None)
     
     @IBAction
     def positionChanged_(self, sender):
+        if self.ocFigureIndex == None:
+            return
         # free old image ?
         #self.atlasImage.dealloc()
         #print self.ocFigureIndex
@@ -50,8 +57,9 @@ class OCAtlasView (NSObject):
     
     # draw electrode (if pipeline is complete)
     def draw_electrode(self):
-        # check if pipeline is full
-        if self.controller.ocFramesStatus != 3:
+        print "drawing atlas"
+        # check if path has been measured
+        if self.pathParams == None:
             return
         
         # get size of canvas
@@ -60,14 +68,14 @@ class OCAtlasView (NSObject):
             # ml range +- 8
             # dv range +11
             if self.ocFigureIndex >= 103:
-                # 103 and up dv goes 1-12 not 0-11
+                # 103 and up dv goes -1 to -12 not 0 to -11
                 dv = dv - 1.
             
             w = self.atlasImage.size().width
             h = self.atlasImage.size().height
             
             x = ml * w/16.0 + w/2.0
-            y = h - h/11.0 * dv
+            y = h + h/11.0 * dv
             return x,y
         
         self._.atlasImage.lockFocus()
@@ -87,44 +95,73 @@ class OCAtlasView (NSObject):
             color.set()
             p.fill()
         
-        # drawing tests
-        #draw_line(mm_to_canvas(0.0,1.0),mm_to_canvas(1.0,2.0),NSColor.greenColor(),4)
-        #draw_circle(mm_to_canvas(1.0,2.0),20,NSColor.blueColor())
-        
         
         # set culling distances
         apMax = cfg.atlasSliceLocations[self.ocFigureIndex]
-        apMin = apMax - cfg.atlasSliceThickness
+        apMin = apMax - cfg.atlasSliceThickness        
         
-        #  TODO green for actual probe
-        armOffset = self.controller.cnc.arm_length + self.controller.ocW
-        armAngle = self.controller.ocB
+        
+        def draw_atlas_location(ml, ap, dv, radius=5., color=NSColor.blackColor()):
+            if ap <= apMax and ap >= apMin:
+                draw_circle(mm_to_canvas(ml, dv), radius, color)
+        
+        # drawing tests
+        #draw_line(mm_to_canvas(0.0,-1.0),mm_to_canvas(1.0,-2.0),NSColor.greenColor(),4)
+        #draw_circle(mm_to_canvas(1.0,-2.0),20,NSColor.blueColor())
+        
+        
+
+        
+        ##  TODO green for actual probe
+        #armOffset = self.controller.cnc.arm_length + self.controller.ocW
+        #armAngle = self.controller.ocB
+        
+        # draw path in red
+        o = numpy.array([self.pathParams[0], self.pathParams[1], self.pathParams[2]])
+        m = numpy.array([self.pathParams[3], self.pathParams[4], self.pathParams[5]])
+        
+        # draw tip in black
+        tip = o + self.controller.ocW * m
+        draw_atlas_location(tip[0],tip[1],tip[2],color=NSColor.blackColor())
+        #draw_circle(mm_to_canvas(tip[0],tip[2]),5,NSColor.blackColor())
+        
+        # draw pads in blue
+        pads = []
+        for dw in xrange(32):
+            w = dw * 0.1 + .05 + self.controller.ocW
+            pads.append(o + w * m)
+        for pad in pads:
+            draw_atlas_location(pad[0],pad[1],pad[2],color=NSColor.blueColor())
+            #draw_circle(mm_to_canvas(pad[0],pad[2]),5,NSColor.blueColor())
+        
+        # draw ref in green
+        ref = o + (self.controller.ocW + 3.650) * m
+        draw_atlas_location(ref[0],ref[1],ref[2],color=NSColor.greenColor())
+        #draw_circle(mm_to_canvas(ref[0],ref[2]),5,NSColor.greenColor())
         
         # get electrode tip location in black
-        tip = numpy.ones(4,dtype=numpy.float64)
-        tip[:3] = self.controller.cnc.get_tip_position_on_arm()
-        tip = self.controller.fManager.transform_point(tip, "cnc", "skull")[0]
+        #tip = numpy.ones(4,dtype=numpy.float64)
+        #tip[:3] = self.controller.cnc.get_tip_position_on_arm()
+        #tip = self.controller.fManager.transform_point(tip, "cnc", "skull")[0]
         #  small black circle for tip
-        if tip[1] <= apMax and tip[1] >= apMin:
-            draw_circle(mm_to_canvas(tip[0],tip[2]),10,NSColor.blackColor())
+        #if tip[1] <= apMax and tip[1] >= apMin:
+        #    draw_circle(mm_to_canvas(tip[0],tip[2]),10,NSColor.blackColor())
         
         #  small red circles for each pad location
-        for padOffset in cfg.electrodePadOffsets:
-            pad = numpy.ones(4,dtype=numpy.float64)
-            pad[:3] = self.controller.cnc.get_position_on_arm(armAngle, armOffset + padOffset)
-            pad = self.controller.fManager.transform_point(tip, "cnc", "skull")[0]
-            if pad[1] <= apMax and pad[1] >=apMin:
-                draw_circle(mm_to_canvas(pad[0],pad[2]),10,NSColor.redColor())
+        #for padOffset in cfg.electrodePadOffsets:
+        #    pad = numpy.ones(4,dtype=numpy.float64)
+        #    pad[:3] = self.controller.cnc.get_position_on_arm(armAngle, armOffset + padOffset)
+        #    pad = self.controller.fManager.transform_point(tip, "cnc", "skull")[0]
+        #    if pad[1] <= apMax and pad[1] >=apMin:
+        #        draw_circle(mm_to_canvas(pad[0],pad[2]),10,NSColor.redColor())
             
         
         #  small blue circle for ref pad
-        ref = numpy.ones(4,dtype=numpy.float64)
-        ref[:3] = self.controller.cnc.get_position_on_arm(armAngle, armOffset + cfg.electrodeRefOffset)
-        ref = self.controller.fManager.transform_point(ref, "cnc", "skull")[0]
-        if ref[1] < apMax and ref[1] >= apMin:
-            draw_circle(mm_to_canvas(ref[0],ref[2]),10,NSColor.blueColor())
-        
-        #  TODO red for forward path
+        #ref = numpy.ones(4,dtype=numpy.float64)
+        #ref[:3] = self.controller.cnc.get_position_on_arm(armAngle, armOffset + cfg.electrodeRefOffset)
+        #ref = self.controller.fManager.transform_point(ref, "cnc", "skull")[0]
+        #if ref[1] < apMax and ref[1] >= apMin:
+        #    draw_circle(mm_to_canvas(ref[0],ref[2]),10,NSColor.blueColor())
         
         self._.atlasImage.unlockFocus()
     

@@ -61,6 +61,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
     ocJoystickControl = objc.ivar(u"ocJoystickControl")
     
     meshView = objc.IBOutlet()
+    atlasView = objc.IBOutlet()
     tabView = objc.IBOutlet()
     mainWindow = objc.IBOutlet()
     
@@ -802,6 +803,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
             #print p1InS, p2InS
             self.meshView.pathParams = [p1InS[0], p1InS[1], p1InS[2], p2InS[0], p2InS[1], p2InS[2]]
             
+            mInS = p1InS - p2InS
+            mInS = mInS / numpy.linalg.norm(mInS)
+            self.atlasView.pathParams = [p1InS[0], p1InS[1], p1InS[2], mInS[0], mInS[1], mInS[2]]
+            
             #o = numpy.ones(4,dtype=numpy.float64)
             #o[:3] = self.cnc.pathParams[:3]
             #m = numpy.ones(4,dtype=numpy.float64)
@@ -830,13 +835,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
             if mwConduitAvailable:
                 # send: origin_x/y/z slope_x/y/z depth (all in skull coordinates)
                 # p1InS, mInS? depth
-                mInS = p2InS - p1InS
-                mInS = mInS / numpy.linalg.norm(mInS)
                 payload = (p1InS[0], p1InS[2], p1InS[3], mInS[0], mInS[1], mInS[2], self.ocW)
                 print "Sending data on mw conduit", PATH_INFO, payload
                 self.mwConduit.send_data(PATH_INFO, (p1InS[0], p1InS[2], p1InS[3], mInS[0], mInS[1], mInS[2], self.ocW))
             
             self.meshView.scheduleRedisplay()
+            self.atlasView.updateView()
             
             cfg.log.info('ML:%.3f AP:%.3f DV:%.3f' % (self.ocML, self.ocAP, self.ocDV))
         
