@@ -17,7 +17,7 @@ class OCAtlasView (NSObject):
     atlasImageView = objc.IBOutlet()
     
     def awakeFromNib(self):
-        self._.ocFigureIndex = int(cfg.defaultAtlasImage.split('.')[0])
+        self._.ocFigureIndex = 106 - int(cfg.defaultAtlasImage.split('.')[0])
         self.pathParams = None
         pass
     
@@ -32,7 +32,8 @@ class OCAtlasView (NSObject):
         # free old image ?
         #self.atlasImage.dealloc()
         #print self.ocFigureIndex
-        self._.atlasImage = NSImage.alloc().initWithContentsOfFile_(u"%s/%03.i.eps" % (cfg.atlasImagesDir, self.ocFigureIndex))
+        
+        self._.atlasImage = NSImage.alloc().initWithContentsOfFile_(u"%s/%03.i.eps" % (cfg.atlasImagesDir, 106 - self.ocFigureIndex))
         self.draw_electrode()
         # need to call this to actually have the display update
         self.atlasImageView.setImage_(self.atlasImage)
@@ -53,11 +54,12 @@ class OCAtlasView (NSObject):
         for k, v in cfg.atlasSliceLocations.iteritems():
             if tip[1] <= v and tip[1] >= (v - cfg.atlasSliceThickness):
                 # go to this slice
-                self._.ocFigureIndex = k
+                self._.ocFigureIndex = 106 - k
     
     # draw electrode (if pipeline is complete)
     def draw_electrode(self):
-        print "drawing atlas"
+        sectionIndex = 106 - self.ocFigureIndex
+        #print "drawing atlas"
         # check if path has been measured
         if self.pathParams == None:
             return
@@ -67,9 +69,9 @@ class OCAtlasView (NSObject):
             # where: +ml = right, dv+ = down
             # ml range +- 8
             # dv range +11
-            if self.ocFigureIndex >= 103:
+            if sectionIndex >= 103:
                 # 103 and up dv goes -1 to -12 not 0 to -11
-                dv = dv - 1.
+                dv = dv + 1.
             
             w = self.atlasImage.size().width
             h = self.atlasImage.size().height
@@ -97,20 +99,17 @@ class OCAtlasView (NSObject):
         
         
         # set culling distances
-        apMax = cfg.atlasSliceLocations[self.ocFigureIndex]
+        apMax = cfg.atlasSliceLocations[sectionIndex]
         apMin = apMax - cfg.atlasSliceThickness        
         
         
-        def draw_atlas_location(ml, ap, dv, radius=5., color=NSColor.blackColor()):
-            if ap <= apMax and ap >= apMin:
-                draw_circle(mm_to_canvas(ml, dv), radius, color)
+        def draw_atlas_location(ml, ap, dv, radius=2.5, color=NSColor.blackColor()):
+            #if ap <= apMax and ap >= apMin:
+            draw_circle(mm_to_canvas(ml, dv), radius, color)
         
         # drawing tests
         #draw_line(mm_to_canvas(0.0,-1.0),mm_to_canvas(1.0,-2.0),NSColor.greenColor(),4)
         #draw_circle(mm_to_canvas(1.0,-2.0),20,NSColor.blueColor())
-        
-        
-
         
         ##  TODO green for actual probe
         #armOffset = self.controller.cnc.arm_length + self.controller.ocW
@@ -167,5 +166,33 @@ class OCAtlasView (NSObject):
     
     # TODO ability to 'log' position
     @IBAction
-    def savePosition_(self, sender):
-        pass
+    def saveAtlasImage_(self, sender):
+        panel = NSSavePanel.savePanel()
+        panel.setCanChooseDirectories_(NO)
+        panel.setCanChooseFiles_(YES)
+        panel.setAllowsMultipleSelection_(NO)
+        panel.setRequiredFileType_('png')
+        panel.setAllowsOtherFileTypes_(YES)
+        
+        def url_to_string(url):
+            return str(url)[16:]
+        
+        panel.setTitle_("Save atlas image (png) as...")
+        retValue = panel.runModal()
+        logDir = ""
+        if retValue:
+            filepath = url_to_string(panel.URLs()[0])
+        else:
+            print "Log directory selection canceled"
+            return
+        
+        ## save as pdf (image doesn't appear to stay a vector graphic after drawing)
+        #data = self.atlasImageView.dataWithPDFInsideRect_(self.atlasImageView.bounds())
+        #data.writeToFile_atomically_("/Users/graham/Desktop/cnc_snapshot.pdf", False)
+        
+        # save as png
+        self.atlasImage.lockFocus()
+        image_rep = NSBitmapImageRep.alloc().initWithFocusedViewRect_(((0,0),self.atlasImage.size()))
+        self.atlasImage.unlockFocus()
+        data = image_rep.representationUsingType_properties_(NSPNGFileType, None)
+        data.writeToFile_atomically_(filepath, False) 

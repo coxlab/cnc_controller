@@ -774,7 +774,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         # if the path of the electrode has been fit...
         if self.cnc.pathParams != None:
             # use self.ocW to calculate the position in the camera frame and then map that to skull coordinates
-            print "trying to update mesh views pathParams"
+            #print "trying to update mesh views pathParams"
             tipPosition = numpy.ones(4,dtype=numpy.float64)
             tipPosition[:3] = self.cnc.calculate_tip_position(self.ocW)
             #print tipPosition
@@ -826,7 +826,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             newZLength = numpy.linalg.norm(newZ)
             dY = numpy.arccos(newZ[2] / zxLength)
             dX = numpy.arccos(zxLength / newZLength)
-            print "dX:", numpy.degrees(dX), "dY:", numpy.degrees(dY)
+            #print "dX:", numpy.degrees(dX), "dY:", numpy.degrees(dY)
             self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], dX, dY, 0.))
             #print self.meshView.electrodeMatrix
             self.meshView.drawElectrode = True
@@ -836,7 +836,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 # send: origin_x/y/z slope_x/y/z depth (all in skull coordinates)
                 # p1InS, mInS? depth
                 payload = (p1InS[0], p1InS[2], p1InS[3], mInS[0], mInS[1], mInS[2], self.ocW)
-                print "Sending data on mw conduit", PATH_INFO, payload
+                #print "Sending data on mw conduit", PATH_INFO, payload
                 self.mwConduit.send_data(PATH_INFO, (p1InS[0], p1InS[2], p1InS[3], mInS[0], mInS[1], mInS[2], self.ocW))
             
             self.meshView.scheduleRedisplay()
