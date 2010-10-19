@@ -29,7 +29,7 @@ class FiveAxisCNC:
         self.headAxes.save_settings_to_controller()
         self.arm_length = None
         self.pathParams = None#[0., 0., 0., 0., 1., 0.]
-        self.disable_motors()
+        #self.disable_motors()
     
     def enable_motors(self):
         self.linearAxes.enable_motor()

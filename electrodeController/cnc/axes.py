@@ -71,7 +71,7 @@ class Axes(IPSerialBridge):
                 raise TypeError('Axis indices must be of type int')
             if v < 1 or v > 3:
                 raise ValueError('Axis indices must be 0 < v < 4')
-        self.disable_motor()
+        #self.disable_motor()
     
     def configure_axis(self, axis, cfgCommand):
         for command in cfgCommand.splitlines():

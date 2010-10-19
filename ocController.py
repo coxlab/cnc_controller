@@ -118,7 +118,47 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         NSApp().setDelegate_(self)
         self.timer = None
-        self.disable_motors()
+        
+        
+        linearStatus = self.cnc.linearAxes.get_motor_status()
+        headStatus = self.cnc.headAxes.get_motor_status()
+        allEnabled = True
+        allDisabled = True
+        if linearStatus['x'] == '0':
+            self.disable_x_motor()
+            allEnabled = False
+        else:
+            self.enable_x_motor()
+            allDisabled = False
+        if linearStatus['y'] == '0':
+            self.disable_y_motor()
+            allEnabled = False
+        else:
+            self.enable_y_motor()
+            allDisabled = False
+        if linearStatus['z'] == '0':
+            self.disable_z_motor()
+            allEnabled = False
+        else:
+            self.enable_z_motor()
+            allDisabled = False
+        if headStatus['b'] == '0':
+            self.disable_b_motor()
+            allEnabled = False
+        else:
+            self.enable_b_motor()
+            allDisabled = False
+        if headStatus['w'] == '0':
+            self.disable_w_motor()
+            allEnabled = False
+        else:
+            self.enable_w_motor()
+            allDisabled = False
+        if allEnabled:
+            self.enable_motors()
+        if allDisabled:
+            self.disable_motors()
+        #self.disable_motors()
         
         self.connect_cameras()
         
