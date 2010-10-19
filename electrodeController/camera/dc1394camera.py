@@ -43,11 +43,11 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
     
     def configure(self):
         self.framerate.mode = 'manual'
-        self.framerate.val = 1.0
+        self.framerate.val = 0.5#1.0
         self.exposure.mode = 'manual'
-        self.exposure.val = 1.
+        self.exposure.val = 1.#1.
         self.shutter.mode = 'manual'
-        self.shutter.val = 533.
+        self.shutter.val = 1000#533
     
     def connect(self):
         if self.connected:
