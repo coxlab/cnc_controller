@@ -323,6 +323,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 xyz = self.cameras.get_3d_position([p[0],p[1]], [p[2],p[3]])
                 ptsInCam.append([xyz[0],xyz[1],xyz[2],1.])
             self.register_cameras(numpy.array(ptsInCam))
+            
+            ptsInSkull = []
+            for p in ptsInCam:
+                camCoord = numpy.ones(4,dtype=numpy.float64)
+                camCoord[:3] = [p[0], p[1], p[2]]
+                skullCoord = self.fManager.transform_point(camCoord, "camera", "skull")[0]
+                ptsInSkull.append([skullCoord[0], skullCoord[1], skullCoord[2]])
+            self.meshView.points = ptsInSkull
         
         mppts = logDir + '/measurePathPts'
         if os.path.exists(mppts):
@@ -445,6 +453,15 @@ class OCController (NSObject, electrodeController.controller.Controller):
         numpy.savetxt(self.logDir+'/registerCameraPts', ptsToLog)
         
         self.register_cameras(numpy.array(ptsInCam))
+        
+        ptsInSkull = []
+        for p in ptsInCam:
+            camCoord = numpy.ones(4,dtype=numpy.float64)
+            camCoord[:3] = [p[0], p[1], p[2]]
+            skullCoord = self.fManager.transform_point(camCoord, "camera", "skull")[0]
+            ptsInSkull.append([skullCoord[0], skullCoord[1], skullCoord[2]])
+        self.meshView.points = ptsInSkull
+        
         self.updateFramesDisplay_(sender)
     
     @IBAction
