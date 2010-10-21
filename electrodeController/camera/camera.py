@@ -25,6 +25,8 @@ class Camera:
         # for localization
         self.localizationImage = None
         self.localizationCorners = None
+        
+        self.streaming = False
     
     
     # ==== Override these ====
@@ -44,6 +46,10 @@ class Camera:
         raise Exception("Override this")
     
     def stop_streaming(self):
+        raise Exception("Override this")
+    
+    def poll_streaming(self):
+        # should either return a numpy array or 0
         raise Exception("Override this")
     # ==========================
     

@@ -919,6 +919,40 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.update_frames_display()
     
     @IBAction
+    def setLeftShutter_(self, sender):
+        if cfg.fakeCameras: return
+        self.cameras.leftCamera.set_shutter(sender.floatValue())
+    
+    @IBAction
+    def setRightShutter_(self, sender):
+        if cfg.fakeCameras: return
+        self.cameras.rightCamera.set_shutter(sender.floatValue())
+    
+    @IBAction
+    def toggleStreaming_(self, sender):
+        if cfg.fakeCameras: return
+        if self.cameras.leftCamera.streaming or self.cameras.rightCamera.streaming:
+            if self.streamTimer != None:
+                self.streamTimer.invalidate()
+                self.streamTimer = None
+            self.cameras.leftCamera.stop_streaming()
+            self.cameras.rightCamera.stop_streaming()
+        else:
+            self.cameras.leftCameras.start_streaming()
+            self.cameras.rightCameras.start_streaming()
+            if self.streamTimer != None:
+                self.streamTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.03, self, self.poll_for_frames, None, True)
+                NSRunLoop.currentRunLoop().addTimer_forMode_(self.streamTimer, NSDefaultRunLoopMode)
+    
+    def poll_for_frames(self):
+        li = self.cameras.leftCamera.poll_stream()
+        if li != None:
+            self.leftZoomView.set_image_from_numpy(li)
+        ri = self.cameras.rightCamera.poll_stream()
+        if ri != None:
+            self.rightZoomView.set_image_from_numpy(ri)
+    
+    @IBAction
     def updateZoomViews_(self, sender):
         self.update_zoom_views()
     

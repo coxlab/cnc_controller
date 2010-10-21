@@ -7,9 +7,9 @@ from objc import IBAction, IBOutlet
 
 #import pylab, numpy
 
-
 from OpenGL.GL import *
 from OpenGL.GLUT import *
+
 from glZoomView import ZoomView
 
 class OCZoomView(NSOpenGLView, ZoomView):
@@ -27,6 +27,13 @@ class OCZoomView(NSOpenGLView, ZoomView):
         self.add_key_binding('r', 'reset_contrast')
         
         self.mouseIsIn = True # make sure that the mouse is IN before passing on events
+    
+    def set_image_from_numpy(self, image):
+        self.imageSize = (image.shape[1], image.shape[0])
+        frame = self.frame()
+        self.scale = max(frame.size.width/float(self.imageSize[0]), frame.size.height/float(self.imageSize[1]))
+        self.load_texture_from_string(image.tostring())
+        self.scheduleRedisplay()
     
     def set_image_from_cv(self, image):
         #pylab.ion()

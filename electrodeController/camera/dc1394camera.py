@@ -37,17 +37,23 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
         self.set_mode()
         self.configure()
         self.connected = True
+        self.frameID = 0 # maybe move this to camera superclass
     
     def set_mode(self):
-        self.mode = self.modes[4]
+        self.mode = [m for m in self.modes if m.name == 'FORMAT7_0'][0]
     
     def configure(self):
-        self.framerate.mode = 'manual'
-        self.framerate.val = 0.5#1.0
-        self.exposure.mode = 'manual'
-        self.exposure.val = 1.#1.
+        self.trigger.on = False
+        self.exposure.on = False
         self.shutter.mode = 'manual'
-        self.shutter.val = 1000#533
+        self.shutter.val = 100.
+        self.mode.roi = ((1392, 1040), (0,0), 'Y8', -3)
+        # self.framerate.mode = 'manual'
+        # self.framerate.val = 0.5#1.0
+        # self.exposure.mode = 'manual'
+        # self.exposure.val = 1.#1.
+        # self.shutter.mode = 'manual'
+        # self.shutter.val = 1000#533
     
     def connect(self):
         if self.connected:
@@ -58,7 +64,51 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
             self.close()
             self.connected = False
     
+    def start_streaming(self):
+        self.start(interactive=True)
+        self.streaming = True
+    
+    def stop_streaming(self):
+        self.stop()
+        self.streaming = False
+    
+    def poll_stream(self):
+        if self.streaming == False:
+            return None
+        self._new_image.acquire()
+        i = self._current_img
+        if i != None and i._id != self.frameID:
+            self._new_image.release()
+            self.frameID = i._id
+            return i
+        else:
+            self._new_image.release()
+            return None
+    
+    def set_shutter(self, value)
+        self.shutter.val = value
+        self.mode.roi = ((1392, 1040), (0,0), 'Y8', -3)
+    
     def capture_frame(self):
+        if self.streaming == False:
+            self.start_streaming()
+            self._new_image.acquire()
+            i = self._current_img
+            while i == None:
+                cam._new_image.wait()
+                i = self._current_img
+            self._new_image.release()
+            self.stop_streaming()
+            return i
+        else:
+            self._new_image.acquire()
+            i = self._current_img
+            while i == None:
+                cam._new_image.wait()
+                i = self._current_img
+            self._new_image.release()
+            return i
+        
         # TODO test
         # i'm not 100% sure that the settings have enought time to take effect with this,
         # it might be better to pull apart the start/stop iso transmission and capture so
