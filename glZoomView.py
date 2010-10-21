@@ -4,9 +4,11 @@ import sys, atexit
 
 import PIL.Image
 from ctypes import c_int
-from OpenGL.GLUT import *
-from OpenGL.GLU import *
+
 from OpenGL.GL import *
+from OpenGL.GL.shaders import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
 
 # glut does a wonderful thing (this might be apples fault... one of the two)
 # when you click File->Quit Python (instead of Shift-Q), python will receive a SIGKILL
@@ -15,7 +17,7 @@ from OpenGL.GL import *
 # it's VERY important that this program be exited using Shift-Q and NOTHING ELSE
 # sorry :(
 
-class ZoomView:
+class ZoomView(object):
     """
     TODO Um... document this
     """
@@ -27,9 +29,19 @@ class ZoomView:
                 (255, 0, 255, 255),
                 (0, 255, 255, 255)]
     
+    _defaultKeyBindings = { 'x' : ['zoom_in', False],
+        'z' : ['zoom_out', False],
+        'a' : ['add_zoomed_area', True],
+        'd' : ['delete_zoomed_area', True],
+        'c' : ['increase_contrast', False],
+        'C' : ['decrease_contrast', False],
+        'r' : ['reset_contrast', False]
+        }
+    
     def __init__(self): #, scale=1.):
         self.imageTexture = None
         self.zoomTexture = None
+        self.shader = None
         self.zooms = [] # dict{'x', 'y', 'z', 'c'}
         # where x/y is in image coordinates
         # z is the zoom factor (>1 = zoomed in)
@@ -47,13 +59,23 @@ class ZoomView:
         self.contrast = 1.
         self.lastLeftMouse = None
         self.mouseIsIn = True
+        
+        self.keyBindings = {}
     
     
+    def add_key_binding(self, key, functionName, passLocation=False):
+        self.keyBindings[key] = [functionName, passLocation]
+    
+    def add_default_key_bindings(self):
+        for key, value in self._defaultKeyBindings.iteritems():
+            self.add_key_binding(key, value[0], value[1])
     
     # ============ OpenGL drawing function ============
     
     def draw(self):
         if self.imageTexture == None:
+            #print "No image texture loaded, drawing test quad"
+            self.draw_test_quad()
             return
         self.draw_image()
         if len(self.zooms) > 0:
@@ -76,9 +98,16 @@ class ZoomView:
         # zoomed box
         glColor(1.0, 1.0, 1.0, 1.0)
         #glColor4f(0.5, 0.5, 0.5, 1.0)
+        if self.shader == None:
+            self.generate_zoomed_texture()
+        #print self, self.shader, glIsProgram(self.shader)
+        glUseProgram(self.shader)
+        glsl_contrast = glGetUniformLocation(self.shader, "contrast")
+        glUniform1f(glsl_contrast, self.contrast)
         glBindTexture(GL_TEXTURE_2D, self.imageTexture)
         #glBindTexture(GL_TEXTURE_2D, self.zoomTexture)
-        glUseProgram(self.shader)
+        #if self.shader != None:
+
         
         # print "finding my_color_texture"
         # self.shader_texture_loc = glGetUniformLocation(self.shader, "my_color_texture")
@@ -126,6 +155,7 @@ class ZoomView:
             glVertex2f(glXY[0]-glHalfSize, glXY[1]-glHalfSize)
             glEnd()
         
+        glUseProgram(0)
     
     def draw_zooms(self):
         for i in xrange(len(self.zooms)):
@@ -136,7 +166,8 @@ class ZoomView:
     
     def draw_image(self):
         glEnable(GL_TEXTURE_2D)
-        self.load_texture_from_string(self.imageData)
+        if not glIsTexture(self.imageTexture):
+            self.load_texture_from_string(self.imageData)
         glColor4f(1.0, 1.0, 1.0, 1.0)
         glBindTexture(GL_TEXTURE_2D, self.imageTexture)
         glBegin(GL_QUADS)
@@ -171,35 +202,21 @@ class ZoomView:
         x, y = self._window_to_image(x,y)
         #print "process_normal_keys:", key, x, y
         #key = key.lower()
-        if key == 'a':
-            self.add_zoomed_area(x, y)
-            self.selectedZoom = len(self.zooms)-1
-        elif not len(self.zooms):
-            return
-        elif key == 'x':
-            #self.selectedZoom =  self.find_closest_zoom_index(x,y)
-            self.zooms[self.selectedZoom]['z'] *= 0.9
-            if self.zooms[self.selectedZoom]['z'] < 1.:
-                self.zooms[self.selectedZoom]['z'] = 1.
-        elif key == 'z':
-            #self.selectedZoom =  self.find_closest_zoom_index(x,y)
-            self.zooms[self.selectedZoom]['z'] *= 1.1
-            if self.zooms[self.selectedZoom]['z'] > 100.:
-                self.zooms[self.selectedZoom]['z'] = 100.
-        elif key == 'd':
-            i = self.find_closest_zoom_index(x,y)
-            if i == self.selectedZoom:
-                self.selectedZoom = 0
-            self.zooms.remove(self.zooms[i])
-        elif key == 'c':
-            self.change_contrast(1.)
-        elif key == 'C':
-            self.change_contrast(-1.)
-        elif key == 'r':
-            self.reset_contrast()
+        
+        if key in self.keyBindings.keys():
+            try:
+                func = self.__getattribute__(self.keyBindings[key][0])
+            except AttributeError, e:
+                raise AttributeError, "invalid keybinding (%s): glZoomView has no function %s" % (key, self.keyBindings[key][0])
+            if self.keyBindings[key][1] == True: #pass on location of keydown?
+                func(x,y)
+            else:
+                func()
+        
+        return
     
     def process_mouse(self, button, state, x, y):
-        if (not self.mouseIsIn) or (not len(self.zooms)):
+        if (not self.mouseIsIn) or (len(self.zooms) == 0):
             return
         x, y = self._window_to_image(x,y)
         #print "process_mouse:", button, state, x, y
@@ -220,7 +237,7 @@ class ZoomView:
             self.mouseIsIn = True
     
     def process_active_mouse_motion(self, x, y):
-        if not len(self.zooms):
+        if len(self.zooms) == 0:
             return
         #if not self.mouseIsIn:
         #    return
@@ -269,11 +286,9 @@ class ZoomView:
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
         glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE8, self.imageSize[0], self.imageSize[1],
                     0, GL_LUMINANCE, GL_UNSIGNED_BYTE, self.imageData) # RADAR GL_UNSIGNED_BYTE may be wrong
-        #glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE16, self.imageSize[0], self.imageSize[1],
-        #            0, GL_LUMINANCE, GL_UNSIGNED_SHORT, self.imageData) # RADAR GL_UNSIGNED_BYTE may be wrong
         glBindTexture(GL_TEXTURE_2D, 0)
         
-        self.generate_zoomed_texture()
+        #self.generate_zoomed_texture()
         
     
     def load_image(self, imageFilename):
@@ -318,52 +333,132 @@ class ZoomView:
         #self.generate_zoomed_texture()
         self.load_texture_from_string(image.tostring())
     
+    def increase_contrast(self):
+        self.change_contrast(self.contrast)
+    
+    def decrease_contrast(self):
+        self.change_contrast(-self.contrast/2.)
+    
     def change_contrast(self, deltaContrast):
         self.contrast += deltaContrast
         if self.contrast < 0.:
             self.contrast = 0.
-        self.generate_zoomed_texture()
+        #print "changed contrast to: %f" % self.contrast
+        glUseProgram(self.shader)
+        glsl_contrast = glGetUniformLocation(self.shader, "contrast")
+        glUniform1f(glsl_contrast, self.contrast)
+        glUseProgram(0)
+        #self.regenerate_zoomed_texture()
     
     def reset_contrast(self):
         if self.contrast != 1.:
             self.contrast = 1.
-            self.generate_zoomed_texture()
+            #self.regenerate_zoomed_texture()
+            glUseProgram(self.shader)
+            glsl_contrast = glGetUniformLocation(self.shader, "contrast")
+            glUniform1f(glsl_contrast, self.contrast)
+            glUseProgram(0)
+    
+    #def regenerate_zoomed_texture(self):
+    #    # glDetachShader(self.shader, self.fShader)
+    #    glShaderSource(self.fShader, """
+    #    vec4 contrast = vec4(%f,%f,%f,1.0);
+    #    uniform sampler2D my_color_texture;
+    #    varying vec2 texture_coordinate;
+    #    void main() {
+    #        gl_FragColor = texture2D(my_color_texture, texture_coordinate);
+    #        gl_FragColor = pow(gl_FragColor, contrast);
+    #    }""" % (self.contrast,self.contrast,self.contrast))
+    #    glCompileShader(self.fShader)
+    #    # glAttachShader(self.shader, self.fShader)
+    #    glLinkProgram(self.shader)
+    #    print "Recompiled shader with contrast %f" % self.contrast
     
     def generate_zoomed_texture(self):
-        # # generate texture
-        # if self.zoomTexture != None:
-        #     glDeleteTextures(self.zoomTexture)
-        # self.zoomTexture = glGenTextures(1)
+        if self.shader != None:
+            return
+        
+        vShaderSrc = """
+            varying vec2 texture_coordinate;
+            void main() {
+                gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+                texture_coordinate = vec2(gl_MultiTexCoord0);
+            }"""
+        
+        fShaderSrc = """
+            //vec4 contrast = vec4(%f,%f,%f,1.0);
+            uniform float contrast;
+            uniform sampler2D my_color_texture;
+            varying vec2 texture_coordinate;
+            void main() {
+                gl_FragColor = texture2D(my_color_texture, texture_coordinate);
+                //gl_FragColor = pow(gl_FragColor, contrast);
+                //gl_FragColor = pow(gl_FragColor, contrast);
+                gl_FragColor.r = pow(gl_FragColor.r, contrast);
+                gl_FragColor.g = pow(gl_FragColor.g, contrast);
+                gl_FragColor.b = pow(gl_FragColor.b, contrast);
+            }"""
+        
+        self.shader = compileProgram(
+                        compileShader(vShaderSrc,GL_VERTEX_SHADER),
+                        compileShader(fShaderSrc,GL_FRAGMENT_SHADER))
+        
+        
+        #print self, self.shader, glIsProgram(self.shader)
+        glUseProgram(self.shader)
+        glsl_contrast = glGetUniformLocation(self.shader, "contrast")
+        glUniform1f(glsl_contrast, self.contrast)
+        glUseProgram(0)
+        
+        
+        # # if self.shader != None:
+        # #     # careful about memory leaks
+        # #     return self.regenerate_zoomed_texture()
         # 
+        # # # generate texture
+        # # if self.zoomTexture != None:
+        # #     glDeleteTextures(self.zoomTexture)
+        # # self.zoomTexture = glGenTextures(1)
+        # # 
+        # 
+        # self.vShader = glCreateShader(GL_VERTEX_SHADER)
+        # glShaderSource(self.vShader, """
+        # varying vec2 texture_coordinate;
+        # void main() {
+        #     gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+        #     texture_coordinate = vec2(gl_MultiTexCoord0);
+        # }""")
+        # glCompileShader(self.vShader)
+        # 
+        # self.fShader = glCreateShader(GL_FRAGMENT_SHADER)
+        # # a much better way to do this would be to use a glUniform
+        # # however, every time I call glGetUniformLocation, the program
+        # # segfaults
+        # 
+        # glUniform1f
+        # 
+        # glShaderSource(self.fShader, """
+        # //vec4 contrast = vec4(%f,%f,%f,1.0);
+        # uniform float contrast;
+        # uniform sampler2D my_color_texture;
+        # varying vec2 texture_coordinate;
+        # void main() {
+        #     contrastExp = vec
+        #     gl_FragColor = texture2D(my_color_texture, texture_coordinate);
+        #     //gl_FragColor = pow(gl_FragColor, contrast);
+        #     //gl_FragColor = pow(gl_FragColor, contrast);
+        #     gl_FragColor.r = pow(gl_FragColor.r, contrast);
+        #     gl_FragColor.g = pow(gl_FragColor.g, contrast);
+        #     gl_FragColor.b = pow(gl_FragColor.b, contrast);
+        # }""")# % (self.contrast,self.contrast,self.contrast))
+        # glCompileShader(self.fShader)
+        # 
+        # self.shader = glCreateProgram()
+        # glAttachShader(self.shader, self.vShader)
+        # glAttachShader(self.shader, self.fShader)
+        # #print glGetProgramInfoLog(program)
+        # glLinkProgram(self.shader)
         
-        vShader = glCreateShader(GL_VERTEX_SHADER)
-        glShaderSource(vShader, """
-        varying vec2 texture_coordinate;
-        void main() {
-            gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-            texture_coordinate = vec2(gl_MultiTexCoord0);
-        }""")
-        glCompileShader(vShader)
-        
-        fShader = glCreateShader(GL_FRAGMENT_SHADER)
-        # a much better way to do this would be to use a glUniform
-        # however, every time I call glGetUniformLocation, the program
-        # segfaults
-        glShaderSource(fShader, """
-        vec4 contrast = vec4(%f,%f,%f,1.0);
-        uniform sampler2D my_color_texture;
-        varying vec2 texture_coordinate;
-        void main() {
-            gl_FragColor = texture2D(my_color_texture, texture_coordinate);
-            gl_FragColor = pow(gl_FragColor, contrast);
-        }""" % (self.contrast,self.contrast,self.contrast))
-        glCompileShader(fShader)
-        
-        program = glCreateProgram()
-        glAttachShader(program, vShader)
-        glAttachShader(program, fShader)
-        #print glGetProgramInfoLog(program)
-        glLinkProgram(program)
         
         # print "Link status:", glGetProgramiv(program, GL_LINK_STATUS)
         # print glGetProgramInfoLog(program)
@@ -386,7 +481,7 @@ class ZoomView:
         
         #print glGetUniformLocation(program, "my_color_texture")
         
-        self.shader = program
+        # self.shader = program
         # 
         # glColor4f(1.,1.,1.,1.)
         # glBindTexture(GL_TEXTURE_2D, self.zoomTexture)
@@ -443,13 +538,21 @@ class ZoomView:
         if y == None:
             y = 0.1
         if z == None:
-            if len(self.zooms):
+            if len(self.zooms) != 0:
                 z = self.zooms[self.selectedZoom]['z']
             else:
                 z = 1.
         if c == None:
             c = self._defaultZoomColors[len(self.zooms) % len(self._defaultZoomColors)]
         self.zooms.append({'x': x, 'y': y, 'z': z, 'c': c})
+        self.selectedZoom = len(self.zooms)-1
+    
+    def delete_zoomed_area(self, x, y):
+        if len(self.zooms) > 0:
+            i = self.find_closest_zoom_index(x,y)
+            if i == self.selectedZoom:
+                self.selectedZoom = 0
+            self.zooms.remove(self.zooms[i])
     
     def find_closest_zoom_distance(self, x, y):
         closest = -1
@@ -460,6 +563,18 @@ class ZoomView:
                 closest = i
                 dist = d
         return dist, closest
+    
+    def zoom_in(self):
+        if len(self.zooms) > 0:
+            self.zooms[self.selectedZoom]['z'] *= 1.1
+            if self.zooms[self.selectedZoom]['z'] > 100.:
+                self.zooms[self.selectedZoom]['z'] = 100.
+    
+    def zoom_out(self):
+        if len(self.zooms) > 0:
+            self.zooms[self.selectedZoom]['z'] *= 0.9
+            if self.zooms[self.selectedZoom]['z'] < 1.:
+                self.zooms[self.selectedZoom]['z'] = 1.
     
     def find_closest_zoom_index(self, x, y):
         return self.find_closest_zoom_distance(x,y)[1]

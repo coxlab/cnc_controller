@@ -10,14 +10,22 @@ from objc import IBAction, IBOutlet
 
 from OpenGL.GL import *
 from OpenGL.GLUT import *
-from zoomView import ZoomView
+from glZoomView import ZoomView
 
 class OCZoomView(NSOpenGLView, ZoomView):
     otherView = objc.IBOutlet()
     
     def awakeFromNib(self):
         self.gl_inited = False
+        
         ZoomView.__init__(self)
+        
+        self.add_key_binding('z', 'zoom_in')
+        self.add_key_binding('x', 'zoom_out')
+        self.add_key_binding('c', 'increase_contrast')
+        self.add_key_binding('C', 'decrease_contrast')
+        self.add_key_binding('r', 'reset_contrast')
+        
         self.mouseIsIn = True # make sure that the mouse is IN before passing on events
     
     def set_image_from_cv(self, image):
@@ -44,6 +52,30 @@ class OCZoomView(NSOpenGLView, ZoomView):
         alert.setInformativeText_("Right Click = add Zoom Area\nLeft Drag = move Zoom Area\nShift+Right Click = delete Zoom Area\nScroll = Zoom in/out")
         alert.setAlertStyle_(NSInformationalAlertStyle)
         alert.runModal()
+    
+    # ---------- Key events -------------
+    
+    def acceptsFirstResponder(self):
+        return YES
+    
+    def becomeFirstResponder(self):
+        return YES
+    
+    def resignFirstResponder(self):
+        return YES
+    
+    def keyDown_(self, event):
+        x, y = self.oc_to_gl(self.convertPoint_fromView_(event.locationInWindow(), None))
+        #print event.characters(), x, y
+        self.process_normal_keys(event.characters(), x, y)
+        self.scheduleRedisplay()
+        return
+    
+    #def performKeyEquivalent_(self, event):
+    #    print event
+    #    return YES
+    
+    # ----------- Mouse events -----------
     
     def mouseDown_(self, event):
         x,y = self.oc_to_gl(self.convertPoint_fromView_(event.locationInWindow(), None))
@@ -100,6 +132,8 @@ class OCZoomView(NSOpenGLView, ZoomView):
             newZoom = self.zooms[self.selectedZoom]['z'] * 1.1
         elif dZoom < 0:
             newZoom = self.zooms[self.selectedZoom]['z'] * 0.9
+        else:
+            newZoom = self.zooms[self.selectedZoom]['z']
         #newZoom = self.zooms[self.selectedZoom]['z'] * (1.0 + dZoom)
         if newZoom < 1.:
             newZoom = 1.

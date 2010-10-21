@@ -39,6 +39,12 @@ class Camera:
     def capture_frame(self):
         # should return a numpy array
         raise Exception("Override this")
+    
+    def start_streaming(self):
+        raise Exception("Override this")
+    
+    def stop_streaming(self):
+        raise Exception("Override this")
     # ==========================
     
     

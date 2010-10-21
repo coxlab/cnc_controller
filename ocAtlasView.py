@@ -118,6 +118,20 @@ class OCAtlasView (NSObject):
         # draw path in red
         o = numpy.array([self.pathParams[0], self.pathParams[1], self.pathParams[2]])
         m = numpy.array([self.pathParams[3], self.pathParams[4], self.pathParams[5]])
+        # test if m and n=[0, 1, 0] are parallel: dot(m,n) == 0
+        n = numpy.array([0.,-1.,0.])
+        d = numpy.dot(n,m)
+        if d != 0.:
+            # calculate intersection at ap min
+            w = o - numpy.array([0., apMin, 0.])
+            sMin = -numpy.dot(n,w) / d
+            pMin = o + m * sMin
+            # calculate intersection at ap max
+            w = o - numpy.array([0., apMax, 0.])
+            sMax = -numpy.dot(n,w) / d
+            pMax = o + m * sMax
+            # draw line
+            draw_line(mm_to_canvas(pMin[0],pMin[2]),mm_to_canvas(pMax[0],pMax[2]),NSColor.redColor(),4)
         
         # draw tip in black
         tip = o + self.controller.ocW * m
