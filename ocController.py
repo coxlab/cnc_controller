@@ -922,16 +922,16 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def setLeftShutter_(self, sender):
         if cfg.fakeCameras: return
-        print "setting left shutter to:", sender.floatValue(),
+        #print "setting left shutter to:", sender.floatValue(),
         self.cameras.leftCamera.set_shutter(sender.floatValue())
-        print "[%.3f]" % (self.cameras.leftCamera.shutter.val)
+        #print "[%.3f]" % (self.cameras.leftCamera.shutter.val)
     
     @IBAction
     def setRightShutter_(self, sender):
         if cfg.fakeCameras: return
-        print "setting right shutter to:", sender.floatValue(),
+        #print "setting right shutter to:", sender.floatValue(),
         self.cameras.rightCamera.set_shutter(sender.floatValue())
-        print "[%.3f]" % (self.cameras.rightCamera.shutter.val)
+        #print "[%.3f]" % (self.cameras.rightCamera.shutter.val)
     
     @IBAction
     def toggleStreaming_(self, sender):
