@@ -41,13 +41,23 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
     
     def set_mode(self):
         self.mode = [m for m in self.modes if m.name == 'FORMAT7_0'][0]
+        #self.configure()
     
     def configure(self):
         self.trigger.on = False
         self.exposure.on = False
+        self.exposure.val = 0.
         self.shutter.mode = 'manual'
         self.shutter.val = 100.
-        self.mode.roi = ((1392, 1040), (0,0), 'Y8', -3)
+        s, u = self.mode.packet_parameters
+        print "Max Packet Size %i, Packet Unit %i" % (s, u)
+        fps = (1. / self.shutter.val)
+        NP = min(int(1./(0.000125/fps) + 0.5), 4096)
+        d = NP*8
+        ps = (1392 * 1040 * 8 + d - 1)/d
+        ps = min((ps + ps % u, s))/2
+        print "Calculated Packet Size %i, N Packets %i, for fps %.3f" % (ps, NP, fps)
+        self.mode.roi = ((1392, 1040), (0,0), 'Y8', ps)
         # self.framerate.mode = 'manual'
         # self.framerate.val = 0.5#1.0
         # self.exposure.mode = 'manual'
@@ -55,12 +65,27 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
         # self.shutter.mode = 'manual'
         # self.shutter.val = 1000#533
     
+    def print_features(self):
+        for feature in self.features:
+            f = self.__getattribute__(feature)
+            print "%s:" % feature
+            print " Value:", f.val
+            print " On?  :", f.on
+            print " OnOff:", f.can_be_disabled
+            print " Mode :", f.mode
+            print " Modes:", f.pos_modes
+            if feature != 'trigger':
+                print " Range:", f.range
+            print
+    
     def connect(self):
         if self.connected:
             return True
     
     def disconnect(self):
         if self.connected == True:
+            if self.streaming == True:
+                self.stop_streaming()
             self.close()
             self.connected = False
     
@@ -74,37 +99,60 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
     
     def poll_stream(self):
         if self.streaming == False:
+            #print "not streaming exitting"
             return None
+        #print "acquiring lock"
         self._new_image.acquire()
+        #print "grabbing image"
         i = self._current_img
+        #print "i =", i
         if i != None and i._id != self.frameID:
+            #print "found frame:", i._id
             self._new_image.release()
             self.frameID = i._id
             return i
         else:
+            #print "no good frame found"
             self._new_image.release()
             return None
     
-    def set_shutter(self, value)
+    def set_shutter(self, value):
         self.shutter.val = value
-        self.mode.roi = ((1392, 1040), (0,0), 'Y8', -3)
+        #s, u = self.mode.packet_parameters
+        #self.mode.roi = ((1392, 1040), (0,0), 'Y8', s/2)
+        s, u = self.mode.packet_parameters
+        print "Max Packet Size %i, Packet Unit %i" % (s, u)
+        fps = (1. / self.shutter.val)
+        NP = min(int(1./(0.000125/fps) + 0.5), 4096)
+        d = NP*8
+        ps = (1392 * 1040 * 8 + d - 1)/d
+        ps = min((ps + ps % u, s))/2
+        print "Calculated Packet Size %i, N Packets %i, for fps %.3f" % (ps, NP, fps)
+        self.mode.roi = ((1392, 1040), (0,0), 'Y8', ps)
     
     def capture_frame(self):
         if self.streaming == False:
             self.start_streaming()
+            #print "started streaming"
             self._new_image.acquire()
+            #print "acquired lock"
             i = self._current_img
+            #print "i =", i
             while i == None:
-                cam._new_image.wait()
+                #print "waiting..."
+                self._new_image.wait()
                 i = self._current_img
+                #print "i =", i
             self._new_image.release()
+            #print "releaseed"
             self.stop_streaming()
+            #print "stopped streaming"
             return i
         else:
             self._new_image.acquire()
             i = self._current_img
             while i == None:
-                cam._new_image.wait()
+                self._new_image.wait()
                 i = self._current_img
             self._new_image.release()
             return i

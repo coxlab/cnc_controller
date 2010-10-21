@@ -118,6 +118,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         NSApp().setDelegate_(self)
         self.timer = None
+        self.streamTimer = None
         
         
         linearStatus = self.cnc.linearAxes.get_motor_status()
@@ -921,26 +922,34 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def setLeftShutter_(self, sender):
         if cfg.fakeCameras: return
+        print "setting left shutter to:", sender.floatValue(),
         self.cameras.leftCamera.set_shutter(sender.floatValue())
+        print "[%.3f]" % (self.cameras.leftCamera.shutter.val)
     
     @IBAction
     def setRightShutter_(self, sender):
         if cfg.fakeCameras: return
+        print "setting right shutter to:", sender.floatValue(),
         self.cameras.rightCamera.set_shutter(sender.floatValue())
+        print "[%.3f]" % (self.cameras.rightCamera.shutter.val)
     
     @IBAction
     def toggleStreaming_(self, sender):
         if cfg.fakeCameras: return
         if self.cameras.leftCamera.streaming or self.cameras.rightCamera.streaming:
+            print "stopping streaming"
+            sender.setTitle_('Stream')
             if self.streamTimer != None:
                 self.streamTimer.invalidate()
                 self.streamTimer = None
             self.cameras.leftCamera.stop_streaming()
             self.cameras.rightCamera.stop_streaming()
         else:
-            self.cameras.leftCameras.start_streaming()
-            self.cameras.rightCameras.start_streaming()
-            if self.streamTimer != None:
+            print "starting streaming"
+            sender.setTitle_('Stop')
+            self.cameras.leftCamera.start_streaming()
+            self.cameras.rightCamera.start_streaming()
+            if self.streamTimer == None:
                 self.streamTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.03, self, self.poll_for_frames, None, True)
                 NSRunLoop.currentRunLoop().addTimer_forMode_(self.streamTimer, NSDefaultRunLoopMode)
     

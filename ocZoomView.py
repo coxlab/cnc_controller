@@ -29,6 +29,7 @@ class OCZoomView(NSOpenGLView, ZoomView):
         self.mouseIsIn = True # make sure that the mouse is IN before passing on events
     
     def set_image_from_numpy(self, image):
+        self.openGLContext().makeCurrentContext()
         self.imageSize = (image.shape[1], image.shape[0])
         frame = self.frame()
         self.scale = max(frame.size.width/float(self.imageSize[0]), frame.size.height/float(self.imageSize[1]))
@@ -36,6 +37,7 @@ class OCZoomView(NSOpenGLView, ZoomView):
         self.scheduleRedisplay()
     
     def set_image_from_cv(self, image):
+        self.openGLContext().makeCurrentContext()
         #pylab.ion()
         #pylab.figure()
         #a = numpy.fromstring(image.tostring(),numpy.uint8)
