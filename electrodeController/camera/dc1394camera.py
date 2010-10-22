@@ -123,6 +123,9 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
             return None
     
     def set_shutter(self, value):
+        if value == self.shutter.val:
+            # no need to change the values that already agree
+            return
         self.shutter.val = value
         #s, u = self.mode.packet_parameters
         #self.mode.roi = ((1392, 1040), (0,0), 'Y8', s/2)
