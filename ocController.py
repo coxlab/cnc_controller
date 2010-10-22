@@ -843,7 +843,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #self._.ocDepth = float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
         print time.time() - s
         
-        print "getting linear positions"
+        print "getting linear positions",
         s = time.time()
         l = self.cnc.linearAxes.get_position()
         self._.ocX = float(l['x'])
@@ -858,7 +858,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         # if the path of the electrode has been fit...
         if self.cnc.pathParams != None:
-            print "using pathParams"
+            print "using pathParams",
             s = time.time()
             # use self.ocW to calculate the position in the camera frame and then map that to skull coordinates
             #print "trying to update mesh views pathParams"
