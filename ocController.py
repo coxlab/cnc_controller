@@ -90,6 +90,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     zoomPointsController = objc.IBOutlet()
     zoomPoints = NSMutableArray.array()
+    zoomPointsTable = objc.IBOutlet()
     
     xVelocityField = objc.IBOutlet()
     yVelocityField = objc.IBOutlet()
@@ -225,7 +226,18 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def clearZoomPoints_(self, sender):
-        self.zoomPoints.clear()
+        # check if any points are selected
+        indexSet = self.zoomPointsTable.selectedRowIndexes()
+        i = indexSet.firstIndex()
+        if i != NSIntegerMax:
+            offset = 0
+            while i != NSIntegerMax:
+                self.zoomPoints.removeObjectAtIndex_(i-offset)
+                offset += 1
+                i = indexSet.indexGreaterThanIndex_(i)
+        else:
+            self.zoomPoints.clear()
+        self.zoomPointsController.rearrangeObjects()
         self.zoomPointsController.rearrangeObjects()
     
     @IBAction

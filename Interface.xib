@@ -11,11 +11,11 @@
 			<string key="NS.object.0">804</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="81"/>
-			<integer value="930"/>
+			<integer value="907"/>
 			<integer value="848"/>
 			<integer value="871"/>
-			<integer value="907"/>
+			<integer value="81"/>
+			<integer value="930"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1557,7 +1557,7 @@
 												<reference key="NSSuperview" ref="811762933"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSSliderCell" key="NSCell" id="678860152">
-													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags">-2080244224</int>
 													<int key="NSCellFlags2">128</int>
 													<string key="NSContents"/>
 													<reference key="NSControlView" ref="959365653"/>
@@ -1680,13 +1680,13 @@
 															<object class="NSTableView" id="687080904">
 																<reference key="NSNextResponder" ref="1018974836"/>
 																<int key="NSvFlags">256</int>
-																<string key="NSFrameSize">{599, 144}</string>
+																<string key="NSFrameSize">{615, 144}</string>
 																<reference key="NSSuperview" ref="1018974836"/>
 																<bool key="NSEnabled">YES</bool>
 																<object class="NSTableHeaderView" key="NSHeaderView" id="547225730">
 																	<reference key="NSNextResponder" ref="952475353"/>
 																	<int key="NSvFlags">256</int>
-																	<string key="NSFrameSize">{599, 17}</string>
+																	<string key="NSFrameSize">{615, 17}</string>
 																	<reference key="NSSuperview" ref="952475353"/>
 																	<reference key="NSTableView" ref="687080904"/>
 																</object>
@@ -1698,7 +1698,7 @@
 																</object>
 																<array class="NSMutableArray" key="NSTableColumns">
 																	<object class="NSTableColumn" id="949092753">
-																		<double key="NSWidth">42</double>
+																		<double key="NSWidth">40</double>
 																		<double key="NSMinWidth">40</double>
 																		<double key="NSMaxWidth">1000</double>
 																		<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -2004,7 +2004,7 @@
 																	</object>
 																</object>
 																<double key="NSRowHeight">17</double>
-																<int key="NSTvFlags">-29360128</int>
+																<int key="NSTvFlags">-23068672</int>
 																<reference key="NSDelegate"/>
 																<reference key="NSDataSource"/>
 																<int key="NSGridStyleMask">3</int>
@@ -2015,7 +2015,7 @@
 																<int key="NSTableViewDraggingDestinationStyle">0</int>
 															</object>
 														</array>
-														<string key="NSFrame">{{1, 17}, {599, 144}}</string>
+														<string key="NSFrame">{{1, 17}, {615, 144}}</string>
 														<reference key="NSSuperview" ref="529465367"/>
 														<reference key="NSNextKeyView" ref="687080904"/>
 														<reference key="NSDocView" ref="687080904"/>
@@ -2047,7 +2047,7 @@
 														<array class="NSMutableArray" key="NSSubviews">
 															<reference ref="547225730"/>
 														</array>
-														<string key="NSFrame">{{1, 0}, {599, 17}}</string>
+														<string key="NSFrame">{{1, 0}, {615, 17}}</string>
 														<reference key="NSSuperview" ref="529465367"/>
 														<reference key="NSNextKeyView" ref="547225730"/>
 														<reference key="NSDocView" ref="547225730"/>
@@ -2056,7 +2056,7 @@
 													</object>
 													<reference ref="518931368"/>
 												</array>
-												<string key="NSFrame">{{7, 17}, {601, 162}}</string>
+												<string key="NSFrame">{{7, 17}, {617, 162}}</string>
 												<reference key="NSSuperview" ref="381671482"/>
 												<reference key="NSNextKeyView" ref="1018974836"/>
 												<int key="NSsFlags">562</int>
@@ -2082,7 +2082,7 @@
 											<object class="NSButton" id="812486189">
 												<reference key="NSNextResponder" ref="381671482"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{619, 151}, {108, 32}}</string>
+												<string key="NSFrame">{{626, 151}, {108, 32}}</string>
 												<reference key="NSSuperview" ref="381671482"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="504437601">
@@ -2102,7 +2102,7 @@
 											<object class="NSButton" id="62943046">
 												<reference key="NSNextResponder" ref="381671482"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{616, 9}, {115, 32}}</string>
+												<string key="NSFrame">{{626, 9}, {115, 32}}</string>
 												<reference key="NSSuperview" ref="381671482"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="391019273">
@@ -6423,6 +6423,14 @@
 					</object>
 					<int key="connectionID">1429</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">zoomPointsTable</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="687080904"/>
+					</object>
+					<int key="connectionID">1430</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -7476,8 +7484,6 @@
 						<reference key="object" ref="381671482"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="529465367"/>
-							<reference ref="62943046"/>
-							<reference ref="812486189"/>
 							<reference ref="761894194"/>
 							<reference ref="834655251"/>
 							<reference ref="411683178"/>
@@ -7487,6 +7493,8 @@
 							<reference ref="776560578"/>
 							<reference ref="518322016"/>
 							<reference ref="874506005"/>
+							<reference ref="812486189"/>
+							<reference ref="62943046"/>
 						</array>
 						<reference key="parent" ref="479501803"/>
 					</object>
@@ -9414,7 +9422,7 @@
 				<string key="1035.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1036.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSAffineTransform" key="1036.IBViewBoundsToFrameTransform">
-					<bytes key="NSTransformStruct">P4AAAL+AAABEB4AAw10AAA</bytes>
+					<bytes key="NSTransformStruct">P4AAAL+AAABEGgAAwhwAAA</bytes>
 				</object>
 				<string key="1037.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1048.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9864,7 +9872,7 @@
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="81.ImportedFromIB2"/>
 				<string key="81.editorWindowContentRectSynchronizationRect">{{323, 672}, {199, 203}}</string>
-				<string key="811.IBEditorWindowLastContentRect">{{334, 739}, {616, 0}}</string>
+				<string key="811.IBEditorWindowLastContentRect">{{379, 757}, {616, 0}}</string>
 				<string key="811.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="82.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="82.ImportedFromIB2"/>
@@ -10005,7 +10013,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1429</int>
+			<int key="maxID">1430</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -10276,6 +10284,7 @@
 						<string key="yVelocityField">id</string>
 						<string key="zVelocityField">id</string>
 						<string key="zoomPointsController">id</string>
+						<string key="zoomPointsTable">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="BMotorStatusButton">
@@ -10388,6 +10397,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="zoomPointsController">
 							<string key="name">zoomPointsController</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="zoomPointsTable">
+							<string key="name">zoomPointsTable</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
