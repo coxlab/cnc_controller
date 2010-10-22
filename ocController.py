@@ -831,18 +831,35 @@ class OCController (NSObject, electrodeController.controller.Controller):
             #print "skull coordinates updated"
             cfg.log.info('ML:%.3f AP:%.3f DV:%.3f' % (self.ocML, self.ocAP, self.ocDV))
         
-        self._.ocAngle = float(self.cnc.headAxes.get_position('b')['b'])
-        # TODO this should be (target - w) not just w
-        self._.ocDepth = float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
+        print "getting head positions",
+        s = time.time()
+        h = self.cnc.headAxes.get_position()
+        self._.ocAngle = float(h['b'])
+        self._.ocB = float(h['b'])
+        self._.ocDepth = float(h['w'])
+        self._.ocW = float(h['w'])
+        #self._.ocAngle = float(self.cnc.headAxes.get_position('b')['b'])
+        ## TODO this should be (target - w) not just w
+        #self._.ocDepth = float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
+        print time.time() - s
         
-        self._.ocX = float(self.cnc.linearAxes.get_position('x')['x'])
-        self._.ocY = float(self.cnc.linearAxes.get_position('y')['y'])
-        self._.ocZ = float(self.cnc.linearAxes.get_position('z')['z'])
-        self._.ocB = float(self.cnc.headAxes.get_position('b')['b'])
-        self._.ocW = float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
+        print "getting linear positions"
+        s = time.time()
+        l = self.cnc.linearAxes.get_position()
+        self._.ocX = float(l['x'])
+        self._.ocY = float(l['y'])
+        self._.ocZ = float(l['z'])
+        #self._.ocX = float(self.cnc.linearAxes.get_position('x')['x'])
+        #self._.ocY = float(self.cnc.linearAxes.get_position('y')['y'])
+        #self._.ocZ = float(self.cnc.linearAxes.get_position('z')['z'])
+        #self._.ocB = float(self.cnc.headAxes.get_position('b')['b'])
+        #self._.ocW = float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
+        print time.time() - s
         
         # if the path of the electrode has been fit...
         if self.cnc.pathParams != None:
+            print "using pathParams"
+            s = time.time()
             # use self.ocW to calculate the position in the camera frame and then map that to skull coordinates
             #print "trying to update mesh views pathParams"
             tipPosition = numpy.ones(4,dtype=numpy.float64)
@@ -913,6 +930,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.atlasView.updateView()
             
             cfg.log.info('ML:%.3f AP:%.3f DV:%.3f' % (self.ocML, self.ocAP, self.ocDV))
+            print time.time() - s
         
         # logging
         cfg.cncLog.info('%.2f %.3f %.3f %.3f %.3f %.3f' % (float(timeOfUpdate), self.ocX, self.ocY, self.ocZ, self.ocB, self.ocW))
