@@ -45,12 +45,14 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
     
     def configure(self):
         self.trigger.on = False
-        self.exposure.on = False
+        self.exposure.on = True
+        self.exposure.mode = 'manual'
         self.exposure.val = 0.
+        self.framerate.on = False
         self.shutter.mode = 'manual'
         self.shutter.val = 100.
-        s, u = self.mode.packet_parameters
-        #print "Max Packet Size %i, Packet Unit %i" % (s, u)
+        u, s = self.mode.packet_parameters
+        print "Max Packet Size %i, Packet Unit %i" % (s, u)
         #fps = (1. / self.shutter.val)
         #NP = min(int(1./(0.000125/fps) + 0.5), 4096)
         #d = NP*8
@@ -61,7 +63,7 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
         ps = int(self.mode.recommended_packet_size * .4)
         ps = ps - ps % u
         self.mode.roi = ((1392, 1040), (0,0), 'Y8', ps)
-        #self.print_features()
+        self.print_features()
         # self.framerate.mode = 'manual'
         # self.framerate.val = 0.5#1.0
         # self.exposure.mode = 'manual'
@@ -124,8 +126,8 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
         self.shutter.val = value
         #s, u = self.mode.packet_parameters
         #self.mode.roi = ((1392, 1040), (0,0), 'Y8', s/2)
-        s, u = self.mode.packet_parameters
-        #print "Max Packet Size %i, Packet Unit %i" % (s, u)
+        u, s = self.mode.packet_parameters
+        print "Max Packet Size %i, Packet Unit %i" % (s, u)
         #fps = (1. / self.shutter.val)
         #NP = min(int(1./(0.000125/fps) + 0.5), 4096)
         #d = NP*8
@@ -141,7 +143,7 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
             self.start_streaming()
         else:
             self.mode.roi = ((1392, 1040), (0,0), 'Y8', ps)
-        #self.print_features()
+        self.print_features()
     
     def capture_frame(self):
         if self.streaming == False:
