@@ -125,7 +125,7 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
     def set_shutter(self, value):
         if value == self.shutter.val:
             # no need to change the values that already agree
-            return
+            return self.shutter.val
         self.shutter.val = value
         #s, u = self.mode.packet_parameters
         #self.mode.roi = ((1392, 1040), (0,0), 'Y8', s/2)
@@ -146,7 +146,8 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
             self.start_streaming()
         else:
             self.mode.roi = ((1392, 1040), (0,0), 'Y8', ps)
-        self.print_features()
+        #self.print_features()
+        return self.shutter.val
     
     def capture_frame(self):
         if self.streaming == False:
