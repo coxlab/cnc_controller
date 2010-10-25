@@ -911,8 +911,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
             
             mInS = p1InS - p2InS
             mInS = mInS / numpy.linalg.norm(mInS)
+            #print "updating atlas view pathParams",
+            #print self.atlasView,
+            #print self.atlasView.sectionIndex,
             self.atlasView.pathParams = [p1InS[0], p1InS[1], p1InS[2], mInS[0], mInS[1], mInS[2]]
-            
+            #print self.atlasView.pathParams
             #o = numpy.ones(4,dtype=numpy.float64)
             #o[:3] = self.cnc.pathParams[:3]
             #m = numpy.ones(4,dtype=numpy.float64)

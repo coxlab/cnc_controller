@@ -136,6 +136,7 @@ class ZoomView(object):
         
         # crosshairs
         glColor(*zoom['c'])
+        glLineWidth(1.)
         glBegin(GL_LINES)
         glVertex2f(glXY[0]-glHalfSize, glXY[1])
         glVertex2f(glXY[0]+glHalfSize, glXY[1])
@@ -147,6 +148,7 @@ class ZoomView(object):
         if index == self.selectedZoom:
             # draw border
             glColor(*zoom['c'])
+            glLineWidth(1.)
             glBegin(GL_LINE_STRIP)
             glVertex2f(glXY[0]-glHalfSize, glXY[1]-glHalfSize)
             glVertex2f(glXY[0]+glHalfSize, glXY[1]-glHalfSize)

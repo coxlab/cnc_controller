@@ -1575,7 +1575,7 @@
 													<int key="NSPeriodicInterval">25</int>
 												</object>
 											</object>
-											<object class="NSOpenGLView" id="780420616">
+											<object class="NSOpenGLView" id="673789584">
 												<reference key="NSNextResponder" ref="811762933"/>
 												<int key="NSvFlags">1292</int>
 												<object class="NSPSMatrix" key="NSDrawMatrix"/>
@@ -4613,9 +4613,6 @@
 				<bool key="NSFilterRestrictsInsertion">YES</bool>
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 			</object>
-			<object class="NSCustomObject" id="29224094">
-				<string key="NSClassName">OCAtlasView</string>
-			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<array class="NSMutableArray" key="connectionRecords">
@@ -6004,14 +6001,6 @@
 					<int key="connectionID">1322</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">controller</string>
-						<reference key="source" ref="29224094"/>
-						<reference key="destination" ref="401468622"/>
-					</object>
-					<int key="connectionID">1323</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">moveYAxisForward:</string>
 						<reference key="source" ref="401468622"/>
@@ -6324,22 +6313,6 @@
 					<int key="connectionID">1408</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">atlasView</string>
-						<reference key="source" ref="401468622"/>
-						<reference key="destination" ref="29224094"/>
-					</object>
-					<int key="connectionID">1409</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">saveAtlasImage:</string>
-						<reference key="source" ref="29224094"/>
-						<reference key="destination" ref="242914877"/>
-					</object>
-					<int key="connectionID">1412</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleStreaming:</string>
 						<reference key="source" ref="401468622"/>
@@ -6374,7 +6347,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">controller</string>
-						<reference key="source" ref="780420616"/>
+						<reference key="source" ref="673789584"/>
 						<reference key="destination" ref="401468622"/>
 					</object>
 					<int key="connectionID">1433</int>
@@ -6382,10 +6355,18 @@
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">positionChanged:</string>
-						<reference key="source" ref="780420616"/>
+						<reference key="source" ref="673789584"/>
 						<reference key="destination" ref="678860152"/>
 					</object>
 					<int key="connectionID">1434</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">atlasView</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="673789584"/>
+					</object>
+					<int key="connectionID">1439</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -8992,7 +8973,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="959365653"/>
 							<reference ref="564212750"/>
-							<reference ref="780420616"/>
+							<reference ref="673789584"/>
 						</array>
 						<reference key="parent" ref="1014198805"/>
 					</object>
@@ -9008,11 +8989,6 @@
 						<int key="objectID">1306</int>
 						<reference key="object" ref="678860152"/>
 						<reference key="parent" ref="959365653"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1308</int>
-						<reference key="object" ref="29224094"/>
-						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1336</int>
@@ -9351,7 +9327,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1432</int>
-						<reference key="object" ref="780420616"/>
+						<reference key="object" ref="673789584"/>
 						<reference key="parent" ref="811762933"/>
 					</object>
 				</array>
@@ -9645,7 +9621,7 @@
 				<string key="1432.CustomClassName">OCAtlasView</string>
 				<string key="1432.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSAffineTransform" key="1432.IBViewBoundsToFrameTransform">
-					<bytes key="NSTransformStruct">AUM9AABDfwAAA</bytes>
+					<bytes key="NSTransformStruct">AUGIAABBiAAAA</bytes>
 				</object>
 				<string key="144.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="144.ImportedFromIB2"/>
@@ -9964,7 +9940,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1436</int>
+			<int key="maxID">1439</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

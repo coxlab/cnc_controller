@@ -21,7 +21,6 @@ from OpenGL.GLUT import *
 class OCAtlasView (OCZoomView):
     #ocFigureIndex = objc.ivar(u"ocFigureIndex")
     controller = objc.IBOutlet()
-    
     atlasImages = NSMutableDictionary.alloc().init()
     
     def awakeFromNib(self):
@@ -52,7 +51,7 @@ class OCAtlasView (OCZoomView):
         #print self.viewImage.size()
         #atlasSliceLocations.keys()
         #self._.ocFigureIndex = 106 - cfg.defaultAtlasImage#int(cfg.defaultAtlasImage.split('.')[0])
-        self.sectionIndex = 106 - cfg.defaultAtlasImage#int(cfg.defaultAtlasImage.split('.')[0])
+        self.sectionIndex = cfg.defaultAtlasImage#int(cfg.defaultAtlasImage.split('.')[0])
         self.pathParams = None
         #self.regenerate_view_image()
         self.set_image_from_nsimage(self.atlasImages[cfg.defaultAtlasImage])
@@ -84,7 +83,7 @@ class OCAtlasView (OCZoomView):
         
         #data = image_rep.representationUsingType_properties_(NSPNGFileType, None)
         #data.writeToFile_atomically_(filepath, False) 
-        # load texture from string
+        # load texture from stringf
         #self.load_texture_from_string(str(image_rep.bitmapData()))
         print len(self.imageData), self.imageSize[0] * self.imageSize[1]*4
         self.scheduleRedisplay()
@@ -95,7 +94,7 @@ class OCAtlasView (OCZoomView):
     
     @IBAction
     def positionChanged_(self, sender):
-        print "position changed:", sender.intValue()
+        #print "position changed:", sender.intValue()
         self.sectionIndex = 106 - sender.intValue()
         self.set_image_from_nsimage(self.atlasImages[self.sectionIndex])
     
@@ -121,13 +120,22 @@ class OCAtlasView (OCZoomView):
         #self.otherView.scheduleRedisplay()
         self.scheduleRedisplay()
     
+    def mm_to_canvas(self, x, y):
+        if self.sectionIndex >= 103:
+            y = y + 1.
+        #return x * self.imageSize[0]/16.0 + self.imageSize[0]/2., self.imageSize[1] + self.imageSize[1]/11.0 * y
+        return x / 8., y / 5.5 + 1.
+    
     def draw_electrode(self):
         # opengl coordinates: +1 (right) +1 (up) -1(left) -1(down)
         # atlas coordinates: + (right) - (left) 0(top) -(down)
         #sectionIndex = 106 - self.ocFigureIndex
         # check if path has been measured
+        #print "pathParams in draw_electrode", self.pathParams
         if self.pathParams == None:
+            #print "not drawing electrode"
             return
+        #print "drawing electrode"
         
         # set culling distances
         apMax = cfg.atlasSliceLocations[self.sectionIndex]
@@ -149,13 +157,24 @@ class OCAtlasView (OCZoomView):
             sMax = -numpy.dot(n,w) / d
             pMax = o + m * sMax
             # draw line
-            self.draw_line(self.mm_to_canvas(self.viewImage, self.sectionIndex, pMin[0], pMin[2]),
-                        self.mm_to_canvas(self.viewImage, self.sectionIndex, pMax[0], pMax[2]),NSColor.redColor(),4)
+            glColor(1., 0., 0., 1.)
+            glLineWidth(2.)
+            glBegin(GL_LINES)
+            glVertex2f(*self.mm_to_canvas(pMin[0], pMin[2]))
+            glVertex2f(*self.mm_to_canvas(pMax[0], pMax[2]))
+            glEnd()
+            #print self.mm_to_canvas(pMin[0], pMax[2]), self.mm_to_canvas(pMax[0], pMax[2])
         
         # draw tip in black
         tip = o + self.controller.ocW * m
         
-        self.draw_atlas_location(self.viewImage, self.sectionIndex, tip[0], tip[1], tip[2], apMin, apMax ,color=NSColor.blackColor())
+        if tip[1] <= apMax and tip[1] >= apMin:
+            glColor(0., 0., 0., 1.)
+            glPointSize(5)
+            glBegin(GL_POINTS)
+            glVertex2f(*self.mm_to_canvas(tip[0],tip[2]))
+            glEnd()
+        #self.draw_atlas_location(self.viewImage, self.sectionIndex, tip[0], tip[1], tip[2], apMin, apMax ,color=NSColor.blackColor())
         
         # draw pads in blue
         pads = []
@@ -163,14 +182,26 @@ class OCAtlasView (OCZoomView):
             w = dw * 0.1 + .05 + self.controller.ocW
             pads.append(o + w * m)
         for pad in pads:
-            self.draw_atlas_location(self.viewImage, self.sectionIndex, pad[0], pad[1], pad[2], apMin, apMax, color=NSColor.blueColor())
+            if pad[1] <= apMax and pad[1] >= apMin:
+                glColor(0., 0., 1., 1.)
+                glPointSize(5)
+                glBegin(GL_POINTS)
+                glVertex2f(*self.mm_to_canvas(pad[0],pad[2]))
+                glEnd()
+            #self.draw_atlas_location(self.viewImage, self.sectionIndex, pad[0], pad[1], pad[2], apMin, apMax, color=NSColor.blueColor())
         
         # draw ref in green
         ref = o + (self.controller.ocW + 3.650) * m
-        self.draw_atlas_location(self.viewImage, self.sectionIndex, ref[0], ref[1], ref[2], apMin, apMax, color=NSColor.greenColor())
+        if ref[1] <= apMax and ref[1] >= apMin:
+            glColor(0., 1., 0., 1.)
+            glPointSize(5)
+            glBegin(GL_POINTS)
+            glVertex2f(*self.mm_to_canvas(ref[0],ref[2]))
+            glEnd()
+        #self.draw_atlas_location(self.viewImage, self.sectionIndex, ref[0], ref[1], ref[2], apMin, apMax, color=NSColor.greenColor())
     
     def drawRect_(self, frame):
-        #print "in drawRect"
+        #print "in drawRect", self.pathParams
         if not self.canDraw():
             #print "couldn't draw"
             return
@@ -180,6 +211,7 @@ class OCAtlasView (OCZoomView):
             self.initGL()
         
         #print "clearing"
+        glClearColor(1., 1., 1., 1.)
         glClear(GL_COLOR_BUFFER_BIT)
         
         #print "getting frame"
@@ -191,7 +223,7 @@ class OCAtlasView (OCZoomView):
         # draw zoom view
         #print "drawing"
         self.draw()
-        #self.draw_electrode()
+        self.draw_electrode()
         
         #print "flushing"
         self.openGLContext().flushBuffer()
