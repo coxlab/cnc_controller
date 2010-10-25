@@ -11,11 +11,11 @@
 			<string key="NS.object.0">804</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="907"/>
-			<integer value="848"/>
-			<integer value="871"/>
 			<integer value="81"/>
+			<integer value="871"/>
 			<integer value="930"/>
+			<integer value="907"/>
+			<integer value="1302"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1523,7 +1523,7 @@
 								<object class="NSTabViewItem" id="1014198805">
 									<string key="NSIdentifier">Item 2</string>
 									<object class="NSView" key="NSView" id="811762933">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="553846446"/>
 										<int key="NSvFlags">256</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSImageView" id="145578555">
@@ -1601,6 +1601,7 @@
 											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {742, 501}}</string>
+										<reference key="NSSuperview" ref="553846446"/>
 									</object>
 									<string key="NSLabel">Atlas</string>
 									<object class="NSColor" key="NSColor" id="142994466">
@@ -1666,7 +1667,7 @@
 								<object class="NSTabViewItem" id="479501803">
 									<string key="NSIdentifier">2</string>
 									<object class="NSView" key="NSView" id="381671482">
-										<reference key="NSNextResponder" ref="553846446"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">256</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSScrollView" id="529465367">
@@ -2357,20 +2358,19 @@
 											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {742, 501}}</string>
-										<reference key="NSSuperview" ref="553846446"/>
 									</object>
 									<string key="NSLabel">Camera</string>
 									<reference key="NSColor" ref="142994466"/>
 									<reference key="NSTabView" ref="553846446"/>
 								</object>
 							</array>
-							<reference key="NSSelectedTabViewItem" ref="479501803"/>
+							<reference key="NSSelectedTabViewItem" ref="1014198805"/>
 							<reference key="NSFont" ref="858839378"/>
 							<int key="NSTvFlags">0</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<array class="NSMutableArray" key="NSSubviews">
-								<reference ref="381671482"/>
+								<reference ref="811762933"/>
 							</array>
 						</object>
 						<object class="NSButton" id="28746724">
@@ -6008,22 +6008,6 @@
 					<int key="connectionID">1312</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: atlasImage</string>
-						<reference key="source" ref="145578555"/>
-						<reference key="destination" ref="29224094"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="145578555"/>
-							<reference key="NSDestination" ref="29224094"/>
-							<string key="NSLabel">value: atlasImage</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">atlasImage</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">1315</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">positionChanged:</string>
 						<reference key="source" ref="29224094"/>
@@ -6430,6 +6414,22 @@
 						<reference key="destination" ref="687080904"/>
 					</object>
 					<int key="connectionID">1430</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: viewImage</string>
+						<reference key="source" ref="145578555"/>
+						<reference key="destination" ref="29224094"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="145578555"/>
+							<reference key="NSDestination" ref="29224094"/>
+							<string key="NSLabel">value: viewImage</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">viewImage</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1431</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -10013,7 +10013,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1430</int>
+			<int key="maxID">1431</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

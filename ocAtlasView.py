@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import time
+
 import numpy
 
 from electrodeController import cfg
@@ -11,33 +13,96 @@ import objc
 from objc import IBAction, IBOutlet
 
 class OCAtlasView (NSObject):
-    atlasImage = NSImage.alloc().initWithContentsOfFile_(u"%s/%s" % (cfg.atlasImagesDir, cfg.defaultAtlasImage))
+    # image loaded from atlas.eps files
+    atlasImages = NSMutableDictionary.alloc().init()
+    #atlasImage = NSImage.alloc().initWithContentsOfFile_(u"%s/%s" % (cfg.atlasImagesDir, cfg.defaultAtlasImage))
+    # image containing the current electrode path/pads/etc...
+    #overlayImage = NSImage.alloc().initWithSize_(atlasImage.size())
+    # combined image (atlas+overlay) to be displayed in atlasImageView
+    viewImage = None#NSImage.alloc().initWithSize_(atlasImage.size())
+    
     ocFigureIndex = objc.ivar(u"ocFigureIndex")
     controller = objc.IBOutlet()
     atlasImageView = objc.IBOutlet()
     
     def awakeFromNib(self):
+        for k in cfg.atlasSliceLocations.keys()[1:-1]:
+            f = u"%s/%03.i.eps" % (cfg.atlasImagesDir, k)
+            #print f
+            self._.atlasImages[k] = NSImage.alloc().initWithContentsOfFile_(f)
+            self._.atlasImages[k].setSize_((668,481))
+            #print self.atlasImages[k]
+        #print k
+        imageSize = self.atlasImages[k].size()
+        #print imageSize
+        #self.viewImage = NSImage.alloc().initWithSize_(imageSize)
+        self.viewImage = NSImage.alloc().initWithSize_((668,481))
+        print self.viewImage.size()
+        #atlasSliceLocations.keys()
         self._.ocFigureIndex = 106 - int(cfg.defaultAtlasImage.split('.')[0])
         self.pathParams = None
-        pass
+        self.regenerate_view_image()
     
-    def updateView(self):
-        #self.atlasImageView.setNeedsDisplay_(True)
-        self.positionChanged_(None)
+    def update_electrode(self):
+        # self.pathParams have changes, so
+        # update overlay image
+        # regenerate final image
+        #self.regenerate_final_image()
+        #self.positionChanged_(None)
+        self.regenerate_view_image()
     
     @IBAction
     def positionChanged_(self, sender):
         if self.ocFigureIndex == None:
             return
+        # the position of the ap-slider and ocFigureIndex has changed
+        # TODO do I need to double check that this actually changed?
+        #print self.ocFigureIndex
+        # update atlasImage
+        #self._.atlasImage = NSImage.alloc().initWithContentsOfFile_(u"%s/%03.i.eps" % (cfg.atlasImagesDir, 106 - self.ocFigureIndex))
+        # regenerate final image
+        #self.regenerate_final_image()
+        #self.atlasImageView.setImage_(self.viewImage)
+        self.regenerate_view_image()
+        return
+        
         # free old image ?
         #self.atlasImage.dealloc()
         #print self.ocFigureIndex
         
+        s = time.time()
         self._.atlasImage = NSImage.alloc().initWithContentsOfFile_(u"%s/%03.i.eps" % (cfg.atlasImagesDir, 106 - self.ocFigureIndex))
+        e = time.time()
+        print "loading image:", e - s
+        s = time.time()
         self.draw_electrode()
+        e = time.time()
+        print "drawing electrode:", e - s
         # need to call this to actually have the display update
+        s = time.time()
         self.atlasImageView.setImage_(self.atlasImage)
+        e = time.time()
+        print "setting image:", e - s
         #self.atlasImageView.setNeedsDisplay_(True)
+    
+    def regenerate_view_image(self):
+        if self.viewImage == None:
+            return
+        sectionIndex = 106 - self.ocFigureIndex
+        # copy current atlas image to view image
+        #self.viewImage <- self.atlasImages[sectionIndex]
+        r = self.atlasImages[sectionIndex].bestRepresentationForRect_context_hints_(((0,0),self.viewImage.size()), None, None)
+        r.setSize_((668,481))
+        #print "Tring to draw...",
+        # The fucking piece of shit crapple documentation says I shouldn't call this method... thanks.
+        #print self.viewImage.drawRepresentation_inRect_(r, ((0,0),self.viewImage.size()))
+        
+        # draw electrode
+        self.draw_electrode()
+        
+        # update atlas image view (might be a quicker way to do this)
+        #self.atlasImageView.setImage_(self.viewImage)
+        self.atlasImageView.setNeedsDisplay_(TRUE)
     
     # go to tip location
     @IBAction
@@ -56,6 +121,40 @@ class OCAtlasView (NSObject):
                 # go to this slice
                 self._.ocFigureIndex = 106 - k
     
+    def mm_to_canvas(self, image, sectionIndex, ml,dv):
+        # where: +ml = right, dv+ = down
+        # ml range +- 8
+        # dv range +11
+        if sectionIndex >= 103:
+            # 103 and up dv goes -1 to -12 not 0 to -11
+            dv = dv + 1.
+        
+        w = image.size().width
+        h = image.size().height
+        
+        x = ml * w/16.0 + w/2.0
+        y = h + h/11.0 * dv
+        return x,y
+    
+    def draw_line(self, fromPoint, toPoint, color=NSColor.blackColor(), width=2.0):
+        p = NSBezierPath.alloc().init()
+        p.setLineWidth_(width)
+        p.moveToPoint_(fromPoint)
+        p.lineToPoint_(toPoint)
+        color.set()
+        p.stroke()
+
+    def draw_circle(self, center, radius, color=NSColor.blackColor()):
+        p1 = (center[0] - radius, center[1] - radius)
+        p2 = (radius * 2., radius * 2.)
+        p = NSBezierPath.bezierPathWithOvalInRect_((p1,p2))
+        color.set()
+        p.fill()
+    
+    def draw_atlas_location(self, image, sectionIndex, ml, ap, dv, apMin, apMax, radius=2.5, color=NSColor.blackColor()):
+        if ap <= apMax and ap >= apMin:
+            self.draw_circle(self.mm_to_canvas(image, sectionIndex, ml, dv), radius, color)
+    
     # draw electrode (if pipeline is complete)
     def draw_electrode(self):
         sectionIndex = 106 - self.ocFigureIndex
@@ -65,47 +164,13 @@ class OCAtlasView (NSObject):
             return
         
         # get size of canvas
-        def mm_to_canvas(ml,dv):
-            # where: +ml = right, dv+ = down
-            # ml range +- 8
-            # dv range +11
-            if sectionIndex >= 103:
-                # 103 and up dv goes -1 to -12 not 0 to -11
-                dv = dv + 1.
-            
-            w = self.atlasImage.size().width
-            h = self.atlasImage.size().height
-            
-            x = ml * w/16.0 + w/2.0
-            y = h + h/11.0 * dv
-            return x,y
+        # self.mm_to_canvas(image, sectionIndex, ml, dv)
         
-        self._.atlasImage.lockFocus()
-        
-        def draw_line(fromPoint,toPoint, color=NSColor.blackColor(), width=2.0):
-            p = NSBezierPath.alloc().init()
-            p.setLineWidth_(width)
-            p.moveToPoint_(fromPoint)
-            p.lineToPoint_(toPoint)
-            color.set()
-            p.stroke()
-        
-        def draw_circle(center, radius, color=NSColor.blackColor()):
-            p1 = (center[0] - radius, center[1] - radius)
-            p2 = (radius * 2., radius * 2.)
-            p = NSBezierPath.bezierPathWithOvalInRect_((p1,p2))
-            color.set()
-            p.fill()
-        
+        self.viewImage.lockFocus()
         
         # set culling distances
         apMax = cfg.atlasSliceLocations[sectionIndex]
         apMin = apMax - cfg.atlasSliceThickness        
-        
-        
-        def draw_atlas_location(ml, ap, dv, radius=2.5, color=NSColor.blackColor()):
-            if ap <= apMax and ap >= apMin:
-                draw_circle(mm_to_canvas(ml, dv), radius, color)
         
         # drawing tests
         #draw_line(mm_to_canvas(0.0,-1.0),mm_to_canvas(1.0,-2.0),NSColor.greenColor(),4)
@@ -131,11 +196,13 @@ class OCAtlasView (NSObject):
             sMax = -numpy.dot(n,w) / d
             pMax = o + m * sMax
             # draw line
-            draw_line(mm_to_canvas(pMin[0],pMin[2]),mm_to_canvas(pMax[0],pMax[2]),NSColor.redColor(),4)
+            self.draw_line(self.mm_to_canvas(self.viewImage, sectionIndex, pMin[0], pMin[2]),
+                        self.mm_to_canvas(self.viewImage, sectionIndex, pMax[0], pMax[2]),NSColor.redColor(),4)
         
         # draw tip in black
         tip = o + self.controller.ocW * m
-        draw_atlas_location(tip[0],tip[1],tip[2],color=NSColor.blackColor())
+        
+        self.draw_atlas_location(self.viewImage, sectionIndex, tip[0], tip[1], tip[2], apMin, apMax ,color=NSColor.blackColor())
         #draw_circle(mm_to_canvas(tip[0],tip[2]),5,NSColor.blackColor())
         
         # draw pads in blue
@@ -144,12 +211,12 @@ class OCAtlasView (NSObject):
             w = dw * 0.1 + .05 + self.controller.ocW
             pads.append(o + w * m)
         for pad in pads:
-            draw_atlas_location(pad[0],pad[1],pad[2],color=NSColor.blueColor())
+            self.draw_atlas_location(self.viewImage, sectionIndex, pad[0], pad[1], pad[2], apMin, apMax, color=NSColor.blueColor())
             #draw_circle(mm_to_canvas(pad[0],pad[2]),5,NSColor.blueColor())
         
         # draw ref in green
         ref = o + (self.controller.ocW + 3.650) * m
-        draw_atlas_location(ref[0],ref[1],ref[2],color=NSColor.greenColor())
+        self.draw_atlas_location(self.viewImage, sectionIndex, ref[0], ref[1], ref[2], apMin, apMax, color=NSColor.greenColor())
         #draw_circle(mm_to_canvas(ref[0],ref[2]),5,NSColor.greenColor())
         
         # get electrode tip location in black
@@ -176,7 +243,7 @@ class OCAtlasView (NSObject):
         #if ref[1] < apMax and ref[1] >= apMin:
         #    draw_circle(mm_to_canvas(ref[0],ref[2]),10,NSColor.blueColor())
         
-        self._.atlasImage.unlockFocus()
+        self.viewImage.unlockFocus()
     
     # TODO ability to 'log' position
     @IBAction
@@ -205,8 +272,8 @@ class OCAtlasView (NSObject):
         #data.writeToFile_atomically_("/Users/graham/Desktop/cnc_snapshot.pdf", False)
         
         # save as png
-        self.atlasImage.lockFocus()
-        image_rep = NSBitmapImageRep.alloc().initWithFocusedViewRect_(((0,0),self.atlasImage.size()))
-        self.atlasImage.unlockFocus()
+        self.viewImage.lockFocus()
+        image_rep = NSBitmapImageRep.alloc().initWithFocusedViewRect_(((0,0),self.viewImage.size()))
+        self.viewImage.unlockFocus()
         data = image_rep.representationUsingType_properties_(NSPNGFileType, None)
         data.writeToFile_atomically_(filepath, False) 

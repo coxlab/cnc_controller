@@ -494,6 +494,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         print "going to measure_tip_path in controller"
         self.measure_tip_path(ptsInCam, wPositions)
+        
+        # TODO store x y z axis locations to be used for 'best guesses' later
+        # path_orign(xyz)_incnc + stored(xyz) - current(xyz) etc...
+        
         self.updateFramesDisplay_(sender)
     
     @IBAction
@@ -858,22 +862,31 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         # if the path of the electrode has been fit...
         if self.cnc.pathParams != None:
-            print "using pathParams",
-            s = time.time()
+            print "== pathParams =="
+            spp = time.time()
             # use self.ocW to calculate the position in the camera frame and then map that to skull coordinates
             #print "trying to update mesh views pathParams"
             tipPosition = numpy.ones(4,dtype=numpy.float64)
+            #s = time.time()
             tipPosition[:3] = self.cnc.calculate_tip_position(self.ocW)
+            #e = time.time()
+            #print "calculate_tip_position:", e - s
             #print tipPosition
+            #s = time.time()
             skullCoord = numpy.array(self.fManager.transform_point(tipPosition, "camera", "skull"))[0]
+            #e = time.time()
+            #print "transform:", e - s
             #print skullCoord
             
+            #s = time.time()
             # ML = X
             self._.ocML = skullCoord[0]
             # AP = Y
             self._.ocAP = skullCoord[1]
             # DV = Z
             self._.ocDV = skullCoord[2]
+            #e = time.time()
+            #print "updating ocVars:", e - s
             
             # draw the path and position of the electrode
             o = numpy.array(self.cnc.pathParams[:3])
@@ -882,11 +895,17 @@ class OCController (NSObject, electrodeController.controller.Controller):
             p2 = numpy.ones(4, dtype=numpy.float64)
             p1[:3] = o #- 50.*m
             p2[:3] = o - 50.*m
+            #s = time.time()
             p1[:3] = self.cnc.calculate_tip_position(0.)
             p2[:3] = self.cnc.calculate_tip_position(-50.)
+            #e = time.time()
+            #print "calculate_tip_postion[2]:", e - s
             
+            #s = time.time()
             p1InS = numpy.array(self.fManager.transform_point(p1, "camera", "skull"))[0]
             p2InS = numpy.array(self.fManager.transform_point(p2, "camera", "skull"))[0]
+            #e = time.time()
+            #print "transform[2]:", e - s
             #print p1InS, p2InS
             self.meshView.pathParams = [p1InS[0], p1InS[1], p1InS[2], p2InS[0], p2InS[1], p2InS[2]]
             
@@ -906,6 +925,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             #print oInS, mInS
             #self.meshView.pathParams = [oInS[0], oInS[1], oInS[2], mInS[0], mInS[1], mInS[2]]
             
+            #s = time.time()
             # TODO add the rotation as defined by the path etc...
             newZ = p1InS - p2InS # use points in skull as calculated above
             newZ = newZ / numpy.linalg.norm(newZ)
@@ -917,20 +937,28 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], dX, dY, 0.))
             #print self.meshView.electrodeMatrix
             self.meshView.drawElectrode = True
+            #e = time.time()
+            #print "generate trasnform matrix:", e - s
             
             # pump data into mworks conduit
             if mwConduitAvailable:
+                #s = time.time()
                 # send: origin_x/y/z slope_x/y/z depth (all in skull coordinates)
                 # p1InS, mInS? depth
                 payload = (p1InS[0], p1InS[2], p1InS[3], mInS[0], mInS[1], mInS[2], self.ocW)
                 #print "Sending data on mw conduit", PATH_INFO, payload
                 self.mwConduit.send_data(PATH_INFO, (p1InS[0], p1InS[2], p1InS[3], mInS[0], mInS[1], mInS[2], self.ocW))
+                #e = time.time()
+                #print "filling conduit", e - s
             
             self.meshView.scheduleRedisplay()
-            self.atlasView.updateView()
+            s = time.time() # this is the time consuming part ~140 of th 150 ms
+            self.atlasView.update_electrode()
+            e = time.time()
+            print "atlasView update:", e - s
             
             cfg.log.info('ML:%.3f AP:%.3f DV:%.3f' % (self.ocML, self.ocAP, self.ocDV))
-            print time.time() - s
+            print "--pathParams:", time.time() - spp
         
         # logging
         cfg.cncLog.info('%.2f %.3f %.3f %.3f %.3f %.3f' % (float(timeOfUpdate), self.ocX, self.ocY, self.ocZ, self.ocB, self.ocW))
