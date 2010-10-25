@@ -953,7 +953,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
             
             self.meshView.scheduleRedisplay()
             s = time.time() # this is the time consuming part ~140 of th 150 ms
-            self.atlasView.update_electrode()
+            #self.atlasView.update_electrode()
+            self.atlasView.scheduleRedisplay()
             e = time.time()
             print "atlasView update:", e - s
             

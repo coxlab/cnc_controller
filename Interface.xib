@@ -11,11 +11,11 @@
 			<string key="NS.object.0">804</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="81"/>
 			<integer value="871"/>
-			<integer value="930"/>
-			<integer value="907"/>
 			<integer value="1302"/>
+			<integer value="907"/>
+			<integer value="930"/>
+			<integer value="81"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1526,30 +1526,6 @@
 										<reference key="NSNextResponder" ref="553846446"/>
 										<int key="NSvFlags">256</int>
 										<array class="NSMutableArray" key="NSSubviews">
-											<object class="NSImageView" id="145578555">
-												<reference key="NSNextResponder" ref="811762933"/>
-												<int key="NSvFlags">268</int>
-												<set class="NSMutableSet" key="NSDragTypes">
-													<string>Apple PDF pasteboard type</string>
-													<string>Apple PICT pasteboard type</string>
-													<string>Apple PNG pasteboard type</string>
-													<string>NSFilenamesPboardType</string>
-													<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
-													<string>NeXT TIFF v4.0 pasteboard type</string>
-												</set>
-												<string key="NSFrame">{{14, 14}, {674, 487}}</string>
-												<reference key="NSSuperview" ref="811762933"/>
-												<bool key="NSEnabled">YES</bool>
-												<object class="NSImageCell" key="NSCell" id="771024113">
-													<int key="NSCellFlags">130560</int>
-													<int key="NSCellFlags2">33554432</int>
-													<int key="NSAlign">0</int>
-													<int key="NSScale">0</int>
-													<int key="NSStyle">2</int>
-													<bool key="NSAnimates">NO</bool>
-												</object>
-												<bool key="NSEditable">YES</bool>
-											</object>
 											<object class="NSSlider" id="959365653">
 												<reference key="NSNextResponder" ref="811762933"/>
 												<int key="NSvFlags">268</int>
@@ -1578,7 +1554,7 @@
 												<reference key="NSSuperview" ref="811762933"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="242914877">
-													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags">-2080244224</int>
 													<int key="NSCellFlags2">0</int>
 													<string key="NSContents"/>
 													<object class="NSFont" key="NSSupport">
@@ -1597,6 +1573,18 @@
 													<string key="NSKeyEquivalent"/>
 													<int key="NSPeriodicDelay">200</int>
 													<int key="NSPeriodicInterval">25</int>
+												</object>
+											</object>
+											<object class="NSOpenGLView" id="780420616">
+												<reference key="NSNextResponder" ref="811762933"/>
+												<int key="NSvFlags">1292</int>
+												<object class="NSPSMatrix" key="NSDrawMatrix"/>
+												<string key="NSFrame">{{17, 17}, {668, 481}}</string>
+												<reference key="NSSuperview" ref="811762933"/>
+												<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
+													<object class="NSMutableData" key="NSPixelAttributes">
+														<bytes key="NS.bytes">AAAABQAAAGAAAAAIAAAAMAAAAAsAAAAQAAAAAA</bytes>
+													</object>
 												</object>
 											</object>
 										</array>
@@ -6000,38 +5988,6 @@
 					<int key="connectionID">1296</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">atlasImageView</string>
-						<reference key="source" ref="29224094"/>
-						<reference key="destination" ref="145578555"/>
-					</object>
-					<int key="connectionID">1312</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">positionChanged:</string>
-						<reference key="source" ref="29224094"/>
-						<reference key="destination" ref="959365653"/>
-					</object>
-					<int key="connectionID">1316</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: ocFigureIndex</string>
-						<reference key="source" ref="959365653"/>
-						<reference key="destination" ref="29224094"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="959365653"/>
-							<reference key="NSDestination" ref="29224094"/>
-							<string key="NSLabel">value: ocFigureIndex</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">ocFigureIndex</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">1319</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: ocFramesStatus</string>
 						<reference key="source" ref="5834986"/>
@@ -6416,20 +6372,20 @@
 					<int key="connectionID">1430</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: viewImage</string>
-						<reference key="source" ref="145578555"/>
-						<reference key="destination" ref="29224094"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="145578555"/>
-							<reference key="NSDestination" ref="29224094"/>
-							<string key="NSLabel">value: viewImage</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">viewImage</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">controller</string>
+						<reference key="source" ref="780420616"/>
+						<reference key="destination" ref="401468622"/>
 					</object>
-					<int key="connectionID">1431</int>
+					<int key="connectionID">1433</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">positionChanged:</string>
+						<reference key="source" ref="780420616"/>
+						<reference key="destination" ref="678860152"/>
+					</object>
+					<int key="connectionID">1434</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -9034,24 +8990,11 @@
 						<int key="objectID">1302</int>
 						<reference key="object" ref="811762933"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="145578555"/>
 							<reference ref="959365653"/>
 							<reference ref="564212750"/>
+							<reference ref="780420616"/>
 						</array>
 						<reference key="parent" ref="1014198805"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1303</int>
-						<reference key="object" ref="145578555"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="771024113"/>
-						</array>
-						<reference key="parent" ref="811762933"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1304</int>
-						<reference key="object" ref="771024113"/>
-						<reference key="parent" ref="145578555"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1305</int>
@@ -9406,6 +9349,11 @@
 						<reference key="object" ref="441374698"/>
 						<reference key="parent" ref="367053033"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1432</int>
+						<reference key="object" ref="780420616"/>
+						<reference key="parent" ref="811762933"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -9606,8 +9554,6 @@
 				<string key="130.editorWindowContentRectSynchronizationRect">{{436, 809}, {64, 6}}</string>
 				<string key="1301.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1302.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1303.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1304.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1305.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1306.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="131.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9696,6 +9642,11 @@
 				<string key="1426.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="143.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="143.ImportedFromIB2"/>
+				<string key="1432.CustomClassName">OCAtlasView</string>
+				<string key="1432.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSAffineTransform" key="1432.IBViewBoundsToFrameTransform">
+					<bytes key="NSTransformStruct">AUM9AABDfwAAA</bytes>
+				</object>
 				<string key="144.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="144.ImportedFromIB2"/>
 				<string key="145.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -10013,23 +9964,18 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1431</int>
+			<int key="maxID">1436</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">OCAtlasView</string>
-					<string key="superclassName">NSObject</string>
+					<string key="superclassName">OCZoomView</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="goToTipLocation:">id</string>
 						<string key="positionChanged:">id</string>
 						<string key="saveAtlasImage:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="goToTipLocation:">
-							<string key="name">goToTipLocation:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="positionChanged:">
 							<string key="name">positionChanged:</string>
 							<string key="candidateClassName">id</string>
@@ -10039,20 +9985,17 @@
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="atlasImageView">id</string>
-						<string key="controller">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="atlasImageView">
-							<string key="name">atlasImageView</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="controller">
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">controller</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">controller</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
 							<string key="name">controller</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</dictionary>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">ocAtlasView.py</string>
@@ -10678,22 +10621,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">Foundation.framework/Headers/NSFormatter.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSImageCell</string>
-					<string key="superclassName">NSCell</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">AppKit.framework/Headers/NSImageCell.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSImageView</string>
-					<string key="superclassName">NSControl</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">AppKit.framework/Headers/NSImageView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
