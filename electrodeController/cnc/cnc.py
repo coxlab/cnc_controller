@@ -37,25 +37,10 @@ class FiveAxisCNC:
         self.linearAxes.configure_axis('x', cfg.xAxisConfig)
         self.linearAxes.configure_axis('y', cfg.yAxisConfig)
         self.linearAxes.configure_axis('z', cfg.zAxisConfig)
-        # configure linear groups
-        cncLinearAxes
-        self.linearAxes.send('1HN%i,%i,%i' % (self.linearAxes.axes['x'], self.linearAxes.axes['y'], self.linearAxes.axes['z']), 1)
         self.linearAxes.save_settings_to_controller()
         
         self.headAxes.configure_axis('w', cfg.wAxisConfig)
-        # configure head groups
-        self.linearAxes.send('1HN%i,%i,%i' % (self.headAxes.axes['b'], self.headAxes.axes['w']), 1)
         self.headAxes.save_settings_to_controller()
-    
-    def get_positions(self):
-        r = {}
-        lp = self.linearAxes.send('1HP',0).split(',')
-        for k, v in self.linearAxes.iteritems():
-            r[k] = float(lp[v])
-        hp = self.headAxes.send('1HP',0).split(',')
-        for k, v in self.headAxes.iteritems():
-            r[k] = float(hp[v])
-        return r
     
     def enable_motors(self):
         self.linearAxes.enable_motor()
@@ -73,17 +58,17 @@ class FiveAxisCNC:
         #  0 : axis 1
         #  1 : axis 2
         #  2 : axis 3
-        print linearStatus, headStatus
+        #print 'controller status:', ord(linearStatus[0]) & 0x07, ord(headStatus[0]) & 0x07
         if ord(linearStatus[0]) & 0x07 or ord(headStatus[0]) & 0x07:
             return False
         else:
             return True
-        ret = self.linearAxes.motion_done()
-        ret.update(self.headAxes.motion_done())
-        for r in ret.values():
-            if int(r) == 0:
-                return False
-        return True
+        #ret = self.linearAxes.motion_done()
+        #ret.update(self.headAxes.motion_done())
+        #for r in ret.values():
+        #    if int(r) == 0:
+        #        return False
+        #return True
     
     def get_motor_status(self):
         # if ANY motor is on, return True
