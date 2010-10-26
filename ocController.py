@@ -837,22 +837,23 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         print "getting head positions",
         s = time.time()
-        h = self.cnc.headAxes.get_position()
-        self._.ocAngle = float(h['b'])
-        self._.ocB = float(h['b'])
-        self._.ocDepth = float(h['w'])
-        self._.ocW = float(h['w'])
+        positions = self.cnc.get_positions()
+        #h = self.cnc.headAxes.get_position()
+        self._.ocAngle = positions['b']#float(h['b'])
+        self._.ocB = positions['b']#float(h['b'])
+        self._.ocDepth = positions['w']#float(h['w'])
+        self._.ocW = positions['w']#float(h['w'])
         #self._.ocAngle = float(self.cnc.headAxes.get_position('b')['b'])
         ## TODO this should be (target - w) not just w
         #self._.ocDepth = float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
-        print time.time() - s
+        #print time.time() - s
         
         print "getting linear positions",
-        s = time.time()
-        l = self.cnc.linearAxes.get_position()
-        self._.ocX = float(l['x'])
-        self._.ocY = float(l['y'])
-        self._.ocZ = float(l['z'])
+        #s = time.time()
+        #l = self.cnc.linearAxes.get_position()
+        self._.ocX = positions['x']#float(l['x'])
+        self._.ocY = positions['y']#float(l['y'])
+        self._.ocZ = positions['z']#float(l['z'])
         #self._.ocX = float(self.cnc.linearAxes.get_position('x')['x'])
         #self._.ocY = float(self.cnc.linearAxes.get_position('y')['y'])
         #self._.ocZ = float(self.cnc.linearAxes.get_position('z')['z'])

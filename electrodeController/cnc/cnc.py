@@ -20,16 +20,42 @@ class FiveAxisCNC:
     def __init__(self):
         self.linearAxes = Axes(cfg.cncLinearAxesIP, cfg.cncLinearAxesPort, cfg.cncLinearAxes, cfg.serialConnectionTimeout)
         # configure
-        self.linearAxes.configure_axis('x',cfg.xAxisConfig)
-        self.linearAxes.configure_axis('y',cfg.yAxisConfig)
-        self.linearAxes.configure_axis('z',cfg.zAxisConfig)
-        self.linearAxes.save_settings_to_controller()
+        #self.linearAxes.configure_axis('x',cfg.xAxisConfig)
+        #self.linearAxes.configure_axis('y',cfg.yAxisConfig)
+        #self.linearAxes.configure_axis('z',cfg.zAxisConfig)
+        #self.linearAxes.save_settings_to_controller()
         self.headAxes = Axes(cfg.cncHeadAxesIP, cfg.cncHeadAxesPort, cfg.cncHeadAxes, cfg.serialConnectionTimeout)
-        self.headAxes.configure_axis('w',cfg.wAxisConfig)
-        self.headAxes.save_settings_to_controller()
+        #self.headAxes.configure_axis('w',cfg.wAxisConfig)
+        #self.headAxes.save_settings_to_controller()
         self.arm_length = None
         self.pathParams = None#[0., 0., 0., 0., 1., 0.]
         #self.disable_motors()
+        
+        self.configure_cnc()
+    
+    def configure_cnc(self):
+        self.linearAxes.configure_axis('x', cfg.xAxisConfig)
+        self.linearAxes.configure_axis('y', cfg.yAxisConfig)
+        self.linearAxes.configure_axis('z', cfg.zAxisConfig)
+        # configure linear groups
+        cncLinearAxes
+        self.linearAxes.send('1HN%i,%i,%i' % (self.linearAxes.axes['x'], self.linearAxes.axes['y'], self.linearAxes.axes['z']), 1)
+        self.linearAxes.save_settings_to_controller()
+        
+        self.headAxes.configure_axis('w', cfg.wAxisConfig)
+        # configure head groups
+        self.linearAxes.send('1HN%i,%i,%i' % (self.headAxes.axes['b'], self.headAxes.axes['w']), 1)
+        self.headAxes.save_settings_to_controller()
+    
+    def get_positions(self):
+        r = {}
+        lp = self.linearAxes.send('1HP',0).split(',')
+        for k, v in self.linearAxes.iteritems():
+            r[k] = float(lp[v])
+        hp = self.headAxes.send('1HP',0).split(',')
+        for k, v in self.headAxes.iteritems():
+            r[k] = float(hp[v])
+        return r
     
     def enable_motors(self):
         self.linearAxes.enable_motor()
@@ -40,6 +66,18 @@ class FiveAxisCNC:
         self.headAxes.disable_motor()
     
     def motion_done(self):
+        linearStatus = self.linearAxes.get_controller_status()
+        headStatus = self.headAxes.get_controller_status()
+        # 'left most ascii character'
+        #     low = stationary, high = in motion
+        #  0 : axis 1
+        #  1 : axis 2
+        #  2 : axis 3
+        print linearStatus, headStatus
+        if ord(linearStatus[0]) & 0x07 or ord(headStatus[0]) & 0x07:
+            return False
+        else:
+            return True
         ret = self.linearAxes.motion_done()
         ret.update(self.headAxes.motion_done())
         for r in ret.values():
