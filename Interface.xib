@@ -1529,7 +1529,7 @@
 											<object class="NSSlider" id="959365653">
 												<reference key="NSNextResponder" ref="811762933"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{691, 39}, {25, 435}}</string>
+												<string key="NSFrame">{{690, 39}, {25, 435}}</string>
 												<reference key="NSSuperview" ref="811762933"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSSliderCell" key="NSCell" id="678860152">
@@ -1575,7 +1575,7 @@
 													<int key="NSPeriodicInterval">25</int>
 												</object>
 											</object>
-											<object class="NSOpenGLView" id="673789584">
+											<object class="NSOpenGLView" id="782118578">
 												<reference key="NSNextResponder" ref="811762933"/>
 												<int key="NSvFlags">1292</int>
 												<object class="NSPSMatrix" key="NSDrawMatrix"/>
@@ -6347,7 +6347,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">controller</string>
-						<reference key="source" ref="673789584"/>
+						<reference key="source" ref="782118578"/>
 						<reference key="destination" ref="401468622"/>
 					</object>
 					<int key="connectionID">1433</int>
@@ -6355,7 +6355,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">positionChanged:</string>
-						<reference key="source" ref="673789584"/>
+						<reference key="source" ref="782118578"/>
 						<reference key="destination" ref="678860152"/>
 					</object>
 					<int key="connectionID">1434</int>
@@ -6364,7 +6364,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">atlasView</string>
 						<reference key="source" ref="401468622"/>
-						<reference key="destination" ref="673789584"/>
+						<reference key="destination" ref="782118578"/>
 					</object>
 					<int key="connectionID">1439</int>
 				</object>
@@ -8973,7 +8973,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="959365653"/>
 							<reference ref="564212750"/>
-							<reference ref="673789584"/>
+							<reference ref="782118578"/>
 						</array>
 						<reference key="parent" ref="1014198805"/>
 					</object>
@@ -9327,7 +9327,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1432</int>
-						<reference key="object" ref="673789584"/>
+						<reference key="object" ref="782118578"/>
 						<reference key="parent" ref="811762933"/>
 					</object>
 				</array>
