@@ -204,7 +204,7 @@ class ZoomView(object):
         x, y = self._window_to_image(x,y)
         #print "process_normal_keys:", key, x, y
         #key = key.lower()
-        
+        print key
         if key in self.keyBindings.keys():
             try:
                 func = self.__getattribute__(self.keyBindings[key][0])
