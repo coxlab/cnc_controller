@@ -18,6 +18,7 @@ class IPSerialBridge:
         self.socket = None
         self.address = address
         self.port = port
+        
     
     def __del__(self):
         self.disconnect()
@@ -27,8 +28,11 @@ class IPSerialBridge:
         self.socket.settimeout(timeout)
         self.socket.connect((self.address, self.port))
         self.socket.setblocking(0)
+        self.kq = select.kqueue()
+        self.kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_ADD)],0)
         
     def disconnect(self):
+        self.kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_DELETE)],0)
         self.socket.shutdown(socket.SHUT_RDWR)
         self.socket.close()
       
@@ -76,18 +80,41 @@ class IPSerialBridge:
         if(noresponse):
             return
         
-        #read the response
+        # alternative read, 50 ms
+        print "reading",
+        s = time.time()
+        #kq = select.kqueue()
+        #kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_ADD)],0)
+        evs = self.kq.control(None, 1, 30)
+        #kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_DELETE)],0)
+        r = ""
+        for e in evs:
+            if e.flags & select.KQ_FILTER_READ:
+                print "%.3f" % (time.time() -s), "read flag!",
+                r = self.read()
+        print "%.3f" % (time.time() - s)
+        return r
+        
+        #read the response, 50 ms
+        print "reading",
         ready = 0
         retry_timeout = 0.1
         timeout = 30.0
         tic = time.time()
         while(not ready):
+            #print "tick", time.time() - tic,
+            # takes ~50 ms
             (ready_to_read, ready_to_write, in_error) = select.select([self.socket],[],[self.socket], retry_timeout)
+            #print "tock", time.time() - tic,
             if(len(ready_to_read) != 0):
                 ready = 1
             if(time.time() - tic > timeout):
+                #print time.time() - tic, "a"
                 return ""
-        
+        print "%.3f" % (time.time() - tic),
+        r = self.read()
+        print r
+        return r
         return self.read()
         
 
