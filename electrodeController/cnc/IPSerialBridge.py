@@ -23,16 +23,18 @@ class IPSerialBridge:
     def __del__(self):
         self.disconnect()
     
-    def connect(self, timeout=None):
+    def connect(self, timeout=1):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.settimeout(timeout)
+        self.socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        self.socket.settimeout(timeout)#timeout)
         self.socket.connect((self.address, self.port))
         self.socket.setblocking(0)
-        self.kq = select.kqueue()
-        self.kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_ADD)],0)
+        self.socket.settimeout(0)
+        #self.kq = select.kqueue()
+        #self.kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_ADD)],0)
         
     def disconnect(self):
-        self.kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_DELETE)],0)
+        #self.kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_DELETE)],0)
         self.socket.shutdown(socket.SHUT_RDWR)
         self.socket.close()
       
