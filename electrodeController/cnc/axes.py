@@ -75,7 +75,7 @@ class Axes(IPSerialBridge):
     
     def configure_axis(self, axis, cfgCommand):
         for command in cfgCommand.splitlines():
-            self.send("%d%s" % (self.axes[axis], command), 1)
+            self.send("%d%s" % (self.axes[axis], command.strip()), 1)
     
     def enable_joystick(self):
         for command in JoystickOn.splitlines():

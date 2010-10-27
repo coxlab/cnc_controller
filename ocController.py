@@ -259,6 +259,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.zoomPoints.append(newPoint)
         self.zoomPointsController.rearrangeObjects()
     
+    @IBAction
+    def configureCNC_(self, sender):
+        self.cnc.configure()
+    
     # motor methods
     def enable_motors(self):
         #self.cnc.enable_motors()

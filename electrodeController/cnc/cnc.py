@@ -31,16 +31,37 @@ class FiveAxisCNC:
         self.pathParams = None#[0., 0., 0., 0., 1., 0.]
         #self.disable_motors()
         
-        self.configure_cnc()
+        #self.configure()
     
-    def configure_cnc(self):
+    def configure(self):
+        self.linearAxes.send("1XX",1)
+        self.linearAxes.send("1EP",1)
+        self.linearAxes.enable_joystick()
+        self.linearAxes.send("QP",1)
+        
+        self.linearAxes.send("2XX",1)
+        self.linearAxes.send("2EP",1)
+        self.linearAxes.disable_joystick()
+        self.linearAxes.send("QP",1)
+        
+        self.linearAxes.send("3XX",1) # delete program 3
+        self.linearAxes.send("3EP",1) # enter 'program mode' (automatically stored to non-volitile memory)
         self.linearAxes.configure_axis('x', cfg.xAxisConfig)
         self.linearAxes.configure_axis('y', cfg.yAxisConfig)
         self.linearAxes.configure_axis('z', cfg.zAxisConfig)
+        self.linearAxes.send("QP",1) # quit 'program mode'
+        self.linearAxes.send("3EO",1) # run program 1 on power-on
         self.linearAxes.save_settings_to_controller()
+        self.linearAxes.send("3EX",1) # execute configure program
         
+        self.headAxes.send("3XX",1) # delete program 3
+        self.headAxes.send("3EP",1) # enter 'program mode' (automatically stored to non-voltile memory)
         self.headAxes.configure_axis('w', cfg.wAxisConfig)
+        # b is already configured
+        self.headAxes.send("QP",1) # quite ''program mode'
+        self.headAxes.send("3EO",1) # run program 1 on power-on
         self.headAxes.save_settings_to_controller()
+        self.headAxes.send("3EX",1) # execute configure program
     
     def enable_motors(self):
         self.linearAxes.enable_motor()

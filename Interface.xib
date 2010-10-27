@@ -11,10 +11,10 @@
 			<string key="NS.object.0">804</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="871"/>
-			<integer value="1302"/>
 			<integer value="907"/>
+			<integer value="871"/>
 			<integer value="930"/>
+			<integer value="1302"/>
 			<integer value="81"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -4578,6 +4578,26 @@
 								<int key="NSPeriodicInterval">75</int>
 							</object>
 						</object>
+						<object class="NSButton" id="854094117">
+							<reference key="NSNextResponder" ref="862342745"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{565, 18}, {82, 25}}</string>
+							<reference key="NSSuperview" ref="862342745"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="470737948">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">134217728</int>
+								<string key="NSContents">Configure</string>
+								<reference key="NSSupport" ref="858839378"/>
+								<reference key="NSControlView" ref="854094117"/>
+								<int key="NSButtonFlags">-2038152961</int>
+								<int key="NSButtonFlags2">163</int>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+							</object>
+						</object>
 					</array>
 					<string key="NSFrameSize">{659, 525}</string>
 					<reference key="NSSuperview"/>
@@ -6368,6 +6388,14 @@
 					</object>
 					<int key="connectionID">1439</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">configureCNC:</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="854094117"/>
+					</object>
+					<int key="connectionID">1442</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -7599,6 +7627,7 @@
 							<reference ref="571276679"/>
 							<reference ref="724851878"/>
 							<reference ref="1033445564"/>
+							<reference ref="854094117"/>
 						</array>
 						<reference key="parent" ref="675292137"/>
 					</object>
@@ -9330,6 +9359,19 @@
 						<reference key="object" ref="782118578"/>
 						<reference key="parent" ref="811762933"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1440</int>
+						<reference key="object" ref="854094117"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="470737948"/>
+						</array>
+						<reference key="parent" ref="862342745"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1441</int>
+						<reference key="object" ref="470737948"/>
+						<reference key="parent" ref="854094117"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -9625,6 +9667,11 @@
 				</object>
 				<string key="144.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="144.ImportedFromIB2"/>
+				<string key="1440.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSAffineTransform" key="1440.IBViewBoundsToFrameTransform">
+					<bytes key="NSTransformStruct">P4AAAL+AAABEDUAAwiQAAA</bytes>
+				</object>
+				<string key="1441.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="145.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="145.ImportedFromIB2"/>
 				<string key="149.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9654,9 +9701,9 @@
 				<string key="296.editorWindowContentRectSynchronizationRect">{{475, 832}, {234, 43}}</string>
 				<string key="297.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="298.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBEditorWindowLastContentRect">{{293, 115}, {788, 642}}</string>
+				<string key="367.IBEditorWindowLastContentRect">{{319, 86}, {788, 642}}</string>
 				<string key="367.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBWindowTemplateEditedContentRect">{{293, 115}, {788, 642}}</string>
+				<string key="367.IBWindowTemplateEditedContentRect">{{319, 86}, {788, 642}}</string>
 				<integer value="1" key="367.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="367.editorWindowContentRectSynchronizationRect">{{11, 666}, {480, 270}}</string>
 				<string key="367.windowTemplate.maxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -9836,9 +9883,9 @@
 				<string key="868.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="868.IBWindowTemplateEditedContentRect">{{119, 457}, {239, 181}}</string>
 				<boolean value="NO" key="868.NSWindowTemplate.visibleAtLaunch"/>
-				<string key="869.IBEditorWindowLastContentRect">{{322, 144}, {659, 525}}</string>
+				<string key="869.IBEditorWindowLastContentRect">{{187, 217}, {659, 525}}</string>
 				<string key="869.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="869.IBWindowTemplateEditedContentRect">{{322, 144}, {659, 525}}</string>
+				<string key="869.IBWindowTemplateEditedContentRect">{{187, 217}, {659, 525}}</string>
 				<boolean value="NO" key="869.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="871.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="872.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9940,7 +9987,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1439</int>
+			<int key="maxID">1442</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9983,6 +10030,7 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addZoomPoints:">id</string>
 						<string key="clearZoomPoints:">id</string>
+						<string key="configureCNC:">id</string>
 						<string key="goToTarget:">id</string>
 						<string key="loadAnimal:">id</string>
 						<string key="loadLog:">id</string>
@@ -10027,6 +10075,10 @@
 						</object>
 						<object class="IBActionInfo" key="clearZoomPoints:">
 							<string key="name">clearZoomPoints:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="configureCNC:">
+							<string key="name">configureCNC:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="goToTarget:">

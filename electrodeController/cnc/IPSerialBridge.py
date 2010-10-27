@@ -23,16 +23,18 @@ class IPSerialBridge:
     def __del__(self):
         self.disconnect()
     
-    def connect(self, timeout=None):
+    def connect(self, timeout=1):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.settimeout(timeout)
+        self.socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        self.socket.settimeout(timeout)#timeout)
         self.socket.connect((self.address, self.port))
         self.socket.setblocking(0)
-        self.kq = select.kqueue()
-        self.kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_ADD)],0)
+        self.socket.settimeout(0)
+        #self.kq = select.kqueue()
+        #self.kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_ADD)],0)
         
     def disconnect(self):
-        self.kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_DELETE)],0)
+        #self.kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_DELETE)],0)
         self.socket.shutdown(socket.SHUT_RDWR)
         self.socket.close()
       
@@ -80,23 +82,23 @@ class IPSerialBridge:
         if(noresponse):
             return
         
-        # alternative read, 50 ms
-        print "reading",
-        s = time.time()
-        #kq = select.kqueue()
-        #kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_ADD)],0)
-        evs = self.kq.control(None, 1, 30)
-        #kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_DELETE)],0)
-        r = ""
-        for e in evs:
-            if e.flags & select.KQ_FILTER_READ:
-                print "%.3f" % (time.time() -s), "read flag!",
-                r = self.read()
-        print "%.3f" % (time.time() - s)
-        return r
-        
-        #read the response, 50 ms
-        print "reading",
+        ## alternative read, 50 ms
+        #print "reading",
+        #s = time.time()
+        ##kq = select.kqueue()
+        ##kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_ADD)],0)
+        #evs = self.kq.control(None, 1, 30)
+        ##kq.control([select.kevent(self.socket, select.KQ_FILTER_READ, select.KQ_EV_DELETE)],0)
+        #r = ""
+        #for e in evs:
+        #    if e.flags & select.KQ_FILTER_READ:
+        #        print "%.3f" % (time.time() -s), "read flag!",
+        #        r = self.read()
+        #print "%.3f" % (time.time() - s)
+        #return r
+        #
+        ##read the response, 50 ms
+        #print "reading",
         ready = 0
         retry_timeout = 0.1
         timeout = 30.0
@@ -111,10 +113,10 @@ class IPSerialBridge:
             if(time.time() - tic > timeout):
                 #print time.time() - tic, "a"
                 return ""
-        print "%.3f" % (time.time() - tic),
-        r = self.read()
-        print r
-        return r
+        #print "%.3f" % (time.time() - tic),
+        #r = self.read()
+        #print r
+        #return r
         return self.read()
         
 
