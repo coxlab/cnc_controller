@@ -131,17 +131,19 @@ def estimate_tip_location_in_slab(slab):
     """
     
     cross_section = mean(slab, 0)
-    center_axis = argmax(cross_section)
+    center_axis = argmin(cross_section)
     trough_depth = min(cross_section)
     
     width = 3
-    flank_width = 10
+    flank_width = 5
     center_slice = mean(slab[:, center_axis-width:center_axis+width], 1) 
     left_flank = mean(slab[:, 0:center_axis-flank_width], 1)
     right_flank = mean(slab[:, center_axis+flank_width:], 1)
     
     
-    normalized_center_slice = center_slice -  (left_flank + right_flank)/2
+    normalized_center_slice = center_slice -  (left_flank + right_flank)/2.
+   
+    
     
     if plot_alot:
         plt.plot(cross_section)
@@ -150,14 +152,14 @@ def estimate_tip_location_in_slab(slab):
     
     
     # determine the noise level for the background
-    background_offset = 50
+    background_offset = 10
     background_std = std(normalized_center_slice[-background_offset:])
     
     tip_cutoff = -1
     for t in range(background_offset, len(normalized_center_slice)):
         
         val = normalized_center_slice[-t]
-        if val > 3 * background_std:
+        if val < -4 * background_std:
             tip_cutoff = len(normalized_center_slice) - t
             break
     
@@ -194,7 +196,7 @@ def electrode_alignment_objective(params, im, line_segment):
     
     line_segment = (e_start, e_start + new_dir)
     
-    (slab, to_image_coords) = resample_slab(im, line_segment)
+    (slab, to_image_coords) = resample_slab(im, line_segment, 20, 1, 0.75)
     (tip, trough) = estimate_tip_location_in_slab(slab)
     
     if plot_alot:
@@ -233,26 +235,61 @@ def find_electrode_tip_with_refinement(im, base_im, angle_range, angle_resolutio
     l = find_electrode(diff_im)
     tip = find_electrode_tip(diff_im, l)
     
-    a = scipy.optimize.brute(lambda a: electrode_alignment_objective(a, diff_im, l)[0], ranges=(slice(-7,7,.25),))
+    a = scipy.optimize.brute(lambda a: electrode_alignment_objective(a, diff_im, l)[0], ranges=(slice(angle_range[0],angle_range[1],angle_resolution),))
     print "a=", a
     (trough, new_tip) = electrode_alignment_objective(a[0], diff_im, l)
     
     return new_tip
     
 
+def find_electrode_tip_from_segment(im, base_im, l, angle_range, angle_resolution):
+
+    if base_im is not None:
+        diff_im = abs(im - base_im)
+    else:
+        diff_im = im
+        print "WARNING: no base (sans electrode) image provided"
+
+    diff_im = median_filter(diff_im, 4)
+
+    a = scipy.optimize.brute(lambda a: electrode_alignment_objective(a, diff_im, l)[0], ranges=(slice(angle_range[0],angle_range[1],angle_resolution),))
+    print "a=", a
+    (trough, new_tip) = electrode_alignment_objective(a[0], diff_im, l)
+
+    return new_tip
+
+
 if __name__ == "__main__":
+
+    tip = [0,0]
+    im = None
     
-    #load a test image
-    base_dir = "./test_images/4/0/"
-    base_im = double(imread(base_dir + "0.png"))
-    #base_im = None
-    im = double(imread(base_dir + "1.png"))
+    if False:
+        #load a test image
+        base_dir = "./test_images/4/0/"
+        base_im = double(imread(base_dir + "0.png"))
+        #base_im = None
+        im = double(imread(base_dir + "1.png"))
    
-    tip = find_electrode_tip_with_refinement(im, base_im, (-7,7), 0.25)
+        tip = find_electrode_tip_with_refinement(im, base_im, (-7,7), 0.25)
+    
+    if True:
+        
+        for filename in ("1287516647", "1287516595", "1287516711"):
+            base_dir = "/Users/davidcox/Desktop/1287516173/cameras/49712223528793946/"
+            #base_im = double(imread(base_dir + "1287516595.png"))
+            base_im = None
+            im = double(imread(base_dir + filename + ".png"))
+            est_tip = [608., 527.]
+            est_shank = [551., 442.]
+        
+            segment = [est_shank, est_tip]
+        
+            tip = find_electrode_tip_from_segment(im, base_im, segment, (-1,0), 1)
     
     
-    plt.imshow(im, cmap=cm.gray)
-    plt.hold(True)
-    plt.plot(tip[0], tip[1], 'r*')
-    plt.show()
+            plt.imshow(im, cmap=cm.gray)
+            plt.hold(True)
+            plt.plot(tip[0], tip[1], 'r*')
+            plt.show()
 
