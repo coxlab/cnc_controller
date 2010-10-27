@@ -31,15 +31,25 @@ class FiveAxisCNC:
         self.pathParams = None#[0., 0., 0., 0., 1., 0.]
         #self.disable_motors()
         
-        self.configure_cnc()
+        #self.configure()
     
-    def configure_cnc(self):
+    def configure(self):
+        self.linearAxes.send("1XX",1) # delete program 1
+        self.linearAxes.send("1EP",1) # enter 'program mode' (automatically stored to non-volitile memory)
         self.linearAxes.configure_axis('x', cfg.xAxisConfig)
         self.linearAxes.configure_axis('y', cfg.yAxisConfig)
         self.linearAxes.configure_axis('z', cfg.zAxisConfig)
+        self.linearAxes.send("QP",1) # quit 'program mode'
+        self.linearAxes.send("1EX",1) # execute configure program
+        self.linearAxes.send("1EO",1) # run program 1 on power-on
         self.linearAxes.save_settings_to_controller()
         
+        self.headAxes.send("1XX",1) # delete program 1
+        self.headAxes.send("1EP",1) # enter 'program mode' (automatically stored to non-voltile memory)
         self.headAxes.configure_axis('w', cfg.wAxisConfig)
+        self.headAxes.send("QP",1) # quite ''program mode'
+        self.headAxes.send("1EX",1) # execute configure program
+        self.headAxes.send("1EO",1) # run program 1 on power-on
         self.headAxes.save_settings_to_controller()
     
     def enable_motors(self):
