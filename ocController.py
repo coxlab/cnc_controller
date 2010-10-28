@@ -61,6 +61,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
     ocFramesStatus = objc.ivar(u"ocFramesStatus")
     ocShowDeltaImage = objc.ivar(u"ocShowDeltaImage")
     ocJoystickControl = objc.ivar(u"ocJoystickControl")
+    ocNPathPoints = objc.ivar(u"ocNPathPoints")
     
     meshView = objc.IBOutlet()
     atlasView = objc.IBOutlet()
@@ -93,6 +94,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
     zoomPointsController = objc.IBOutlet()
     zoomPoints = NSMutableArray.array()
     zoomPointsTable = objc.IBOutlet()
+    
+    locateButton = objc.IBOutlet()
     
     xVelocityField = objc.IBOutlet()
     yVelocityField = objc.IBOutlet()
@@ -420,6 +423,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 ptsInCam.append([xyz[0],xyz[1],xyz[2]])
                 wPositions.append(p[4])
             self.measure_tip_path(ptsInCam, wPositions)
+            self._.ocNPathPoints = len(ptsInCam)
+            lp = self.cnc.linearAxes.get_position()
+            self.pathOrigin = [float(lp['x']), float(lp['y']), float(lp['z'])]
         
         #self.updateFramesDisplay_(sender)
     
@@ -556,6 +562,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         # TODO store x y z axis locations to be used for 'best guesses' later
         # path_orign(xyz)_incnc + stored(xyz) - current(xyz) etc...
+        self._.ocNPathPoints = len(ptsInCam)
+        lp = self.cnc.linearAxes.get_position()
+        self.pathOrigin = [float(lp['x']), float(lp['y']), float(lp['z'])]
         
         self.updateFramesDisplay_(sender)
     
@@ -642,14 +651,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def moveXAxisLeft_(self, sender):
-        self.cnc.pathPoints = 0
+        self._.ocNPathPoints = 0
         self.cnc.linearAxes.move_relative(-self.ocXInc, 'x')
         #self.update_position()
         self.start_update_timer()
     
     @IBAction
     def moveXAxisRight_(self, sender):
-        self.cnc.pathPoints = 0
+        self._.ocNPathPoints = 0
         self.cnc.linearAxes.move_relative(self.ocXInc, 'x')
         #self.update_position()
         self.start_update_timer()
@@ -677,14 +686,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def moveYAxisForward_(self, sender):
-        self.cnc.pathPoints = 0
+        self._.ocNPathPoints = 0
         self.cnc.linearAxes.move_relative(self.ocYInc, 'y')
         #self.update_position()
         self.start_update_timer()
     
     @IBAction
     def moveYAxisBack_(self, sender):
-        self.cnc.pathPoints = 0
+        self._.ocNPathPoints = 0
         self.cnc.linearAxes.move_relative(-self.ocYInc, 'y')
         #self.update_position()
         self.start_update_timer()
@@ -712,14 +721,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def moveZAxisUp_(self, sender):
-        self.cnc.pathPoints = 0
+        self._.ocNPathPoints = 0
         self.cnc.linearAxes.move_relative(-self.ocZInc, 'z')
         #self.update_position()
         self.start_update_timer()
     
     @IBAction
     def moveZAxisDown_(self, sender):
-        self.cnc.pathPoints = 0
+        self._.ocNPathPoints = 0
         self.cnc.linearAxes.move_relative(self.ocZInc, 'z')
         #self.update_position()
         self.start_update_timer()
@@ -780,14 +789,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def moveBAxisClockwise_(self, sender):
-        self.cnc.pathPoints = 0
+        self._.ocNPathPoints = 0
         self.cnc.headAxes.move_relative(-self.ocBInc, 'b')
         #self.update_position()
         self.start_update_timer()
     
     @IBAction
     def moveBAxisCounterClockwise_(self, sender):
-        self.cnc.pathPoints = 0
+        self._.ocNPathPoints = 0
         self.cnc.headAxes.move_relative(self.ocBInc, 'b')
         #self.update_position()
         self.start_update_timer()
@@ -937,6 +946,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
             tipPosition = numpy.ones(4,dtype=numpy.float64)
             #s = time.time()
             tipPosition[:3] = self.cnc.calculate_tip_position(self.ocW)
+            if self.ocNPathPoints == 0:
+                # make a 'best guess'
+                tipPosition[0] += self.ocX - self.pathOrigin[0]
+                tipPosition[1] += self.ocZ - self.pathOrigin[2]
+                tipPosition[2] += self.ocY - self.pathOrigin[1]
+            
             #e = time.time()
             #print "calculate_tip_position:", e - s
             #print tipPosition
@@ -957,15 +972,22 @@ class OCController (NSObject, electrodeController.controller.Controller):
             #print "updating ocVars:", e - s
             
             # draw the path and position of the electrode
-            o = numpy.array(self.cnc.pathParams[:3])
-            m = numpy.array(self.cnc.pathParams[3:])
+            #o = numpy.array(self.cnc.pathParams[:3])
+            #m = numpy.array(self.cnc.pathParams[3:])
             p1 = numpy.ones(4, dtype=numpy.float64)
             p2 = numpy.ones(4, dtype=numpy.float64)
-            p1[:3] = o #- 50.*m
-            p2[:3] = o - 50.*m
+            #p1[:3] = o #- 50.*m
+            #p2[:3] = o - 50.*m
             #s = time.time()
             p1[:3] = self.cnc.calculate_tip_position(0.)
             p2[:3] = self.cnc.calculate_tip_position(-50.)
+            if self.ocNPathPoints == 0:
+                p1[0] += self.ocX - self.pathOrigin[0]
+                p1[1] += self.ocZ - self.pathOrigin[2]
+                p1[2] += self.ocY - self.pathOrigin[1]
+                p2[0] += self.ocX - self.pathOrigin[0]
+                p2[1] += self.ocZ - self.pathOrigin[2]
+                p2[2] += self.ocY - self.pathOrigin[1]
             #e = time.time()
             #print "calculate_tip_postion[2]:", e - s
             
@@ -1012,7 +1034,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             #print "generate trasnform matrix:", e - s
             
             # pump data into mworks conduit
-            if mwConduitAvailable:
+            if mwConduitAvailable and (self.ocNPathPoints != 0):
                 #s = time.time()
                 # send: origin_x/y/z slope_x/y/z depth (all in skull coordinates)
                 # p1InS, mInS? depth
@@ -1118,7 +1140,6 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.cameras.locate(cfg.gridSize, cfg.gridBlockSize)
         
         located = self.cameras.get_located()
-        # TODO hook this up to the GUI
         if all(located):
             print "Cameras located"
             cfg.cameraLog.info('Cameras Located Successfully')
@@ -1127,6 +1148,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             for c in [self.cameras.leftCamera, self.cameras.rightCamera]:
                 p = c.get_position()
                 cfg.cameraLog.info('\t%i\t%.3f\t%.3f\t%.3f' % (c.camID, p[0], p[1], p[2]))
+            self.locateButton.setTitle_('Relocate')
         else:
             print "Cameras NOT located"
             cfg.cameraLog.info('Camera Localization Failed')
