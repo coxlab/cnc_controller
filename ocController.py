@@ -14,6 +14,8 @@ import objc
 from objc import IBAction, IBOutlet
 
 import electrodeController.controller
+from electrodeController.camera import conversions
+from electrode_finder import find_electrode_tip_from_segment
 
 mwConduitAvailable = False
 
@@ -258,6 +260,59 @@ class OCController (NSObject, electrodeController.controller.Controller):
             newPoint['w'] = float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
             self.zoomPoints.append(newPoint)
         self.zoomPointsController.rearrangeObjects()
+    
+    @IBAction
+    def findTip_(self, sender):
+        if len(self.leftZoomView.zooms) != 2 or len(self.rightZoomView.zooms) != 2:
+            print "left and right zoom views must have 2 points"
+            return
+        # find tip in left image
+        print "finding tip in left image"
+        estTip = [self.leftZoomView.zooms[0]['x'], self.leftZoomView.zooms[0]['y']]
+        estShank = [self.leftZoomView.zooms[1]['x'], self.leftZoomView.zooms[1]['y']]
+        segment = [estShank, estTip]
+        print "getting image"
+        im = numpy.fromstring(self.leftZoomView.imageData, numpy.uint8).reshape((self.leftZoomView.imageSize[1], self.leftZoomView.imageSize[0]))
+        print "getting base image"
+        baseImage = conversions.CVtoNumPy(self.cameras.leftCamera.localizationImage)
+        print im.shape, baseImage.shape
+        print "find_electrode_tip_from_segment"
+        leftTip = find_electrode_tip_from_segment(im, baseImage, segment, (-0.5, 0.5), 20)
+        
+        # find tip in right image
+        print "finding tip in right image"
+        estTip = [self.rightZoomView.zooms[0]['x'], self.rightZoomView.zooms[0]['y']]
+        estShank = [self.rightZoomView.zooms[1]['x'], self.rightZoomView.zooms[1]['y']]
+        segment = [estShank, estTip]
+        print "getting image"
+        im = numpy.fromstring(self.rightZoomView.imageData, numpy.uint8).reshape((self.rightZoomView.imageSize[1], self.rightZoomView.imageSize[0]))
+        print "getting base image"
+        baseImage = conversions.CVtoNumPy(self.cameras.rightCamera.localizationImage)
+        print "find_electrode_tip_from_segment"
+        rightTip = find_electrode_tip_from_segment(im, baseImage, segment, (-0.5, 0.5), 20)
+        
+        # set zoom views to tip location
+        self.leftZoomView.zooms[0]['x'] = leftTip[0]
+        self.leftZoomView.zooms[0]['y'] = leftTip[1]
+        self.rightZoomView.zooms[0]['x'] = rightTip[0]
+        self.rightZoomView.zooms[0]['y'] = rightTip[1]
+        
+        # add point to zoomPoints
+        print "making point to add"
+        newPoint = {'c': self.leftZoomView.zooms[0]['c'], 'lx': leftTip[0], 'ly' : leftTip[1], 'rx': rightTip[0], 'ry': rightTip[1]}
+        if all(self.cameras.get_calibrated()) and all(self.cameras.get_located()):
+            l3d = self.cameras.get_3d_position(leftTip, rightTip)
+            newPoint['x'] = l3d[0]
+            newPoint['y'] = l3d[1]
+            newPoint['z'] = l3d[2]
+        newPoint['angle'] = float(self.cnc.headAxes.get_position('b')['b'])
+        newPoint['w'] = float(self.cnc.headAxes.get_position('w')['w'])
+        print "adding point"
+        self.zoomPoints.append(newPoint)
+        print "updating displays"
+        self.zoomPointsController.rearrangeObjects()
+        self.leftZoomView.scheduleRedisplay()
+        self.rightZoomView.scheduleRedisplay()
     
     @IBAction
     def configureCNC_(self, sender):
@@ -587,12 +642,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def moveXAxisLeft_(self, sender):
+        self.cnc.pathPoints = 0
         self.cnc.linearAxes.move_relative(-self.ocXInc, 'x')
         #self.update_position()
         self.start_update_timer()
     
     @IBAction
     def moveXAxisRight_(self, sender):
+        self.cnc.pathPoints = 0
         self.cnc.linearAxes.move_relative(self.ocXInc, 'x')
         #self.update_position()
         self.start_update_timer()
@@ -620,12 +677,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def moveYAxisForward_(self, sender):
+        self.cnc.pathPoints = 0
         self.cnc.linearAxes.move_relative(self.ocYInc, 'y')
         #self.update_position()
         self.start_update_timer()
     
     @IBAction
     def moveYAxisBack_(self, sender):
+        self.cnc.pathPoints = 0
         self.cnc.linearAxes.move_relative(-self.ocYInc, 'y')
         #self.update_position()
         self.start_update_timer()
@@ -653,12 +712,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def moveZAxisUp_(self, sender):
+        self.cnc.pathPoints = 0
         self.cnc.linearAxes.move_relative(-self.ocZInc, 'z')
         #self.update_position()
         self.start_update_timer()
     
     @IBAction
     def moveZAxisDown_(self, sender):
+        self.cnc.pathPoints = 0
         self.cnc.linearAxes.move_relative(self.ocZInc, 'z')
         #self.update_position()
         self.start_update_timer()
@@ -719,12 +780,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def moveBAxisClockwise_(self, sender):
+        self.cnc.pathPoints = 0
         self.cnc.headAxes.move_relative(-self.ocBInc, 'b')
         #self.update_position()
         self.start_update_timer()
     
     @IBAction
     def moveBAxisCounterClockwise_(self, sender):
+        self.cnc.pathPoints = 0
         self.cnc.headAxes.move_relative(self.ocBInc, 'b')
         #self.update_position()
         self.start_update_timer()

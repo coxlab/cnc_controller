@@ -40,6 +40,7 @@ class ZoomView(object):
     
     def __init__(self): #, scale=1.):
         self.imageTexture = None
+        self.imageData = None
         self.zoomTexture = None
         self.shader = None
         self.zooms = [] # dict{'x', 'y', 'z', 'c'}

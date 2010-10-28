@@ -29,6 +29,7 @@ class FiveAxisCNC:
         #self.headAxes.save_settings_to_controller()
         self.arm_length = None
         self.pathParams = None#[0., 0., 0., 0., 1., 0.]
+        self.pathPoints = 0
         #self.disable_motors()
         
         #self.configure()
@@ -105,9 +106,8 @@ class FiveAxisCNC:
         Fit a 3d line to a collection of tip locations to determine the path 
         of the electrode in the camera frame [the frame of the tip locations]
         """
-        pathParams = fit_3d_line(tipLocations, wPositions) # [x0, y0, z0, a, b, c]
-        self.pathParams = pathParams
-        print pathParams
+        self.pathParams = fit_3d_line(tipLocations, wPositions) # [x0, y0, z0, a, b, c]
+        self.pathPoints = len(tipLocations)
         return self.pathParams
     
     def calculate_tip_position(self, t):

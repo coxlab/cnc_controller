@@ -272,7 +272,6 @@ def find_electrode_tip_from_segment(im, base_im, l, angle_range, nsteps):
     else:
         diff_im = im
         print "WARNING: no base (sans electrode) image provided"
-
     diff_im = median_filter(diff_im, 4)
 
     #diff_im = transform_electrode_image_watershed(im, base_im, l[0])
@@ -341,7 +340,7 @@ if __name__ == "__main__":
             tip = find_electrode_tip_from_segment(im, base_im, segment, (-0.5,0.5), 20)
     
     
-            plt.imshow(im, cmap=cm.gray)
+            plt.imshow(im, cmap=cm.gray, interpolation='nearest')
             plt.hold(True)
             plt.plot(tip[0], tip[1], 'r*')
             plt.show()
