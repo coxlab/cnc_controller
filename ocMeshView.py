@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import time
+
 import numpy
 
 import quaternion
@@ -84,6 +86,7 @@ class OCMeshView(NSOpenGLView):
         self.electrodeMatrix = numpy.matrix(numpy.identity(4,dtype=numpy.float64))
         self.pathParams = numpy.array([0., 0., 0., 0., 0., 1.])
         self.points = None
+        self.loaderThread = None
     
     @IBAction
     def showHelp_(self, sender):
@@ -145,7 +148,25 @@ class OCMeshView(NSOpenGLView):
             self.orbiter.rotation = quaternion.fromEuler(-numpy.pi/2,0,numpy.pi/2)
             self.scheduleRedisplay()
     
-    def load_obj(self, meshFilename, textureFilename, center=False):
+    def runLoaderThread(self):
+        # all opengl calls must occur within the main thread, so...
+        # prep_lists and loading of the texture cannot occur within the load thread
+        # this makes a separate thread pretty pointless
+        # maybe there are other ways to spead up the OBJ class
+        #pool = NSAutoreleasePool.alloc().init()
+        #print "loading...",
+        self.obj = objLoader.OBJ(self.meshFilename, self.meshTextureFilename)#meshFilename, textureFilename)
+        #print "loaded"
+        #obj.prep_lists()
+        #print "prepped"
+        #self.obj = obj
+        #print "obj set"
+        #self.scheduleRedisplay()
+        #print "scheduling redisplay"
+        #pool.release()
+        #print "pool released"
+    
+    def load_obj(self, meshFilename, textureFilename):
         # so, if this is called before the mesh tab has been visited,
         # gl_inited will be false, and the loading will fail :(
         # and it will fubar other textures (see zoomView)
@@ -154,16 +175,25 @@ class OCMeshView(NSOpenGLView):
             self.meshFilename = meshFilename
             return
         
-        self.obj = objLoader.OBJ(meshFilename, textureFilename)
+        self.meshTextureFilename = textureFilename
+        self.meshFilename = meshFilename
         
-        if center:
-            v = numpy.array(obj.vertices)
-            v = v - numpy.mean(v,0)
-            self.obj.vertices = v.tolist()
-        
+        #NSThread.detachNewThreadSelector_toTarget_withObject_("runLoaderThread", self, None)
+        self.runLoaderThread()
         self.obj.prep_lists()
-        
         self.scheduleRedisplay()
+        #self.loaderThread = NSThread.alloc().initWithTarget_selector_object_(self,self.runLoaderThread, (meshFilename, textureFilename))
+        #self.loaderThread.start()
+        
+        #while self.obj == None:
+        #    print "sleeping"
+        #    time.sleep(1)
+        #print "self.obj is not none"
+        
+        #self.obj = objLoader.OBJ(meshFilename, textureFilename)
+        #self.obj.prep_lists()
+        
+        #self.scheduleRedisplay()
     
     def load_electrode(self, meshFilename, textureFilename=None):
         self.electrode = objLoader.OBJ(meshFilename, textureFilename)
@@ -269,6 +299,10 @@ class OCMeshView(NSOpenGLView):
         self.orbiter.setup_model_view()
         
         if self.obj != None:
+            if self.obj.meshList == None:
+                print "prepping lists...",
+                self.obj.prep_lists()
+                print "done"
             self.obj.display()
         
         glPushMatrix()

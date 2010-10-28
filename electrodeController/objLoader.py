@@ -46,9 +46,11 @@ class OBJ:
         self.pointCloudList = None
         
         if textureFilename == None:
+            self.textureFilename = None
             self.showTexture = False
         else:
-            self.texId = LoadTexture(textureFilename)
+            self.textureFilename = textureFilename
+            #self.texId = LoadTexture(textureFilename)
             self.showTexture = True
             
         self.showMesh = True
@@ -94,6 +96,8 @@ class OBJ:
     
     
     def prep_mesh_list(self):
+        if self.textureFilename:
+            self.texId = LoadTexture(self.textureFilename)
         self.meshList = glGenLists(1)
         glNewList(self.meshList, GL_COMPILE)
         
