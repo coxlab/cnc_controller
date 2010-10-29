@@ -15,7 +15,7 @@
 			<integer value="81"/>
 			<integer value="871"/>
 			<integer value="907"/>
-			<integer value="811"/>
+			<integer value="847"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1370,7 +1370,7 @@
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
-						<object class="NSToolbarItem" key="B60DB5D3-3A30-4310-83B7-6FEE0130FFD2" id="765107033">
+						<object class="NSToolbarItem" key="B60DB5D3-3A30-4310-83B7-6FEE0130FFD2" id="1560254">
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">B60DB5D3-3A30-4310-83B7-6FEE0130FFD2</characters>
 							</object>
@@ -1518,13 +1518,13 @@
 						<reference ref="403700122"/>
 						<reference ref="429747870"/>
 						<reference ref="823968504"/>
-						<reference ref="765107033"/>
+						<reference ref="1560254"/>
 					</array>
 					<array class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<reference ref="325475918"/>
 						<reference ref="676646529"/>
 						<reference ref="823968504"/>
-						<reference ref="765107033"/>
+						<reference ref="1560254"/>
 						<reference ref="429747870"/>
 						<reference ref="519792981"/>
 						<reference ref="434821934"/>
@@ -1547,7 +1547,7 @@
 								<object class="NSTabViewItem" id="1014198805">
 									<string key="NSIdentifier">Item 2</string>
 									<object class="NSView" key="NSView" id="811762933">
-										<reference key="NSNextResponder" ref="553846446"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">256</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSSlider" id="959365653">
@@ -1613,7 +1613,6 @@
 											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {742, 501}}</string>
-										<reference key="NSSuperview" ref="553846446"/>
 									</object>
 									<string key="NSLabel">Atlas</string>
 									<object class="NSColor" key="NSColor" id="142994466">
@@ -1679,7 +1678,7 @@
 								<object class="NSTabViewItem" id="479501803">
 									<string key="NSIdentifier">2</string>
 									<object class="NSView" key="NSView" id="381671482">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="553846446"/>
 										<int key="NSvFlags">256</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSScrollView" id="529465367">
@@ -2390,19 +2389,20 @@
 											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {742, 501}}</string>
+										<reference key="NSSuperview" ref="553846446"/>
 									</object>
 									<string key="NSLabel">Camera</string>
 									<reference key="NSColor" ref="142994466"/>
 									<reference key="NSTabView" ref="553846446"/>
 								</object>
 							</array>
-							<reference key="NSSelectedTabViewItem" ref="1014198805"/>
+							<reference key="NSSelectedTabViewItem" ref="479501803"/>
 							<reference key="NSFont" ref="858839378"/>
 							<int key="NSTvFlags">0</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<array class="NSMutableArray" key="NSSubviews">
-								<reference ref="811762933"/>
+								<reference ref="381671482"/>
 							</array>
 						</object>
 						<object class="NSButton" id="28746724">
@@ -6500,9 +6500,17 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">findTipLoop:</string>
 						<reference key="source" ref="401468622"/>
-						<reference key="destination" ref="765107033"/>
+						<reference key="destination" ref="1560254"/>
 					</object>
 					<int key="connectionID">1456</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">locateButton</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="494812895"/>
+					</object>
+					<int key="connectionID">1457</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -8143,7 +8151,7 @@
 							<reference ref="519792981"/>
 							<reference ref="429747870"/>
 							<reference ref="823968504"/>
-							<reference ref="765107033"/>
+							<reference ref="1560254"/>
 						</array>
 						<reference key="parent" ref="513744381"/>
 					</object>
@@ -9525,7 +9533,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1455</int>
-						<reference key="object" ref="765107033"/>
+						<reference key="object" ref="1560254"/>
 						<reference key="parent" ref="100332142"/>
 					</object>
 				</array>
@@ -10018,7 +10026,7 @@
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="81.ImportedFromIB2"/>
 				<string key="81.editorWindowContentRectSynchronizationRect">{{323, 672}, {199, 203}}</string>
-				<string key="811.IBEditorWindowLastContentRect">{{361, 501}, {616, 227}}</string>
+				<string key="811.IBEditorWindowLastContentRect">{{361, 728}, {616, 0}}</string>
 				<string key="811.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="82.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="82.ImportedFromIB2"/>
@@ -10162,7 +10170,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1456</int>
+			<int key="maxID">1457</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
