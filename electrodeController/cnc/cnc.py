@@ -73,6 +73,8 @@ class FiveAxisCNC:
         self.headAxes.disable_motor()
     
     def motion_done(self):
+        if cfg.fakeCNC:
+            return True
         linearStatus = self.linearAxes.get_controller_status()
         headStatus = self.headAxes.get_controller_status()
         # 'left most ascii character'

@@ -195,7 +195,7 @@ def electrode_alignment_objective(params, im, line_segment, **kwargs):
     
     sampling_step = kwargs.pop("sampling_step", 0.25)
     
-    print "Evaluating angle = ", a
+    #print "Evaluating angle = ", a
     theta = a * pi / 180.
     e_start = array(line_segment[0])
     e_end = array(line_segment[1])
@@ -273,15 +273,18 @@ def find_electrode_tip_from_segment(im, base_im, l, angle_range, nsteps):
         diff_im = im
         print "WARNING: no base (sans electrode) image provided"
     diff_im = median_filter(diff_im, 4)
+    #plt.imshow(diff_im)
+    #plt.hold(True)
+    #plt.show()
 
     #diff_im = transform_electrode_image_watershed(im, base_im, l[0])
     a = [angle_range[0]]
     
     if not no_optimization:
         ranges = [ (angle_range) ]
-        print ranges
+        #print ranges
         angle = scipy.optimize.brute(lambda a_: electrode_alignment_objective(a_, diff_im, l, sampling_step=resampling_size)[0], ranges, (), nsteps, 0, None)
-    print "angle=", angle
+    print "electrode angle=", degrees(angle)
     (trough, new_tip) = electrode_alignment_objective(angle, diff_im, l)
 
     return new_tip

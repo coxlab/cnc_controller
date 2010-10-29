@@ -11,11 +11,11 @@
 			<string key="NS.object.0">804</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="907"/>
-			<integer value="871"/>
 			<integer value="930"/>
-			<integer value="368"/>
 			<integer value="81"/>
+			<integer value="871"/>
+			<integer value="907"/>
+			<integer value="811"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1370,6 +1370,28 @@
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
+						<object class="NSToolbarItem" key="B60DB5D3-3A30-4310-83B7-6FEE0130FFD2" id="765107033">
+							<object class="NSMutableString" key="NSToolbarItemIdentifier">
+								<characters key="NS.bytes">B60DB5D3-3A30-4310-83B7-6FEE0130FFD2</characters>
+							</object>
+							<string key="NSToolbarItemLabel">Find Path</string>
+							<string key="NSToolbarItemPaletteLabel">Find Path</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">NSGoLeftTemplate</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
 						<object class="NSToolbarItem" key="BABB2E4E-0AF3-4A92-894B-9D69EB03B7AF" id="371452767">
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">BABB2E4E-0AF3-4A92-894B-9D69EB03B7AF</characters>
@@ -1496,11 +1518,13 @@
 						<reference ref="403700122"/>
 						<reference ref="429747870"/>
 						<reference ref="823968504"/>
+						<reference ref="765107033"/>
 					</array>
 					<array class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<reference ref="325475918"/>
 						<reference ref="676646529"/>
 						<reference ref="823968504"/>
+						<reference ref="765107033"/>
 						<reference ref="429747870"/>
 						<reference ref="519792981"/>
 						<reference ref="434821934"/>
@@ -6472,6 +6496,14 @@
 					</object>
 					<int key="connectionID">1454</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">findTipLoop:</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="765107033"/>
+					</object>
+					<int key="connectionID">1456</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -8111,6 +8143,7 @@
 							<reference ref="519792981"/>
 							<reference ref="429747870"/>
 							<reference ref="823968504"/>
+							<reference ref="765107033"/>
 						</array>
 						<reference key="parent" ref="513744381"/>
 					</object>
@@ -9490,6 +9523,11 @@
 						<reference key="object" ref="499994459"/>
 						<reference key="parent" ref="166996004"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1455</int>
+						<reference key="object" ref="765107033"/>
+						<reference key="parent" ref="100332142"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -9807,6 +9845,7 @@
 					<bytes key="NSTransformStruct">P4AAAL+AAABDCgAAxA1AAA</bytes>
 				</object>
 				<string key="1451.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1455.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="149.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="149.ImportedFromIB2"/>
 				<string key="150.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9979,7 +10018,7 @@
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="81.ImportedFromIB2"/>
 				<string key="81.editorWindowContentRectSynchronizationRect">{{323, 672}, {199, 203}}</string>
-				<string key="811.IBEditorWindowLastContentRect">{{379, 757}, {616, 0}}</string>
+				<string key="811.IBEditorWindowLastContentRect">{{361, 501}, {616, 227}}</string>
 				<string key="811.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="82.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="82.ImportedFromIB2"/>
@@ -10123,7 +10162,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1454</int>
+			<int key="maxID">1456</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -10168,6 +10207,7 @@
 						<string key="clearZoomPoints:">id</string>
 						<string key="configureCNC:">id</string>
 						<string key="findTip:">id</string>
+						<string key="findTipLoop:">id</string>
 						<string key="goToTarget:">id</string>
 						<string key="loadAnimal:">id</string>
 						<string key="loadLog:">id</string>
@@ -10220,6 +10260,10 @@
 						</object>
 						<object class="IBActionInfo" key="findTip:">
 							<string key="name">findTip:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="findTipLoop:">
+							<string key="name">findTipLoop:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="goToTarget:">
@@ -11316,6 +11360,7 @@
 			<string key="NSExitFullScreenTemplate">{16, 15}</string>
 			<string key="NSFolderBurnable">{32, 32}</string>
 			<string key="NSFollowLinkFreestandingTemplate">{10, 10}</string>
+			<string key="NSGoLeftTemplate">{9, 9}</string>
 			<string key="NSInvalidDataFreestandingTemplate">{18, 18}</string>
 			<string key="NSMenuCheckmark">{9, 8}</string>
 			<string key="NSMenuMixedState">{7, 2}</string>

@@ -152,7 +152,9 @@ class OCMeshView(NSOpenGLView):
         # all opengl calls must occur within the main thread, so...
         # prep_lists and loading of the texture cannot occur within the load thread
         # this makes a separate thread pretty pointless
-        # maybe there are other ways to spead up the OBJ class
+        # maybe there are other ways to speed up the OBJ class
+        #
+        # maybe try performSelectorInBackground_withObject_
         #pool = NSAutoreleasePool.alloc().init()
         #print "loading...",
         self.obj = objLoader.OBJ(self.meshFilename, self.meshTextureFilename)#meshFilename, textureFilename)
