@@ -457,6 +457,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self._.ocNPathPoints = len(ptsInCam)
             lp = self.cnc.linearAxes.get_position()
             self.pathOrigin = [float(lp['x']), float(lp['y']), float(lp['z'])]
+            print self.pathOrigin
         
         #self.updateFramesDisplay_(sender)
     
@@ -596,6 +597,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self._.ocNPathPoints = len(ptsInCam)
         lp = self.cnc.linearAxes.get_position()
         self.pathOrigin = [float(lp['x']), float(lp['y']), float(lp['z'])]
+        print self.pathOrigin
         
         self.updateFramesDisplay_(sender)
     
@@ -978,12 +980,30 @@ class OCController (NSObject, electrodeController.controller.Controller):
             #s = time.time()
             tipPosition[:3] = self.cnc.calculate_tip_position(self.ocW)
             if self.ocNPathPoints == 0:
-                cncDelta = numpy.ones(4,dtype=numpy.float64)
-                cncDelta[0] = self.ocX - self.pathOrigin[0]
-                cncDelta[1] = self.ocY - self.pathOrigin[1]
-                cncDelta[2] = -(self.ocZ - self.pathOrigin[2])
+                print self.pathOrigin
+                o = numpy.ones(4,dtype=numpy.float64)
+                o[0] = self.pathOrigin[0]
+                o[1] = self.pathOrigin[1]
+                o[2] = self.pathOrigin[2]
+                n = numpy.ones(4,dtype=numpy.float64)
+                n[0] = self.ocX
+                n[1] = self.ocY
+                n[2] = self.ocZ
+                o = numpy.array(self.fManager.transform_point(o, "tricorner", "camera"))[0]
+                n = numpy.array(self.fManager.transform_point(n, "tricorner", "camera"))[0]
+                camDelta = n - o
+                camDelta[1] = -camDelta[1]
                 
-                camDelta = numpy.array(self.fManager.transform_point(cncDelta, "tricorner", "camera"))[0]
+                #cncDelta = numpy.ones(4,dtype=numpy.float64)
+                #cncDelta[0] = self.ocX - self.pathOrigin[0]
+                #cncDelta[1] = self.ocY - self.pathOrigin[1]
+                #cncDelta[2] = -(self.ocZ - self.pathOrigin[2])
+                #
+                #camDelta = numpy.array(self.fManager.transform_point(cncDelta, "tricorner", "camera"))[0]
+                #z = numpy.zeros(4,dtype=numpy.float64)
+                #z[3] = 1.
+                #camOrigin = numpy.array(self.fManager.transform_point(z, "tricorner", "camera"))[0]
+                #camDelta = camDelta - z
                 
                 # tip Position is in camera frame
                 # cnc is roughly aligned with the tc frame
@@ -1080,7 +1100,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             zxLength = (newZ[2]**2 + newZ[0]**2)**0.5
             newZLength = numpy.linalg.norm(newZ)
             dY = numpy.arccos(newZ[2] / zxLength)
-            dX = numpy.arccos(zxLength / newZLength)
+            dX = -numpy.arccos(zxLength / newZLength)
             #print "dX:", numpy.degrees(dX), "dY:", numpy.degrees(dY)
             self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], dX, dY, 0.))
             #print self.meshView.electrodeMatrix
