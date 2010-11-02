@@ -1101,7 +1101,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             newZLength = numpy.linalg.norm(newZ)
             dY = numpy.arccos(newZ[2] / zxLength)
             dX = -numpy.arccos(zxLength / newZLength)
-            #print "dX:", numpy.degrees(dX), "dY:", numpy.degrees(dY)
+            print "dX:", numpy.degrees(dX), "dY:", numpy.degrees(dY), "in skull frame"
             self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], dX, dY, 0.))
             #print self.meshView.electrodeMatrix
             self.meshView.drawElectrode = True
