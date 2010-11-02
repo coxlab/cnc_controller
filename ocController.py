@@ -96,6 +96,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
     zoomPointsTable = objc.IBOutlet()
     
     locateButton = objc.IBOutlet()
+    streamButton = objc.IBOutlet()
     
     xVelocityField = objc.IBOutlet()
     yVelocityField = objc.IBOutlet()
@@ -266,6 +267,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def findTipLoop_(self, sender):
+        if self.cameras.leftCamera.streaming or self.cameras.rightCamera.streaming:
+            self.stop_streaming()
         # withdraw probe
         NPoints = 6
         moveInc = 0.5
@@ -1115,25 +1118,43 @@ class OCController (NSObject, electrodeController.controller.Controller):
         sender.setStringValue_(str(s))
         #print "[%.3f]" % (self.cameras.rightCamera.shutter.val)
     
+    def stop_streaming(self):
+        self.streamButton.setTitle_('Stream')
+        if self.streamTimer != None:
+            self.streamTimer.invalidate()
+            self.streamTimer = None
+        self.cameras.leftCamera.stop_streaming()
+        self.cameras.rightCamera.stop_streaming()
+    
+    def start_streaming(self):
+        self.streamButton.setTitle_('Stop')
+        self.cameras.leftCamera.start_streaming()
+        self.cameras.rightCamera.start_streaming()
+        if self.streamTimer == None:
+            self.streamTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.03, self, self.poll_for_frames, None, True)
+            NSRunLoop.currentRunLoop().addTimer_forMode_(self.streamTimer, NSDefaultRunLoopMode)
+    
     @IBAction
     def toggleStreaming_(self, sender):
         if cfg.fakeCameras: return
         if self.cameras.leftCamera.streaming or self.cameras.rightCamera.streaming:
             print "stopping streaming"
-            sender.setTitle_('Stream')
-            if self.streamTimer != None:
-                self.streamTimer.invalidate()
-                self.streamTimer = None
-            self.cameras.leftCamera.stop_streaming()
-            self.cameras.rightCamera.stop_streaming()
+            self.stop_streaming()
+            #sender.setTitle_('Stream')
+            #if self.streamTimer != None:
+            #    self.streamTimer.invalidate()
+            #    self.streamTimer = None
+            #self.cameras.leftCamera.stop_streaming()
+            #self.cameras.rightCamera.stop_streaming()
         else:
             print "starting streaming"
-            sender.setTitle_('Stop')
-            self.cameras.leftCamera.start_streaming()
-            self.cameras.rightCamera.start_streaming()
-            if self.streamTimer == None:
-                self.streamTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.03, self, self.poll_for_frames, None, True)
-                NSRunLoop.currentRunLoop().addTimer_forMode_(self.streamTimer, NSDefaultRunLoopMode)
+            self.start_streaming()
+            #sender.setTitle_('Stop')
+            #self.cameras.leftCamera.start_streaming()
+            #self.cameras.rightCamera.start_streaming()
+            #if self.streamTimer == None:
+            #    self.streamTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.03, self, self.poll_for_frames, None, True)
+            #    NSRunLoop.currentRunLoop().addTimer_forMode_(self.streamTimer, NSDefaultRunLoopMode)
     
     def poll_for_frames(self):
         li = self.cameras.leftCamera.poll_stream()

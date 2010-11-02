@@ -95,8 +95,8 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
             self.close()
             self.connected = False
     
-    def start_streaming(self):
-        self.start(interactive=True)
+    def start_streaming(self, interactive=True):
+        self.start(interactive=interactive)
         self.streaming = True
     
     def stop_streaming(self):
@@ -151,21 +151,23 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
     
     def capture_frame(self):
         if self.streaming == False:
-            self.start_streaming()
-            #print "started streaming"
-            self._new_image.acquire()
-            #print "acquired lock"
-            i = self._current_img
-            #print "i =", i
-            while i == None:
-                #print "waiting..."
-                self._new_image.wait()
-                i = self._current_img
-                #print "i =", i
-            self._new_image.release()
-            #print "releaseed"
+            self.start_streaming(interactive=False)
+            i = self.shot()
             self.stop_streaming()
-            #print "stopped streaming"
+            ##print "started streaming"
+            #self._new_image.acquire()
+            ##print "acquired lock"
+            #i = self._current_img
+            ##print "i =", i
+            #while i == None:
+            #    #print "waiting..."
+            #    self._new_image.wait()
+            #    i = self._current_img
+            #    #print "i =", i
+            #self._new_image.release()
+            ##print "releaseed"
+            #self.stop_streaming()
+            ##print "stopped streaming"
             return i
         else:
             self._new_image.acquire()
