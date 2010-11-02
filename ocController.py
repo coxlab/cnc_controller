@@ -978,10 +978,19 @@ class OCController (NSObject, electrodeController.controller.Controller):
             #s = time.time()
             tipPosition[:3] = self.cnc.calculate_tip_position(self.ocW)
             if self.ocNPathPoints == 0:
+                cncDelta = numpy.ones(4,dtype=numpy.float64)
+                cncDelta[0] = self.ocX - self.pathOrigin[0]
+                cncDelta[1] = self.ocY - self.pathOrigin[1]
+                cncDelta[2] = -(self.ocZ - self.pathOrigin[2])
+                
+                camDelta = numpy.array(self.fManager.transform_point(cncDelta, "tricorner", "camera"))[0]
+                
+                # tip Position is in camera frame
+                # cnc is roughly aligned with the tc frame
                 # make a 'best guess'
-                tipPosition[0] += self.ocX - self.pathOrigin[0]
-                tipPosition[1] += self.ocZ - self.pathOrigin[2]
-                tipPosition[2] += self.ocY - self.pathOrigin[1]
+                tipPosition[0] += camDelta[0]#self.ocX - self.pathOrigin[0]
+                tipPosition[1] += camDelta[1]#self.ocZ - self.pathOrigin[2]
+                tipPosition[2] += camDelta[2]#self.ocY - self.pathOrigin[1]
             
             #e = time.time()
             #print "calculate_tip_position:", e - s
@@ -1013,12 +1022,27 @@ class OCController (NSObject, electrodeController.controller.Controller):
             p1[:3] = self.cnc.calculate_tip_position(0.)
             p2[:3] = self.cnc.calculate_tip_position(-50.)
             if self.ocNPathPoints == 0:
-                p1[0] += self.ocX - self.pathOrigin[0]
-                p1[1] += self.ocZ - self.pathOrigin[2]
-                p1[2] += self.ocY - self.pathOrigin[1]
-                p2[0] += self.ocX - self.pathOrigin[0]
-                p2[1] += self.ocZ - self.pathOrigin[2]
-                p2[2] += self.ocY - self.pathOrigin[1]
+                #cncDelta = numpy.ones(4,dtype=numpy.float64)
+                #cncDelta[0] = self.ocX - self.pathOrigin[0]
+                #cncDelta[1] = -(self.ocY - self.pathOrigin[1])
+                #cncDelta[2] = -(self.ocZ - self.pathOrigin[2])
+                #
+                #camDelta = numpy.array(self.fManager.transform_point(cncDelta, "tricorner", "camera"))[0]
+                #
+                ## tip Position is in camera frame
+                ## cnc is roughly aligned with the tc frame
+                ## make a 'best guess'
+                #tipPosition[0] += camDelta[0]#self.ocX - self.pathOrigin[0]
+                #tipPosition[1] += camDelta[1]#self.ocZ - self.pathOrigin[2]
+                #tipPosition[2] += camDelta[2]#self.ocY - self.pathOrigin[1]
+                
+                #camDelta calculated earlier
+                p1[0] += camDelta[0]#self.ocX - self.pathOrigin[0]
+                p1[1] += camDelta[1]#self.ocZ - self.pathOrigin[2]
+                p1[2] += camDelta[2]#self.ocY - self.pathOrigin[1]
+                p2[0] += camDelta[0]#self.ocX - self.pathOrigin[0]
+                p2[1] += camDelta[1]#self.ocZ - self.pathOrigin[2]
+                p2[2] += camDelta[2]#self.ocY - self.pathOrigin[1]
             #e = time.time()
             #print "calculate_tip_postion[2]:", e - s
             

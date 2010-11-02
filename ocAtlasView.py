@@ -63,6 +63,7 @@ class OCAtlasView (OCZoomView):
         self.scale = max(frame.size.width/float(self.imageSize[0]), frame.size.height/float(self.imageSize[1]))
         # convert nsimage to string
         nsimage.lockFocus()
+        nsimage.setBackgroundColor_(NSColor.whiteColor())
         self.imageData = str(NSBitmapImageRep.alloc().initWithFocusedViewRect_(((0,0),nsimage.size())).bitmapData())
         nsimage.unlockFocus()
         
@@ -70,7 +71,8 @@ class OCAtlasView (OCZoomView):
         if self.imageTexture != None:
             glDeleteTextures(self.imageTexture)
         self.imageTexture = glGenTextures(1)
-        
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glColor4f(1., 1., 1., 1.)
         glBindTexture(GL_TEXTURE_2D, self.imageTexture)
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP)
