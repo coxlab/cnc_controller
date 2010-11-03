@@ -129,8 +129,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.tipFindTimer = None
         
         
+        print "getting motor status...",
         linearStatus = self.cnc.linearAxes.get_motor_status()
         headStatus = self.cnc.headAxes.get_motor_status()
+        print "done"
         allEnabled = True
         allDisabled = True
         if linearStatus['x'] == '0':
@@ -169,7 +171,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.disable_motors()
         #self.disable_motors()
         
+        print "connecting to cameras...",
         self.connect_cameras()
+        print "done"
         
         if cfg.fakeCameras:
             lFileList = ["%s/%s" % (cfg.leftFakeFramesDir, f) for f in os.listdir(cfg.leftFakeFramesDir) if '.png' in f]
@@ -271,7 +275,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if self.cameras.leftCamera.streaming or self.cameras.rightCamera.streaming:
             self.stop_streaming()
         # withdraw probe
-        NPoints = 6
+        NPoints = 20
         moveInc = 1.
         # check that the probe can be withdrawn N mms (in 0.5 mm movements)
         if float(self.cnc.headAxes.get_position('w')['w']) > -(NPoints * moveInc + 1.):
@@ -308,12 +312,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
             NSRunLoop.currentRunLoop().addTimer_forMode_(self.tipFindTimer, NSDefaultRunLoopMode)
         else:
             self.update_zoom_views()
-            self.findTip_(None)
             self.tipsFound += 1
-            if self.tipsFound < 6:
+            if self.tipsFound < 20:
                 self.cnc.headAxes.move_relative(1., 'w')
                 self.tipFindTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.1, self, self.tip_find_timer_tick, None, False)
                 NSRunLoop.currentRunLoop().addTimer_forMode_(self.tipFindTimer, NSDefaultRunLoopMode)
+            self.findTip_(None)
     
     @IBAction
     def stopTipFindLoop_(self, sender):
