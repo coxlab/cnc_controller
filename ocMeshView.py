@@ -155,6 +155,8 @@ class OCMeshView(NSOpenGLView):
         # maybe there are other ways to speed up the OBJ class
         #
         # maybe try performSelectorInBackground_withObject_
+        # or try using a timer here: self.timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.5, self, self.update_position, None, True)
+        #    NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSDefaultRunLoopMode)
         #pool = NSAutoreleasePool.alloc().init()
         #print "loading...",
         self.obj = objLoader.OBJ(self.meshFilename, self.meshTextureFilename)#meshFilename, textureFilename)

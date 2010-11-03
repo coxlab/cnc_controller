@@ -305,6 +305,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if not self.cnc.motion_done():
             self.update_position()
             self.tipFindTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.1, self, self.tip_find_timer_tick, None, False)
+            NSRunLoop.currentRunLoop().addTimer_forMode_(self.tipFindTimer, NSDefaultRunLoopMode)
         else:
             self.update_zoom_views()
             self.findTip_(None)
@@ -312,6 +313,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             if self.tipsFound < 6:
                 self.cnc.headAxes.move_relative(1., 'w')
                 self.tipFindTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.1, self, self.tip_find_timer_tick, None, False)
+                NSRunLoop.currentRunLoop().addTimer_forMode_(self.tipFindTimer, NSDefaultRunLoopMode)
     
     @IBAction
     def stopTipFindLoop_(self, sender):
@@ -1276,6 +1278,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 p = c.get_position()
                 cfg.cameraLog.info('\t%i\t%.3f\t%.3f\t%.3f' % (c.camID, p[0], p[1], p[2]))
             self.locateButton.setTitle_('Relocate')
+            # TODO try to find cam-to-tc frame
         else:
             print "Cameras NOT located"
             cfg.cameraLog.info('Camera Localization Failed')
