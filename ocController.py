@@ -126,6 +126,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         NSApp().setDelegate_(self)
         self.timer = None
         self.streamTimer = None
+        self.tipFindTimer = None
         
         
         linearStatus = self.cnc.linearAxes.get_motor_status()
@@ -270,14 +271,19 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if self.cameras.leftCamera.streaming or self.cameras.rightCamera.streaming:
             self.stop_streaming()
         # withdraw probe
-        NPoints = 6
-        moveInc = 1#0.5
+        #NPoints = 6
+        #moveInc = 1#0.5
         # check that the probe can be withdrawn N mms (in 0.5 mm movements)
         if float(self.cnc.headAxes.get_position('w')['w']) > -(NPoints * moveInc + 1.):
             print "not enough travel on the w-axis to measure path"
             return
         ## capture new image
         #self.update_zoom_views()
+        self.tipsFound = 0
+        # finds tip and schedules timer
+        self.tip_find_timer_tick()
+        return
+        
         # find tip # TODO add error reporting
         self.findTip_(sender)
         # loop...
@@ -294,6 +300,23 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.update_zoom_views()
             # find tip
             self.findTip_(sender)
+    
+    def tip_find_timer_tick(self):
+        if not self.cnc.motion_done():
+            self.update_position()
+            self.tipFindTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.1, self, self.tip_find_timer_tick, None, False)
+        else:
+            self.update_zoom_views()
+            self.findTip_(sender)
+            self.tipsFound += 1
+            if self.tipsFound < 6:
+                self.cnc.headAxes.move_relative(0.5, 'w')
+                self.tipFindTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.1, self, self.tip_find_timer_tick, None, False)
+    
+    @IBAction
+    def stopTipFindLoop_(self, sender):
+        if self.tipFindTimer != None:
+            self.tipFindTimer.invalidate()
     
     @IBAction
     def findTip_(self, sender):
@@ -326,10 +349,16 @@ class OCController (NSObject, electrodeController.controller.Controller):
         rightTip = find_electrode_tip_from_segment(im, baseImage, segment, (-0.5, 0.5), 20)
         
         # set zoom views to tip location
+        leftTipDelta = [leftTip[0] - self.leftZoomView.zooms[0]['x'], leftTip[1] - self.leftZoomView.zooms[0]['y']]
         self.leftZoomView.zooms[0]['x'] = leftTip[0]
         self.leftZoomView.zooms[0]['y'] = leftTip[1]
+        self.leftZoomView.zooms[1]['x'] = self.leftZoomView.zooms[1]['x'] + leftTipDelta[0]
+        self.leftZoomView.zooms[1]['y'] = self.leftZoomView.zooms[1]['y'] + leftTipDelta[1]
+        rightTipDelta = [rightTip[0] - self.rightZoomView.zooms[0]['x'], rightTip[1] - self.rightZoomView.zooms[0]['y']]
         self.rightZoomView.zooms[0]['x'] = rightTip[0]
         self.rightZoomView.zooms[0]['y'] = rightTip[1]
+        self.rightZoomView.zooms[1]['x'] = self.rightZoomView.zooms[1]['x'] + rightTipDelta[0]
+        self.rightZoomView.zooms[1]['y'] = self.rightZoomView.zooms[1]['y'] + rightTipDelta[1]
         
         # add point to zoomPoints
         #print "making point to add"

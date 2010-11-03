@@ -12,10 +12,10 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<integer value="907"/>
-			<integer value="847"/>
 			<integer value="81"/>
 			<integer value="930"/>
 			<integer value="871"/>
+			<integer value="848"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2370,7 +2370,7 @@
 											<object class="NSButton" id="386420644">
 												<reference key="NSNextResponder" ref="381671482"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{317, 254}, {96, 32}}</string>
+												<string key="NSFrame">{{316, 326}, {96, 32}}</string>
 												<reference key="NSSuperview" ref="381671482"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="447006765">
@@ -2379,6 +2379,46 @@
 													<string key="NSContents">Find Tip</string>
 													<reference key="NSSupport" ref="858839378"/>
 													<reference key="NSControlView" ref="386420644"/>
+													<int key="NSButtonFlags">-2038284033</int>
+													<int key="NSButtonFlags2">129</int>
+													<string key="NSAlternateContents"/>
+													<string key="NSKeyEquivalent"/>
+													<int key="NSPeriodicDelay">200</int>
+													<int key="NSPeriodicInterval">25</int>
+												</object>
+											</object>
+											<object class="NSButton" id="523430380">
+												<reference key="NSNextResponder" ref="381671482"/>
+												<int key="NSvFlags">268</int>
+												<string key="NSFrame">{{314, 294}, {103, 32}}</string>
+												<reference key="NSSuperview" ref="381671482"/>
+												<bool key="NSEnabled">YES</bool>
+												<object class="NSButtonCell" key="NSCell" id="97385275">
+													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags2">134217728</int>
+													<string key="NSContents">Tip Loop</string>
+													<reference key="NSSupport" ref="858839378"/>
+													<reference key="NSControlView" ref="523430380"/>
+													<int key="NSButtonFlags">-2038284033</int>
+													<int key="NSButtonFlags2">129</int>
+													<string key="NSAlternateContents"/>
+													<string key="NSKeyEquivalent"/>
+													<int key="NSPeriodicDelay">200</int>
+													<int key="NSPeriodicInterval">25</int>
+												</object>
+											</object>
+											<object class="NSButton" id="151694684">
+												<reference key="NSNextResponder" ref="381671482"/>
+												<int key="NSvFlags">268</int>
+												<string key="NSFrame">{{314, 262}, {104, 32}}</string>
+												<reference key="NSSuperview" ref="381671482"/>
+												<bool key="NSEnabled">YES</bool>
+												<object class="NSButtonCell" key="NSCell" id="29066026">
+													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags2">134217728</int>
+													<string key="NSContents">Stop Loop</string>
+													<reference key="NSSupport" ref="858839378"/>
+													<reference key="NSControlView" ref="151694684"/>
 													<int key="NSButtonFlags">-2038284033</int>
 													<int key="NSButtonFlags2">129</int>
 													<string key="NSAlternateContents"/>
@@ -6520,6 +6560,22 @@
 					</object>
 					<int key="connectionID">1458</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">findTipLoop:</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="523430380"/>
+					</object>
+					<int key="connectionID">1465</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">stopTipFindLoop:</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="151694684"/>
+					</object>
+					<int key="connectionID">1466</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -7584,9 +7640,11 @@
 							<reference ref="874506005"/>
 							<reference ref="812486189"/>
 							<reference ref="62943046"/>
-							<reference ref="386420644"/>
 							<reference ref="278198430"/>
 							<reference ref="776560578"/>
+							<reference ref="386420644"/>
+							<reference ref="523430380"/>
+							<reference ref="151694684"/>
 						</array>
 						<reference key="parent" ref="479501803"/>
 					</object>
@@ -9544,6 +9602,32 @@
 						<reference key="object" ref="1560254"/>
 						<reference key="parent" ref="100332142"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1459</int>
+						<reference key="object" ref="523430380"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="97385275"/>
+						</array>
+						<reference key="parent" ref="381671482"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1460</int>
+						<reference key="object" ref="97385275"/>
+						<reference key="parent" ref="523430380"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1462</int>
+						<reference key="object" ref="151694684"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="29066026"/>
+						</array>
+						<reference key="parent" ref="381671482"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1463</int>
+						<reference key="object" ref="29066026"/>
+						<reference key="parent" ref="151694684"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -9846,7 +9930,7 @@
 				<string key="1441.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1445.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSAffineTransform" key="1445.IBViewBoundsToFrameTransform">
-					<bytes key="NSTransformStruct">P4AAAL+AAABDnoAAw44AAA</bytes>
+					<bytes key="NSTransformStruct">P4AAAL+AAABDngAAw7IAAA</bytes>
 				</object>
 				<string key="1446.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1448.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9862,6 +9946,16 @@
 				</object>
 				<string key="1451.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1455.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1459.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSAffineTransform" key="1459.IBViewBoundsToFrameTransform">
+					<bytes key="NSTransformStruct">P4AAAL+AAABDnQAAw6IAAA</bytes>
+				</object>
+				<string key="1460.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1462.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSAffineTransform" key="1462.IBViewBoundsToFrameTransform">
+					<bytes key="NSTransformStruct">P4AAAL+AAABDn4AAw5+AAA</bytes>
+				</object>
+				<string key="1463.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="149.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="149.ImportedFromIB2"/>
 				<string key="150.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -10178,7 +10272,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1458</int>
+			<int key="maxID">1466</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -10245,6 +10339,7 @@
 						<string key="setRightShutter:">id</string>
 						<string key="setVelocities:">id</string>
 						<string key="stopBAxis:">id</string>
+						<string key="stopTipFindLoop:">id</string>
 						<string key="stopWAxis:">id</string>
 						<string key="stopXAxis:">id</string>
 						<string key="stopYAxis:">id</string>
@@ -10364,6 +10459,10 @@
 						</object>
 						<object class="IBActionInfo" key="stopBAxis:">
 							<string key="name">stopBAxis:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="stopTipFindLoop:">
+							<string key="name">stopTipFindLoop:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="stopWAxis:">
