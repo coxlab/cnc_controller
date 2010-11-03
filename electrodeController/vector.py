@@ -115,6 +115,15 @@ def translation_to_matrix(x,y,z):
     m[3,2] = z
     return m
 
+def decompose_matrix(m):
+    tx = m[3,0]
+    ty = m[3,1]
+    tz = m[3,2]
+    ax = arctan2(m[2,1],m[2,2])
+    ay = arcsin(-m[2,0])
+    az = arctan2(m[1,0],m[0,0])
+    return [tx,ty,tz], [ax,ay,az]
+
 def transform_to_matrix(tx=0., ty=0., tz=0., ax=0., ay=0., az=0.):
     # R = euler_to_matrix(ax,ay,az)
     # T = translation_to_matrix(tx,ty,tz)
