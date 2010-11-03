@@ -1102,6 +1102,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
             dY = numpy.arccos(newZ[2] / zxLength)
             dX = -numpy.arccos(zxLength / newZLength)
             print "dX:", numpy.degrees(dX), "dY:", numpy.degrees(dY), "in skull frame"
+            # print out the decomposed frames
+            for src, dest in zip(['skull','tricorner'],['tricorner','camera']):
+                t,r = vector.decompose_matrix(self.fManager.get_transformation_matrix(src,dest))
+                r = numpy.degrees(r)
+                print "%s -> %s: t = %.2f %.2f %.2f, r = %.2f %.2f %.2f" % (src, dest, t[0],t[1],t[2],r[0],r[1],r[2])
             self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], dX, dY, 0.))
             #print self.meshView.electrodeMatrix
             self.meshView.drawElectrode = True
