@@ -271,8 +271,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if self.cameras.leftCamera.streaming or self.cameras.rightCamera.streaming:
             self.stop_streaming()
         # withdraw probe
-        #NPoints = 6
-        #moveInc = 1#0.5
+        NPoints = 6
+        moveInc = 1.
         # check that the probe can be withdrawn N mms (in 0.5 mm movements)
         if float(self.cnc.headAxes.get_position('w')['w']) > -(NPoints * moveInc + 1.):
             print "not enough travel on the w-axis to measure path"
@@ -307,10 +307,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.tipFindTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.1, self, self.tip_find_timer_tick, None, False)
         else:
             self.update_zoom_views()
-            self.findTip_(sender)
+            self.findTip_(None)
             self.tipsFound += 1
             if self.tipsFound < 6:
-                self.cnc.headAxes.move_relative(0.5, 'w')
+                self.cnc.headAxes.move_relative(1., 'w')
                 self.tipFindTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.1, self, self.tip_find_timer_tick, None, False)
     
     @IBAction

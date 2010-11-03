@@ -50,7 +50,7 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
         self.exposure.val = 0.
         self.framerate.on = False
         self.shutter.mode = 'manual'
-        self.shutter.val = 100.
+        self.shutter.val = 500.
         u, s = self.mode.packet_parameters
         print "Max Packet Size %i, Packet Unit %i" % (s, u)
         #fps = (1. / self.shutter.val)
