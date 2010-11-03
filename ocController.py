@@ -271,7 +271,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.stop_streaming()
         # withdraw probe
         NPoints = 6
-        moveInc = 0.5
+        moveInc = 1#0.5
         # check that the probe can be withdrawn N mms (in 0.5 mm movements)
         if float(self.cnc.headAxes.get_position('w')['w']) > -(NPoints * moveInc + 1.):
             print "not enough travel on the w-axis to measure path"
