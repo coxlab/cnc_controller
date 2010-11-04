@@ -10,7 +10,7 @@ from electrodeController.camera.conversions import CVtoNumPy
 
 leftCamID = 49712223528793951
 rightCamID = 49712223528793946
-gridSize = (11,9)
+gridSize = (47,39)#(11,9)
 gridBlockSize = 1.
 cncAddress = "169.254.0.9"
 cncPort = 8003
