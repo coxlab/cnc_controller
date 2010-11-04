@@ -47,7 +47,10 @@ def locate_cameras():
     global cams
     # locate cameras
     lr, rr = cams.capture_localization_images(gridSize)
-    update_image_display(lr[0],rr[0])
+    li = cams.leftCamera.undistort_image(lr[0])
+    ri = cams.rightCamera.undistort_image(rr[0])
+    #update_image_display(lr[0],rr[0])
+    update_image_display(li,ri)
     if lr[1] and rr[1]:
         cams.locate(gridSize, gridBlockSize)
         print "Localization was successful"
@@ -73,7 +76,10 @@ def add_points(pts):
 def find_grid():
     global cams
     imgs, pts, success = cams.locate_grid(gridSize)
-    update_image_display(*imgs)
+    li = cams.leftCamera.undistort_image(imgs[0])
+    ri = cams.rightCamera.undistort_image(imgs[1])
+    update_image_display(li,ri)
+    #update_image_display(*imgs)
     if success:
         add_points(pts)
         print "Grid found!"
