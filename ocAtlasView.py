@@ -158,13 +158,54 @@ class OCAtlasView (OCZoomView):
             w = o - numpy.array([0., apMax, 0.])
             sMax = -numpy.dot(n,w) / d
             pMax = o + m * sMax
+            print "atlas view line min and max t:", sMin, sMax
+            if sMin < sMax:
+                if sMin < -50.:
+                    if sMax < -50.:
+                        # don't draw
+                        pass
+                    else:
+                        # cap sMin
+                        sMin = -50.
+                        pMin = o + m * sMin
+                        glColor(1., 0., 0., 1.)
+                        glLineWidth(2.)
+                        glBegin(GL_LINES)
+                        glVertex2f(*self.mm_to_canvas(pMin[0], pMin[2]))
+                        glVertex2f(*self.mm_to_canvas(pMax[0], pMax[2]))
+                        glEnd()
+                else:
+                    # draw
+                    glColor(1., 0., 0., 1.)
+                    glLineWidth(2.)
+                    glBegin(GL_LINES)
+                    glVertex2f(*self.mm_to_canvas(pMin[0], pMin[2]))
+                    glVertex2f(*self.mm_to_canvas(pMax[0], pMax[2]))
+                    glEnd()
+            elif sMax < sMin:
+                if sMax < -50.:
+                    if sMin < -50.:
+                        # don't draw
+                        pass
+                    else:
+                        # cap sMax
+                        sMax = -50.
+                        pMax = o + m * sMax
+                        glColor(1., 0., 0., 1.)
+                        glLineWidth(2.)
+                        glBegin(GL_LINES)
+                        glVertex2f(*self.mm_to_canvas(pMin[0], pMin[2]))
+                        glVertex2f(*self.mm_to_canvas(pMax[0], pMax[2]))
+                        glEnd()
+                else:
+                    # draw
+                    glColor(1., 0., 0., 1.)
+                    glLineWidth(2.)
+                    glBegin(GL_LINES)
+                    glVertex2f(*self.mm_to_canvas(pMin[0], pMin[2]))
+                    glVertex2f(*self.mm_to_canvas(pMax[0], pMax[2]))
+                    glEnd()
             # draw line
-            glColor(1., 0., 0., 1.)
-            glLineWidth(2.)
-            glBegin(GL_LINES)
-            glVertex2f(*self.mm_to_canvas(pMin[0], pMin[2]))
-            glVertex2f(*self.mm_to_canvas(pMax[0], pMax[2]))
-            glEnd()
             #print self.mm_to_canvas(pMin[0], pMax[2]), self.mm_to_canvas(pMax[0], pMax[2])
         
         # draw tip in black

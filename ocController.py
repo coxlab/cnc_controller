@@ -485,7 +485,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 os.makedirs(self.logDir+'/paths')
             numpy.savetxt(self.logDir+'/measurePathPts', pts)
             numpy.savetxt(self.logDir+'/paths/%i' % self.NPaths, pts)
-            self.NPath += 1
+            self.NPaths += 1
             
             ptsInCam = []
             wPositions = []
