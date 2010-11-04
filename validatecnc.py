@@ -6,6 +6,7 @@ from pylab import *
 from mpl_toolkits.mplot3d import Axes3D
 
 from electrodeController import cnc, camera
+from electrodeController.camera.conversions import CVtoNumPy
 
 leftCamID = 49712223528793951
 rightCamID = 49712223528793946
@@ -17,52 +18,62 @@ cncAxes = {'x': 1, 'y': 2, 'z': 3}
 calibrationDirectory = "/Users/%s/Repositories/coxlab/cncController/electrodeController/calibrations" % os.getlogin()
 
 # connect to cnc
+global linearAxes
 linearAxes = cnc.axes.Axes(cncAddress, cncPort, cncAxes)
 
 # connect to cameras
+global cams
 cams = camera.stereocamera.StereoCamera(leftCamID, rightCamID)
-cams.connect()
-cams.load_calibration(calibrationDirectory)
+#cams.connect()
+cams.load_calibrations(calibrationDirectory)
 
 # plotting
 ion()
 # 3d
+global ax
 ax = Axes3D(figure(1))
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
 ax.set_zlabel('Z')
 
 # image Display
+global imageDisplay
 imageDisplay = 2
 figure(imageDisplay)
 subplot(121)
 subplot(122)
 
 def locate_cameras():
+    global cams
     # locate cameras
     lr, rr = cams.capture_localization_images(gridSize)
+    update_image_display(lr[0],rr[0])
     if lr[1] and rr[1]:
+        cams.locate(gridSize, gridBlockSize)
         print "Localization was successful"
     else:
         print "Localization failed"
     return True
 
 def update_image_display(li, ri):
+    global imageDisplay
     figure(imageDisplay)
     subplot(121)
-    imshow(li)
+    imshow(CVtoNumPy(li))
     gray()
     subplot(122)
-    imshow(ri)
+    imshow(CVtoNumPy(ri))
     gray()
 
 def add_points(pts):
+    global ax
     pts = array(pts)
     ax.scatter(pts[:,0],pts[:,1],pts[:,2])
 
 def find_grid():
-    li, ri, pts, success = cams.locate_grid(gridSize)
-    update_image_display(li, ri)
+    global cams
+    imgs, pts, success = cams.locate_grid(gridSize)
+    update_image_display(*imgs)
     if success:
         add_points(pts)
         print "Grid found!"
@@ -70,16 +81,19 @@ def find_grid():
         print "No grid was found"
     return True
 
+global joystickOn
 joystickOn = False
-def toggle_joystick():
+def toggle_joystick():    
+    global joystickOn
+    global linearAxes
     if joystickOn:
-        print "Enabling joystick"
-        cnc.enable_joystick()
-        joystickOn = True
-    else:
         print "Disabling joystick"
-        cnc.disable_joystick()
+        linearAxes.disable_joystick()
         joystickOn = False
+    else:
+        print "Enabling joystick"
+        linearAxes.enable_joystick()
+        joystickOn = True
     return True
 
 def quit_loop():
@@ -131,6 +145,5 @@ while keepGoing:
 
 # disconnect
 cams.disconnect()
-linearAxes.disconnect()
 del cams
 del linearAxes
