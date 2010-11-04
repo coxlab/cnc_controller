@@ -36,6 +36,8 @@ class Controller:
             self.cameras = camera.stereocamera.StereoCamera(cfg.leftCamID, cfg.rightCamID, camera.dc1394camera.DC1394Camera)
         
         self.logDir = cfg.logDir
+        self.NPathPoints = 0
+        self.pathPointsInCam = None
         
         # new logging
         for c in [self.cameras.leftCamera, self.cameras.rightCamera]:
@@ -82,6 +84,88 @@ class Controller:
         # load skull-to-tricorner transformation matrix and add to frameStack
         self.fManager.add_transformation_matrix('skull', 'tricorner', numpy.matrix(numpy.loadtxt(cfg.skullToTCMatrixFile)))
     
+    def load_log(self, logDir):
+        # load log directory
+        if cfg.fakeCameras:
+            print "assigning frame directories"
+            lCamDir = logDir + '/cameras/'+ str(cfg.leftCamID) + '/'
+            lFileList = [lCamDir + f for f in os.listdir(lCamDir) if '.png' in f]
+            rCamDir = logDir + '/cameras/'+ str(cfg.rightCamID) + '/'
+            rFileList = [rCamDir + f for f in os.listdir(rCamDir) if '.png' in f]
+            self.cameras.leftCamera.set_file_list(lFileList)
+            self.cameras.rightCamera.set_file_list(rFileList)
+        
+        # TODO load frames
+        stt = logDir + '/skull_to_tricorner'
+        if os.path.exists(stt):
+            self.fManager.add_transformation_matrix('skull', 'tricorner', numpy.matrix(numpy.loadtxt(stt)))
+            numpy.savetxt(self.logDir+'/skull_to_tricorner', self.fManager.get_transformation_matrix('skull', 'tricorner'))
+        
+        rcpts = logDir + '/registerCameraPts'
+        if os.path.exists(rcpts):
+            print "loading rcpts: %s" % rcpts
+            # convert pts(lx,ly,rx,ry) to (x,y,z)
+            if not all(self.cameras.get_located()):
+                print "locating cameras"
+                lr, rr = self.cameras.capture_localization_images(cfg.gridSize)
+                print lr[1], rr[1]
+                #self.leftZoomView.set_image_from_cv(ims[0][0])
+                #self.rightZoomView.set_image_from_cv(ims[1][0])
+                if lr[1] == True and rr[1] == True:
+                    self.cameras.locate(cfg.gridSize, cfg.gridBlockSize)
+                else:
+                    raise Exception, "Cameras failed to localize when trying to load registerCameraPts"
+                #self.locateCameras_(None)
+                print "testing localization result"
+                if all(self.cameras.get_located()):
+                    print "Cameras located"
+                    cfg.cameraLog.info('Cameras Located Successfully')
+                    cfg.cameraLog.info('\tID\t\t\tX\tY\tZ')
+                    for c in [self.cameras.leftCamera, self.cameras.rightCamera]:
+                        p = c.get_position()
+                        cfg.cameraLog.info('\t%i\t%.3f\t%.3f\t%.3f' % (c.camID, p[0], p[1], p[2]))
+                else:
+                    raise Exception, "Cameras failed to localize when trying to load registerCameraPts"
+            pts = numpy.loadtxt(rcpts)
+            numpy.savetxt(self.logDir+'/registerCameraPts', pts)
+            ptsInCam = []
+            for p in pts:
+                xyz = self.cameras.get_3d_position([p[0],p[1]], [p[2],p[3]])
+                ptsInCam.append([xyz[0],xyz[1],xyz[2],1.])
+            self.register_cameras(numpy.array(ptsInCam))
+            
+            ptsInSkull = []
+            for p in ptsInCam:
+                camCoord = numpy.ones(4,dtype=numpy.float64)
+                camCoord[:3] = [p[0], p[1], p[2]]
+                skullCoord = self.fManager.transform_point(camCoord, "camera", "skull")[0]
+                ptsInSkull.append([skullCoord[0], skullCoord[1], skullCoord[2]])
+            self.meshView.points = ptsInSkull
+        
+        mppts = logDir + '/measurePathPts'
+        if os.path.exists(mppts):
+            print "loading mppts: %s" % mppts
+            # check if frames are flushed out
+            if not self.fManager.test_route('skull','camera'):
+                raise Exception, "attempting to add path points with an incomplete frame stack"
+            pts = numpy.loadtxt(mppts)
+            
+            numpy.savetxt(self.logDir+'/measurePathPts', pts)
+            
+            ptsInCam = []
+            wPositions = []
+            for p in pts:
+                xyz = self.cameras.get_3d_position([p[0],p[1]], [p[2],p[3]])
+                ptsInCam.append([xyz[0],xyz[1],xyz[2]])
+                wPositions.append(p[4])
+            numpy.savetxt(self.logDir+'/pathPointsInCam', ptsInCam)
+            self.measure_tip_path(ptsInCam, wPositions)
+            self.NPathPoints = len(ptsInCam)
+            lp = self.cnc.linearAxes.get_position()
+            self.pathOrigin = [float(lp['x']), float(lp['y']), float(lp['z'])]
+            print self.pathOrigin
+        
+        #self.updateFramesDisplay_(sender)
     
     def register_cameras(self, ptsInCamera):
         # # find location of 3 tricorner reference points
@@ -99,6 +183,7 @@ class Controller:
     
     def measure_tip_path(self, ptsInCamera, wPositions):
         pathParams = self.cnc.measure_tip_path(ptsInCamera, wPositions)
+        self.pathPointsInCam = ptsInCamera
         cfg.cncLog.info('Found tip path params: %+.2f %+.2f %+.2f %.2f %.2f %.2f' % (pathParams[0], pathParams[1], pathParams[2], pathParams[3], pathParams[4], pathParams[5]))
     
     # ----- Dead function only beyond this point -----

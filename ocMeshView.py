@@ -86,6 +86,7 @@ class OCMeshView(NSOpenGLView):
         self.electrodeMatrix = numpy.matrix(numpy.identity(4,dtype=numpy.float64))
         self.pathParams = numpy.array([0., 0., 0., 0., 0., 1.])
         self.points = None
+        self.pathPoints = None
         self.loaderThread = None
     
     @IBAction
@@ -284,11 +285,11 @@ class OCMeshView(NSOpenGLView):
         glVertex3f(0., 0., 100000.)
         glEnd()
     
-    def draw_points(self):
-        glPointSize(5.)
-        glColor(1., 1., 1., 1.)
+    def draw_points(self, points, size, color):
+        glPointSize(size)
+        glColor(*color)
         glBegin(GL_POINTS)
-        for p in self.points:
+        for p in points:
             glVertex3f(*p)
         glEnd()
     
@@ -313,9 +314,14 @@ class OCMeshView(NSOpenGLView):
         self.draw_tip_path()
         glPopMatrix()
         
+        if self.pathPoints != None:
+            glPushMatrix()
+            self.draw_points(self.pathPoints, 3, (0.5, 0.5, 1., 1.))
+            glPopMatrix()
+        
         if self.points != None:
             glPushMatrix()
-            self.draw_points()
+            self.draw_points(self.points, 5, (1., 1., 1., 1.))
             glPopMatrix()
         
         if self.electrode != None and self.drawElectrode:
