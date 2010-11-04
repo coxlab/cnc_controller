@@ -128,6 +128,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.streamTimer = None
         self.tipFindTimer = None
         
+        self.NPaths = 0
         
         print "getting motor status...",
         linearStatus = self.cnc.linearAxes.get_motor_status()
@@ -480,7 +481,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
             if not self.fManager.test_route('skull','camera'):
                 raise Exception, "attempting to add path points with an incomplete frame stack"
             pts = numpy.loadtxt(mppts)
+            if not os.path.exists(self.logDir+'/paths'):
+                os.makedirs(self.logDir+'/paths')
             numpy.savetxt(self.logDir+'/measurePathPts', pts)
+            numpy.savetxt(self.logDir+'/paths/%i' % self.NPaths, pts)
+            self.NPath += 1
             
             ptsInCam = []
             wPositions = []
@@ -1282,7 +1287,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 p = c.get_position()
                 cfg.cameraLog.info('\t%i\t%.3f\t%.3f\t%.3f' % (c.camID, p[0], p[1], p[2]))
             self.locateButton.setTitle_('Relocate')
+            
             # TODO try to find cam-to-tc frame
+            #cfg.leftTCRegSeedPts, cfg.rightTCRegSeedPts
         else:
             print "Cameras NOT located"
             cfg.cameraLog.info('Camera Localization Failed')
