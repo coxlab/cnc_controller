@@ -481,11 +481,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
             if not self.fManager.test_route('skull','camera'):
                 raise Exception, "attempting to add path points with an incomplete frame stack"
             pts = numpy.loadtxt(mppts)
-            if not os.path.exists(self.logDir+'/paths'):
-                os.makedirs(self.logDir+'/paths')
+            
             numpy.savetxt(self.logDir+'/measurePathPts', pts)
-            numpy.savetxt(self.logDir+'/paths/%i' % self.NPaths, pts)
-            self.NPaths += 1
             
             ptsInCam = []
             wPositions = []
@@ -628,6 +625,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
             if all((p.has_key('lx'),p.has_key('ly'),p.has_key('rx'),p.has_key('ry'),p.has_key('w'))):
                 ptsToLog.append([p['lx'],p['ly'],p['rx'],p['ry'],p['w']])
         numpy.savetxt(self.logDir+'/measurePathPts', ptsToLog)
+        
+        if not os.path.exists(self.logDir+'/paths'):
+            os.makedirs(self.logDir+'/paths')
+        numpy.savetxt(self.logDir+'/paths/%i' % self.NPaths, pts)
+        self.NPaths += 1
         
         print "going to measure_tip_path in controller"
         self.measure_tip_path(ptsInCam, wPositions)
