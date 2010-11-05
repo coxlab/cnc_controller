@@ -275,10 +275,10 @@ class Camera:
             self.located = True
         
         #print "RADAR: Faking distCoeffs"
-        #self.distCoeffs[0,0] = 0.25
-        #self.distCoeffs[1,0] = -10.#-30.
-        #self.distCoeffs[2,0] = -0.02
-        #self.distCoeffs[3,0] = -0.01
+        #self.distCoeffs[0,0] = 0.#0.25
+        #self.distCoeffs[1,0] = 0.#-10.#-30.
+        #self.distCoeffs[2,0] = 0.#-0.02
+        #self.distCoeffs[3,0] = 0.#-0.01
         #self.distCoeffs[4,0] = 0.
     
     # ============================================

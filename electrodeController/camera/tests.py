@@ -297,7 +297,8 @@ def poll_user(question, choice1, choice2, default=0):
     elif response == choice2:
         return 1
     else:
-        raise IOError, "User provided unknown response: %s" % response
+        return default
+        #raise IOError, "User provided unknown response: %s" % response
 
 if __name__ == "__main__":
     # gridSize = (8,5)
@@ -308,8 +309,10 @@ if __name__ == "__main__":
     # gridBlockSize = 1.27
     # gridSize = (8,6)
     # gridBlockSize = 1.
-    gridSize = (7,6)
-    gridBlockSize = 4.
+    # gridSize = (7,6)
+    # gridBlockSize = 4.
+    gridSize = (47,39)
+    gridBlockSize = 1.
     
     #left = 49712223528793951
     #right = 49712223528793946
