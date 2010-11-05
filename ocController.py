@@ -107,6 +107,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
     timer = None
     
     def awakeFromNib(self):
+        self.leftBackground = None
+        self.rightBackground = None
         self._.ocShowDeltaImage = False
         self._.ocJoystickControl = False
         electrodeController.controller.Controller.__init__(self)
@@ -342,6 +344,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if len(self.leftZoomView.zooms) != 2 or len(self.rightZoomView.zooms) != 2:
             print "left and right zoom views must have 2 points"
             return
+        if self.leftBackground == None or self.rightBackground == None:
+            print "WARNING: background images were not acquired"
         # find tip in left image
         #print "finding tip in left image"
         estTip = [self.leftZoomView.zooms[0]['x'], self.leftZoomView.zooms[0]['y']]
@@ -350,10 +354,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #print "getting image"
         im = numpy.fromstring(self.leftZoomView.imageData, numpy.uint8).reshape((self.leftZoomView.imageSize[1], self.leftZoomView.imageSize[0]))
         #print "getting base image"
-        baseImage = conversions.CVtoNumPy(self.cameras.leftCamera.localizationImage)
+        #baseImage = conversions.CVtoNumPy(self.cameras.leftCamera.localizationImage)
         #print im.shape, baseImage.shape
         #print "find_electrode_tip_from_segment"
-        leftTip = find_electrode_tip_from_segment(im, baseImage, segment, (-0.5, 0.5), 20)
+        leftTip = find_electrode_tip_from_segment(im, self.leftBackground, segment, (-0.5, 0.5), 20)
         
         # find tip in right image
         #print "finding tip in right image"
@@ -363,9 +367,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #print "getting image"
         im = numpy.fromstring(self.rightZoomView.imageData, numpy.uint8).reshape((self.rightZoomView.imageSize[1], self.rightZoomView.imageSize[0]))
         #print "getting base image"
-        baseImage = conversions.CVtoNumPy(self.cameras.rightCamera.localizationImage)
+        #baseImage = conversions.CVtoNumPy(self.cameras.rightCamera.localizationImage)
         #print "find_electrode_tip_from_segment"
-        rightTip = find_electrode_tip_from_segment(im, baseImage, segment, (-0.5, 0.5), 20)
+        rightTip = find_electrode_tip_from_segment(im, self.rightBackground, segment, (-0.5, 0.5), 20)
         
         # set zoom views to tip location
         leftTipDelta = [leftTip[0] - self.leftZoomView.zooms[0]['x'], leftTip[1] - self.leftZoomView.zooms[0]['y']]
@@ -641,7 +645,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         if not os.path.exists(self.logDir+'/paths'):
             os.makedirs(self.logDir+'/paths')
-        numpy.savetxt(self.logDir+'/paths/%i' % self.NPaths, pts)
+        numpy.savetxt(self.logDir+'/paths/%i' % self.NPaths, ptsToLog)
         self.NPaths += 1
         
         print "going to measure_tip_path in controller"
@@ -1294,6 +1298,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
             cv.AbsDiff(ri, self.cameras.rightCamera.localizationImage, ri)
         self.leftZoomView.set_image_from_cv(li)
         self.rightZoomView.set_image_from_cv(ri)
+    
+    @IBAction
+    def setFrameAsBackground_(self, sender):
+        self.leftBackground = numpy.fromstring(self.leftZoomView.imageData, numpy.uint8).reshape((self.leftZoomView.imageSize[1], self.leftZoomView.imageSize[0]))
+        self.rightBackground = numpy.fromstring(self.rightZoomView.imageData, numpy.uint8).reshape((self.rightZoomView.imageSize[1], self.rightZoomView.imageSize[0]))
     
     @IBAction
     def locateCameras_(self, sender):
