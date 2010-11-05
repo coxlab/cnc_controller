@@ -142,6 +142,11 @@ def process_input(i):
         print "Unknown input: %s" % (i)
         return True
 
+#
+locate_cameras()
+if all((cams.get_located())):
+    find_grid()
+
 # enter interaction loop
 keepGoing = True
 while keepGoing:
