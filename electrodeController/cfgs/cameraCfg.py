@@ -7,8 +7,8 @@ import logging
 # ordered as 'left', 'right'
 leftCamID = 49712223528793951
 rightCamID = 49712223528793946
-gridSize = (47,39)
-#gridSize = (11,9)#(8,6)#(7,6)
+#gridSize = (47,39)
+gridSize = (11,9)#(8,6)#(7,6)
 #gridSize = (21,19)
 gridBlockSize = 1.
 

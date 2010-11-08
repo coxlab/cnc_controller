@@ -63,6 +63,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
     ocJoystickControl = objc.ivar(u"ocJoystickControl")
     ocNPathPoints = objc.ivar(u"ocNPathPoints")
     
+    ocNTipPoints = objc.ivar(u"ocNTipPoints")
+    ocTipInc = objc.ivar(u"ocTipInc")
+    
     meshView = objc.IBOutlet()
     atlasView = objc.IBOutlet()
     tabView = objc.IBOutlet()
@@ -111,6 +114,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.rightBackground = None
         self._.ocShowDeltaImage = False
         self._.ocJoystickControl = False
+        self._.ocNTipPoints = 20
+        self._.ocTipInc = 0.5
         electrodeController.controller.Controller.__init__(self)
         
         self.mwConduit =  None
@@ -290,10 +295,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if self.cameras.leftCamera.streaming or self.cameras.rightCamera.streaming:
             self.stop_streaming()
         # withdraw probe
-        NPoints = 10
-        moveInc = 1.
         # check that the probe can be withdrawn N mms (in 0.5 mm movements)
-        if float(self.cnc.headAxes.get_position('w')['w']) > -(NPoints * moveInc + 1.):
+        if float(self.cnc.headAxes.get_position('w')['w']) > -(ocNTipPoints * ocTipInc + 1.):
             print "not enough travel on the w-axis to measure path"
             return
         ## capture new image
@@ -306,9 +309,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
         # find tip # TODO add error reporting
         self.findTip_(sender)
         # loop...
-        for i in xrange(NPoints):
+        for i in xrange(ocNTipPoints):
             # move probe
-            self.cnc.headAxes.move_relative(moveInc, 'w')
+            self.cnc.headAxes.move_relative(ocTipInc, 'w')
             # wait for move to end
             self.update_position()
             NSRunLoop.currentRunLoop().runUntilDate_(NSDate.dateWithTimeIntervalSinceNow_(0.1)) # allows ui to update
@@ -329,8 +332,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.update_zoom_views()
             self.findTip_(None) # this needs to go here or w will be wrong
             self.tipsFound += 1
-            if self.tipsFound < 10:
-                self.cnc.headAxes.move_relative(1., 'w')
+            if self.tipsFound < ocNTipPoints:
+                self.cnc.headAxes.move_relative(ocTipInc, 'w')
                 self.tipFindTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.1, self, self.tip_find_timer_tick, None, False)
                 NSRunLoop.currentRunLoop().addTimer_forMode_(self.tipFindTimer, NSDefaultRunLoopMode)
     
