@@ -18,46 +18,46 @@ try:
 except:
     dc1394Available = False
 
-def test_stereo_localization(camIDs, gridSize, gridBlockSize, calibrationDirectory='calibrations', frameDirectory=None):
+def test_stereo_localization(camIDs, gridSize, gridBlockSize, calibrationDirectory='../calibrations', frameDirectory=None):
     print "Create",
     if frameDirectory != None:
         print "FileCameraPair"
-        cp = FileCameraPair(camIDs, frameDirectory)
-        for c in cp.cameras:
-            c.frameIndex = 3
+        cp = FileCameraPair(camIDs[0], camIDs[1], frameDirectory)
     else:
         print "CameraPair"
-        cp = stereocamera.StereoCamera(camIDs)
+        cp = stereocamera.StereoCamera(camIDs[0], camIDs[1])
     print "Connect"
-    cp.connect()
+    #cp.connect()
     print "Capture"
     im1, im2 = cp.capture()
     print "Loading calibration",
     cp.load_calibrations(calibrationDirectory)
-    print cp.cameras[0].calibrated, cp.cameras[1].calibrated
+    #print cp.cameras[0].calibrated, cp.cameras[1].calibrated
 
     print "Capture localization image"
     pylab.ion()
     success = False
     while not success:
-        ims, success = cp.capture_localization_images(gridSize)
+        lr, rr = cp.capture_localization_images(gridSize)
         pylab.figure()
         pylab.subplot(121)
-        pylab.imshow(numpy.array(conversions.CVtoNumPy(ims[0][0])))
+        pylab.imshow(numpy.array(conversions.CVtoNumPy(lr[0])))
         pylab.gray()
         pylab.subplot(122)
-        pylab.imshow(numpy.array(conversions.CVtoNumPy(ims[1][0])))
+        pylab.imshow(numpy.array(conversions.CVtoNumPy(rr[0])))
         pylab.gray()
-        if not success:
+        if not (lr[1] and rr[1]):
             print "Both cameras did not see the grid"
             if poll_user("Try Again?", "y", "n", 0) == 1:
                 print "Quitting localization"
                 sys.exit(1)
+        else:
+            success = True
 
     print "Locate"
     cp.locate(gridSize, gridBlockSize)
 
-    if not all([c.located for c in cp.cameras]):
+    if not all(cp.get_located()):
         print "Something wasn't located correctly"
         sys.exit(1)
 
@@ -110,10 +110,10 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
     print "Create"
     if frameDirectory != None:
         print "FileCameraPair"
-        cp = FileCameraPair(camIDs, frameDirectory)
+        cp = FileCameraPair(camIDs[0], camIDs[1], frameDirectory)
     else:
         print "CameraPair"
-        cp = CameraPair(camIDs)
+        cp = CameraPair(camIDs[0],camIDs[1])
 
     print "Connect"
     cp.connect()
