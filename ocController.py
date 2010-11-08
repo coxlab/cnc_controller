@@ -290,7 +290,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if self.cameras.leftCamera.streaming or self.cameras.rightCamera.streaming:
             self.stop_streaming()
         # withdraw probe
-        NPoints = 20
+        NPoints = 10
         moveInc = 1.
         # check that the probe can be withdrawn N mms (in 0.5 mm movements)
         if float(self.cnc.headAxes.get_position('w')['w']) > -(NPoints * moveInc + 1.):
@@ -327,12 +327,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
             NSRunLoop.currentRunLoop().addTimer_forMode_(self.tipFindTimer, NSDefaultRunLoopMode)
         else:
             self.update_zoom_views()
+            self.findTip_(None) # this needs to go here or w will be wrong
             self.tipsFound += 1
-            if self.tipsFound < 20:
+            if self.tipsFound < 10:
                 self.cnc.headAxes.move_relative(1., 'w')
                 self.tipFindTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.1, self, self.tip_find_timer_tick, None, False)
                 NSRunLoop.currentRunLoop().addTimer_forMode_(self.tipFindTimer, NSDefaultRunLoopMode)
-            self.findTip_(None)
     
     @IBAction
     def stopTipFindLoop_(self, sender):
