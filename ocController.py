@@ -296,7 +296,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.stop_streaming()
         # withdraw probe
         # check that the probe can be withdrawn N mms (in 0.5 mm movements)
-        if float(self.cnc.headAxes.get_position('w')['w']) > -(ocNTipPoints * ocTipInc + 1.):
+        if float(self.cnc.headAxes.get_position('w')['w']) > -(self.ocNTipPoints * self.ocTipInc + 1.):
             print "not enough travel on the w-axis to measure path"
             return
         ## capture new image
@@ -309,9 +309,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
         # find tip # TODO add error reporting
         self.findTip_(sender)
         # loop...
-        for i in xrange(ocNTipPoints):
+        for i in xrange(self.ocNTipPoints):
             # move probe
-            self.cnc.headAxes.move_relative(ocTipInc, 'w')
+            self.cnc.headAxes.move_relative(self.ocTipInc, 'w')
             # wait for move to end
             self.update_position()
             NSRunLoop.currentRunLoop().runUntilDate_(NSDate.dateWithTimeIntervalSinceNow_(0.1)) # allows ui to update
@@ -332,8 +332,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
             self.update_zoom_views()
             self.findTip_(None) # this needs to go here or w will be wrong
             self.tipsFound += 1
-            if self.tipsFound < ocNTipPoints:
-                self.cnc.headAxes.move_relative(ocTipInc, 'w')
+            if self.tipsFound < self.ocNTipPoints:
+                self.cnc.headAxes.move_relative(self.ocTipInc, 'w')
                 self.tipFindTimer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.1, self, self.tip_find_timer_tick, None, False)
                 NSRunLoop.currentRunLoop().addTimer_forMode_(self.tipFindTimer, NSDefaultRunLoopMode)
     
