@@ -271,7 +271,11 @@ class Camera:
         if os.path.exists("%s/itoWMatrix.xml" % directory):
             self.rVec = cv.Load("%s/rVec.xml" % directory)
             self.tVec = cv.Load("%s/tVec.xml" % directory)
-            self.itoWMatrix = conversions.CVtoNumPy(cv.Load("%s/itoWMatrix.xml" % directory))
+            # self.itoWMatrix = conversions.CVtoNumPy(cv.Load("%s/itoWMatrix.xml" % directory))
+            # print self.itoWMatrix
+            rMatrix = cv.CreateMat(3, 3, cv.CV_64FC1)
+            cv.Rodrigues2(self.rVec, rMatrix)
+            self.itoWMatrix = calculate_image_to_world_matrix(self.tVec, rMatrix, self.camMatrix)
             self.located = True
         
         #print "RADAR: Faking distCoeffs"
@@ -343,7 +347,6 @@ class Camera:
         cv.UndistortPoints(src, dst, self.camMatrix, self.distCoeffs)
         x, y = dst[0,0]
         #print src[0,0], dst[0,0]
-        
         if self.located:
             #tp = numpy.matrix([ x - self.camMatrix[0,2], y - self.camMatrix[1,2], 1., 1. ])
             #tp = numpy.array([x - self.camMatrix[0,2], y - self.camMatrix[1,2], 1., 1.])

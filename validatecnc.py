@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, sys
+import os, sys, time
 
 from pylab import *
 from mpl_toolkits.mplot3d import Axes3D
@@ -16,7 +16,8 @@ gridBlockSize = 1.
 cncAddress = "169.254.0.9"
 cncPort = 8003
 cncAxes = {'x': 1, 'y': 2, 'z': 3}
-calibrationDirectory = "/Users/%s/Repositories/coxlab/cncController/electrodeController/calibrations" % os.getlogin()
+#calibrationDirectory = "/Users/%s/Repositories/coxlab/cncController/electrodeController/calibrations" % os.getlogin()
+calibrationDirectory = "validation_calibrations"
 
 # connect to cnc
 global linearAxes
@@ -47,11 +48,11 @@ subplot(122)
 def minimal_incremental_movement():
     global cams, linearAxes
     
-    print "Capture localization image (using large grid)"
-    lr, rr = cams.capture_localization_images(gridSize)
-    if not (lr[1] and rr[1]):
-        print "Localization failed"
-        return True
+    # print "Capture localization image (using large grid)"
+    #     lr, rr = cams.capture_localization_images(gridSize)
+    #     if not (lr[1] and rr[1]):
+    #         print "Localization failed"
+    #         return True
     
     print "Which axis would you like to test?"
     axis = raw_input("x,y,z?>>")
@@ -83,28 +84,47 @@ def minimal_incremental_movement():
     
     positions = []
     imgs, pts, success = cams.locate_grid(markerSize)
+    prevPoint = zeros(3)
     if success:
-        positions.append(mean(array(pts),0))
+        pt = mean(array(pts),0)
+        positions.append(pt)
+        prevPoint = pt
     else:
         print "Failed to find grid"
     for i in xrange(NSteps):
         linearAxes.move_relative(inc, axis)
-        imgs, pts, success = cams.locate_grid(gridSize)
+        while ord(linearAxes.get_controller_status()[0]) & 0x07:
+            time.sleep(0.1)
+        time.sleep(0.5)
+        imgs, pts, success = cams.locate_grid(markerSize)
         if success:
-            positions.append(mean(array(pts),0))
+            pt = mean(array(pts),0)
+            dist = sum((pt - prevPoint)**2.)**.5
+            print "Dist: %.2f Inc: %.2f Err: %.2f" % (dist, abs(inc), abs(inc)-dist) 
+            positions.append(pt)
+            prevPoint = pt
         else:
             print "Failed to find grid"
     
     for i in xrange(NSteps):
         linearAxes.move_relative(-inc,axis)
-        imgs, pts, success = cams.locate_grid(gridSize)
+        while ord(linearAxes.get_controller_status()[0]) & 0x07:
+            time.sleep(0.1)
+        time.sleep(0.5)
+        imgs, pts, success = cams.locate_grid(markerSize)
         if success:
-            positions.append(mean(array(pts),0))
+            pt = mean(array(pts),0)
+            dist = sum((pt - prevPoint)**2.)**.5
+            print "Dist: %.2f Inc: %.2f Err: %.2f" % (dist, abs(inc), abs(inc)-dist) 
+            positions.append(pt)
+            prevPoint = pt
         else:
             print "Failed to find grid"
     
     print "Saving position data"
     savetxt("mim_%s_%i_%.3f" % (axis, NSteps, inc), positions)
+    
+    return True
 
 def locate_cameras():
     global cams
@@ -165,6 +185,11 @@ def toggle_joystick():
         joystickOn = True
     return True
 
+def save_calibration():
+    global cams
+    cams.save_calibrations('validation_calibrations')
+    return True
+
 def quit_loop():
     return False
 
@@ -173,6 +198,8 @@ def quit_loop():
 actions = {'f': find_grid,
             'j': toggle_joystick,
             'l': locate_cameras,
+            'm': minimal_incremental_movement,
+            's': save_calibration,
             'q': quit_loop}
 
 # ============ Main loop stuff ===================
@@ -209,10 +236,9 @@ def process_input(i):
         print "Unknown input: %s" % (i)
         return True
 
-#
-locate_cameras()
-if all((cams.get_located())):
-    find_grid()
+# locate_cameras()
+# if all((cams.get_located())):
+#     find_grid()
 
 # enter interaction loop
 keepGoing = True
