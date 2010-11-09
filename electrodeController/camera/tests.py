@@ -93,6 +93,8 @@ def test_stereo_localization_repeatability(camIDs, gridSize, gridBlockSize, cali
         print "\tMean:", numpy.mean(ps,0)
         print "\tStd :", numpy.std(ps,0)
     
+    groupIndex = 0
+    
     lPositions = []
     rPositions = []
     while keep_capturing:
@@ -118,8 +120,8 @@ def test_stereo_localization_repeatability(camIDs, gridSize, gridBlockSize, cali
                 continue
             
             # plot
-            plot_localization(lax, cp.leftCamera, 'b')
-            plot_localization(rax, cp.rightCamera, 'g')
+            plot_localization(lax, cp.leftCamera, ptColors[groupIndex])
+            plot_localization(rax, cp.rightCamera, ptColors[groupIndex])
             
             # accumulate
             lPositions.append(cp.leftCamera.get_position())
@@ -131,7 +133,8 @@ def test_stereo_localization_repeatability(camIDs, gridSize, gridBlockSize, cali
             print
             print "Right:"
             print_position_stats(numpy.array(rPositions))
-
+        
+        groupIndex = (groupIndex + 1) % len(ptColors)
     cp.disconnect()
     del cp
 
