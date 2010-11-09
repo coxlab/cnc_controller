@@ -18,6 +18,123 @@ try:
 except:
     dc1394Available = False
 
+def test_stereo_localization_repeatability(camIDs, gridSize, gridBlockSize, calibrationDirectory='../calibrations', frameDirectory=None):
+    print "Create",
+    if frameDirectory != None:
+        print "FileCameraPair"
+        cp = FileCameraPair(camIDs[0], camIDs[1], frameDirectory)
+    else:
+        print "CameraPair"
+        cp = stereocamera.StereoCamera(camIDs[0], camIDs[1])
+    print "Connect"
+    #cp.connect()
+    print "Capture"
+    im1, im2 = cp.capture()
+    print "Loading calibration",
+    cp.load_calibrations(calibrationDirectory)
+    #print cp.cameras[0].calibrated, cp.cameras[1].calibrated
+
+    print "Capture localization image"
+    pylab.ion()
+    success = False
+    while not success:
+        lr, rr = cp.capture_localization_images(gridSize)
+        pylab.figure()
+        pylab.subplot(121)
+        pylab.imshow(numpy.array(conversions.CVtoNumPy(lr[0])))
+        pylab.gray()
+        pylab.subplot(122)
+        pylab.imshow(numpy.array(conversions.CVtoNumPy(rr[0])))
+        pylab.gray()
+        if not (lr[1] and rr[1]):
+            print "Both cameras did not see the grid"
+            if poll_user("Try Again?", "y", "n", 0) == 1:
+                print "Quitting localization"
+                sys.exit(1)
+        else:
+            success = True
+
+    print "Locate"
+    cp.locate(gridSize, gridBlockSize)
+
+    if not all(cp.get_located()):
+        print "Something wasn't located correctly"
+        sys.exit(1)
+
+    keep_capturing = True
+    ptColors = ['b','g','r','c','m','y','k'] # no 'w' white
+    ptIndex = 0
+
+    from mpl_toolkits.mplot3d import Axes3D
+
+    lax = Axes3D(pylab.figure())
+    rax = Axes3D(pylab.figure())
+    pylab.ion()
+    
+    def plot_localization(ax, cam, color):
+        # just position for now
+        p = cam.get_position()
+        ax.scatter([p[0]],[p[1]],[p[2]],c=color)
+        # scale axes 1:1
+        ox, oy, oz = ax.get_xlim3d().copy(), ax.get_ylim3d().copy(), ax.get_zlim3d().copy()
+        rmax = max((abs(pylab.diff(ox)), abs(pylab.diff(oy)), abs(pylab.diff(oz))))
+        ox = (ox - pylab.mean(ox))/abs(pylab.diff(ox)) * rmax + pylab.mean(ox)
+        oy = (oy - pylab.mean(oy))/abs(pylab.diff(oy)) * rmax + pylab.mean(oy)
+        oz = (oz - pylab.mean(oz))/abs(pylab.diff(oz)) * rmax + pylab.mean(oz)
+        ax.set_xlim3d([ox[0],ox[1]])
+        ax.set_ylim3d([oy[0],oy[1]])
+        ax.set_zlim3d([oz[0],oz[1]])
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        ax.set_zlabel('z')
+    
+    def print_position_stats(ps):
+        print "Position:"
+        print "\tMean:", numpy.mean(ps,0)
+        print "\tStd :", numpy.std(ps,0)
+    
+    lPositions = []
+    rPositions = []
+    while keep_capturing:
+        if poll_user("Relocate Cameras?", "y", "n", 0) == 1:
+            keep_capturing = False
+            continue
+        N = raw_input("How many times?")
+        try:
+            N = int(N)
+        except:
+            print "I didn't understand", N
+            continue
+        
+        for i in xrange(N):
+            lr, rr = cp.capture_localization_images(gridSize)
+            if not (lr[1] and rr[1]):
+                print "Could not find grid"
+                continue
+            
+            cp.locate(gridSize, gridBlockSize)
+            if not all(cp.get_located()):
+                print "Localization failed"
+                continue
+            
+            # plot
+            plot_localization(lax, cp.leftCamera, 'b')
+            plot_localization(rax, cp.rightCamera, 'g')
+            
+            # accumulate
+            lPositions.append(cp.leftCamera.get_position())
+            rPositions.append(cp.rightCamera.get_position())
+            
+            # stats
+            print "Left:"
+            print_position_stats(numpy.array(lPositions))
+            print
+            print "Right:"
+            print_position_stats(numpy.array(rPositions))
+
+    cp.disconnect()
+    del cp
+
 def test_stereo_localization(camIDs, gridSize, gridBlockSize, calibrationDirectory='../calibrations', frameDirectory=None):
     print "Create",
     if frameDirectory != None:
@@ -106,7 +223,7 @@ def test_stereo_localization(camIDs, gridSize, gridBlockSize, calibrationDirecto
     cp.disconnect()
     del cp
 
-def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='calibrations', frameDirectory=None):
+def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='../calibrations', frameDirectory=None):
     print "Create"
     if frameDirectory != None:
         print "FileCameraPair"
@@ -220,7 +337,7 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='cali
     #print "Save calibrations/localization"
     #cp.save_calibrations(calibrationDirectory)
 
-def test_single_camera(camID, gridSize, gridBlockSize, calibrationDirectory='calibrations'):
+def test_single_camera(camID, gridSize, gridBlockSize, calibrationDirectory='../calibrations'):
     if dc1394Available == False:
         print "dc1394 not found"
         sys.exit(1)
@@ -284,6 +401,19 @@ def test_file_camera(camID, frameDir):
     pylab.imshow(nim)
     pylab.show()
 
+def clean_bus(camIDs, loop=True):
+    if dc1394Available == False:
+        print "dc1394 not found"
+        sys.exit(1)
+    if not type(camIDs) in (tuple, list):
+        camIDs = [camIDs,]
+    for camID in camIDs:
+        cam = dc1394camera.DC1394Camera(camID)
+        cam.disconnect()
+        del cam
+    if loop:
+        clean_bus(camIDs, False)
+
 def poll_user(question, choice1, choice2, default=0):
     if default:
         print "%s %s/[%s]" % (question, choice1, choice2)
@@ -298,7 +428,6 @@ def poll_user(question, choice1, choice2, default=0):
         return 1
     else:
         return default
-        #raise IOError, "User provided unknown response: %s" % response
 
 if __name__ == "__main__":
     # gridSize = (8,5)
@@ -324,14 +453,21 @@ if __name__ == "__main__":
             print "Reading frames from %s" % frameDir
         else:
             frameDir = None
-    if test[0] == 'l':
+    if test[0] == 'c':
+        clean_bus((49712223528793951, 49712223528793946))
+    elif test[0] == 'l':
         test_single_camera(49712223528793951, gridSize, gridBlockSize) # left
     elif test[0] == 'r':
         test_single_camera(49712223528793946, gridSize, gridBlockSize) # right
     elif test[0] == 'p':
         test_camera_pair((49712223528793951, 49712223528793946), gridSize, gridBlockSize, frameDirectory=frameDir)
     elif test[0] == 's':
-        test_stereo_localization((49712223528793951, 49712223528793946), gridSize, gridBlockSize, frameDirectory=frameDir)
+        if test[1] == 'l':
+            test_stereo_localization((49712223528793951, 49712223528793946), gridSize, gridBlockSize, frameDirectory=frameDir)
+        elif test[1] == 'r':
+            test_stereo_localization_repeatability((49712223528793951, 49712223528793946), gridSize, gridBlockSize, frameDirectory=frameDir)
+        else:
+            print "unknown stereo test"
     elif test[0] == 'f':
         if test[1] == 'l':
             test_file_camera(49712223528793951, frameDir, gridSize, gridBlockSize)
