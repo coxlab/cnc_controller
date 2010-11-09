@@ -11,6 +11,7 @@ from electrodeController.camera.conversions import CVtoNumPy
 leftCamID = 49712223528793951
 rightCamID = 49712223528793946
 gridSize = (47,39)#(11,9)
+markerSize = (11,9) # size of grid used on end of cnc
 gridBlockSize = 1.
 cncAddress = "169.254.0.9"
 cncPort = 8003
@@ -42,6 +43,68 @@ imageDisplay = 2
 figure(imageDisplay)
 subplot(121)
 subplot(122)
+
+def minimal_incremental_movement():
+    global cams, linearAxes
+    
+    print "Capture localization image (using large grid)"
+    lr, rr = cams.capture_localization_images(gridSize)
+    if not (lr[1] and rr[1]):
+        print "Localization failed"
+        return True
+    
+    print "Which axis would you like to test?"
+    axis = raw_input("x,y,z?>>")
+    if not axis in ('x','y','z'):
+        print "Invalid axis:", axis
+        return True
+    
+    print "What increment would you like to test?"
+    inc = raw_input(">> ")
+    try:
+        inc = float(inc)
+    except:
+        print "Invalid increment:", inc
+        return True
+    
+    print "How many movements would you like to make?"
+    NSteps = raw_input(">> ")
+    try:
+        NSteps = int(NSteps)
+    except:
+        print "Invalid number of movements:", NSteps
+        return True
+    
+    print "Press Enter to begin movement (or q to quit)"
+    i = raw_input()
+    if i == 'q':
+        print "Quitting"
+        return True
+    
+    positions = []
+    imgs, pts, success = cams.locate_grid(markerSize)
+    if success:
+        positions.append(mean(array(pts),0))
+    else:
+        print "Failed to find grid"
+    for i in xrange(NSteps):
+        linearAxes.move_relative(inc, axis)
+        imgs, pts, success = cams.locate_grid(gridSize)
+        if success:
+            positions.append(mean(array(pts),0))
+        else:
+            print "Failed to find grid"
+    
+    for i in xrange(NSteps):
+        linearAxes.move_relative(-inc,axis)
+        imgs, pts, success = cams.locate_grid(gridSize)
+        if success:
+            positions.append(mean(array(pts),0))
+        else:
+            print "Failed to find grid"
+    
+    print "Saving position data"
+    savetxt("mim_%s_%i_%.3f" % (axis, NSteps, inc), positions)
 
 def locate_cameras():
     global cams
@@ -105,10 +168,14 @@ def toggle_joystick():
 def quit_loop():
     return False
 
+# ============ Command - Action Dictionary ===========
+
 actions = {'f': find_grid,
             'j': toggle_joystick,
             'l': locate_cameras,
             'q': quit_loop}
+
+# ============ Main loop stuff ===================
 
 def print_menu():
     print "Please enter a selection (letter):"
