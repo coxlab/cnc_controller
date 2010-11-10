@@ -95,7 +95,6 @@ class Controller:
             self.cameras.leftCamera.set_file_list(lFileList)
             self.cameras.rightCamera.set_file_list(rFileList)
         
-        # TODO load frames
         stt = logDir + '/skull_to_tricorner'
         if os.path.exists(stt):
             self.fManager.add_transformation_matrix('skull', 'tricorner', numpy.matrix(numpy.loadtxt(stt)))

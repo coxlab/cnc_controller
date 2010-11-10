@@ -17,7 +17,7 @@ import cfg
 #   tricorner (x,y,z, angle)
 #   skull (x,y,z, angle)
 
-# TODO I need a calibration routine to measure the alignment of rotation (b) stage
+# I need a calibration routine to measure the alignment of rotation (b) stage
 # with the cameras
 #  so I can
 # calculate all shaft locations within the cnc frame (assuming stage aligned) and then
@@ -29,8 +29,8 @@ import cfg
 #  4. move b stage, measure tip (point 3, in tc frame)
 #  5. calculate rigid transform (cnc->tricorner)
 
-# TODO I need to know the geometry of the probe & the arm (can I measure this? possibly not)
-# TODO w (fine z) alters radius of probe arm rotation
+# I need to know the geometry of the probe & the arm (can I measure this? possibly not)
+# w (fine z) alters radius of probe arm rotation
 
 # so I need these functions
 #  -update_cnc_frame(x,y,z,w,b) (new axis values)

@@ -178,7 +178,6 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
             self._new_image.release()
             return i
         
-        # TODO test
         # i'm not 100% sure that the settings have enought time to take effect with this,
         # it might be better to pull apart the start/stop iso transmission and capture so
         # that I start transmission, configure, allow time for settings to take effect and

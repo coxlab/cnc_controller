@@ -2,7 +2,7 @@
 //  main.m
 //  pyCocoa
 //
-//  Created by Brett Graham on 12/5/09.
+//  Created by Brett Graham on 12/5/09. Liberally copied from David Cox
 //  Copyright 2009 Harvard University. All rights reserved.
 //
 

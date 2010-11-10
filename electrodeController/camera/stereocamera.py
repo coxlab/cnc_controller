@@ -164,7 +164,6 @@ class StereoCamera:
     
     def get_3d_position(self, lpt, rpt, andRays=False):
         #print "0 0 0 0 %+.2f %+.2f 0 %+.2f %+.2f 0" % (points[0][0], points[0][1], points[1][0], points[1][1])
-        #TODO make this accept >2 cameras
         # if len(points) != len(self.cameras):
         #     raise ValueError, "number of points must equal the number of cameras"
         
