@@ -45,6 +45,75 @@ figure(imageDisplay)
 subplot(121)
 subplot(122)
 
+def backlash():
+    global cams, linearAxes
+    
+    print "Which axis would you like to test?"
+    axis = raw_input("x,y,z?>>")
+    if not axis in ('x','y','z'):
+        print "Invalid axis:", axis
+        return True
+    
+    print "What increment would you like to test?"
+    inc = raw_input(">> ")
+    try:
+        inc = float(inc)
+    except:
+        print "Invalid increment:", inc
+        return True
+    
+    print "How many steps per movement?"
+    NSteps = raw_input(">> ")
+    try:
+        NSteps = int(NSteps)
+    except:
+        print "Invalid number of steps:", NSteps
+        return True
+    
+    print "How many movements would you like to make?"
+    NMoves = raw_input(">> ")
+    try:
+        NMoves = int(NMoves)
+    except:
+        print "Invalid number of movements:", NMoves
+        return True
+    
+    print "Press Enter to begin movement (or q to quit)"
+    i = raw_input()
+    if i == 'q':
+        print "Quitting"
+        return True
+    
+    positions = []
+    imgs, pts, success = cams.locate_grid(markerSize)
+    prevPoint = zeros(3)
+    if success:
+        pt = mean(array(pts),0)
+        positions.append(pt)
+        prevPoint = pt
+    else:
+        print "Failed to find grid"
+    
+    for m in xrange(NMoves):
+        for s in xrange(NSteps):
+            linearAxes.move_relative(inc, axis)
+            while ord(linearAxes.get_controller_status()[0]) & 0x07:
+                time.sleep(0.1)
+            time.sleep(0.5)
+            imgs, pts, success = cams.locate_grid(markerSize)
+            if success:
+                pt = mean(array(pts),0)
+                dist = sum((pt - prevPoint)**2.)**.5
+                print "Dist: %.2f Inc: %.2f Err: %.2f" % (dist, abs(inc), abs(inc)-dist) 
+                positions.append(pt)
+                prevPoint = pt
+            else:
+                print "Failed to find grid"
+        inc *= -1.
+    
+    print "Saving position data"
+    savetxt("bl_%s_%i_%i_%.3f" % (axis, NMoves, NSteps, inc), positions)
+
 def minimal_incremental_movement():
     global cams, linearAxes
     
