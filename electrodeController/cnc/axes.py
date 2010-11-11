@@ -823,6 +823,7 @@ def test_configure_home(ipAddress, port, axes):
 def test_linear_axis(axisName, axisIndex, ipAddress, port):
     print "Testing Axis: %s index %d" % (axisName, axisIndex)
     f = Axes(ipAddress, port, {axisName: axisIndex})
+    f.set_reduce_torque(1000,100.0)
     print "Configuring..."
     f.configure_axis(axisName, DefaultLinearAxisConfig)
     print "Current Position: %f" % float(f.get_position(axisName)[axisName])
@@ -1011,6 +1012,7 @@ def test_linear_axis(axisName, axisIndex, ipAddress, port):
     print_config()
     
     # shutdown
+    f.set_reduce_torque(1000,50.0)
     f.disable_motor(axisName)
     
 

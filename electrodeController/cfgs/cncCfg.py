@@ -89,6 +89,7 @@ xAxisConfig="""QM3
     JW3.175
     VU6.35
     VA3.175
+    VB0.5
     AU3.175
     AC3.175
     AG3.175
@@ -118,6 +119,7 @@ yAxisConfig="""QM3
     JW3.175
     VU6.35
     VA3.175
+    VB0.5
     AU3.175
     AC3.175
     AG3.175
@@ -147,6 +149,7 @@ zAxisConfig="""QM3
     JW3.175
     VU6.35
     VA3.175
+    VB0.5
     AU3.175
     AC3.175
     AG3.175
