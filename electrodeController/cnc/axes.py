@@ -435,7 +435,7 @@ class Axes(IPSerialBridge):
     # 'QP' quit program mode
     
     def set_reduce_torque(self, delay, percent, axis=None):
-        self.send_command('QR', axis, '%i,%i' % (delay, percent))
+        self.send_command('QR', axis, '%i,%.3f' % (delay, percent))
     
     def get_reduce_torque(self, axis=None):
         return self.poll_command('QR', axis, '?')

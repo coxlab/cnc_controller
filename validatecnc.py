@@ -22,6 +22,7 @@ calibrationDirectory = "validation_calibrations"
 # connect to cnc
 global linearAxes
 linearAxes = cnc.axes.Axes(cncAddress, cncPort, cncAxes)
+linearAxes.set_reduce_torque(1000,100.0)
 
 # connect to cameras
 global cams
@@ -113,6 +114,7 @@ def backlash():
     
     print "Saving position data"
     savetxt("bl_%s_%i_%i_%.3f" % (axis, NMoves, NSteps, inc), positions)
+    return True
 
 def minimal_incremental_movement():
     global cams, linearAxes
@@ -264,7 +266,8 @@ def quit_loop():
 
 # ============ Command - Action Dictionary ===========
 
-actions = {'f': find_grid,
+actions = { 'b': backlash,
+            'f': find_grid,
             'j': toggle_joystick,
             'l': locate_cameras,
             'm': minimal_incremental_movement,
@@ -319,4 +322,5 @@ while keepGoing:
 # disconnect
 cams.disconnect()
 del cams
+linearAxes.set_reduce_torque(1000,50.0)
 del linearAxes
