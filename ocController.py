@@ -266,8 +266,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 self.zoomPoints.removeObjectAtIndex_(i-offset)
                 offset += 1
                 i = indexSet.indexGreaterThanIndex_(i)
-        else:
-            self.zoomPoints.clear()
+        #else:
+        #    self.zoomPoints.clear()
         self.zoomPointsController.rearrangeObjects()
         self.zoomPointsController.rearrangeObjects()
     

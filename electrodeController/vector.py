@@ -21,7 +21,11 @@ from scipy import optimize
 # transformation_matrix = rotation_matrix * translation_matrix
 
 def apply_matrix_to_points(tMatrix, points):
-    """This function is really just to preserve the order of operations"""
+    """
+    Apply a 4x4 transformation matrix to an array of 3d or 4d points
+    
+    This function is really just to preserve the order of operations
+    """
     if points.shape[1] != 4:
         if points.shape[1] == 3:
             # convert to homogeneous
@@ -33,13 +37,28 @@ def apply_matrix_to_points(tMatrix, points):
     return array(points * tMatrix)
 
 def rotate_and_translate(R,T):
-    """This function is really just to preserve the order of operations"""
+    """
+    Combine a rotation and transformation matrix in an order where
+    the rotation occurs first
+    
+    This function is really just to preserve the order of operations
+    """
     return R * T
 
 def translate_and_rotate(T,R):
+    """
+    Combine a rotation and transformation matrix in an order where
+    the translation occurs first
+    
+    This function is really just to preserve the order of operations
+    """
     return T * R
 
 def make_homogeneous(pts, axis=1):
+    """
+    Make an array of 3 dimensional points homogenous by
+    adding a 1 as the 4th dimension
+    """
     pts = array(pts)
     s = array(pts.shape)
     s[axis] += 1
@@ -48,12 +67,18 @@ def make_homogeneous(pts, axis=1):
     return npts
 
 def pad_matrix(m):
+    """
+    Convert a NxM matrix into a N+1xM+1 matrix padded with zeros
+    """
     m2 = vstack((m,zeros((1,m.shape[1]))))
     return hstack((m2,zeros((m2.shape[0],1))))
 
 def euler_to_matrix(aboutX, aboutY, aboutZ):# roll, pitch, yaw
     """
-    Applied in this order: aboutX, aboutY, aboutZ
+    Convert rotation about the x, y, and z axes into a
+    4x4 transformation matrix
+    
+    Rotations applied in this order: aboutX, aboutY, aboutZ
     """
     # #m = matrix(identity(4,dtype=float64))
     # xrot = matrix(identity(4,dtype=float64))
@@ -99,6 +124,9 @@ def euler_to_matrix(aboutX, aboutY, aboutZ):# roll, pitch, yaw
     return m
 
 def scale_to_transform(x,y,z):
+    """
+    Convert a 3d scaling operation into a 4x4 transformation matrix
+    """
     m = matrix(identity(4,dtype=float64))
     m[0,0] = x
     m[1,1] = y
@@ -106,6 +134,9 @@ def scale_to_transform(x,y,z):
     return m
 
 def translation_to_matrix(x,y,z):
+    """
+    Convert a 3d translation into a 4x4 transformation matrix
+    """
     m = matrix(identity(4,dtype=float64))
     # m[0,3] = x
     # m[1,3] = y
@@ -116,6 +147,14 @@ def translation_to_matrix(x,y,z):
     return m
 
 def decompose_matrix(m):
+    """
+    Decompose a 4x4 rigid transformation matrix into it's
+    translation and rotation components
+    Returns:
+        t, r
+    t : list : x,y,z translations
+    r : list : ax,ay,az rotations in radians
+    """
     tx = m[3,0]
     ty = m[3,1]
     tz = m[3,2]
@@ -125,6 +164,11 @@ def decompose_matrix(m):
     return [tx,ty,tz], [ax,ay,az]
 
 def transform_to_matrix(tx=0., ty=0., tz=0., ax=0., ay=0., az=0.):
+    """
+    Construct a 4x4 transformation matrix with:
+        translation defined by tx, ty, tz
+        rotation defined by ax ay az
+    """
     # R = euler_to_matrix(ax,ay,az)
     # T = translation_to_matrix(tx,ty,tz)
     # P = rotate_and_translate(R,T)
@@ -152,6 +196,9 @@ def transform_to_matrix(tx=0., ty=0., tz=0., ax=0., ay=0., az=0.):
     return m
 
 def calculate_normal(p1, p2, p3, normalize=True):
+    """
+    Calculate the normal of a triangle defined by 3 points
+    """
     # u = 1 -> 2
     # v = 1 -> 3
     n = cross(array(p2) - array(p1), array(p3) - array(p1))
@@ -161,9 +208,16 @@ def calculate_normal(p1, p2, p3, normalize=True):
         return n
 
 def rebase(v1, v2, v3):
-    """If current basis is B={(1,0,0),(0,1,0),(0,0,1)}, and new basis is C={v1,v2,v3}:
+    """
+    Construct a transformation matrix to convert points to a coordinate frame
+    defined by 3 axes: v1, v2, v3
+    
+    Currently only rotates
+    
+    If current basis is B={(1,0,0),(0,1,0),(0,0,1)}, and new basis is C={v1,v2,v3}:
     This function computes the transformation P (only rotates at the moment) that completes:
-    ub = P * uc"""
+    ub = P * uc
+    """
     P = matrix(zeros((3,3), dtype=float64))
     P[:,0] = transpose(matrix(v1)).copy()
     P[:,1] = transpose(matrix(v2)).copy()
