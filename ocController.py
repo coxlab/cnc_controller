@@ -607,10 +607,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 # point is valid
                 ptsInCam.append([z['x'],z['y'],z['z'],1.])
         
-        if len(ptsInCam) != 3:
-            # TODO log error
-            print "register_cameras requires exactly 3 valid points"
-            return
+        #if len(ptsInCam) != 3:
+        #    # TODO log error
+        #    print "register_cameras requires exactly 3 valid points"
+        #    return
         
         
         ptsToLog = []

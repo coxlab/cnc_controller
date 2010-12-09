@@ -174,7 +174,13 @@ class Controller:
         # 
         # calculate transformation matrix and add to frameStack
         ptsInTC = cfg.tcRegPoints
-        tcToCam = vector.calculate_rigid_transform(ptsInTC,ptsInCamera)
+        
+        # only use 3 points
+        #tcToCam = vector.calculate_rigid_transform(ptsInTC,ptsInCamera)
+        
+        # use all points
+        tcToCam = vector.fit_rigid_transform(ptsInTC, ptsInCamera)
+        
         cfg.framesLog.info('Registering cameras with points in (tcFrame, camera):')
         cfg.framesLog.info(ptsInTC)
         cfg.framesLog.info(ptsInCamera)

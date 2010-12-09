@@ -239,6 +239,11 @@ def calculate_rigid_transform(fromPts, toPts, p0=zeros(6,dtype=float64)):
     fit_it = lambda p: ravel((toPts[:3] - (fromPts[:3] * transform_to_matrix(*p)))[:,:3])
     return transform_to_matrix(*(optimize.leastsq(fit_it, p0)[0]))
 
+def fit_rigid_transform(fromPts, toPts, p0=zeros(6,dtype=float64)):
+    """Accepts homogenous points only, only uses the first 3 points"""
+    fit_it = lambda p: ravel((toPts - (fromPts * transform_to_matrix(*p)))[:,:3])
+    return transform_to_matrix(*(optimize.leastsq(fit_it, p0)[0]))
+
 # def vectors_to_axis_rotation(v1, v2, axis):
 #     """Axis = 0,1,2 = corresponding to x,y,z"""
 #     arccos
