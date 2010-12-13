@@ -2,19 +2,19 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10F569</string>
+		<string key="IBDocument.SystemVersion">10H574</string>
 		<string key="IBDocument.InterfaceBuilderVersion">804</string>
-		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">804</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
+			<integer value="81"/>
 			<integer value="930"/>
 			<integer value="848"/>
 			<integer value="871"/>
-			<integer value="81"/>
 			<integer value="907"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -2123,6 +2123,26 @@
 													<string key="NSContents">Clear Points</string>
 													<reference key="NSSupport" ref="858839378"/>
 													<reference key="NSControlView" ref="62943046"/>
+													<int key="NSButtonFlags">-2038284033</int>
+													<int key="NSButtonFlags2">129</int>
+													<string key="NSAlternateContents"/>
+													<string key="NSKeyEquivalent"/>
+													<int key="NSPeriodicDelay">200</int>
+													<int key="NSPeriodicInterval">25</int>
+												</object>
+											</object>
+											<object class="NSButton" id="268929845">
+												<reference key="NSNextResponder" ref="381671482"/>
+												<int key="NSvFlags">268</int>
+												<string key="NSFrame">{{626, 119}, {115, 32}}</string>
+												<reference key="NSSuperview" ref="381671482"/>
+												<bool key="NSEnabled">YES</bool>
+												<object class="NSButtonCell" key="NSCell" id="175340804">
+													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags2">134217728</int>
+													<string key="NSContents">Print Points</string>
+													<reference key="NSSupport" ref="858839378"/>
+													<reference key="NSControlView" ref="268929845"/>
 													<int key="NSButtonFlags">-2038284033</int>
 													<int key="NSButtonFlags2">129</int>
 													<string key="NSAlternateContents"/>
@@ -4882,6 +4902,26 @@
 								<int key="NSPeriodicInterval">75</int>
 							</object>
 						</object>
+						<object class="NSButton" id="882237572">
+							<reference key="NSNextResponder" ref="862342745"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{20, 18}, {118, 25}}</string>
+							<reference key="NSSuperview" ref="862342745"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="685451020">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">134217728</int>
+								<string key="NSContents">Freeze CNC</string>
+								<reference key="NSSupport" ref="858839378"/>
+								<reference key="NSControlView" ref="882237572"/>
+								<int key="NSButtonFlags">-2038152961</int>
+								<int key="NSButtonFlags2">163</int>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+							</object>
+						</object>
 						<object class="NSButton" id="854094117">
 							<reference key="NSNextResponder" ref="862342745"/>
 							<int key="NSvFlags">268</int>
@@ -6804,6 +6844,22 @@
 					</object>
 					<int key="connectionID">1492</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">freezeCNC:</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="882237572"/>
+					</object>
+					<int key="connectionID">1497</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">printZoomPoints:</string>
+						<reference key="source" ref="401468622"/>
+						<reference key="destination" ref="268929845"/>
+					</object>
+					<int key="connectionID">1501</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -7880,6 +7936,7 @@
 							<reference ref="651167563"/>
 							<reference ref="888101977"/>
 							<reference ref="329705194"/>
+							<reference ref="268929845"/>
 						</array>
 						<reference key="parent" ref="479501803"/>
 					</object>
@@ -8048,6 +8105,7 @@
 							<reference ref="724851878"/>
 							<reference ref="1033445564"/>
 							<reference ref="854094117"/>
+							<reference ref="882237572"/>
 						</array>
 						<reference key="parent" ref="675292137"/>
 					</object>
@@ -9970,6 +10028,32 @@
 						<reference key="object" ref="971240438"/>
 						<reference key="parent" ref="555067367"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1493</int>
+						<reference key="object" ref="882237572"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="685451020"/>
+						</array>
+						<reference key="parent" ref="862342745"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1494</int>
+						<reference key="object" ref="685451020"/>
+						<reference key="parent" ref="882237572"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1498</int>
+						<reference key="object" ref="268929845"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="175340804"/>
+						</array>
+						<reference key="parent" ref="381671482"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1499</int>
+						<reference key="object" ref="175340804"/>
+						<reference key="parent" ref="268929845"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -9986,7 +10070,7 @@
 				<string key="1035.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1036.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSAffineTransform" key="1036.IBViewBoundsToFrameTransform">
-					<bytes key="NSTransformStruct">P4AAAL+AAABEGgAAwhwAAA</bytes>
+					<bytes key="NSTransformStruct">P4AAAL+AAABEHIAAwhwAAA</bytes>
 				</object>
 				<string key="1037.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1048.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -10230,7 +10314,7 @@
 				</object>
 				<string key="1403.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSAffineTransform" key="1403.IBViewBoundsToFrameTransform">
-					<bytes key="NSTransformStruct">P4AAAL+AAABB0AAAwiQAAA</bytes>
+					<bytes key="NSTransformStruct">P4AAAL+AAABDagAAwiQAAA</bytes>
 				</object>
 				<string key="1404.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1410.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -10341,6 +10425,16 @@
 				<string key="1485.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="149.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="149.ImportedFromIB2"/>
+				<string key="1493.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSAffineTransform" key="1493.IBViewBoundsToFrameTransform">
+					<bytes key="NSTransformStruct">P4AAAL+AAABDbwAAwhAAAA</bytes>
+				</object>
+				<string key="1494.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1498.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSAffineTransform" key="1498.IBViewBoundsToFrameTransform">
+					<bytes key="NSTransformStruct">P4AAAL+AAABEHIAAwxUAAA</bytes>
+				</object>
+				<string key="1499.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="150.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="150.ImportedFromIB2"/>
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -10366,9 +10460,9 @@
 				<string key="296.editorWindowContentRectSynchronizationRect">{{475, 832}, {234, 43}}</string>
 				<string key="297.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="298.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBEditorWindowLastContentRect">{{231, 86}, {788, 642}}</string>
+				<string key="367.IBEditorWindowLastContentRect">{{278, 19}, {788, 642}}</string>
 				<string key="367.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBWindowTemplateEditedContentRect">{{231, 86}, {788, 642}}</string>
+				<string key="367.IBWindowTemplateEditedContentRect">{{278, 19}, {788, 642}}</string>
 				<integer value="1" key="367.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="367.editorWindowContentRectSynchronizationRect">{{11, 666}, {480, 270}}</string>
 				<string key="367.windowTemplate.maxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -10551,9 +10645,9 @@
 				<string key="868.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="868.IBWindowTemplateEditedContentRect">{{119, 457}, {239, 181}}</string>
 				<boolean value="NO" key="868.NSWindowTemplate.visibleAtLaunch"/>
-				<string key="869.IBEditorWindowLastContentRect">{{187, 217}, {659, 525}}</string>
+				<string key="869.IBEditorWindowLastContentRect">{{358, 226}, {659, 525}}</string>
 				<string key="869.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="869.IBWindowTemplateEditedContentRect">{{187, 217}, {659, 525}}</string>
+				<string key="869.IBWindowTemplateEditedContentRect">{{358, 226}, {659, 525}}</string>
 				<boolean value="NO" key="869.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="871.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="872.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -10655,7 +10749,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1492</int>
+			<int key="maxID">1501</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -10701,6 +10795,7 @@
 						<string key="configureCNC:">id</string>
 						<string key="findTip:">id</string>
 						<string key="findTipLoop:">id</string>
+						<string key="freezeCNC:">id</string>
 						<string key="goToTarget:">id</string>
 						<string key="loadAnimal:">id</string>
 						<string key="loadLog:">id</string>
@@ -10716,6 +10811,7 @@
 						<string key="moveYAxisForward:">id</string>
 						<string key="moveZAxisDown:">id</string>
 						<string key="moveZAxisUp:">id</string>
+						<string key="printZoomPoints:">id</string>
 						<string key="registerCNC:">id</string>
 						<string key="registerCameras:">id</string>
 						<string key="setFrameAsBackground:">id</string>
@@ -10759,6 +10855,10 @@
 						</object>
 						<object class="IBActionInfo" key="findTipLoop:">
 							<string key="name">findTipLoop:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="freezeCNC:">
+							<string key="name">freezeCNC:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="goToTarget:">
@@ -10819,6 +10919,10 @@
 						</object>
 						<object class="IBActionInfo" key="moveZAxisUp:">
 							<string key="name">moveZAxisUp:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="printZoomPoints:">
+							<string key="name">printZoomPoints:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="registerCNC:">

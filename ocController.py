@@ -256,6 +256,19 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
     
     @IBAction
+    def printZoomPoints_(self,sender):
+        # print header
+        print "#lx,ly,rx,x,y,z,b,w"
+        # print points
+        for p in self.zoomPoints:
+            for c in ['lx','ly','rx','ry','x','y','z','b','w']:
+                if c in p.keys():
+                    print "%.2f," % p[c],
+                else:
+                    print "-1.0,",
+            print
+    
+    @IBAction
     def clearZoomPoints_(self, sender):
         # check if any points are selected
         indexSet = self.zoomPointsTable.selectedRowIndexes()
@@ -922,6 +935,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
     #    else:
     #        self.moveRelativeWindow.orderFront_(sender)
     #    #print self.moveRelativeWindow.isVisible()
+    
+    @IBAction
+    def freezeCNC_(self, sender):
+        self.xVelocityField.setFloatValue_(0.)
+        self.yVelocityField.setFloatValue_(0.)
+        self.zVelocityField.setFloatValue_(0.)
+        self.bVelocityField.setFloatValue_(0.)
+        self.setVelocities_(None)
     
     @IBAction
     def setVelocities_(self, sender):
