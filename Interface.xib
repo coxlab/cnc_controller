@@ -2,20 +2,20 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10H574</string>
+		<string key="IBDocument.SystemVersion">10F569</string>
 		<string key="IBDocument.InterfaceBuilderVersion">804</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.AppKitVersion">1038.29</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">804</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
+			<integer value="367"/>
+			<integer value="907"/>
+			<integer value="871"/>
 			<integer value="81"/>
 			<integer value="930"/>
-			<integer value="848"/>
-			<integer value="871"/>
-			<integer value="907"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2016,14 +2016,14 @@
 																	</object>
 																</object>
 																<double key="NSRowHeight">17</double>
-																<int key="NSTvFlags">-23068672</int>
+																<int key="NSTvFlags">1788870656</int>
 																<reference key="NSDelegate"/>
 																<reference key="NSDataSource"/>
 																<int key="NSGridStyleMask">3</int>
 																<int key="NSColumnAutoresizingStyle">0</int>
 																<int key="NSDraggingSourceMaskForLocal">15</int>
 																<int key="NSDraggingSourceMaskForNonLocal">0</int>
-																<bool key="NSAllowsTypeSelect">YES</bool>
+																<bool key="NSAllowsTypeSelect">NO</bool>
 																<int key="NSTableViewDraggingDestinationStyle">0</int>
 															</object>
 														</array>
@@ -2041,7 +2041,7 @@
 														<reference key="NSSuperview" ref="529465367"/>
 														<reference key="NSTarget" ref="529465367"/>
 														<string key="NSAction">_doScroller:</string>
-														<double key="NSPercent">0.89583333333333337</double>
+														<double key="NSPercent">0.99310344827586206</double>
 													</object>
 													<object class="NSScroller" id="463291914">
 														<reference key="NSNextResponder" ref="529465367"/>
@@ -2051,7 +2051,7 @@
 														<int key="NSsFlags">1</int>
 														<reference key="NSTarget" ref="529465367"/>
 														<string key="NSAction">_doScroller:</string>
-														<double key="NSPercent">0.97783933518005539</double>
+														<double key="NSPercent">0.99837662337662336</double>
 													</object>
 													<object class="NSClipView" id="952475353">
 														<reference key="NSNextResponder" ref="529465367"/>
@@ -7944,17 +7944,12 @@
 						<int key="objectID">849</int>
 						<reference key="object" ref="529465367"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="547225730"/>
 							<reference ref="687080904"/>
 							<reference ref="463291914"/>
 							<reference ref="895980679"/>
+							<reference ref="547225730"/>
 						</array>
 						<reference key="parent" ref="381671482"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">852</int>
-						<reference key="object" ref="547225730"/>
-						<reference key="parent" ref="529465367"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">853</int>
@@ -10054,6 +10049,11 @@
 						<reference key="object" ref="175340804"/>
 						<reference key="parent" ref="268929845"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1502</int>
+						<reference key="object" ref="547225730"/>
+						<reference key="parent" ref="529465367"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -10460,9 +10460,9 @@
 				<string key="296.editorWindowContentRectSynchronizationRect">{{475, 832}, {234, 43}}</string>
 				<string key="297.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="298.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBEditorWindowLastContentRect">{{278, 19}, {788, 642}}</string>
+				<string key="367.IBEditorWindowLastContentRect">{{278, 93}, {788, 642}}</string>
 				<string key="367.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBWindowTemplateEditedContentRect">{{278, 19}, {788, 642}}</string>
+				<string key="367.IBWindowTemplateEditedContentRect">{{278, 93}, {788, 642}}</string>
 				<integer value="1" key="367.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="367.editorWindowContentRectSynchronizationRect">{{11, 666}, {480, 270}}</string>
 				<string key="367.windowTemplate.maxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -10628,7 +10628,6 @@
 				<object class="NSAffineTransform" key="849.IBViewBoundsToFrameTransform">
 					<bytes key="NSTransformStruct">P4AAAL+AAABA4AAAwzEAAA</bytes>
 				</object>
-				<string key="852.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="853.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="854.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="855.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -10749,7 +10748,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1501</int>
+			<int key="maxID">1502</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

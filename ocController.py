@@ -258,10 +258,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def printZoomPoints_(self,sender):
         # print header
-        print "#lx,ly,rx,x,y,z,b,w"
+        print "#c,lx,ly,rx,x,y,z,b,w"
         # print points
         for p in self.zoomPoints:
-            for c in ['lx','ly','rx','ry','x','y','z','b','w']:
+            print p['c']+",",
+            for c in ['lx','ly','rx','ry','x','y','z','angle','w']:
                 if c in p.keys():
                     print "%.2f," % p[c],
                 else:
@@ -292,6 +293,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             return
         for l, r in zip(self.leftZoomView.zooms, self.rightZoomView.zooms):
             newPoint = {'c': l['c'], 'lx': l['x'], 'ly': l['y'], 'rx': r['x'], 'ry': r['y']}
+            newPoint['c'] = self.leftZoomView._defaultColorNames[self.leftZoomView._defaultZoomColors.index(newPoint['c'])]
             # check if 3d localization is possible
             if all(self.cameras.get_calibrated()) and all(self.cameras.get_located()):
                 l3d = self.cameras.get_3d_position([l['x'],l['y']], [r['x'],r['y']])

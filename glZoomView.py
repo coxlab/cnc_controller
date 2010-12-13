@@ -22,6 +22,8 @@ class ZoomView(object):
     TODO Um... document this
     """
     
+    _defaultColorNames = ['r', 'g', 'b', 'y', 'p', 't']
+    
     _defaultZoomColors = [(255, 0, 0, 255),
                 (0, 255, 0, 255),
                 (0, 0, 255, 255),
