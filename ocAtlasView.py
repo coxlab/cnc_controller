@@ -22,6 +22,7 @@ class OCAtlasView (OCZoomView):
     #ocFigureIndex = objc.ivar(u"ocFigureIndex")
     controller = objc.IBOutlet()
     atlasImages = NSMutableDictionary.alloc().init()
+    #ocTipOffset = objc.ivar(u"ocTipOffset")
     
     def awakeFromNib(self):
         self.gl_inited = False
@@ -222,7 +223,7 @@ class OCAtlasView (OCZoomView):
         # draw pads in blue
         pads = []
         for dw in xrange(32):
-            w = dw * 0.1 + .05 + self.controller.ocW
+            w = dw * 0.1 + .05 + self.controller.ocW + self.controller.ocTipOffset
             pads.append(o + w * m)
         for pad in pads:
             if pad[1] <= apMax and pad[1] >= apMin:
@@ -234,7 +235,7 @@ class OCAtlasView (OCZoomView):
             #self.draw_atlas_location(self.viewImage, self.sectionIndex, pad[0], pad[1], pad[2], apMin, apMax, color=NSColor.blueColor())
         
         # draw ref in green
-        ref = o + (self.controller.ocW + 3.650) * m
+        ref = o + (self.controller.ocW + 3.650 + self.controller.ocTipOffset) * m
         if ref[1] <= apMax and ref[1] >= apMin:
             glColor(0., 1., 0., 1.)
             glPointSize(5)

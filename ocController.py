@@ -45,6 +45,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
     ocAngle = objc.ivar(u"ocAngle")
     ocDepth = objc.ivar(u"ocDepth")
     
+    ocTipOffset = objc.ivar(u"ocTipOffset")
+    
     ocX = objc.ivar(u"ocX")
     ocY = objc.ivar(u"ocY")
     ocZ = objc.ivar(u"ocZ")
@@ -116,6 +118,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self._.ocJoystickControl = False
         self._.ocNTipPoints = 20
         self._.ocTipInc = 0.5
+        self._.ocTipOffset = 1.271
         electrodeController.controller.Controller.__init__(self)
         
         self.mwConduit =  None
@@ -1232,6 +1235,13 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         # logging
         cfg.cncLog.info('%.2f %.3f %.3f %.3f %.3f %.3f' % (float(timeOfUpdate), self.ocX, self.ocY, self.ocZ, self.ocB, self.ocW))
+    
+    @IBAction
+    def updateAtlasView_(self, sender):
+        self.update_atlas_view()
+    
+    def update_atlas_view(self):
+        self.atlasView.scheduleRedisplay()f
     
     def update_frames_display(self):
         state = 0
