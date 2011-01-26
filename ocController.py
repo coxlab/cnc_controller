@@ -1241,7 +1241,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.update_atlas_view()
     
     def update_atlas_view(self):
-        self.atlasView.scheduleRedisplay()f
+        self.atlasView.scheduleRedisplay()
     
     def update_frames_display(self):
         state = 0
