@@ -608,7 +608,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
         numpy.savetxt(self.logDir+'/skull_to_tricorner', self.fManager.get_transformation_matrix('skull', 'tricorner'))
         
         #print cfg.animalMesh, cfg.animalTexture
-        self.meshView.load_obj(cfg.animalMesh, cfg.animalTexture)
+        for i in xrange(len(cfg.animalMeshes)):
+            self.meshView.load_obj(cfg.animalMeshes[i], cfg.animalTextures[i])
+        
+        #self.meshView.load_obj(cfg.animalMesh, cfg.animalTexture)
         #self.meshView.load_obj("%s/skull.obj" % cfg.meshDir, "%s/Texture/texture.jpg" % cfg.meshDir)
         
         self.mainWindow.setAlphaValue_(1.0)

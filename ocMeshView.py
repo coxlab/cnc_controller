@@ -76,18 +76,18 @@ class Orbiter:
 class OCMeshView(NSOpenGLView):
     def awakeFromNib(self):
         self.orbiter = Orbiter()#rotation=[2.3561944901923448,0.,0.])
-        self.obj = None
+        self.objs = []
         self.gl_inited = False
         self.leftDown = None
         self.rightDown = None
         self.electrode = None
-        self.meshFilename = None
+        self.meshFilenames = []
+        self.meshTextureFilenames = []
         self.drawElectrode = True
         self.electrodeMatrix = numpy.matrix(numpy.identity(4,dtype=numpy.float64))
         self.pathParams = numpy.array([0., 0., 0., 0., 0., 1.])
         self.points = None
         self.pathPoints = None
-        self.loaderThread = None
     
     @IBAction
     def showHelp_(self, sender):
@@ -116,15 +116,19 @@ class OCMeshView(NSOpenGLView):
     
     def keyDown_(self, event):
         c = event.characters()
-        if self.obj != None:
+        
+        if len(self.objs) > 0:
             if c == 't':
-                self.obj.showTexture = not self.obj.showTexture
+                for o in self.objs:
+                    o.showTexture = not o.showTexture
                 self.scheduleRedisplay()
             elif c == 'p':
-                self.obj.showPointCloud = not self.obj.showPointCloud
+                for o in self.objs:
+                    o.showPointCloud = not o.showPointCloud
                 self.scheduleRedisplay()
             elif c == 'm':
-                self.obj.showMesh = not self.obj.showMesh
+                for o in self.objs:
+                    o.showMesh = not o.showMesh
                 self.scheduleRedisplay()
         
         if c == 'r':
@@ -149,46 +153,22 @@ class OCMeshView(NSOpenGLView):
             self.orbiter.rotation = quaternion.fromEuler(-numpy.pi/2,0,numpy.pi/2)
             self.scheduleRedisplay()
     
-    def runLoaderThread(self):
-        # all opengl calls must occur within the main thread, so...
-        # prep_lists and loading of the texture cannot occur within the load thread
-        # this makes a separate thread pretty pointless
-        # maybe there are other ways to speed up the OBJ class
-        #
-        # maybe try performSelectorInBackground_withObject_
-        # or try using a timer here: self.timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.5, self, self.update_position, None, True)
-        #    NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSDefaultRunLoopMode)
-        #pool = NSAutoreleasePool.alloc().init()
-        #print "loading...",
-        self.obj = objLoader.OBJ(self.meshFilename, self.meshTextureFilename)#meshFilename, textureFilename)
-        #print "loaded"
-        #obj.prep_lists()
-        #print "prepped"
-        #self.obj = obj
-        #print "obj set"
-        #self.scheduleRedisplay()
-        #print "scheduling redisplay"
-        #pool.release()
-        #print "pool released"
+        
     
     def load_obj(self, meshFilename, textureFilename):
         # so, if this is called before the mesh tab has been visited,
         # gl_inited will be false, and the loading will fail :(
         # and it will fubar other textures (see zoomView)
+        
+        self.meshFilenames.append(meshFilename)
+        self.meshTextureFilenames.append(textureFilename)
         if self.gl_inited == False:
-            self.meshTextureFilename = textureFilename
-            self.meshFilename = meshFilename
             return
         
-        self.meshTextureFilename = textureFilename
-        self.meshFilename = meshFilename
+        self.objs.append(objLoader.OBJ(meshFilename, textureFilename))
+        #self.objs[-1].prep_lists()
         
-        #NSThread.detachNewThreadSelector_toTarget_withObject_("runLoaderThread", self, None)
-        self.runLoaderThread()
-        self.obj.prep_lists()
         self.scheduleRedisplay()
-        #self.loaderThread = NSThread.alloc().initWithTarget_selector_object_(self,self.runLoaderThread, (meshFilename, textureFilename))
-        #self.loaderThread.start()
         
         #while self.obj == None:
         #    print "sleeping"
@@ -262,8 +242,10 @@ class OCMeshView(NSOpenGLView):
         
         self.gl_inited = True
         
-        if self.meshFilename != None:
-            self.load_obj(self.meshFilename, self.meshTextureFilename)
+        if len(self.meshFilenames) > 0 and len(self.objs) == 0:
+            for i in xrange(len(self.meshFilenames)):
+                self.objs.append(self.meshFilenames[i],self.meshTextureFilenames[i])
+                #self.objs[-1].prep_lists()
     
     def draw_tip_path(self):
         #o = numpy.array(self.pathParams[:3])
@@ -303,12 +285,11 @@ class OCMeshView(NSOpenGLView):
         #glViewport(0,0,int(frame.size.width),int(frame.size.height))
         self.orbiter.setup_model_view()
         
-        if self.obj != None:
-            if self.obj.meshList == None:
-                print "prepping lists...",
-                self.obj.prep_lists()
-                print "done"
-            self.obj.display()
+        for o in self.objs:
+            if o.meshList == None:
+                print "prepping lists in draw"
+                o.prep_lists()
+            o.display()
         
         glPushMatrix()
         self.draw_tip_path()

@@ -15,12 +15,14 @@ def print_timing(func):
     return wrapper
 
 def LoadTexture(filename):
+    glEnable(GL_TEXTURE_2D)
     im = Image.open(filename)
     #im = im.transpose(Image.FLIP_TOP_BOTTOM)
     #imString = im.tostring("raw", "RGB", 0, -1)
     #imString = im.tostring("raw", "RGB", 0, -1)
     texId = 0
-    glGenTextures(1, texId)
+    texId = glGenTextures(1)
+    #print "Gen Tex: ", texId
     w, h = im.size
     glBindTexture(GL_TEXTURE_2D, texId)
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
@@ -31,6 +33,7 @@ def LoadTexture(filename):
     #gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, w, h, GL_RGB, GL_UNSIGNED_BYTE, imString)
     #glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, imString)
     glBindTexture(GL_TEXTURE_2D, 0)
+    glDisable(GL_TEXTURE_2D)
     return texId
 
 class OBJ:
@@ -41,6 +44,7 @@ class OBJ:
         self.normals = []
         self.texcoords = []
         self.faces = []
+        self.texId = 0
         
         self.meshList = None
         self.pointCloudList = None
@@ -98,6 +102,7 @@ class OBJ:
     def prep_mesh_list(self):
         if self.textureFilename:
             self.texId = LoadTexture(self.textureFilename)
+            #print "tid during load", self.texId
         self.meshList = glGenLists(1)
         glNewList(self.meshList, GL_COMPILE)
         
@@ -172,3 +177,6 @@ class OBJ:
                 glDisable(GL_TEXTURE_2D)
         if self.showPointCloud:
             glCallList(self.pointCloudList)
+        #if self.textureFilename != None:
+        #    print "fn: %s, tid: %s" % (self.textureFilename.split('/')[-1], str(self.texId))
+        glBindTexture(GL_TEXTURE_2D, 0)
