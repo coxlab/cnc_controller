@@ -49,6 +49,8 @@ class OBJ:
         self.meshList = None
         self.pointCloudList = None
         
+        self.visible = True
+        
         if textureFilename == None:
             self.textureFilename = None
             self.showTexture = False
@@ -167,6 +169,8 @@ class OBJ:
         self.prep_mesh_list()
         self.prep_point_cloud_list()
     def display(self):
+        if not self.visible:
+            return
         glColor(*self.color)
         if self.showMesh:
             if self.showTexture:

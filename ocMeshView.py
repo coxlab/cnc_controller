@@ -116,44 +116,51 @@ class OCMeshView(NSOpenGLView):
     
     def keyDown_(self, event):
         c = event.characters()
-        
-        if len(self.objs) > 0:
-            if c == 't':
-                for o in self.objs:
-                    o.showTexture = not o.showTexture
+        if (event.modifierFlags() & NSControlKeyMask):
+            try:
+                i = int(c) - 1
+                if i in xrange(len(self.objs)):
+                    self.objs[i].visible = not self.objs[i].visible
+                    self.scheduleRedisplay()
+            except ValueError:
+                pass
+        else: # non ctrl things
+            if len(self.objs) > 0:
+                if c == 't':
+                    for o in self.objs:
+                        o.showTexture = not o.showTexture
+                    self.scheduleRedisplay()
+                elif c == 'p':
+                    for o in self.objs:
+                        o.showPointCloud = not o.showPointCloud
+                    self.scheduleRedisplay()
+                elif c == 'm':
+                    for o in self.objs:
+                        o.showMesh = not o.showMesh
+                    self.scheduleRedisplay()
+            
+            
+            if c == 'r':
+                self.orbiter.reset()
                 self.scheduleRedisplay()
-            elif c == 'p':
-                for o in self.objs:
-                    o.showPointCloud = not o.showPointCloud
+            elif c == '1':
+                self.orbiter.rotation = quaternion.fromEuler(0,0,0)
                 self.scheduleRedisplay()
-            elif c == 'm':
-                for o in self.objs:
-                    o.showMesh = not o.showMesh
+            elif c == '!':
+                self.orbiter.rotation = quaternion.fromEuler(numpy.pi,0,0)
                 self.scheduleRedisplay()
-        
-        if c == 'r':
-            self.orbiter.reset()
-            self.scheduleRedisplay()
-        elif c == '1':
-            self.orbiter.rotation = quaternion.fromEuler(0,0,0)
-            self.scheduleRedisplay()
-        elif c == '!':
-            self.orbiter.rotation = quaternion.fromEuler(numpy.pi,0,0)
-            self.scheduleRedisplay()
-        elif c == '2':
-            self.orbiter.rotation = quaternion.fromEuler(-numpy.pi/2,0)
-            self.scheduleRedisplay()
-        elif c == '@':
-            self.orbiter.rotation = quaternion.fromEuler(numpy.pi/2,0)
-            self.scheduleRedisplay()
-        elif c == '3':
-            self.orbiter.rotation = quaternion.fromEuler(-numpy.pi/2,0,-numpy.pi/2)
-            self.scheduleRedisplay()
-        elif c == '#':
-            self.orbiter.rotation = quaternion.fromEuler(-numpy.pi/2,0,numpy.pi/2)
-            self.scheduleRedisplay()
-    
-        
+            elif c == '2':
+                self.orbiter.rotation = quaternion.fromEuler(-numpy.pi/2,0)
+                self.scheduleRedisplay()
+            elif c == '@':
+                self.orbiter.rotation = quaternion.fromEuler(numpy.pi/2,0)
+                self.scheduleRedisplay()
+            elif c == '3':
+                self.orbiter.rotation = quaternion.fromEuler(-numpy.pi/2,0,-numpy.pi/2)
+                self.scheduleRedisplay()
+            elif c == '#':
+                self.orbiter.rotation = quaternion.fromEuler(-numpy.pi/2,0,numpy.pi/2)
+                self.scheduleRedisplay()
     
     def load_obj(self, meshFilename, textureFilename):
         # so, if this is called before the mesh tab has been visited,
