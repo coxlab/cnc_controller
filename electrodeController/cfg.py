@@ -10,6 +10,7 @@ import logging, os, time
 from bjgcfg import *
 assign_cfg_module(__name__)
 
+verboseLogging = True
 useManualImageProcessor = True
 fakeCNC = True
 fakeCameras = True
@@ -39,7 +40,7 @@ loggingStarted = False
 # make logs but don't connect them yet
 logDir = '/Users/%s/Repositories/coxlab/cncController/logs/%i' % (os.getlogin(), time.time())
 log = logging.root
-cameraLogDir = '%s/camera' % logDir
+cameraLogDir = '%s/cameras' % logDir
 cameraLog = logging.getLogger('camera')
 cncLogDir = '%s/cnc' % logDir
 cncLog = logging.getLogger('cnc')
@@ -65,8 +66,8 @@ def start_logging():
     
     #cameraLogDir = '/Users/%s/Repositories/coxlab/cncController/logs/camera/' % os.getlogin()
     if not os.path.exists(cameraLogDir): os.makedirs(cameraLogDir)
-    if not os.path.exists(cameraLogDir+'/0'): os.makedirs(cameraLogDir+'/0')
-    if not os.path.exists(cameraLogDir+'/1'): os.makedirs(cameraLogDir+'/1')
+    #if not os.path.exists(cameraLogDir+'/0'): os.makedirs(cameraLogDir+'/0')
+    #if not os.path.exists(cameraLogDir+'/1'): os.makedirs(cameraLogDir+'/1')
 
 
     # cameraLog = logging.getLogger('camera')

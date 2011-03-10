@@ -158,7 +158,10 @@ class Camera:
         self.calibrationImgPts.pop()
     
     def calibrate(self, gridSize, gridBlockSize):
-        return self.calibrate_internals(gridSize, gridBlockSize)
+        errs = self.calibrate_internals(gridSize, gridBlockSize)
+        if self.logDir != None:
+            self.save_calibration("%s/calibration/" % self.logDir)
+        return errs
     
     def calibrate_internals(self, gridSize, gridBlockSize):
         # initialize camera matrices
@@ -328,6 +331,10 @@ class Camera:
         # calculate image-to-world transformation matrix
         self.itoWMatrix = calculate_image_to_world_matrix(self.tVec, rMatrix, self.camMatrix)
         self.located = True
+        
+        if self.logDir != None:
+            self.save_calibration("%s/calibration/" % self.logDir)
+            
     
     def get_position(self):
         #if not self.calibrated:
