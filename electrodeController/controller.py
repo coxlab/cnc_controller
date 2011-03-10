@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os
+import os, shutil
 
 import numpy
 
@@ -79,6 +79,8 @@ class Controller:
         # load animal configuration file
         if os.path.exists(animalCfgFile):
             cfg.load_external_cfg(animalCfgFile)
+            shutil.copy(animalCfgFile,"%s/" % self.logDir)
+            cfg.log.info("Loaded animal cfg: %s" % animalCfgFile)
         
         # TODO load animal mesh (for collision detection and viewing)
         
