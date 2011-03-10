@@ -235,6 +235,9 @@ class OCMeshView(NSOpenGLView):
     
     def initGL(self):
         glEnable(GL_BLEND)
+        #glEnable(GL_ALPHA_TEST)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        
         glEnable(GL_TEXTURE_2D)
         glDisable(GL_LIGHTING)
         
@@ -261,11 +264,18 @@ class OCMeshView(NSOpenGLView):
         #p1 = o + (1000. * m)
         p0 = self.pathParams[:3]
         p1 = self.pathParams[3:]
-        glColor(1., 0., 0., 1.)
+        glColor4f(0., 1., 0., 1.)
+        glLineWidth(1.)
         glBegin(GL_LINES)
         glVertex3f(*p0)
         glVertex3f(*p1)
         glEnd()
+        #glColor4f(0., 1., 0., 0.5) # alpha doesn't seem to work on lines
+        #glLineWidth(4.)
+        #glBegin(GL_LINES)
+        #glVertex3f(*p0)
+        #glVertex3f(*p1)
+        #glEnd()
     
     def draw_electrode_path(self):
         glColor(1., 0., 0., 1.)
