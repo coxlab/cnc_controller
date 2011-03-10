@@ -84,6 +84,16 @@ class Controller:
         
         # load skull-to-tricorner transformation matrix and add to frameStack
         self.fManager.add_transformation_matrix('skull', 'tricorner', numpy.matrix(numpy.loadtxt(cfg.skullToTCMatrixFile)))
+        
+        # test route TODO it might be nice to fix this, when tc points are loaded prior to skull, no points get to meshview
+        #if self.fManager.test_route("camera","skull"):
+        #    ptsInSkull = []
+        #    for p in ptsInCam:
+        #        camCoord = numpy.ones(4,dtype=numpy.float64)
+        #        camCoord[:3] = [p[0], p[1], p[2]]
+        #        skullCoord = self.fManager.transform_point(camCoord, "camera", "skull")[0]
+        #        ptsInSkull.append([skullCoord[0], skullCoord[1], skullCoord[2]])
+        #    self.meshView.points = ptsInSkull
     
     def load_log(self, logDir):
         # load log directory
@@ -133,14 +143,17 @@ class Controller:
                 xyz = self.cameras.get_3d_position([p[0],p[1]], [p[2],p[3]])
                 ptsInCam.append([xyz[0],xyz[1],xyz[2],1.])
             self.register_cameras(numpy.array(ptsInCam))
+            #self.tcRegPoints = ptsInCam
             
-            ptsInSkull = []
-            for p in ptsInCam:
-                camCoord = numpy.ones(4,dtype=numpy.float64)
-                camCoord[:3] = [p[0], p[1], p[2]]
-                skullCoord = self.fManager.transform_point(camCoord, "camera", "skull")[0]
-                ptsInSkull.append([skullCoord[0], skullCoord[1], skullCoord[2]])
-            self.meshView.points = ptsInSkull
+            # test route
+            if self.fManager.test_route("camera","skull"):
+                ptsInSkull = []
+                for p in ptsInCam:
+                    camCoord = numpy.ones(4,dtype=numpy.float64)
+                    camCoord[:3] = [p[0], p[1], p[2]]
+                    skullCoord = self.fManager.transform_point(camCoord, "camera", "skull")[0]
+                    ptsInSkull.append([skullCoord[0], skullCoord[1], skullCoord[2]])
+                self.meshView.points = ptsInSkull
         
         mppts = logDir + '/measurePathPts'
         if os.path.exists(mppts):
@@ -186,6 +199,15 @@ class Controller:
         cfg.framesLog.info(ptsInTC)
         cfg.framesLog.info(ptsInCamera)
         self.fManager.add_transformation_matrix('tricorner', 'camera', tcToCam)
+        
+        if self.fManager.test_route("camera","skull"):
+            ptsInSkull = []
+            for p in ptsInCamera:
+                camCoord = numpy.ones(4,dtype=numpy.float64)
+                camCoord[:3] = [p[0], p[1], p[2]]
+                skullCoord = self.fManager.transform_point(camCoord, "camera", "skull")[0]
+                ptsInSkull.append([skullCoord[0], skullCoord[1], skullCoord[2]])
+            self.meshView.points = ptsInSkull
     
     def measure_tip_path(self, ptsInCamera, wPositions):
         pathParams = self.cnc.measure_tip_path(ptsInCamera, wPositions)
