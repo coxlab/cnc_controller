@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<camMatrix type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>3</cols>
+  <dt>d</dt>
+  <data>
+    5.5119596045736471e+03 0. 6.2265706291075151e+02 0.
+    5.5104394734130401e+03 3.5150576841438510e+02 0. 0. 1.</data></camMatrix>
+</opencv_storage>

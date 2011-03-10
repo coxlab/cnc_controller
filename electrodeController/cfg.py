@@ -19,6 +19,7 @@ fakeCameras = True
 #rightFakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/inLogs/1289241336/cameras/49712223528793946' % os.getlogin()
 leftFakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/inLogs/1299790348/cameras/49712223528793951' % os.getlogin()
 rightFakeFramesDir = '/Users/%s/Repositories/coxlab/cncController/inLogs/1299790348/cameras/49712223528793946' % os.getlogin()
+inLogDir = '/Users/%s/Repositories/coxlab/cncController/inLogs/1299790348' % os.getlogin()
 
 cfgDir = '/Users/%s/Repositories/coxlab/cncController/electrodeController/cfgs' % os.getlogin()
 externalCfgs = ['atlasCfg.py', 'cameraCfg.py', 'cncCfg.py', 'framesCfg.py', 'electrodeCfg.py']
