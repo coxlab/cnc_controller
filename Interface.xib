@@ -11,11 +11,11 @@
 			<string key="NS.object.0">823</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
+			<integer value="871"/>
+			<integer value="907"/>
+			<integer value="848"/>
 			<integer value="81"/>
 			<integer value="930"/>
-			<integer value="907"/>
-			<integer value="1302"/>
-			<integer value="871"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1547,7 +1547,7 @@
 								<object class="NSTabViewItem" id="1014198805">
 									<string key="NSIdentifier">Item 2</string>
 									<object class="NSView" key="NSView" id="811762933">
-										<reference key="NSNextResponder" ref="553846446"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">256</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSSlider" id="959365653">
@@ -1739,7 +1739,6 @@
 											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {742, 501}}</string>
-										<reference key="NSSuperview" ref="553846446"/>
 									</object>
 									<string key="NSLabel">Atlas</string>
 									<reference key="NSColor" ref="142994466"/>
@@ -1793,7 +1792,7 @@
 								<object class="NSTabViewItem" id="479501803">
 									<string key="NSIdentifier">2</string>
 									<object class="NSView" key="NSView" id="381671482">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="553846446"/>
 										<int key="NSvFlags">256</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSScrollView" id="529465367">
@@ -2720,21 +2719,49 @@
 													<reference key="NSTextColor" ref="422728063"/>
 												</object>
 											</object>
+											<object class="NSButton" id="733855877">
+												<reference key="NSNextResponder" ref="381671482"/>
+												<int key="NSvFlags">268</int>
+												<string key="NSFrame">{{351, 198}, {117, 18}}</string>
+												<reference key="NSSuperview" ref="381671482"/>
+												<bool key="NSEnabled">YES</bool>
+												<object class="NSButtonCell" key="NSCell" id="88601609">
+													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags2">0</int>
+													<string key="NSContents">Cheap Tip Find</string>
+													<reference key="NSSupport" ref="858839378"/>
+													<reference key="NSControlView" ref="733855877"/>
+													<int key="NSButtonFlags">1211912703</int>
+													<int key="NSButtonFlags2">2</int>
+													<object class="NSCustomResource" key="NSNormalImage">
+														<string key="NSClassName">NSImage</string>
+														<string key="NSResourceName">NSSwitch</string>
+													</object>
+													<object class="NSButtonImageSource" key="NSAlternateImage">
+														<string key="NSImageName">NSSwitch</string>
+													</object>
+													<string key="NSAlternateContents"/>
+													<string key="NSKeyEquivalent"/>
+													<int key="NSPeriodicDelay">200</int>
+													<int key="NSPeriodicInterval">25</int>
+												</object>
+											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {742, 501}}</string>
+										<reference key="NSSuperview" ref="553846446"/>
 									</object>
 									<string key="NSLabel">Camera</string>
 									<reference key="NSColor" ref="142994466"/>
 									<reference key="NSTabView" ref="553846446"/>
 								</object>
 							</array>
-							<reference key="NSSelectedTabViewItem" ref="1014198805"/>
+							<reference key="NSSelectedTabViewItem" ref="479501803"/>
 							<reference key="NSFont" ref="858839378"/>
 							<int key="NSTvFlags">0</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<array class="NSMutableArray" key="NSSubviews">
-								<reference ref="811762933"/>
+								<reference ref="381671482"/>
 							</array>
 						</object>
 						<object class="NSButton" id="28746724">
@@ -6968,6 +6995,22 @@
 					</object>
 					<int key="connectionID">1515</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: ocCheapTipFind</string>
+						<reference key="source" ref="733855877"/>
+						<reference key="destination" ref="401468622"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="733855877"/>
+							<reference key="NSDestination" ref="401468622"/>
+							<string key="NSLabel">value: ocCheapTipFind</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">ocCheapTipFind</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1521</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -8045,6 +8088,7 @@
 							<reference ref="329705194"/>
 							<reference ref="761894194"/>
 							<reference ref="268929845"/>
+							<reference ref="733855877"/>
 						</array>
 						<reference key="parent" ref="479501803"/>
 					</object>
@@ -10212,6 +10256,19 @@
 						<reference key="object" ref="997625206"/>
 						<reference key="parent" ref="421533462"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1516</int>
+						<reference key="object" ref="733855877"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="88601609"/>
+						</array>
+						<reference key="parent" ref="381671482"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1517</int>
+						<reference key="object" ref="88601609"/>
+						<reference key="parent" ref="733855877"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -10625,6 +10682,8 @@
 					<bytes key="NSTransformStruct">P4AAAL+AAABDmoAAwgAAAA</bytes>
 				</object>
 				<string key="1510.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1516.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1517.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="19.ImportedFromIB2"/>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -10648,9 +10707,9 @@
 				<string key="296.editorWindowContentRectSynchronizationRect">{{475, 832}, {234, 43}}</string>
 				<string key="297.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="298.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBEditorWindowLastContentRect">{{211, 4}, {788, 642}}</string>
+				<string key="367.IBEditorWindowLastContentRect">{{211, 93}, {788, 642}}</string>
 				<string key="367.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="367.IBWindowTemplateEditedContentRect">{{211, 4}, {788, 642}}</string>
+				<string key="367.IBWindowTemplateEditedContentRect">{{211, 93}, {788, 642}}</string>
 				<integer value="1" key="367.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="367.editorWindowContentRectSynchronizationRect">{{11, 666}, {480, 270}}</string>
 				<string key="367.windowTemplate.maxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -10942,7 +11001,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1515</int>
+			<int key="maxID">1521</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -12177,6 +12236,7 @@
 			<string key="NSQuickLookTemplate">{19, 11}</string>
 			<string key="NSRefreshTemplate">{10, 12}</string>
 			<string key="NSRevealFreestandingTemplate">{14, 14}</string>
+			<string key="NSSwitch">{15, 15}</string>
 			<string key="NSUser">{32, 32}</string>
 		</dictionary>
 	</data>

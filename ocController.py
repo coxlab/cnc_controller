@@ -70,6 +70,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
     ocNTipPoints = objc.ivar(u"ocNTipPoints")
     ocTipInc = objc.ivar(u"ocTipInc")
     
+    ocCheapTipFind = objc.ivar(u"ocCheapTipFind")
+    
     meshView = objc.IBOutlet()
     atlasView = objc.IBOutlet()
     tabView = objc.IBOutlet()
@@ -1319,19 +1321,25 @@ class OCController (NSObject, electrodeController.controller.Controller):
     def poll_for_frames(self):
         li = self.cameras.leftCamera.poll_stream()
         if li != None:
-            lx, ly = simple_finder(li, cfg.leftYLimits)
-            if len(self.leftZoomView.zooms) > 2:
-                z = self.leftZoomView.zooms[2]
-                z['x'] = lx
-                z['y'] = ly
+            if self.ocCheapTipFind:
+                lx, ly = simple_finder.find_tip(li, cfg.leftYLimits)
+                if len(self.leftZoomView.zooms):
+                    z = self.leftZoomView.zooms[0]
+                    z['x'] = lx
+                    z['y'] = ly
+                else:
+                    self.leftZoomView.add_zoomed_area(lx, ly)
             self.leftZoomView.set_image_from_numpy(li)
         ri = self.cameras.rightCamera.poll_stream()
         if ri != None:
-            rx, ry = simple_finder(ri, cfg.rightYLimits)
-            if len(self.rightZoomView.zooms) > 2:
-                z = self.rightZoomView.zooms[2]
-                z['x'] = rx
-                z['y'] = ry
+            if self.ocCheapTipFind:
+                rx, ry = simple_finder.find_tip(ri, cfg.rightYLimits)
+                if len(self.rightZoomView.zooms):
+                    z = self.rightZoomView.zooms[0]
+                    z['x'] = rx
+                    z['y'] = ry
+                else:
+                    self.rightZoomView.add_zoomed_area(rx, ry)
             self.rightZoomView.set_image_from_numpy(ri)
     
     @IBAction
