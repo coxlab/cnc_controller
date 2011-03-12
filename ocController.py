@@ -17,6 +17,8 @@ import electrodeController.controller
 from electrodeController.camera import conversions
 from electrode_finder import find_electrode_tip_from_segment
 
+import simple_finder
+
 mwConduitAvailable = False
 
 try:
@@ -1317,9 +1319,19 @@ class OCController (NSObject, electrodeController.controller.Controller):
     def poll_for_frames(self):
         li = self.cameras.leftCamera.poll_stream()
         if li != None:
+            lx, ly = simple_finder(li, cfg.leftYLimits)
+            if len(self.leftZoomView.zooms) > 2:
+                z = self.leftZoomView.zooms[2]
+                z['x'] = lx
+                z['y'] = ly
             self.leftZoomView.set_image_from_numpy(li)
         ri = self.cameras.rightCamera.poll_stream()
         if ri != None:
+            rx, ry = simple_finder(ri, cfg.rightYLimits)
+            if len(self.rightZoomView.zooms) > 2:
+                z = self.rightZoomView.zooms[2]
+                z['x'] = rx
+                z['y'] = ry
             self.rightZoomView.set_image_from_numpy(ri)
     
     @IBAction

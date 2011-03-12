@@ -12,5 +12,8 @@ gridSize = (47,39)
 #gridSize = (21,19)
 gridBlockSize = 1.
 
+leftYLimits = [190, 755]
+rightYLimits = [206, 763]
+
 # TODO sort out where this should go
 calibrationDirectory = "/Users/%s/Repositories/coxlab/cncController/electrodeController/calibrations" % os.getlogin()

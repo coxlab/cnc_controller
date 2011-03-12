@@ -10,6 +10,9 @@ from numpy.random import rand
 from numpy.linalg import norm
 from scipy.interpolate import interp2d
 
+# timing
+#from stopwatch import clockit, Timer
+
 plot_alot = False
 no_optimization = False
 
@@ -18,6 +21,7 @@ background_region_size = 25  # for estimating "background" mean and std
 tip_threshold_multiplier = 10
 slab_oversample = 0.65
 
+#@clockit
 def find_electrode(im):
     # apply some sort of windowing / exclude irrelvant image pixels
     
@@ -68,9 +72,9 @@ def find_electrode(im):
             
     return best_line
 
-
+# takes ~115 ms
+#@clockit
 def resample_slab(im, line, sample_width=20, sample_step=0.25, over_factor=1.5):
-    
     e_start = array(line[0])
     e_end = array(line[1])
     
@@ -92,8 +96,6 @@ def resample_slab(im, line, sample_width=20, sample_step=0.25, over_factor=1.5):
     e_ortho = arbitrary_vec - e_dir * dot(arbitrary_vec,e_dir)
     e_ortho = e_ortho / norm(e_ortho)
     
-    
-    
     # a grid of coorindates for the slab (slab-relative)
     (X_native, Y_native) = mgrid[0:e_length:sample_step, -sample_width:sample_width:sample_step]
     
@@ -102,7 +104,7 @@ def resample_slab(im, line, sample_width=20, sample_step=0.25, over_factor=1.5):
     Y_im = e_ortho[0] * X_native + e_ortho[1] * Y_native + e_center[1]
     
     # don't go over the edge
-    for i in range(0, Y_im.shape[1]):
+    for i in xrange(Y_im.shape[1]):
         row = Y_im[:,i]
         if any(row > im.shape[0]):
             X_im = X_im[:,0:i]
@@ -130,8 +132,7 @@ def resample_slab(im, line, sample_width=20, sample_step=0.25, over_factor=1.5):
     
     return (transformed, return_transform)
 
-
-
+#@clockit
 def estimate_tip_location_in_slab(slab):
     """ Estimate where the tip is in the slab, assuming that the slab is oriented correctly
     """
@@ -186,7 +187,8 @@ def estimate_tip_location_in_slab(slab):
     
     return (array([center_axis,tip_cutoff]), trough_depth)
 
-
+# takes ~115 ms
+#@clockit
 def electrode_alignment_objective(params, im, line_segment, **kwargs):
     try:
         a = params[0]
@@ -226,6 +228,7 @@ def electrode_alignment_objective(params, im, line_segment, **kwargs):
     
     return (trough, to_image_coords(tip))
 
+#@clockit
 def find_electrode_tip(im, line_segment):
     
     (slab, to_image_coords) = resample_slab(im, line_segment)
@@ -240,7 +243,7 @@ def find_electrode_tip(im, line_segment):
     
     return to_image_coords(tip)
 
-
+#@clockit
 def find_electrode_tip_with_refinement(im, base_im, angle_range, angle_resolution):
     
     if base_im is not None:
@@ -260,7 +263,7 @@ def find_electrode_tip_with_refinement(im, base_im, angle_range, angle_resolutio
     
     return new_tip
     
-
+#@clockit
 def find_electrode_tip_from_segment(im, base_im, l, angle_range, nsteps):
 
     im = im - mean(im.ravel())
@@ -329,14 +332,19 @@ if __name__ == "__main__":
     if True:
         
         for filename in ("1288193037","1288193138", "1288193185", "1288192975",):
-            base_dir = "/Volumes/vnsl/cncLogs/1288191881/cameras/49712223528793946/"
+            base_dir = "/Volumes/vnsl/cncLogs/z_old/1288191881/cameras/49712223528793946/"
+            # base_dir = "test_images/0/"
             base_im = double(imread(base_dir + "1288192514" + ".png"))
-            #base_im = gaussian_filter(base_im, 20.)
-            #base_im = None
+            # base_im = double(imread(base_dir + "8" + ".png"))
+            ##base_im = gaussian_filter(base_im, 20.)
+            # base_im = None
             im = double(imread(base_dir + filename + ".png"))
             est_tip = [606., 546.]
-            #est_tip = [620., 540.]
+            # est_tip = [612, 608]
             est_shank = [558., 470.]
+            
+            #est_tip = [620., 540.]
+            # est_shank = [510,444]
         
             segment = [est_shank, est_tip]
         

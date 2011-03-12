@@ -22,6 +22,7 @@
 		BF5E3B8811C16EC8003EF057 /* ocZoomView.py in Resources */ = {isa = PBXBuildFile; fileRef = BF5E3B8711C16EC8003EF057 /* ocZoomView.py */; };
 		BF6F99161279C6DE000C8F0A /* electrode_finder.py in Resources */ = {isa = PBXBuildFile; fileRef = BF6F99151279C6DE000C8F0A /* electrode_finder.py */; };
 		BF6F99181279C6EB000C8F0A /* image_proc.py in Resources */ = {isa = PBXBuildFile; fileRef = BF6F99171279C6EB000C8F0A /* image_proc.py */; };
+		BF85754D132C295100DC976E /* simple_finder.py in Resources */ = {isa = PBXBuildFile; fileRef = BF85754C132C295100DC976E /* simple_finder.py */; };
 		BF9C84D811527B5100C68A5A /* physiology_icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BF9C84D711527B5100C68A5A /* physiology_icon.icns */; };
 		BFD1491611D3EE5E002CA13F /* a_10.obj in Resources */ = {isa = PBXBuildFile; fileRef = BFD1491511D3EE5E002CA13F /* a_10.obj */; };
 		BFD6D14B126F8E6C00326550 /* glZoomView.py in Resources */ = {isa = PBXBuildFile; fileRef = BFD6D14A126F8E6C00326550 /* glZoomView.py */; };
@@ -52,6 +53,7 @@
 		BF5E3B8711C16EC8003EF057 /* ocZoomView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ocZoomView.py; sourceTree = "<group>"; };
 		BF6F99151279C6DE000C8F0A /* electrode_finder.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = electrode_finder.py; path = electrode_finder/electrode_finder.py; sourceTree = "<group>"; };
 		BF6F99171279C6EB000C8F0A /* image_proc.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = image_proc.py; path = electrode_finder/image_proc.py; sourceTree = "<group>"; };
+		BF85754C132C295100DC976E /* simple_finder.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = simple_finder.py; path = electrode_finder/simple_finder.py; sourceTree = "<group>"; };
 		BF9C84D711527B5100C68A5A /* physiology_icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = physiology_icon.icns; sourceTree = "<group>"; };
 		BFD1491511D3EE5E002CA13F /* a_10.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = a_10.obj; path = media/a_10.obj; sourceTree = "<group>"; };
 		BFD6D14A126F8E6C00326550 /* glZoomView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = glZoomView.py; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				BF6F99171279C6EB000C8F0A /* image_proc.py */,
+				BF85754C132C295100DC976E /* simple_finder.py */,
 				BF6F99151279C6DE000C8F0A /* electrode_finder.py */,
 				BFF60AAE1253C06900AE861B /* electrodeController */,
 				BF0C00DF11C5A0B200D994B0 /* quaternion.py */,
@@ -240,6 +243,7 @@
 				BFD6D14B126F8E6C00326550 /* glZoomView.py in Resources */,
 				BF6F99161279C6DE000C8F0A /* electrode_finder.py in Resources */,
 				BF6F99181279C6EB000C8F0A /* image_proc.py in Resources */,
+				BF85754D132C295100DC976E /* simple_finder.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
