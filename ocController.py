@@ -1002,8 +1002,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     def update_position(self):
         # check if all axes are still, if so, stop timer
-        if self.cnc.motion_done():
-            self.stop_update_timer()
+        # moved to end
+        #if self.cnc.motion_done():
+        #    self.stop_update_timer()
         
         timeOfUpdate = time.time()
         
@@ -1239,6 +1240,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
                     #print "skull points:", sPoints.shape
                     # add points to mesh view
                     self.meshView.pathPoints = sPoints
+        
+        # check if all axes are still, if so, stop timer
+        if self.cnc.motion_done():
+            self.stop_update_timer()
         
         # logging
         cfg.cncLog.info('%.2f %.3f %.3f %.3f %.3f %.3f' % (float(timeOfUpdate), self.ocX, self.ocY, self.ocZ, self.ocB, self.ocW))

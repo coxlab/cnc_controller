@@ -264,7 +264,7 @@ class OCMeshView(NSOpenGLView):
         #p1 = o + (1000. * m)
         p0 = self.pathParams[:3]
         p1 = self.pathParams[3:]
-        glColor4f(0., 1., 0., 1.)
+        glColor4f(0., 0., 1., 1.)
         glLineWidth(1.)
         glBegin(GL_LINES)
         glVertex3f(*p0)
@@ -277,12 +277,12 @@ class OCMeshView(NSOpenGLView):
         #glVertex3f(*p1)
         #glEnd()
     
-    def draw_electrode_path(self):
-        glColor(1., 0., 0., 1.)
-        glBegin(GL_LINES)
-        glVertex3f(0., 0., -100000.)
-        glVertex3f(0., 0., 100000.)
-        glEnd()
+    #def draw_electrode_path(self):
+    #    glColor(1., 0., 0., 1.)
+    #    glBegin(GL_LINES)
+    #    glVertex3f(0., 0., -100000.)
+    #    glVertex3f(0., 0., 100000.)
+    #    glEnd()
     
     def draw_points(self, points, size, color):
         glPointSize(size)
