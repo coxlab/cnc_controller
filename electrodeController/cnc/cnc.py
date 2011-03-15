@@ -27,7 +27,10 @@ class FiveAxisCNC:
         self.headAxes = Axes(cfg.cncHeadAxesIP, cfg.cncHeadAxesPort, cfg.cncHeadAxes, cfg.serialConnectionTimeout)
         #self.headAxes.configure_axis('w',cfg.wAxisConfig)
         #self.headAxes.save_settings_to_controller()
-        self.arm_length = None
+        if 'cncArmLength' in dir(cfg):
+            self.armLength = cfg.cncArmLength
+        else:
+            self.armLength = None
         self.pathParams = None#[0., 0., 0., 0., 1., 0.]
         self.pathPoints = 0
         #self.disable_motors()
@@ -124,6 +127,23 @@ class FiveAxisCNC:
         m = array(self.pathParams[3:])
         p = o + t * m
         return p
+    
+    def calculate_point_rotation(self, angle, speed):
+        # account for current w position
+        currArmLength = self.armLength - float(self.headAxes.get_position('w')['w'])
+        
+        dx = -sin(radians(angle)) * currArmLength
+        dz = ((currArmLength - cos(radians(angle)) * currArmLength))
+        # check bounds
+        
+        # calculate time to move
+        ttm = angle / speed # time to move
+        xds = abs(dx / ttm)
+        zds = abs(dz / ttm)
+        
+        # execute moves
+        
+        return dx, dz, xds, zds
     
     def calculate_arm_length(self, tipLocations, angles, wPositions):
         """Requires 3 measurements of the tip location at 3 angles"""

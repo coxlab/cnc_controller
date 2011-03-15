@@ -113,6 +113,13 @@ class OCController (NSObject, electrodeController.controller.Controller):
     wVelocityField = objc.IBOutlet()
     bVelocityField = objc.IBOutlet()
     
+    ocPointAngle = objc.ivar(u"ocPointAngle")
+    ocPointAngleSpeed = objc.ivar(u"ocPointAngleSpeed")
+    ocPointX = objc.ivar(u"ocPointX")
+    ocPointXSpeed = objc.ivar(u"ocPointXSpeed")
+    ocPointZ = objc.ivar(u"ocPointZ")
+    ocPointZSpeed = objc.ivar(u"ocPointZSpeed")
+    
     timer = None
     
     def awakeFromNib(self):
@@ -920,6 +927,31 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self._.ocNPathPoints = 0
         self.cnc.headAxes.move_relative(self.ocBInc, 'b')
         #self.update_position()
+        self.start_update_timer()
+    
+    @IBAction
+    def calcPointMove_(self, sender):
+        dx, dz, xds, zds = self.cnc.calculate_point_rotation(self.ocPointAngle, self.ocPointAngleSpeed)
+        self._.ocPointZ = dz
+        self._.ocPointZSpeed = zds
+        self._.ocPointX = dx
+        self._.ocPointXSpeed = xds
+    
+    @IBAction
+    def makePointMove_(self, sender):
+        dx, xds = self.ocPointX, self.ocPointXSpeed
+        dz, zds = self.ocPointZ, self.ocPointZSpeed
+        da, ads = self.ocPointAngle, self.ocPointAngleSpeed
+        # set all speeds
+        self.cnc.headAxes.set_velocity(ads, 'b')
+        self.cnc.linearAxes.set_velocity(xds, 'x')
+        self.cnc.linearAxes.set_velocity(zds, 'z')
+        
+        # make composite move QUICKLY
+        self.cnc.headAxes.move_relative(da, 'b')
+        self.cnc.linearAxes.move_relative(dx, 'x')
+        self.cnc.linearAxes.move_relative(dz, 'z')
+        
         self.start_update_timer()
     
     # ========================= UI related functions ==========================

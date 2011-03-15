@@ -12,6 +12,8 @@ cncHeadAxes = {'b':1, 'w':2}
 
 serialConnectionTimeout = 4.0
 
+cncArmLength = 212.331
+
 cncRegDeltaAngle = 2.0 # in degrees
 
 # -- X --
