@@ -12,6 +12,15 @@ from numpy import *
 #from rayfit import measure_rotation_plane
 from linefit import fit_3d_line
 
+def point_on_circle(angle, radius):
+    """
+    Center of circle is 0,0
+    Angle in degrees
+    """
+    x = sin(radians(angle)) * radius
+    y = cos(radians(angle)) * radius
+    return x,y
+
 class FiveAxisCNC:
     """
     linearAxes = {'x':1, 'y':2, 'z':3}
@@ -128,22 +137,43 @@ class FiveAxisCNC:
         p = o + t * m
         return p
     
-    def calculate_point_rotation(self, angle, speed):
-        # account for current w position
-        currArmLength = self.armLength - float(self.headAxes.get_position('w')['w'])
+    def calculate_point_rotation(self, deltaAngle, speed, tipOffset):
+        """
+        Due to the position of the rotation stage, this rotation moves
+        the x, z and b axes
+        """
+        currArmLength = self.armLength - float(self.headAxes.get_position('w')['w']) + tipOffset
+        currAngle = float(self.headAxes.get_position('b')['b'])
         
-        dx = -sin(radians(angle)) * currArmLength
-        dz = ((currArmLength - cos(radians(angle)) * currArmLength))
-        # check bounds
+        # get current virtual x,z position on rotation circle
+        x0, z0 = point_on_circle(currAngle, currArmLength)
+        # get target virtual x,z position on rotation circle
+        x1, z1 = point_on_circle(currAngle+deltaAngle, currArmLength)
         
-        # calculate time to move
-        ttm = angle / speed # time to move
+        dx, dz = x1-x0, z1-z0
+        
+        ttm = deltaAngle / speed
         xds = abs(dx / ttm)
         zds = abs(dz / ttm)
         
-        # execute moves
-        
         return dx, dz, xds, zds
+    
+    #def calculate_point_rotation(self, angle, speed):
+    #    # account for current w position
+    #    currArmLength = self.armLength - float(self.headAxes.get_position('w')['w'])
+    #    
+    #    dx = -sin(radians(angle)) * currArmLength
+    #    dz = ((currArmLength - cos(radians(angle)) * currArmLength))
+    #    # check bounds
+    #    
+    #    # calculate time to move
+    #    ttm = angle / speed # time to move
+    #    xds = abs(dx / ttm)
+    #    zds = abs(dz / ttm)
+    #    
+    #    # execute moves
+    #    
+    #    return dx, dz, xds, zds
     
     def calculate_arm_length(self, tipLocations, angles, wPositions):
         """Requires 3 measurements of the tip location at 3 angles"""

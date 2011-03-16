@@ -931,7 +931,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def calcPointMove_(self, sender):
-        dx, dz, xds, zds = self.cnc.calculate_point_rotation(self.ocPointAngle, self.ocPointAngleSpeed)
+        dx, dz, xds, zds = self.cnc.calculate_point_rotation(self.ocPointAngle, self.ocPointAngleSpeed, self.ocTipOffset)
         self._.ocPointZ = dz
         self._.ocPointZSpeed = zds
         self._.ocPointX = dx
