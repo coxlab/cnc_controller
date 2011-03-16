@@ -17,3 +17,6 @@ rightYLimits = [206, 763]
 
 # TODO sort out where this should go
 calibrationDirectory = "/Users/%s/Repositories/coxlab/cncController/electrodeController/calibrations" % os.getlogin()
+
+leftCameraShutter = 600
+rightCameraShutter = 550

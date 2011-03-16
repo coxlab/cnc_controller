@@ -63,6 +63,10 @@ class Controller:
         if not all(self.cameras.get_connected()):
             self.cameras.connect()
         
+        if not cfg.fakeCameras:
+            self.cameras.leftCamera.set_shutter(cfg.leftCameraShutter)
+            self.cameras.rightCamera.set_shutter(cfg.rightCameraShutter)
+        
         # check if cameras are calibrated, if not, load calibration
         if not all(self.cameras.get_calibrated()):
             self.cameras.load_calibrations(cfg.calibrationDirectory)
