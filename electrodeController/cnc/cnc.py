@@ -156,7 +156,7 @@ class FiveAxisCNC:
         xds = abs(dx / ttm)
         zds = abs(dz / ttm)
         
-        return dx, dz, xds, zds
+        return -dx, -dz, xds, zds # fixing directions
     
     #def calculate_point_rotation(self, angle, speed):
     #    # account for current w position
