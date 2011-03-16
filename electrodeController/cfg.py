@@ -43,6 +43,7 @@ loggingStarted = False
 # make logs but don't connect them yet
 logDir = '/Users/%s/Repositories/coxlab/cncController/logs/%i' % (os.getlogin(), time.time())
 log = logging.root
+log.setLevel(logging.INFO)
 cameraLogDir = '%s/cameras' % logDir
 cameraLog = logging.getLogger('camera')
 cncLogDir = '%s/cnc' % logDir

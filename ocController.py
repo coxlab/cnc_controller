@@ -19,6 +19,8 @@ from electrode_finder import find_electrode_tip_from_segment
 
 import simple_finder
 
+import logging
+
 mwConduitAvailable = False
 
 try:
@@ -120,9 +122,20 @@ class OCController (NSObject, electrodeController.controller.Controller):
     ocPointZ = objc.ivar(u"ocPointZ")
     ocPointZSpeed = objc.ivar(u"ocPointZSpeed")
     
+    ocConsole = objc.IBOutlet()
+    
     timer = None
     
     def awakeFromNib(self):
+        
+        # setup hook for in window console logging
+        self.logHandler = logging.Handler()
+        self.logHandler.setLevel(logging.DEBUG)
+        self.logHandler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
+        self.logHandler.emit = lambda r: self.log_message(self.logHandler.format(r))
+        cfg.log.addHandler(self.logHandler)
+        #cfg.log.warning('foo')
+        
         self.leftBackground = None
         self.rightBackground = None
         self._.ocShowDeltaImage = False
@@ -245,6 +258,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.update_frames_display()
         self.update_velocities()
         self.update_position()
+        
+    
+    def log_message(self, msg):
+        self.ocConsole.textStorage().appendAttributedString_(NSAttributedString.alloc().initWithString_(msg + '\n'))
+        # scroll to end: doesn't work
+        #self.ocConsole.setSelectedRange_(NSMakeRange(self.ocConsole.textStorage().length(),0))
     
     def start_update_timer(self):
         if self.timer == None:
@@ -272,16 +291,18 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def printZoomPoints_(self,sender):
         # print header
-        print "#c,lx,ly,rx,x,y,z,b,w"
+        s = "#c, lx, ly, rx, x, y, z, b, w\n"
         # print points
         for p in self.zoomPoints:
-            print p['c']+",",
+            s += str(p['c'])+", "
             for c in ['lx','ly','rx','ry','x','y','z','angle','w']:
                 if c in p.keys():
-                    print "%.2f," % p[c],
+                    s += "%.2f, " % p[c]
                 else:
-                    print "-1.0,",
-            print
+                    s += "-1.0, "
+            s += "\n"
+        cfg.log.info(s)
+        print s
     
     @IBAction
     def clearZoomPoints_(self, sender):
@@ -302,7 +323,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def addZoomPoints_(self, sender):
         if len(self.leftZoomView.zooms) != len(self.rightZoomView.zooms):
-            print "left and right zoom views must have the same number of points"
+            cfg.log.warning("left and right zoom views must have the same number of points")
             # TODO log error
             return
         for l, r in zip(self.leftZoomView.zooms, self.rightZoomView.zooms):
@@ -326,7 +347,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         # withdraw probe
         # check that the probe can be withdrawn N mms (in 0.5 mm movements)
         if float(self.cnc.headAxes.get_position('w')['w']) > -(self.ocNTipPoints * self.ocTipInc + 1.):
-            print "not enough travel on the w-axis to measure path"
+            cfg.log.warning("not enough travel on the w-axis to measure path")
             return
         ## capture new image
         #self.update_zoom_views()
@@ -374,10 +395,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def findTip_(self, sender):
         if len(self.leftZoomView.zooms) != 2 or len(self.rightZoomView.zooms) != 2:
-            print "left and right zoom views must have 2 points"
+            cfg.log.warning("left and right zoom views must have 2 points")
             return
         if self.leftBackground == None or self.rightBackground == None:
-            print "WARNING: background images were not acquired"
+            cfg.log.warning("background images were not acquired")
         # find tip in left image
         #print "finding tip in left image"
         estTip = [self.leftZoomView.zooms[0]['x'], self.leftZoomView.zooms[0]['y']]
@@ -563,7 +584,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if retValue:
             logDir = url_to_string(panel.URLs()[0])
         else:
-            print "Log directory selection canceled"
+            cfg.log.info("Log directory selection canceled")
             return
         
         self.load_log(logDir)
@@ -592,7 +613,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         if retValue:
             animalCfg = url_to_string(panel.URLs()[0])
         else:
-            print "Mesh selection canceled"
+            cfg.log.info("Mesh selection canceled")
             # TODO log error
             return
         
@@ -683,7 +704,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         numpy.savetxt(self.logDir+'/paths/%i' % self.NPaths, ptsToLog)
         self.NPaths += 1
         
-        print "going to measure_tip_path in controller"
+        cfg.log.info("going to measure_tip_path in controller")
         self.measure_tip_path(ptsInCam, wPositions)
         
         # TODO store x y z axis locations to be used for 'best guesses' later
@@ -692,7 +713,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self._.ocNPathPoints = self.NPathPoints#len(ptsInCam)
         lp = self.cnc.linearAxes.get_position()
         self.pathOrigin = [float(lp['x']), float(lp['y']), float(lp['z'])]
-        print self.pathOrigin
+        cfg.log.info(str(self.pathOrigin))
         
         self.updateFramesDisplay_(sender)
     
@@ -703,9 +724,9 @@ class OCController (NSObject, electrodeController.controller.Controller):
         angles = []
         wPositions = []
         
-        print '# lx ly rx ry x y z angle w'
-        for z in self.zoomPoints:
-            print z['lx'], z['ly'], z['rx'], z['ry'], z['x'], z['y'], z['z'], z['angle'], z['w']
+        #print '# lx ly rx ry x y z angle w'
+        #for z in self.zoomPoints:
+        #    print z['lx'], z['ly'], z['rx'], z['ry'], z['x'], z['y'], z['z'], z['angle'], z['w']
         
         for z in self.zoomPoints:
             if all((z.has_key('x'),z.has_key('y'),z.has_key('z'),z.has_key('angle'),z.has_key('w'))):
@@ -726,7 +747,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         ptsInCam = numpy.array(ptsInCam)
         angles = numpy.array(angles)
         wPositions = numpy.array(wPositions)
-        print "going to register_cnc in controller"
+        #print "going to register_cnc in controller"
         self.register_cnc(ptsInCam, angles, wPositions)
         self.updateFramesDisplay_(sender)
     
@@ -750,10 +771,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
     @IBAction
     def toggleJoystickControl_(self, sender):
         if self.ocJoystickControl:
-            print "Joystick control turned on"
+            cfg.log.info("Joystick control turned on")
             self.cnc.linearAxes.enable_joystick()
         else:
-            print "Joystick control turned off"
+            cfg.log.info("Joystick control turned off")
             self.cnc.linearAxes.disable_joystick()
     
     def enable_x_motor(self):
@@ -990,24 +1011,24 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def setVelocities_(self, sender):
-        print "in setVelocities"
+        #print "in setVelocities"
         if sender == self.xVelocityField:
-            print "was x"
+            #print "was x"
             self.cnc.linearAxes.set_velocity(self.xVelocityField.floatValue(),'x')
         elif sender == self.yVelocityField:
-            print "was y"
+            #print "was y"
             self.cnc.linearAxes.set_velocity(self.yVelocityField.floatValue(),'y')
         elif sender == self.zVelocityField:
-            print "was z"
+            #print "was z"
             self.cnc.linearAxes.set_velocity(self.zVelocityField.floatValue(),'z')
         elif sender == self.wVelocityField:
-            print "was w"
+            #print "was w"
             self.cnc.headAxes.set_velocity(self.wVelocityField.floatValue(),'w')
         elif sender == self.bVelocityField:
-            print "was b"
+            #print "was b"
             self.cnc.headAxes.set_velocity(self.bVelocityField.floatValue(),'b')
         elif sender == self.depthVelocityField:
-            print "was depth"
+            #print "was depth"
             self.cnc.headAxes.set_velocity(self.depthVelocityField.floatValue(),'b')
         else:
             # update all with b having precedent
@@ -1073,8 +1094,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
             #print "skull coordinates updated"
             cfg.log.info('ML:%.3f AP:%.3f DV:%.3f' % (self.ocML, self.ocAP, self.ocDV))
         
-        print "getting head positions",
-        s = time.time()
+        #print "getting head positions",
+        #s = time.time()
         #print dir(self.cnc)
         h = self.cnc.headAxes.get_position()
         self._.ocAngle = float(h['b'])
@@ -1084,10 +1105,10 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #self._.ocAngle = float(self.cnc.headAxes.get_position('b')['b'])
         ## TODO this should be (target - w) not just w
         #self._.ocDepth = float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
-        print time.time() - s
+        #print time.time() - s
         
-        print "getting linear positions",
-        s = time.time()
+        #print "getting linear positions",
+        #s = time.time()
         l = self.cnc.linearAxes.get_position()
         self._.ocX = float(l['x'])
         self._.ocY = float(l['y'])
@@ -1097,11 +1118,11 @@ class OCController (NSObject, electrodeController.controller.Controller):
         #self._.ocZ = float(self.cnc.linearAxes.get_position('z')['z'])
         #self._.ocB = float(self.cnc.headAxes.get_position('b')['b'])
         #self._.ocW = float(self.cnc.headAxes.get_position('w')['w'])#FIXME w axis flip
-        print time.time() - s
+        #print time.time() - s
         
         # if the path of the electrode has been fit...
         if self.cnc.pathParams != None:
-            print "== pathParams =="
+            cfg.log.info("== pathParams ==")
             spp = time.time()
             # use self.ocW to calculate the position in the camera frame and then map that to skull coordinates
             #print "trying to update mesh views pathParams"
@@ -1109,7 +1130,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             #s = time.time()
             tipPosition[:3] = self.cnc.calculate_tip_position(self.ocW)
             if self.ocNPathPoints == 0:
-                print self.pathOrigin
+                cfg.log.info(str(self.pathOrigin))
                 o = numpy.ones(4,dtype=numpy.float64)
                 o[0] = self.pathOrigin[0]
                 o[1] = self.pathOrigin[1]
@@ -1230,12 +1251,12 @@ class OCController (NSObject, electrodeController.controller.Controller):
             newZLength = numpy.linalg.norm(newZ)
             dY = numpy.arccos(newZ[2] / zxLength)
             dX = -numpy.arccos(zxLength / newZLength)
-            print "dX:", numpy.degrees(dX), "dY:", numpy.degrees(dY), "in skull frame"
+            #print "dX:", numpy.degrees(dX), "dY:", numpy.degrees(dY), "in skull frame"
             # print out the decomposed frames
             for src, dest in zip(['skull','tricorner'],['tricorner','camera']):
                 t,r = vector.decompose_matrix(self.fManager.get_transformation_matrix(src,dest))
                 r = numpy.degrees(r)
-                print "%s -> %s: t = %.2f %.2f %.2f, r = %.2f %.2f %.2f" % (src, dest, t[0],t[1],t[2],r[0],r[1],r[2])
+                cfg.log.info("%s -> %s: t = %.2f %.2f %.2f, r = %.2f %.2f %.2f" % (src, dest, t[0],t[1],t[2],r[0],r[1],r[2]))
             self.meshView.electrodeMatrix = numpy.matrix(vector.transform_to_matrix(skullCoord[0], skullCoord[1], skullCoord[2], dX, dY, 0.))
             #print self.meshView.electrodeMatrix
             self.meshView.drawElectrode = True
@@ -1254,14 +1275,14 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 #print "filling conduit", e - s
             
             self.meshView.scheduleRedisplay()
-            s = time.time() # this is the time consuming part ~140 of th 150 ms
+            #s = time.time() # this is the time consuming part ~140 of th 150 ms
             #self.atlasView.update_electrode()
             self.atlasView.scheduleRedisplay()
-            e = time.time()
-            print "atlasView update:", e - s
+            #e = time.time()
+            #print "atlasView update:", e - s
             
             cfg.log.info('ML:%.3f AP:%.3f DV:%.3f' % (self.ocML, self.ocAP, self.ocDV))
-            print "--pathParams:", time.time() - spp
+            #print "--pathParams:", time.time() - spp
             if self.pathPointsInCam != None:
                 # convert points to skull
                 if self.fManager.test_route("camera","skull"):
@@ -1337,7 +1358,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
     def toggleStreaming_(self, sender):
         if cfg.fakeCameras: return
         if self.cameras.leftCamera.streaming or self.cameras.rightCamera.streaming:
-            print "stopping streaming"
+            #print "stopping streaming"
             self.stop_streaming()
             #sender.setTitle_('Stream')
             #if self.streamTimer != None:
@@ -1346,7 +1367,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
             #self.cameras.leftCamera.stop_streaming()
             #self.cameras.rightCamera.stop_streaming()
         else:
-            print "starting streaming"
+            #print "starting streaming"
             self.start_streaming()
             #sender.setTitle_('Stop')
             #self.cameras.leftCamera.start_streaming()
@@ -1410,7 +1431,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         located = self.cameras.get_located()
         if all(located):
-            print "Cameras located"
+            cfg.log.info("Cameras located")
             cfg.cameraLog.info('Cameras Located Successfully')
             cfg.cameraLog.info('\tID\t\t\tX\tY\tZ')
             
@@ -1422,5 +1443,5 @@ class OCController (NSObject, electrodeController.controller.Controller):
             # TODO try to find cam-to-tc frame
             #cfg.leftTCRegSeedPts, cfg.rightTCRegSeedPts
         else:
-            print "Cameras NOT located"
+            cfg.log.warning("Cameras NOT located")
             cfg.cameraLog.info('Camera Localization Failed')
