@@ -2,6 +2,25 @@
 
 import logging, os
 
+# homing procedure
+# home modes should be
+# OM3 for all linear axes
+# OM3 for w-axis
+# be sure that all cables are free from obstruction
+# be sure the tip will not contact anything
+# homing velocities should be (set on front panel):
+#  X : +1 mm/s
+#  Y : -1 mm/s
+#  Z : -1 mm/s
+# first, start homing and trigger switch by hand to verfiy that the axis stops
+# then home with front panel
+# reset all home velocities to 0 mm/s with front panel
+#
+# max travel (setup as of 2011-03-17)
+# X -352 mm
+# Y +105 mm
+# Z +77 mm
+
 # ----- CNC settings ------
 cncLinearAxesIP = "169.254.0.9"
 cncLinearAxesPort = 8003
@@ -86,7 +105,7 @@ xAxisConfig="""QM3
     TJ1
     OH0.0
     OL0.0
-    OM2
+    OM3
     JH6.35
     JW3.175
     VU6.35
@@ -116,7 +135,7 @@ yAxisConfig="""QM3
     TJ1
     OH0.0
     OL0.0
-    OM2
+    OM3
     JH6.35
     JW3.175
     VU6.35
@@ -146,7 +165,7 @@ zAxisConfig="""QM3
     TJ1
     OH0.0
     OL0.0
-    OM2
+    OM3
     JH6.35
     JW3.175
     VU6.35
