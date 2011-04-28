@@ -54,6 +54,7 @@ xNegLimit = -12.70
 # JW: jog low speed
 # VU: max velocity
 # VA: actual velocity ????
+# VB: base velocity (to overcome static friction)
 # AU: max accel/decel
 # AC: accel
 # AG: decel
@@ -188,6 +189,9 @@ bInc = 1.0
 # -- W --
 wInc = 0.5
 wDirection = 1.0 # for flipping the w-axis
+# Thorlabs stage specs:
+# 0.05 um minimal achievable incremental motion
+# 0.8 um minimal repeatable incremental motion
 wAxisConfig = """QM1
 	SN2
 	SU0.000029
