@@ -1,0 +1,38 @@
+::Nodes/commands/etc exposed::
+"/tmp/zmq/cnc/<x,y,z,b,w,all>"
+
+command structure : <command> <argument>
+if argument == ? : poll status
+node : command : result
+[x y z b w] : "p" : position
+[x y z b w] : "m" : move (relative)/poll if moving
+[x y z b w] : "s" : motor status
+[x y z b w] : "v" : velocity
+[x y z b w] : "e" : e-stop (stop axis)
+[all]       : "j" : joystick
+[all]       : "r" : point rotation
+[all]       : "t" : tip position
+
+
+--Bare minimum required--
+  axis positions
+  moving?
+  move relative
+  set velocity
+  enable/disable motion
+  stop motion
+  enable/disable joystick
+  point rotation
+  calculate tip position
+  
+===================================
+movement can be performed all within the module?
+-- This prevents things like the frame manager from issuing commands in skull coordinates
+
+configuration can be all within the module?
+-- seems sensible although the joystick might be useful (not so much any more?)
+
+path measurement needs axis position status
+
+This seems like I'm taking a complicated thing (newport serial protocol), simplifying it (python class), then complicating it again (zeromq).
+Is there a simpler solution?
