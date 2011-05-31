@@ -14,7 +14,8 @@ update_period = 0.1
 
 class ZMQCNC(FiveAxisCNC, ZMQObject):
     def zmq_setup(self, address, context=None):
-        context = zmq.Context()
+        if context is None:
+            context = zmq.Context()
         ZMQObject.zmq_setup(self, '/'.join((address,'cmd')), context) # setup command socket
         
         # setup position publishers
