@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 cfgDict = { 'arm_length' : 212.331,
-            'fake' : True,
+            'fake' : False,
             'linear_ip' : "169.254.0.9",
             'linear_port' : 8003,
             'linear_axes' : {'x':1, 'y':2, 'z':3},

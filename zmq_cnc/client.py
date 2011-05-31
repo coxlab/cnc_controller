@@ -10,9 +10,9 @@ from zmqobject import ZMQClient
 
 # address = "tcp://127.0.0.1:7200"
 address = "ipc:///tmp/cnc"
-commands = [[ 'linearAxes.get_position', ['x'],{} ],
-            [ 'linearAxes.move_relative', [0.1,'x'], {} ],
-            [ 'linearAxes.get_position', ['x'],{} ]]
+commands = [[ 'linearAxes.get_position', ['y'],{} ],
+            [ 'linearAxes.move_relative', [-19.0,'y'], {} ],
+            [ 'linearAxes.get_position', ['y'],{} ]]
 
 axes = ['x','y','z','w','b']
 context = zmq.Context()
