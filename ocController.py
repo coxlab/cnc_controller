@@ -1269,7 +1269,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 # send: origin_x/y/z slope_x/y/z depth (all in skull coordinates)
                 # p1InS, mInS? depth
                 payload = (p1InS[0], p1InS[1], p1InS[2], mInS[0], mInS[1], mInS[2], self.ocW)
-                cfg.info("Sending data on mw conduit: %s" % str(payload))
+                cfg.log.info("Sending data on mw conduit: %s" % str(payload))
                 self.mwConduit.send_data(PATH_INFO, (p1InS[0], p1InS[1], p1InS[2], mInS[0], mInS[1], mInS[2], self.ocW))
                 #e = time.time()
                 #print "filling conduit", e - s
