@@ -342,6 +342,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
     
     @IBAction
     def findTipLoop_(self, sender):
+        cfg.log.warning("findTipLoop was disabled")
+        return
         if self.cameras.leftCamera.streaming or self.cameras.rightCamera.streaming:
             self.stop_streaming()
         # withdraw probe
