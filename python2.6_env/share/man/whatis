@@ -1,8 +1,0 @@
-ipcluster(1)             - IPython parallel computing cluster control tool
-ipcontroller(1)          - IPython parallel computing controller control tool
-ipengine(1)              - IPython parallel computing engine control tool
-ipython(1)               - An Enhanced Interactive Python
-ipython-wx(1)            - Graphical frontend that embeds a multithreaded IPython Shell
-ipythonx(1)              - Simple graphical frontend to IPython, using WxWidgets
-irunner(1)               - interactive runner interface
-pycolor(1)               - Colorize a python file or stdin using ANSI and print to stdout
