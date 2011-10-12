@@ -650,7 +650,19 @@ class OCController (NSObject, electrodeController.controller.Controller):
         
         self.mainWindow.setAlphaValue_(1.0)
         self.mainWindow.setTitle_(animalCfg)
+        self.show_reg_points()
         self.updateFramesDisplay_(sender)
+    
+    def show_reg_points(self):
+        if not (self.tcRegPointsInCam is None):
+            if self.fManager.test_route("camera","skull"):
+                ptsInSkull = []
+                for p in self.tcRegPointsInCam:
+                    camCoord = numpy.ones(4,dtype=numpy.float64)
+                    camCoord[:3] = [p[0], p[1], p[2]]
+                    skullCoord = self.fManager.transform_point(camCoord, "camera", "skull")[0]
+                    ptsInSkull.append([skullCoord[0], skullCoord[1], skullCoord[2]])
+                self.meshView.points = ptsInSkull
     
     @IBAction
     def registerCameras_(self, sender):

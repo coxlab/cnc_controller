@@ -52,6 +52,7 @@ class Controller:
         # create frame manager
         self.fManager = frameManager.FrameManager(['skull', 'tricorner', 'camera', 'cnc'])
         # TODO load tc to camera matrix
+        self.tcRegPointsInCam = None
         
         # construct cnc
         self.cnc = cnc.cnc.FiveAxisCNC()
@@ -150,6 +151,7 @@ class Controller:
                 ptsInCam.append([xyz[0],xyz[1],xyz[2],1.])
             self.register_cameras(numpy.array(ptsInCam))
             #self.tcRegPoints = ptsInCam
+            self.tcRegPointsInCam = numpy.array(ptsInCam)
             
             # test route
             if self.fManager.test_route("camera","skull"):
