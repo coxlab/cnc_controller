@@ -27,14 +27,14 @@ try:
     sys.path.append("/Library/Application Support/MWorks/Scripting/Python")
     import mworks.conduit
     # mworks conduit: "cnc"
-    ORIGIN_X = 0
-    ORIGIN_Y = 1
-    ORIGIN_Z = 2
-    SLOPE_X = 3
-    SLOPE_Y = 4
-    SLOPE_Z = 5
-    DEPTH = 6
-    PATH_INFO = 7
+    #ORIGIN_X = 0
+    #ORIGIN_Y = 1
+    #ORIGIN_Z = 2
+    #SLOPE_X = 3
+    #SLOPE_Y = 4
+    #SLOPE_Z = 5
+    #DEPTH = 6
+    PATH_INFO = 100
     mwConduitAvailable = True
     print "Found mwconduit module"
 except Exception, e:
@@ -1145,18 +1145,28 @@ class OCController (NSObject, electrodeController.controller.Controller):
             tipPosition[:3] = self.cnc.calculate_tip_position(self.ocW)
             if self.ocNPathPoints == 0:
                 cfg.log.info(str(self.pathOrigin))
-                o = numpy.ones(4,dtype=numpy.float64)
-                o[0] = self.pathOrigin[0]
-                o[1] = self.pathOrigin[1]
-                o[2] = self.pathOrigin[2]
-                n = numpy.ones(4,dtype=numpy.float64)
-                n[0] = self.ocX
-                n[1] = self.ocY
-                n[2] = self.ocZ
-                o = numpy.array(self.fManager.transform_point(o, "tricorner", "camera"))[0]
-                n = numpy.array(self.fManager.transform_point(n, "tricorner", "camera"))[0]
-                camDelta = n - o
-                camDelta[1] = -camDelta[1]
+                estDelta = numpy.ones(4,dtype=numpy.float64)
+                estDelta[0] = self.ocX - self.pathOrigin[0]
+                estDelta[1] = self.ocY - self.pathOrigin[1]
+                estDelta[2] = self.ocZ - self.pathOrigin[2]
+                
+                camDelta = numpy.ones(4,dtype=numpy.float64)
+                camDelta[0] = estDelta[0]
+                camDelta[1] = estDelta[2]
+                camDelta[2] = estDelta[1]
+                
+                #o = numpy.ones(4,dtype=numpy.float64)
+                #o[0] = self.pathOrigin[0]
+                #o[1] = self.pathOrigin[1]
+                #o[2] = self.pathOrigin[2]
+                #n = numpy.ones(4,dtype=numpy.float64)
+                #n[0] = self.ocX
+                #n[1] = self.ocY
+                #n[2] = self.ocZ
+                #o = numpy.array(self.fManager.transform_point(o, "tricorner", "camera"))[0]
+                #n = numpy.array(self.fManager.transform_point(n, "tricorner", "camera"))[0]
+                #camDelta = n - o
+                #camDelta[1] = -camDelta[1]
                 
                 #cncDelta = numpy.ones(4,dtype=numpy.float64)
                 #cncDelta[0] = self.ocX - self.pathOrigin[0]
