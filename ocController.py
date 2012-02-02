@@ -23,22 +23,19 @@ import logging
 
 mwConduitAvailable = False
 
-try:
-    sys.path.append("/Library/Application Support/MWorks/Scripting/Python")
-    import mworks.conduit
-    # mworks conduit: "cnc"
-    #ORIGIN_X = 0
-    #ORIGIN_Y = 1
-    #ORIGIN_Z = 2
-    #SLOPE_X = 3
-    #SLOPE_Y = 4
-    #SLOPE_Z = 5
-    #DEPTH = 6
-    PATH_INFO = 100
-    mwConduitAvailable = True
-    print "Found mwconduit module"
-except Exception, e:
-    print "Unable to load MW Conduit: %s", e
+sys.path.append("/Library/Application Support/MWorks/Scripting/Python")
+import mworks.conduit
+# mworks conduit: "cnc"
+#ORIGIN_X = 0
+#ORIGIN_Y = 1
+#ORIGIN_Z = 2
+#SLOPE_X = 3
+#SLOPE_Y = 4
+#SLOPE_Z = 5
+#DEPTH = 6
+PATH_INFO = 100
+mwConduitAvailable = True
+print "Found mwconduit module"
 
 # TODO when linear axes are moved, invalidate camera to cnc transform
 
@@ -125,7 +122,17 @@ class OCController (NSObject, electrodeController.controller.Controller):
     ocConsole = objc.IBOutlet()
     
     timer = None
-    
+   
+    def send_on_conduit(self, data):
+        if self.mwConduit is None:
+            self.mwConduit = mworks.conduit.IPCServerConduit("cnc")
+            self.mwConduit.initialize()
+
+        if self.mwConduit is None:
+            cfg.log.error("Unable to connect conduit")
+        else:
+            self.mwConduit.send_data(PATH_INFO, data)
+
     def awakeFromNib(self):
         
         # setup hook for in window console logging
@@ -146,16 +153,17 @@ class OCController (NSObject, electrodeController.controller.Controller):
         electrodeController.controller.Controller.__init__(self)
         
         self.mwConduit =  None
+        self.send_on_conduit((-1000,-1000,-1000,-1000,-1000,-1000,-1000))
         # configure mw_conduit
-        if mwConduitAvailable:
-            self.mwConduit = mworks.conduit.IPCServerConduit("cnc")
-            print "Constructed conduit: %s" % str(self.mwConduit)
+        #if mwConduitAvailable:
+        #    self.mwConduit = mworks.conduit.IPCServerConduit("cnc")
+        #    print "Constructed conduit: %s" % str(self.mwConduit)
         
-        if self.mwConduit != None:
-            self.mwConduit.initialize()
-            self.mwConduit.send_data(PATH_INFO, (-1000, -1000, -1000, -1000, -1000, -1000, -1000))
-        else:
-            print "Error conduit still None"
+        #if self.mwConduit != None:
+        #    self.mwConduit.initialize()
+        #    self.mwConduit.send_data(PATH_INFO, (-1000, -1000, -1000, -1000, -1000, -1000, -1000))
+        #else:
+        #    print "Error conduit still None"
         
         NSApp().setDelegate_(self)
         self.timer = None
@@ -285,6 +293,7 @@ class OCController (NSObject, electrodeController.controller.Controller):
         self.stop_update_timer()
         
         self.mwConduit.finalize()
+        self.mwConduit = None
         print "applicationWillTerminate done"
         
     
@@ -1294,7 +1303,8 @@ class OCController (NSObject, electrodeController.controller.Controller):
                 # p1InS, mInS? depth
                 payload = (p1InS[0], p1InS[1], p1InS[2], mInS[0], mInS[1], mInS[2], self.ocW)
                 cfg.log.info("Sending data on mw conduit: %s" % str(payload))
-                self.mwConduit.send_data(PATH_INFO, (p1InS[0], p1InS[1], p1InS[2], mInS[0], mInS[1], mInS[2], self.ocW))
+                #self.mwConduit.send_data(PATH_INFO, (p1InS[0], p1InS[1], p1InS[2], mInS[0], mInS[1], mInS[2], self.ocW))
+                self.send_on_conduit((p1InS[0], p1InS[1], p1InS[2], mInS[0], mInS[1], mInS[2], self.ocW))
                 #e = time.time()
                 #print "filling conduit", e - s
             
