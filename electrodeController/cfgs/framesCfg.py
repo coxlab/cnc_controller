@@ -5,15 +5,21 @@ import logging, os
 import numpy
 
 # on seat, seen from camera
-tcRegPoints = numpy.array([[-6.5,3.0,0.0,1.],
-                            [0.,0.0,0.0,1.],
-                            [6.5,3.0,0.0,1.]])
+# tcRegPoints = numpy.array([[-6.5,3.0,0.0,1.],
+#                             [0.,0.0,0.0,1.],
+#                             [6.5,3.0,0.0,1.]])
 
 #tcRegPoints = []
 #for x in xrange(9):
 #    for y in xrange(5):
 #        tcRegPoints.append([x,y,0,1.])
 #tcRegPoints = numpy.array(tcRegPoints)
+tcRegPoints = []
+for y in xrange(5):
+    for x in xrange(9):
+       tcRegPoints.append([x,y,0,1.])
+tcRegPoints = numpy.array(tcRegPoints)
+
 
 leftTCRegSeedPoints = [[643.27451781, 522.57654614],
                         [771.47429952, 536.68860298],
