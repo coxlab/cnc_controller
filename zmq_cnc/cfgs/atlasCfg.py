@@ -2,13 +2,14 @@
 
 import os
 
-atlasImagesDir = '/Users/%s/Repositories/coxlab/cncController/media/atlasImages/eps/' % os.getlogin()
+atlasImagesDir = '/Users/%s/Repositories/coxlab/cncController/'\
+        'media/atlasImages/eps/' % os.getlogin()
 #defaultAtlasImage = '071.eps'
 defaultAtlasImage = 71
 
-atlasSliceThickness = 0.12 # works for all except 0.08 0.16 and 0.2
+atlasSliceThickness = 0.12  # works for all except 0.08 0.16 and 0.2
 
-atlasSliceLocations = {   70: -4.36,
+atlasSliceLocations = {70: -4.36,
     71: -4.56,
     72: -4.68,
     73: -4.80,

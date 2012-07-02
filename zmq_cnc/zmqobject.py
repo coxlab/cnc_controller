@@ -4,15 +4,21 @@ import logging
 
 import zmq
 
+
 def process_error(code, cmd, args, kwargs):
     if code == -1:
-        raise AttributeError, "[%i]\t%s does not exist: %s, %s" % (code, cmd, str(args), str(kwargs))
+        raise AttributeError("[%i]\t%s does not exist: %s, %s" % \
+                (code, cmd, str(args), str(kwargs)))
     elif code == -2:
-        raise Exception, "[%i]\tUnknown error: %s, %s, %s" % (code, cmd, str(args), str(kwargs))
+        raise Exception("[%i]\tUnknown error: %s, %s, %s" % \
+                (code, cmd, str(args), str(kwargs)))
     elif code == -10:
-        raise Exception, "[%i]\tUnknown exception: %s, %s, %s" % (code, cmd, str(args), str(kwargs))
+        raise Exception("[%i]\tUnknown exception: %s, %s, %s" % \
+                (code, cmd, str(args), str(kwargs)))
     else:
-        raise Exception, "[%i]\tUnknown code: %s, %s, %s" % (code, cmd, str(args), str(kwargs))
+        raise Exception("[%i]\tUnknown code: %s, %s, %s" % \
+                (code, cmd, str(args), str(kwargs)))
+
 
 class ZMQClient:
     def __init__(self, address, context=None):
@@ -20,13 +26,14 @@ class ZMQClient:
             context = zmq.Context()
         self.socket = context.socket(zmq.REQ)
         self.socket.connect(address)
-    
+
     def call(self, cmd, *args, **kwargs):
         self.socket.send_pyobj([cmd, args, kwargs])
         result = self.socket.recv_pyobj()
         if result[0] != 0:
             process_error(result[0], cmd, args, kwargs)
         return result[1]
+
 
 def get_func(obj, cmd):
     """
@@ -44,6 +51,7 @@ def get_func(obj, cmd):
     else:
         return getattr(obj, cmd)
 
+
 class ZMQObject:
     def zmq_setup(self, address, context=None):
         """
@@ -52,9 +60,10 @@ class ZMQObject:
         """
         if context is None:
             context = zmq.Context()
-        
+
         self.zmq_socket = context.socket(zmq.REP)
         self.zmq_socket.bind(address)
+
     def zmq_update(self, blocking=True):
         """
         Receive a command from a client in the form of:
@@ -97,37 +106,40 @@ class ZMQObject:
             logging.warning("\t%s" % str(args))
             logging.warning("\t%s" % str(kwargs))
             err = -10
-        
+
         logging.debug("Result(%i): %s" % (err, str(result)))
-        self.zmq_socket.send_pyobj((err,result))
+        self.zmq_socket.send_pyobj((err, result))
 
 if __name__ == '__main__':
     import time
     address = "tcp://127.0.0.1:7200"
     logging.basicConfig(level=logging.DEBUG)
-    
+
     class Sub:
         def foo(self):
             return "sub foo"
-    
+
     class Foo(ZMQObject):
         def __init__(self):
             self.sub = Sub()
+
         def foo(self):
             return "foo"
+
         def bar(self, *args):
             print "bar called with", args
             return args
+
         def baz(self, *args, **kwargs):
             print "baz called with", args
             return args[0]
-    
+
     f = Foo()
     f.zmq_setup(address)
     print "Creating..."
-    
+
     print "Looping..."
     while True:
         f.zmq_update(False)
         time.sleep(0.1)
-    
+

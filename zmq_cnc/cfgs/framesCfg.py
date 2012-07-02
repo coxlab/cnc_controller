@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
-import logging, os
+import logging
+import os
 
 import numpy
 
 # on seat, seen from camera
-tcRegPoints = numpy.array([[-6.5,3.0,0.0,1.],
-                            [0.,0.0,0.0,1.],
-                            [6.5,3.0,0.0,1.]])
+tcRegPoints = numpy.array([[-6.5, 3.0, 0.0, 1.],
+                            [0., 0.0, 0.0, 1.],
+                            [6.5, 3.0, 0.0, 1.]])
 
 leftTCRegSeedPoints = [[643.27451781, 522.57654614],
                         [771.47429952, 536.68860298],

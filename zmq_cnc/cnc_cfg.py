@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
-cfgDict = { 'arm_length' : 212.331,
-            'fake' : False,
-            'linear_ip' : "169.254.0.9",
-            'linear_port' : 8003,
-            'linear_axes' : {'x':1, 'y':2, 'z':3},
-            'head_ip' : "169.254.0.9",
-            'head_port' : 8004,
-            'head_axes' : {'b':1, 'w':2},
-            'serial_timeout' : 4.0,
-            'x_cfg' : """QM3
+cfgDict = {'arm_length': 212.331,
+            'fake': False,
+            'linear_ip': "169.254.0.9",
+            'linear_port': 8003,
+            'linear_axes': {'x': 1, 'y': 2, 'z': 3},
+            'head_ip': "169.254.0.9",
+            'head_port': 8004,
+            'head_axes': {'b': 1, 'w': 2},
+            'serial_timeout': 4.0,
+            'x_cfg': """QM3
                 QI2.0
                 QV30.0
                 SN2
@@ -34,7 +34,7 @@ cfgDict = { 'arm_length' : 212.331,
                 ZH24H
                 ZS2H
                 QD""",
-            'y_cfg' : """QM3
+            'y_cfg': """QM3
                 QI2.0
                 QV30.0
                 SN2
@@ -59,7 +59,7 @@ cfgDict = { 'arm_length' : 212.331,
                 ZH24H
                 ZS2H
                 QD""",
-            'z_cfg' : """QM3
+            'z_cfg': """QM3
                 QI2.0
                 QV30.0
                 SN2
@@ -84,7 +84,7 @@ cfgDict = { 'arm_length' : 212.331,
                 ZH24H
                 ZS2H
                 QD""",
-            'w_cfg' : """QM1
+            'w_cfg': """QM1
                 SN2
                 SU0.000029
                 FR1.000000

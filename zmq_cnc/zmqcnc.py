@@ -12,12 +12,14 @@ from cnc_cfg import cfgDict
 address = "ipc:///tmp/cnc"
 update_period = 0.1
 
+
 class ZMQCNC(FiveAxisCNC, ZMQObject):
     def zmq_setup(self, address, context=None):
         if context is None:
             context = zmq.Context()
-        ZMQObject.zmq_setup(self, '/'.join((address,'cmd')), context) # setup command socket
-        
+        # setup command socket
+        ZMQObject.zmq_setup(self, '/'.join((address, 'cmd')), context)
+
         # setup position publishers
         self.pos_socket = context.socket(zmq.PUB)
         self.pos_socket.bind('/'.join((address, 'pos')))
@@ -26,14 +28,14 @@ class ZMQCNC(FiveAxisCNC, ZMQObject):
         #     self.pos_sockets[a] = context.socket(zmq.PUB)
         #     print '/'.join((address, a))
         #     self.pos_sockets[a].bind('/'.join((address, a)))
-        
+
     def update_positions(self):
         # get current positions from cnc
         pos = self.headAxes.get_position()
         pos.update(self.linearAxes.get_position())
-        
+
         self.pos_socket.send_pyobj(pos)
-        
+
         # # publish new data on zeromq sockets
         # for axis, socket in self.pos_sockets.iteritems():
         #     # print "sending", pos[axis]

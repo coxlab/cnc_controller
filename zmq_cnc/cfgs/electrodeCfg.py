@@ -4,14 +4,17 @@ import os
 
 import numpy
 
-electrodeMesh = "/Users/%s/Repositories/coxlab/cncController/media/a_10.obj" % os.getlogin()
+electrodeMesh = "/Users/%s/Repositories/coxlab/cncController/' \
+        'media/a_10.obj" % os.getlogin()
 electrodeTexture = None
-electrodePadSpacing = 0.100 # mm
-electrodeFirstPad = 0.050 # mm from tip to first pad
-electrodeRefSpacing = 0.5 # mm from last pad to reference
+electrodePadSpacing = 0.100  # mm
+electrodeFirstPad = 0.050  # mm from tip to first pad
+electrodeRefSpacing = 0.5  # mm from last pad to reference
 
-electrodePadOffsets = -1.*(numpy.arange(32)*electrodePadSpacing + electrodeFirstPad)
-electrodeRefOffset = -1.*(electrodeFirstPad + electrodePadSpacing*31 + electrodeRefSpacing)
+electrodePadOffsets = -1. * (numpy.arange(32) * electrodePadSpacing \
+        + electrodeFirstPad)
+electrodeRefOffset = -1. * (electrodeFirstPad + electrodePadSpacing * 31 \
+        + electrodeRefSpacing)
 
 ## positions relative to the tip
 #electrodePadPositions = []
@@ -26,4 +29,5 @@ electrodeRefOffset = -1.*(electrodeFirstPad + electrodePadSpacing*31 + electrode
 
 #electrodePadPositions = numpy.array(electrodePadPositions)
 
-#electrodeRefPosition = numpy.array([0., 0., -(electrodeFirstPad + electrodePadSpacing*31 + electrodeRefSpacing), 1.])
+#electrodeRefPosition = numpy.array([0., 0., -(electrodeFirstPad + \
+#        electrodePadSpacing*31 + electrodeRefSpacing), 1.])

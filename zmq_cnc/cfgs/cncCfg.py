@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-import logging, os
+import logging
+import os
 
 # homing procedure
 # home modes should be
@@ -24,16 +25,16 @@ import logging, os
 # ----- CNC settings ------
 cncLinearAxesIP = "169.254.0.9"
 cncLinearAxesPort = 8003
-cncLinearAxes = {'x':1, 'y':2, 'z':3}
+cncLinearAxes = {'x': 1, 'y': 2, 'z': 3}
 cncHeadAxesIP = "169.254.0.9"
 cncHeadAxesPort = 8004
-cncHeadAxes = {'b':1, 'w':2}
+cncHeadAxes = {'b': 1, 'w': 2}
 
 serialConnectionTimeout = 4.0
 
 cncArmLength = 212.331
 
-cncRegDeltaAngle = 2.0 # in degrees
+cncRegDeltaAngle = 2.0  # in degrees
 
 # -- X --
 xInc = 1.27
@@ -97,7 +98,7 @@ xNegLimit = -12.70
 #  2 (1) : abort motion on sw limit
 #  3 (0) : reserved
 # QD: update motor settings
-xAxisConfig="""QM3
+xAxisConfig = """QM3
     QI2.0
     QV30.0
     SN2
@@ -127,7 +128,7 @@ xAxisConfig="""QM3
 yInc = 1.27
 yPosLimit = 12.70
 yNegLimit = -12.70
-yAxisConfig="""QM3
+yAxisConfig = """QM3
     QI2.0
     QV30.0
     SN2
@@ -157,7 +158,7 @@ yAxisConfig="""QM3
 zInc = 1.27
 zPosLimit = 12.70
 zNegLimit = -12.70
-zAxisConfig="""QM3
+zAxisConfig = """QM3
     QI2.0
     QV30.0
     SN2
@@ -188,57 +189,57 @@ bInc = 1.0
 
 # -- W --
 wInc = 0.5
-wDirection = 1.0 # for flipping the w-axis
+wDirection = 1.0  # for flipping the w-axis
 # Thorlabs stage specs:
 # 0.05 um minimal achievable incremental motion
 # 0.8 um minimal repeatable incremental motion
 wAxisConfig = """QM1
-	SN2
-	SU0.000029
-	FR1.000000
-	QS10
-	QV12.0
-	QI0.500
-	QG14.0000
-	QT0.00
-	SL-50.00000
-	SR0.00000
-	TJ1
-	OM3
-	VU1.00000
-	VA0.500000
-	JH0.060000
-	JW0.010000
-	OH0.500000
-	VB0.000000
-	AU2.00000
-	AC0.5000
-	AG0.5000
-	AE1000000
-	JK0.1000
-	KP600.000
-	KI0.00
-	KD600.0000
-	VF75.0000
-	AF0.000000
-	KS300.0
-	FE1.00000
-	DB0
-	CL1
-	QR1000, 50.0000
-	SS2
-	GR1.000000
-	SI10
-	SK0.000000, 0.000000
-	BA0.00000
-	CO0.000000
-	TA0
-	CA100
-	FQ50
-	ZA327H
-	ZB307H
-	ZE7H
-	ZF7H
-	ZH7H
-	ZS6H
-	QD"""
+    SN2
+    SU0.000029
+    FR1.000000
+    QS10
+    QV12.0
+    QI0.500
+    QG14.0000
+    QT0.00
+    SL-50.00000
+    SR0.00000
+    TJ1
+    OM3
+    VU1.00000
+    VA0.500000
+    JH0.060000
+    JW0.010000
+    OH0.500000
+    VB0.000000
+    AU2.00000
+    AC0.5000
+    AG0.5000
+    AE1000000
+    JK0.1000
+    KP600.000
+    KI0.00
+    KD600.0000
+    VF75.0000
+    AF0.000000
+    KS300.0
+    FE1.00000
+    DB0
+    CL1
+    QR1000, 50.0000
+    SS2
+    GR1.000000
+    SI10
+    SK0.000000, 0.000000
+    BA0.00000
+    CO0.000000
+    TA0
+    CA100
+    FQ50
+    ZA327H
+    ZB307H
+    ZE7H
+    ZF7H
+    ZH7H
+    ZS6H
+    QD"""
