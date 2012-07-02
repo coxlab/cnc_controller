@@ -4,17 +4,19 @@ import pydc1394
 
 import camera
 
-# clean up the iso bus in case the previous time this program was open it crashed
+# clean up the iso bus in case the previous time this
+# program was open it crashed
 l = pydc1394.DC1394Library()
 cids = l.enumerate_cameras()
-cams = [pydc1394.Camera(l,cid['guid']) for cid in cids]
+cams = [pydc1394.Camera(l, cid['guid']) for cid in cids]
 [cam.close() for cam in cams]
 del cams
 l.close()
-del l 
+del l
 
 global dc1394
 dc1394 = pydc1394.DC1394Library()
+
 
 def close_dc1394():
     global dc1394
@@ -30,19 +32,19 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
         if camID == None:
             cams = dc1394.enumerate_cameras()
             if len(cams) < 1:
-                raise IOError, "No Camera Found"
+                raise IOError("No Camera Found")
             camID = cams[0]['guid']
         camera.Camera.__init__(self, camID)
         pydc1394.Camera.__init__(self, dc1394, camID)
         self.set_mode()
         self.configure()
         self.connected = True
-        self.frameID = 0 # maybe move this to camera superclass
-    
+        self.frameID = 0  # maybe move this to camera superclass
+
     def set_mode(self):
         self.mode = [m for m in self.modes if m.name == 'FORMAT7_0'][0]
         #self.configure()
-    
+
     def configure(self):
         self.trigger.on = False
         self.exposure.on = True
@@ -58,11 +60,12 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
         #d = NP*8
         #ps = (1392 * 1040 * 8 + d - 1)/d
         #ps = min((ps + ps % u, s))/2
-        #print "Calculated Packet Size %i, N Packets %i, for fps %.3f" % (ps, NP, fps)
+        #print "Calculated Packet Size %i, N Packets %i, \
+        #        for fps %.3f" % (ps, NP, fps)
         print "Recommended Packet Size %i" % self.mode.recommended_packet_size
         ps = int(self.mode.recommended_packet_size * .4)
         ps = ps - ps % u
-        self.mode.roi = ((1392, 1040), (0,0), 'Y8', ps)
+        self.mode.roi = ((1392, 1040), (0, 0), 'Y8', ps)
         self.print_features()
         # self.framerate.mode = 'manual'
         # self.framerate.val = 0.5#1.0
@@ -70,7 +73,7 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
         # self.exposure.val = 1.#1.
         # self.shutter.mode = 'manual'
         # self.shutter.val = 1000#533
-    
+
     def print_features(self):
         for feature in self.features:
             f = self.__getattribute__(feature)
@@ -83,26 +86,26 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
             if feature != 'trigger':
                 print " Range:", f.range
             print
-    
+
     def connect(self):
         if self.connected:
             return True
-    
+
     def disconnect(self):
         if self.connected == True:
             if self.streaming == True:
                 self.stop_streaming()
             self.close()
             self.connected = False
-    
+
     def start_streaming(self, interactive=True):
         self.start(interactive=interactive)
         self.streaming = True
-    
+
     def stop_streaming(self):
         self.stop()
         self.streaming = False
-    
+
     def poll_stream(self):
         if self.streaming == False:
             #print "not streaming exitting"
@@ -121,7 +124,7 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
             #print "no good frame found"
             self._new_image.release()
             return None
-    
+
     def set_shutter(self, value):
         if value == self.shutter.val:
             # no need to change the values that already agree
@@ -136,19 +139,20 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
         #d = NP*8
         #ps = (1392 * 1040 * 8 + d - 1)/d
         #ps = min((ps + ps % u, s))/2
-        #print "Calculated Packet Size %i, N Packets %i, for fps %.3f" % (ps, NP, fps)
+        #print "Calculated Packet Size %i, N Packets %i, \
+        #        for fps %.3f" % (ps, NP, fps)
         print "Recommended Packet Size %i" % self.mode.recommended_packet_size
         ps = int(self.mode.recommended_packet_size * .4)
         ps = ps - ps % u
         if self.streaming:
             self.stop_streaming()
-            self.mode.roi = ((1392, 1040), (0,0), 'Y8', ps)
+            self.mode.roi = ((1392, 1040), (0, 0), 'Y8', ps)
             self.start_streaming()
         else:
-            self.mode.roi = ((1392, 1040), (0,0), 'Y8', ps)
+            self.mode.roi = ((1392, 1040), (0, 0), 'Y8', ps)
         #self.print_features()
         return self.shutter.val
-    
+
     def capture_frame(self):
         if self.streaming == False:
             self.start_streaming(interactive=False)
@@ -177,21 +181,22 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
                 i = self._current_img
             self._new_image.release()
             return i
-        
-        # i'm not 100% sure that the settings have enought time to take effect with this,
-        # it might be better to pull apart the start/stop iso transmission and capture so
-        # that I start transmission, configure, allow time for settings to take effect and
+
+        # i'm not 100% sure that the settings have enought time
+        # to take effect with this, it might be better to pull apart
+        # the start/stop iso transmission and capture so that I start
+        # transmission, configure, allow time for settings to take effect and
         # then capture
         self.start()
         self.configure()
-        i = self.shot().reshape((1040,1392))#.reshape((1040,1392)).astype('uint8')
+        i = self.shot().reshape((1040, 1392))
         self.stop()
-        
+
         #print i.dtype
         if i.dtype != 'uint8':
-            i = (i * 2.**-8.).astype('uint8')
+            i = (i * 2. ** -8.).astype('uint8')
         #print i.dtype
-        
+
         #print "max,min:", i.max(), i.min()
         #pylab.ion()
         #pylab.figure()
@@ -203,5 +208,5 @@ class DC1394Camera(camera.Camera, pydc1394.Camera):
         #i = (i * 2.**-8.).astype('uint8')
         #pylab.subplot(133)
         #pylab.imshow(i[:100,:100])
-        
-        return i#(i * 2.**-8.).astype('uint8')
+
+        return i  # (i * 2.**-8.).astype('uint8')

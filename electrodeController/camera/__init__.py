@@ -3,7 +3,10 @@
 import logging
 log = logging.getLogger(__name__)
 
-import conversions, filecamera, stereocamera, stringcamera
+import conversions
+import filecamera
+import stereocamera
+import stringcamera
 __all__ = ['conversions', 'filecamera', 'stereocamera', 'stringcamera']
 
 # try to load dc1394camera
