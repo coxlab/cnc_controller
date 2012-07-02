@@ -130,11 +130,16 @@ def process(image, tl, br, d):
             skeletonize(binarize(denoise(cim))))
     txs = []
     tys = []
-    for si in xrange(len(sxs) / 2, len(sxs)):
+    half = int(numpy.floor(len(sxs) / 2.))
+    ex = numpy.mean(sxs[-half:])
+    ey = numpy.mean(sys[-half:])
+    for si in xrange(half):
+    #for si in xrange(len(sxs) / 2, len(sxs)):
         sx = sxs[si]
         sy = sys[si]
         # TODO don't use mid, just use the skeletonized points
-        tx, ty = find_tip(cim, sx, sy, mid, mid)
+        #tx, ty = find_tip(cim, sx, sy, mid, mid)
+        tx, ty = find_tip(cim, sx, sy, ex, ey)
         if (tx is not None) and (ty is not None):
             txs.append(tx + x - d)
             tys.append(ty + y - d)
