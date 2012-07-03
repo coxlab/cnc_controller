@@ -7,3 +7,6 @@ Rewrite of cnc controller to:
 * streamlined loading/configuration/logging
 * fault-tolerant conduit/cnc/cameras/io
 * seperate head/client (zmq?)
+
+
+I want the UI to be seperate from the core and control as little as possible
