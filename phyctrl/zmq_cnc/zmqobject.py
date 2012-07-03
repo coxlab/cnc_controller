@@ -20,16 +20,17 @@ def process_error(code, cmd, args, kwargs):
                 (code, cmd, str(args), str(kwargs)))
 
 
-class ZMQClient:
-    def __init__(self, address, context=None):
+class ZMQClient(object):
+    def __init__(self, address, context=None, timeout=0.1):
         if context is None:
             context = zmq.Context()
-        self.socket = context.socket(zmq.REQ)
-        self.socket.connect(address)
+        self._socket = context.socket(zmq.REQ)
+        self._socket.connect(address)
+        self._timeout
 
-    def call(self, cmd, *args, **kwargs):
-        self.socket.send_pyobj([cmd, args, kwargs])
-        result = self.socket.recv_pyobj()
+    def __call__(self, cmd, *args, **kwargs):
+        self._socket.send_pyobj([cmd, args, kwargs])
+        result = self._socket.recv_pyobj()
         if result[0] != 0:
             process_error(result[0], cmd, args, kwargs)
         return result[1]
@@ -110,6 +111,7 @@ class ZMQObject:
         logging.debug("Result(%i): %s" % (err, str(result)))
         self.zmq_socket.send_pyobj((err, result))
 
+
 if __name__ == '__main__':
     import time
     address = "tcp://127.0.0.1:7200"
@@ -131,8 +133,8 @@ if __name__ == '__main__':
             return args
 
         def baz(self, *args, **kwargs):
-            print "baz called with", args
-            return args[0]
+            print "baz called with", args, kwargs
+            return (args, kwargs)
 
     f = Foo()
     f.zmq_setup(address)
@@ -142,4 +144,3 @@ if __name__ == '__main__':
     while True:
         f.zmq_update(False)
         time.sleep(0.1)
-

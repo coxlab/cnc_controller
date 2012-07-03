@@ -9,7 +9,8 @@ import cfg
 
 # !!!! 3 points on arc, to define plane of rotation and length of arm
 
-# manage a stack of coordinate frames with transformation matrices relating each level in the stack to the next
+# manage a stack of coordinate frames with transformation matrices
+# relating each level in the stack to the next
 
 # manage conversion from cnc(x,y,z,w,b) to skull(dv, ml, ap, angle) via:
 #   cnc (x,y,z,w,b)
@@ -20,8 +21,8 @@ import cfg
 # I need a calibration routine to measure the alignment of rotation (b) stage
 # with the cameras
 #  so I can
-# calculate all shaft locations within the cnc frame (assuming stage aligned) and then
-# perform the necessary coordinate transforms
+# calculate all shaft locations within the cnc frame (assuming stage aligned)
+# and then perform the necessary coordinate transforms
 # -= procedure
 #  1. measure cam -> tricorner matrix
 #  2. measure cnc tip in tricorner frame (point 1, in tc frame)
@@ -29,7 +30,8 @@ import cfg
 #  4. move b stage, measure tip (point 3, in tc frame)
 #  5. calculate rigid transform (cnc->tricorner)
 
-# I need to know the geometry of the probe & the arm (can I measure this? possibly not)
+# I need to know the geometry of the probe & the arm
+# (can I measure this? possibly not)
 # w (fine z) alters radius of probe arm rotation
 
 # so I need these functions
@@ -39,9 +41,11 @@ import cfg
 #       accepts:
 #           np1, np2, np3 (cnc coords)
 #           tp1, tp2, tp3 (tricorner coords, as seen from camera)
-#       see procedure above (brief: use w & b to get 3 points, calc rigid transform)
+#       see procedure above (brief: use w & b to get 3 points,
+#           calc rigid transform)
 #  -get_position_in_skull
-#       returns point at tip and top of shaft (possibly quaternion for rotation)
+#       returns point at tip and top of shaft
+#        (possibly quaternion for rotation)
 #  -calculate_camera_to_tc_matrix(cp1,cp2,cp3,tp1,tp2,tp3)
 #       accepts points as seen from camera, and known tricorner positions
 #       returns transformation matrix (cam-to-tc)
@@ -50,181 +54,62 @@ import cfg
 #    implementation
 # ====================
 
-# class Transform:
-#     def __init__(self, fromFrame, toFrame, tMatrix):
-#         self.fromFrame = fromFrame
-#         self.toFrame = toFrame
-#         self.tMatrix = tMatrix
-# 
-# class FrameManager:
-#     def __init__(self):
-#         self.transforms = []
-#     
-#     def get_transform_matrix(self, fromFrame, toFrame):
-#         # check if a single transform works
-#         t = self.get_single_transform(fromFrame, toFrame)
-#         if t != None:
-#             return t.tMatrix.copy()
-#         
-#         # if not, build the transform
-#         t = self.get_transform_from(fromFrame)
-#         if t == None:
-#             raise Exception('no route found')
-#         tMatrix = t.tMatrix.copy()
-#         currentFrame = t.toFrame
-#         
-#         while currentFrame != toFrame:
-#             t = self.get_next_transform(t)
-#             if t == None:
-#                 raise Exception('no route found')
-#             tMatrix = t.tMatrix * tMatrix
-#             currentFrame = t.toFrame
-#         return tMatrix
-#     
-#     def get_next_transform(self, transform):
-#         ret = None
-#         for t in self.transforms:
-#             if t.fromFrame == transform.toFrame and t.toFrame != transform.fromFrame:
-#                 if ret != None:
-#                     raise Exception('two possible routes')
-#                 else:
-#                     ret = t
-#         return ret
-#     
-#     def get_transform_from(self, fromFrame):
-#         ret = None
-#         for t in self.transforms:
-#             if t.fromFrame == fromFrame:
-#                 if ret != None:
-#                     raise Exception('two possible routes')
-#                 else:
-#                     ret = t
-#         return ret
-#     
-#     def get_single_transform(self, fromFrame, toFrame):
-#         for t in self.transforms:
-#             if (t.fromFrame == fromFrame) and (t.toFrame == toFrame):
-#                 return t
-#         return None
-#     
-#     def add_transform(self, fromFrame, toFrame, tMatrix, andInverse=True):
-#         t = self.get_single_transform(fromFrame, toFrame)
-#         if (t != None):
-#             # transform already exists, just update it
-#             t.tMatrix = tMatrix
-#         else:
-#             self.transforms.append(Transform(fromFrame,toFrame,tMatrix))
-#         
-#         if andInverse:
-#             self.add_transform(toFrame, fromFrame, inv(tMatrix), andInverse=False)
-#     
-#     # def get_start_frame(self):
-#     #     toFrames = [t.toFrame for t in self.transforms]
-#     #     fromFrames = [t.fromFrame for t in self.transforms]
-#     #     # fromFrame that is not in toFrames
-#     #     startFrame = None
-#     #     for f in fromFrames:
-#     #         if f in toFrames:
-#     #             continue
-#     #         else:
-#     #             if startFrame != None:
-#     #                 # two start frames found!!
-#     #                 raise ValueError("Two start frames were found (%s, %s)" % (startFrame, f))
-#     #             else:
-#     #                 startFrame = f
-#     #     if startFrame == None:
-#     #         raise ValueError("No start frame was found")
-#     #     return startFrame
-#     
-#     # def build_transforms(self):
-#     #     for t in self.transforms:
-#     #         print "checking:", t
-#     #         # check if reverse exists
-#     #         if self.get_single_transform(t.toFrame, t.fromFrame) == None:
-#     #             print "\tno reverse found"
-#     #             # if not, create it
-#     #             self.add_transform(t.toFrame, t.fromFrame, inv(t.tMatrix), rebuild=False)
-#     #         # # check if there is a transfrom can be extended
-#     #         # # in other words...
-#     #         # # check if the toFrame of this transform is the fromFrame of another transform
-#     #         # # also, make sure this isn't a loop
-#     #         # for t2 in self.transforms:
-#     #         #     if t.toFrame == t2.fromFrame and t.fromFrame != t2.toFrame:
-#     #         #         print "\textending"
-#     #         #         self.add_transform_rebuild_on_new(t.fromFrame, t2.toFrame, t2.tMatrix * t.tMatrix) # and rebuild to get the reverse
-#     
-#     # def get_transform_from_frame(self, frame):
-#     #     for t in self.transforms:
-#     #         if t.fromFrame == frame:
-#     #             return t
-#     #     raise ValueError("No transform found from frame: %s" % frame)
-#     
-#     # def order_transforms(self):
-#     #     fromFrame = self.get_start_frame()
-#     #     sortedTransforms = []
-#     #     while len(sortedTransforms) < len(self.transforms):
-#     #         sortedTransforms.append(self.get_transform_from_frame(fromFrame))
-#     #         fromFrame = sortedTransforms[-1].toFrame
-#     #     self.transforms = sortedTransforms
-#     
-#     def print_transforms(self):
-#         print "Transforms in:", str(self)
-#         for t in self.transforms:
-#             print "From: %s To: %s" % (t.fromFrame, t.toFrame)
-#             print array(t.tMatrix) # things look better as arrays
 
 class FrameManager:
     def __init__(self, frameNames):
         self.frameNames = frameNames
-        self.frameStack = [] # fill this with None at first
-        for i in xrange(len(self.frameNames)-1):
+        self.frameStack = []  # fill this with None at first
+        for i in xrange(len(self.frameNames) - 1):
             self.frameStack.append(None)
         self.points = []
-    
+
     def add_transformation_matrix(self, fromFrame, toFrame, tMatrix):
         fromIndex = self.frameNames.index(fromFrame)
         toIndex = self.frameNames.index(toFrame)
         if toIndex - fromIndex != 1:
             print self.frameStack
             print self.frameNames
-            print self.frameNames.index(fromFrame), self.frameNames.index(toFrame)
-            raise ValueError('Invalid from and to frames(%s, %s)' % (fromFrame, toFrame))
+            print self.frameNames.index(fromFrame), \
+                    self.frameNames.index(toFrame)
+            raise ValueError('Invalid from and to frames(%s, %s)' \
+                    % (fromFrame, toFrame))
         elif toIndex > fromIndex:
             self.frameStack[fromIndex] = tMatrix
         else:
             self.frameStack[toIndex] = inv(tMatrix)
         cfg.framesLog.info('Adding Frame %s to %s' % (fromFrame, toFrame))
         cfg.framesLog.info(str(array(tMatrix)))
-    
+
     def test_route(self, fromFrame, toFrame):
         fromIndex = self.frameNames.index(fromFrame)
         toIndex = self.frameNames.index(toFrame)
         return self._test_route_with_indices(fromIndex, toIndex)
-    
+
     def _test_route_with_indices(self, fromIndex, toIndex):
         if fromIndex == toIndex:
             return True
         elif fromIndex < toIndex:
             if self.frameStack[fromIndex] != None:
-                return self._test_route_with_indices(fromIndex+1, toIndex)
+                return self._test_route_with_indices(fromIndex + 1, toIndex)
             else:
                 return False
         else:
             if self.frameStack[toIndex] != None:
-                return self._test_route_with_indices(toIndex+1, fromIndex)
+                return self._test_route_with_indices(toIndex + 1, fromIndex)
             else:
                 return False
-    
+
     def get_transformation_matrix(self, fromFrame, toFrame):
         """If no route is found between the two, an exception will be raised"""
         fromIndex = self.frameNames.index(fromFrame)
         toIndex = self.frameNames.index(toFrame)
         #return get_transformation_matrix(self.frameStack, fromIndex, toIndex)
         return self._get_transformation_matrix_with_indices(fromIndex, toIndex)
-    
+
     def transform_point(self, point, fromFrame, toFrame):
-        return array(array(point) * self.get_transformation_matrix(fromFrame, toFrame))
-    
+        return array(array(point) * self.get_transformation_matrix(\
+                fromFrame, toFrame))
+
     def _get_transformation_matrix_with_indices(self, fromIndex, toIndex):
         direction = toIndex - fromIndex
         if direction == 0:
@@ -234,14 +119,18 @@ class FrameManager:
         elif direction == -1:
             return inv(self.frameStack[toIndex])
         elif direction > 1:
-            return self.frameStack[fromIndex] * self._get_transformation_matrix_with_indices(fromIndex+1, toIndex)
+            return self.frameStack[fromIndex] * \
+                    self._get_transformation_matrix_with_indices(\
+                    fromIndex + 1, toIndex)
         else:
-            return inv(self.frameStack[fromIndex-1]) * self._get_transformation_matrix_with_indices(fromIndex-1, toIndex)
-    
+            return inv(self.frameStack[fromIndex - 1]) * \
+                    self._get_transformation_matrix_with_indices(\
+                    fromIndex - 1, toIndex)
+
     # ------------------------------------
     # --------- Point management ---------
     # ------------------------------------
-    
+
     def add_point(self, frame, x, y, z, **kwargs):
         newPoint = {}
         newPoint['frame'] = frame
@@ -251,7 +140,7 @@ class FrameManager:
         for k, v in kwargs.iteritems():
             newPoint[k] = v
         self.points.append(newPoint)
-    
+
     def get_points_in_frame(self, frame):
         r = []
         for p in self.points:
@@ -260,47 +149,9 @@ class FrameManager:
         return r
 
 
-# # use a list ('stack') of frames, moving from one to the next
-# def get_transformation_matrix(frameStack, fromFrameIndex, toFrameIndex):
-#     """
-#     frameStack = list of transformation matrices (of length N-1 where N is the number of frames)
-#     """
-#     #print fromFrameIndex, toFrameIndex
-#     direction = toFrameIndex - fromFrameIndex
-#     #A = matrix(identity(4,dtype=float64))
-#     if direction == 0:
-#         return matrix(identity(4, dtype=float64))
-#     if direction == 1:
-#         return frameStack[fromFrameIndex] # moving up stack, use stored matrix
-#     elif direction == -1:
-#         return inv(frameStack[toFrameIndex]) # moving down stack, use inverse
-#     elif direction > 1:
-#         # trying to move up more than one step, use recursion?
-#         return get_transformation_matrix(frameStack, fromFrameIndex+1, toFrameIndex) * frameStack[fromFrameIndex]
-#         #raise Exception('trying to move more than one step')
-#     elif direction < -1:
-#         # trying to move down more than one step, use recursion?
-#         return inv(frameStack[fromFrameIndex-1]) * get_transformation_matrix(frameStack, fromFrameIndex-1, toFrameIndex)
-#         #raise Exception('trying to move more than one step')
-
-# def test_frame_manager():
-#     fm = FrameManager()
-#     fm.add_transform('skull','tricorner',vector.transform_to_matrix(tx=1.))
-#     fm.add_transform('tricorner','camera',vector.transform_to_matrix(ty=1.))
-#     fm.add_transform('camera','cnc',vector.transform_to_matrix(tz=1.))
-#     
-#     skullPoint = matrix([ [10*(random.rand()-0.5), 10*(random.rand()-0.5), 10*(random.rand()-0.5), 1.] ])
-#     
-#     frames = ['tricorner', 'camera', 'cnc']
-#     for f in frames:
-#         print "From skull to %s" % f
-#         tPoint = skullPoint * fm.get_transform_matrix('skull',f)
-#         cPoint = tPoint * fm.get_transform_matrix(f,'skull')
-#         print "\ts-t:", array(skullPoint - tPoint)
-#         print "\tSSE:", sum(array(skullPoint - cPoint)**2)
-
 def test_frame_manager():
-    fm = FrameManager(['skull','tc','camera','cnc'])
+    fm = FrameManager(['skull', 'tc', 'camera', 'cnc'])
+
     def test_routes():
         print '\t',
         for f in fm.frameNames:
@@ -311,28 +162,35 @@ def test_frame_manager():
             for tf in fm.frameNames:
                 print '%s\t' % fm.test_route(f, tf),
             print
-    
+
     print "Testing routes:"
-    test_routes(); print
-    
+    test_routes()
+    print
+
     tR = 10.
     rR = 6.28
     randomTransforms = True
     if randomTransforms:
-        m = vector.transform_to_matrix(tR*(random.rand()-0.5), tR*(random.rand()-0.5), tR*(random.rand()-0.5),
-                                    rR*(random.rand()-0.5), rR*(random.rand()-0.5), rR*(random.rand()-0.5))
+        m = vector.transform_to_matrix(tR * (random.rand() - 0.5), tR * \
+                (random.rand() - 0.5), tR * (random.rand() - 0.5), rR * \
+                (random.rand() - 0.5), rR * (random.rand() - 0.5), rR * \
+                (random.rand() - 0.5))
     else:
         m = vector.transform_to_matrix(tR, tR, tR, rR, rR, rR)
-    fm.add_transformation_matrix('skull','tc',m)
-    test_routes(); print
-    
+    fm.add_transformation_matrix('skull', 'tc', m)
+    test_routes()
+    print
+
     if randomTransforms:
-        m = vector.transform_to_matrix(tR*(random.rand()-0.5), tR*(random.rand()-0.5), tR*(random.rand()-0.5),
-                                    rR*(random.rand()-0.5), rR*(random.rand()-0.5), rR*(random.rand()-0.5))
+        m = vector.transform_to_matrix(tR * (random.rand() - 0.5), \
+                tR * (random.rand() - 0.5), tR * (random.rand() - 0.5), \
+                rR * (random.rand() - 0.5), rR * (random.rand() - 0.5), \
+                rR * (random.rand() - 0.5))
     else:
         m = vector.transform_to_matrix(tR, tR, tR, rR, rR, rR)
-    fm.add_transformation_matrix('tc','camera',m)
-    test_routes(); print
+    fm.add_transformation_matrix('tc', 'camera', m)
+    test_routes()
+    print
     
     if randomTransforms:
         m = vector.transform_to_matrix(tR*(random.rand()-0.5), tR*(random.rand()-0.5), tR*(random.rand()-0.5),

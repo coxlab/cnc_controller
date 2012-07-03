@@ -1,0 +1,9 @@
+Rewrite of cnc controller to:
+
+* not depend on pyobjc
+* be cross platform? (maybe just linux, mac osx)
+* easier testing
+* easier extensibility
+* streamlined loading/configuration/logging
+* fault-tolerant conduit/cnc/cameras/io
+* seperate head/client (zmq?)

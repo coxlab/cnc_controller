@@ -35,7 +35,7 @@ pos_socket.setsockopt(zmq.SUBSCRIBE, "")
 
 for cmd, args, kwargs in commands:
     print "Calling: %s, %s, %s" % (cmd, args, kwargs)
-    print cncClient.call(cmd, *args, **kwargs)
+    print cncClient(cmd, *args, **kwargs)
 
     pos = pos_socket.recv_pyobj()
     print pos
