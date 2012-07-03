@@ -1,46 +1,0 @@
-10
-
-dir
-8187
-https://matplotlib.svn.sourceforge.net/svnroot/matplotlib/trunk/matplotlib/lib/matplotlib/tests/baseline_images
-https://matplotlib.svn.sourceforge.net/svnroot/matplotlib
-
-
-
-2010-02-22T16:41:11.331018Z
-8148
-mdboom
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-f61c4167-ca0d-0410-bb4a-bb21726e55ed
-
-test_axes
-dir
-
-test_dates
-dir
-
-test_spines
-dir
-
-test_image
-dir
-
-test_simplification
-dir
-
-test_mathtext
-dir
-

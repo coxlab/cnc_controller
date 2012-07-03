@@ -1,1 +1,0 @@
-gnuplot createPlots.p
