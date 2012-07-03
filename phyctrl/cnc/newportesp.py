@@ -1,40 +1,6 @@
 #!/usr/bin/env python
 
-import logging
-import time
-
-from IPSerialBridge import IPSerialBridge
-
-# TODO:
-# add value decoding to gets (and some sets)
-
-DefaultLinearAxisConfig = """QM3
-    QI2.0
-    QV30.0
-    SN2
-    FR0.0127
-    QS1000
-    SU0.0000127
-    TJ1
-    OH0.0
-    OL0.0
-    OM3
-    JH6.35
-    JW3.175
-    VU12.7
-    VA3.175
-    VB1.27
-    AU6.35
-    AC3.175
-    AG3.175
-    FE25.3999
-    ZA323H
-    ZB0H
-    ZE3H
-    ZF2H
-    ZH24H
-    ZS2H
-    QD"""
+from ipserial import IPSerialBridge
 
 JoystickOn = """BO0
     1BP11,10,12
@@ -55,30 +21,21 @@ JoystickOff = """1BQ0
     3TJ1"""
 
 
-class Axes(IPSerialBridge):
-    def __init__(self, address, port, axes={'x': 1, 'y': 2, 'z': 3}, \
-            timeout=None):
+class NewportESP(IPSerialBridge):
+    def __init__(self, address, port, timeout=None, naxes=3):
         """
         address: ip-address of the serial bridge
         port: port of the serial bridge with the newport 300
-        axes: dictionary of {'name': axis_index} (1-based)
-          example:
-            axes = {'x': 1, 'y': 2, 'z': 3}
         timeout: seconds to wait for the bridge to connect
         """
         IPSerialBridge.__init__(self, address, port)
         self.connect(timeout=timeout)
-        self.axes = axes
-        for v in self.axes.values():
-            if type(v) != int:
-                raise TypeError('Axis indices must be of type int')
-            if v < 1 or v > 3:
-                raise ValueError('Axis indices must be 0 < v < 4')
-        #self.disable_motor()
+        self._axes = range(1, naxes + 1)  # newport uses 1 based indexing
 
     def configure_axis(self, axis, cfgCommand):
+        axis = int(axis)
         for command in cfgCommand.splitlines():
-            self.send("%d%s" % (self.axes[axis], command.strip()), 1)
+            self.send("%i%s" % (axis, command.strip()), 1)
 
     def enable_joystick(self):
         for command in JoystickOn.splitlines():
@@ -92,23 +49,22 @@ class Axes(IPSerialBridge):
     def send_command(self, command, axis=None, value=""):
         """Send a command to either
         all axes (if axis==None) or
-        one axis (defined by axis, a key used with self.axes)"""
+        one axis (of type int)"""
         if axis == None:
-            for i in self.axes.values():
+            for i in self._axes:
                 self.send("%i%s%s" % (i, command, value), 1)
         else:
-            self.send("%i%s%s" % (self.axes[axis], command, value), 1)
+            axis = int(axis)
+            self.send("%i%s%s" % (axis, command, value), 1)
 
     def poll_command(self, command, axis=None, value=""):
         """Send a command (and value) and wait for a response"""
-        r = {}
         if axis == None:
-            for a, i in self.axes.iteritems():
-                r[a] = self.send("%i%s%s" % (i, command, value)).rstrip()
+            return [self.send("%i%s%s" % (i, command, value)).rstrip() \
+                    for i in self._axes]
         else:
-            r[axis] = self.send("%i%s%s" % (self.axes[axis], \
-                    command, value)).rstrip()
-        return r
+            axis = int(axis)
+            return self.send("%i%s%s" % (axis, command, value)).rstrip()
 
     # ================ Command functions =======================
     def abort_motion(self):
@@ -660,427 +616,3 @@ class Axes(IPSerialBridge):
 
     def get_system_config(self):
         return self.send('ZZ?')
-
-
-class FakeAxes(Axes):
-    def __init__(self, address, port, axes={}, timeout=None):
-        logging.debug('Constructing cnc.FakeAxes for %s:%i' % (address, port))
-        logging.debug('cnc.FakeAxes with axes' + str(axes))
-        self.axes = axes.copy()
-        for v in self.axes.values():
-            if type(v) != int:
-                raise TypeError('Axis indices must be of type int')
-            if v < 1 or v > 3:
-                raise ValueError('Axis indices must be 0 < v < 4')
-
-        self.pos = axes.copy()
-        for k in self.pos:
-            self.pos[k] = 0.0
-
-    def __del__(self):
-        pass
-
-    def send(self, message, noresponse=0):
-        logging.debug('sending: %s' % message)
-        if noresponse == 0:
-            return message
-
-    # ======== Functions to main internal 'fake' variables ============
-    def set_acceleration(self, value, axis=None):
-        self.send_command('AC', axis, "%.4f" % value)
-
-    def set_deceleration(self, value, axis=None):
-        self.send_command('AG', axis, "%.4f" % value)
-
-    def define_home(self, axis=None, value=0):
-        """Define a software home"""
-        self.send_command('DH', axis, "%.4f" % value)
-        if axis == None:
-            for k in self.pos:
-                self.pos[k] = value
-        else:
-            self.pos[axis] = value
-
-    def get_desired_position(self, axis=None):
-        self.poll_command('DP', axis, '?')
-        if axis == None:
-            return self.pos
-        else:
-            return self.pos[axis]
-
-    def get_desired_velocity(self, axis=None):
-        self.poll_command('DV', axis, '?')
-        if axis == None:
-            r = self.pos.copy()
-            for k in r:
-                r[k] = 0.
-            return r
-        else:
-            return {axis: 0.}
-
-    def motion_done(self, axis=None):
-        self.poll_command('MD', axis, '?')
-        if axis == None:
-            r = self.pos.copy()
-            for k in r:
-                r[k] = 1
-            return r
-        else:
-            return {axis: 1}
-
-    def move_absolute(self, value, axis=None):
-        self.send_command('PA', axis, '%.4f' % value)
-        if axis == None:
-            for a in self.axes:
-                self.pos[a] = value
-        else:
-            self.pos[axis] = value
-
-    def move_relative(self, value, axis=None):
-        #self.send_command('PR', axis, '%.4f' % value)
-        if axis == None:
-            for a in self.axes:
-                self.pos[a] += value
-        else:
-            self.pos[axis] += value
-
-    def get_velocity(self, axis=None):
-        if axis == None:
-            d = {}
-            for a in axis:
-                d[a] = 0.0
-            return d
-        else:
-            return {axis: 0.0}
-
-    def get_position(self, axis=None):
-        #self.poll_command('TP', axis)
-        if axis == None:
-            return self.pos
-        else:
-            return {axis: self.pos[axis]}
-
-    def get_current_velocity(self, axis=None):
-        self.poll_command('TV', axis)
-        if axis == None:
-            r = self.pos.copy()
-            for k in r:
-                r[k] = 0.
-            return r
-        else:
-            return {axis: 0.0}
-
-    def set_velocity(self, value, axis=None):
-        self.send_command('VA', axis, '%.4f' % value)
-
-    def set_base_velocity(self, value, axis=None):
-        self.send_command('VB', axis, '%.4f' % value)
-
-
-# ===========================================================
-#                         Tests
-# ===========================================================
-
-def test_joystick(ipAddress, port, axes):
-    print "Constructing"
-    f = Axes(ipAddress, port, axes)
-    print "Configuring"
-    for a in axes.keys():
-        f.configure_axis(a, DefaultLinearAxisConfig)
-    print "Enabling joystick control"
-    f.enable_joystick()
-    print "Press Enter to enable motors"
-    raw_input()
-    f.enable_motor()
-    print "Press Enter to quit"
-    raw_input()
-    print "Disabling Motor"
-    f.disable_motor()
-    print "Disabling Joystick"
-    f.disable_joystick()
-
-
-def test_configure_home(ipAddress, port, axes):
-    print "Constructing"
-    f = Axes(ipAddress, port, axes)
-    print "Configuring"
-    for a in axes.keys():
-        f.configure_axis(a, DefaultLinearAxisConfig)
-    print "Disabling motors"
-    f.disable_motor()
-    print "Do remaining steps with front panel (press enter after each step)"
-    raw_input(" set x home velocity (+3.175)")
-    raw_input(" make sure x axis can safely move to it's limit switch")
-    raw_input(" enable x axis motor")
-    raw_input(" double check clearance")
-    raw_input(" home x-axis")
-    raw_input(" disable x-axis motor")
-    print
-    raw_input(" set y home velocity (-3.175)")
-    raw_input(" make sure y axis can safely move to it's limit switch")
-    raw_input(" enable y axis motor")
-    raw_input(" double check clearance")
-    raw_input(" home y-axis")
-    raw_input(" disable y-axis motor")
-    print
-    raw_input(" set z home velocity (-3.175)")
-    raw_input(" make sure z axis can safely move to it's limit switch")
-    raw_input(" enable z axis motor")
-    raw_input(" double check clearance")
-    raw_input(" home z-axis")
-    raw_input(" disable z-axis motor")
-
-
-def test_linear_axis(axisName, axisIndex, ipAddress, port):
-    print "Testing Axis: %s index %d" % (axisName, axisIndex)
-    f = Axes(ipAddress, port, {axisName: axisIndex})
-    f.set_reduce_torque(1000, 100.0)
-    print "Configuring..."
-    f.configure_axis(axisName, DefaultLinearAxisConfig)
-    print "Current Position: %f" % float(f.get_position(axisName)[axisName])
-    print "Current Velocity: %f" \
-            % float(f.get_current_velocity(axisName)[axisName])
-
-    # set test move (+X, then -2X, then +X)
-    testDistance = 12.7
-
-    def set_test_distance(testDistance):
-        print "Input test move distance (move=+X,-2X,+X)"
-        i = raw_input()
-        oldDistance = testDistance
-        testDistance = float(i)
-        print "New Test Distance = %f" % testDistance
-        print "Is this ok? [y]/n"
-        r = raw_input()
-        if r == '' or r[0].lower() == 'y':
-            return testDistance
-        else:
-            print "Resetting Test Distance"
-            testDistance = oldDistance
-            print "New Test Distance = %f" % testDistance
-            return testDistance
-
-    def run_test_move(testDistance):
-        print "Move +%f" % testDistance
-        f.move_relative(testDistance, axisName)
-        print "Waiting for motion to complete"
-        while f.motion_done(axisName)[axisName] == '0':
-            #print "Position: %f" % float(f.get_position(axisName)[axisName]),
-            #print "Velocity: %f" % float(f.get_velocity(axisName)[axisName])
-            time.sleep(0.1)
-
-        time.sleep(0.1)
-        print "Move -2*%f" % testDistance
-        f.move_relative(-2 * testDistance, axisName)
-        print "Waiting for motion to complete"
-        while f.motion_done(axisName)[axisName] == '0':
-            #print "Position: %f" % float(f.get_position(axisName)[axisName]),
-            #print "Velocity: %f" % float(f.get_velocity(axisName)[axisName])
-            time.sleep(0.1)
-        print "Move +%f" % testDistance
-
-        time.sleep(0.1)
-        f.move_relative(testDistance)
-        print "Waiting for motion to complete"
-        while f.motion_done(axisName)[axisName] == '0':
-            #print "Position: %f" % float(f.get_position(axisName)[axisName]),
-            #print "Velocity: %f" % float(f.get_velocity(axisName)[axisName])
-            time.sleep(0.1)
-        print "Test movement complete"
-
-    def print_commands():
-        print
-        print "Enter a command"
-        print " --"
-        print "q: quit"
-        print " --"
-        print_config()
-        print
-
-    def run_command(command):
-        """return 0 to continue else exit"""
-        if command == '':
-            return 0
-        c = command[0]
-        if c == 'q' or c == 'Q':
-            return 1
-        elif c == 'b':
-            # set base base velocity
-            print "Current base velocity: %f" \
-                    % float(f.get_base_velocity(axisName)[axisName])
-            print "Enter new base velocity:"
-            try:
-                nv = float(raw_input())
-                f.set_base_velocity(nv, axisName)
-                print "New value: %f" \
-                        % float(f.get_base_velocity(axisName)[axisName])
-            except:
-                print "Invalid entry, keeping old value"
-                return 0
-        elif c == 'v':
-            # set velocity
-            print "Current velocity: %f" \
-                    % float(f.get_velocity(axisName)[axisName])
-            print "Enter new velocity:"
-            try:
-                nv = float(raw_input())
-                f.set_velocity(nv, axisName)
-                print "New value: %f" \
-                        % float(f.get_velocity(axisName)[axisName])
-            except:
-                print "Invalid entry, keeping old value"
-                return 0
-        elif c == 'V':
-            # set max velocity
-            print "Current max velocity: %f" \
-                    % float(f.get_max_velocity(axisName)[axisName])
-            print "Enter new max_velocity:"
-            try:
-                nv = float(raw_input())
-                f.set_max_velocity(nv, axisName)
-                print "New value: %f" \
-                        % float(f.get_max_velocity(axisName)[axisName])
-            except:
-                print "Invalid entry, keeping old value"
-                return 0
-        elif c == 'j':
-            # set low jog speed
-            print "Current jog low speed: %f" \
-                    % float(f.get_jog_low_speed(axisName)[axisName])
-            print "Enter new jog low speed:"
-            try:
-                nv = float(raw_input())
-                f.set_jog_low_speed(nv, axisName)
-                print "New value: %f" \
-                        % float(f.get_jog_low_speed(axisName)[axisName])
-            except:
-                print "Invalid entry, keeping old value"
-                return 0
-        elif c == 'J':
-            # set high jog speed
-            print "Current jog high speed: %f" \
-                    % float(f.get_jog_high_speed(axisName)[axisName])
-            print "Enter new jog high speed:"
-            try:
-                nv = float(raw_input())
-                f.set_jog_high_speed(nv, axisName)
-                print "New value: %f" \
-                        % float(f.get_jog_high_speed(axisName)[axisName])
-            except:
-                print "Invalid entry, keeping old value"
-                return 0
-        elif c == 'a':
-            # set acceleration
-            print "Current acceleration: %f" \
-                    % float(f.get_acceleration(axisName)[axisName])
-            print "Enter new accleration:"
-            try:
-                nv = float(raw_input())
-                f.set_acceleration(nv, axisName)
-                print "New value: %f" \
-                        % float(f.get_acceleration(axisName)[axisName])
-            except:
-                print "Invalid entry, keeping old value"
-                return 0
-        elif c == 'A':
-            # set max acceleration
-            print "Current max acceleration: %f" % \
-                    float(f.get_max_acceleration_and_deceleration(\
-                    axisName)[axisName])
-            print "Enter new max acceleration:"
-            try:
-                nv = float(raw_input())
-                f.set_max_acceleration_and_deceleration(nv, axisName)
-                print "New value: %f" % \
-                        float(f.get_max_acceleration_and_deceleration(\
-                        axisName)[axisName])
-            except:
-                print "Invalid entry, keeping old value"
-                return 0
-        elif c == 'd':
-            # set deceleration
-            print "Current deceleration: %f" % \
-                    float(f.get_deceleration(axisName)[axisName])
-            print "Enter new deceleration:"
-            try:
-                nv = float(raw_input())
-                f.set_deceleration(nv, axisName)
-                print "New value: %f" % \
-                        float(f.get_deceleration(axisName)[axisName])
-            except:
-                print "Invalid entry, keeping old value"
-                return 0
-        else:
-            print "Invalid command"
-            return 0
-
-    def print_config():
-        print "v: Velocity: %f" % float(f.get_velocity(axisName)[axisName])
-        print "V: Max Velocity: %f" % \
-                float(f.get_max_velocity(axisName)[axisName])
-        print "b: Base Velocity: %f" % \
-                float(f.get_base_velocity(axisName)[axisName])
-        print "j: Jog Low Speed: %f" % \
-                float(f.get_jog_low_speed(axisName)[axisName])
-        print "J: Jog High Speed: %f" % \
-                float(f.get_jog_high_speed(axisName)[axisName])
-        print "a: Acceleration: %f" % \
-                float(f.get_acceleration(axisName)[axisName])
-        print "A: Max Acceleration: %f" % \
-                float(f.get_max_acceleration_and_deceleration(\
-                axisName)[axisName])
-        print "d: Deceleration: %f" % \
-                float(f.get_deceleration(axisName)[axisName])
-
-    testDistance = set_test_distance(testDistance)
-
-    f.enable_motor(axisName)
-    while True:
-        # do move?
-        print 'Run test movement? [y]/n'
-        r = raw_input()
-        if r == '' or r[0].lower() == 'y':
-            run_test_move(testDistance)
-
-        # set parameter/quit
-        print_commands()
-        r = raw_input()
-        if run_command(r):
-            break
-
-    print_config()
-
-    # shutdown
-    f.set_reduce_torque(1000, 50.0)
-    f.disable_motor(axisName)
-
-
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
-    ipAddress = '169.254.0.9'
-    port = 8003
-    axes = {'x': 1, 'y': 2, 'z': 3}
-    print "What test would you like to perform?"
-    print " 1: test_linear_axis 1"
-    print " 2: test_linear_axis 2"
-    print " 3: test_linear_axis 3"
-    print " 4: test_joystick"
-    print " 5: configure for home"
-    testIndex = int(raw_input())
-    if testIndex == 1:
-        print "Testing linear axis 1"
-        test_linear_axis('x', 1, ipAddress, port)
-    elif testIndex == 2:
-        print "Testing linear axis 2"
-        test_linear_axis('y', 2, ipAddress, port)
-    elif testIndex == 3:
-        print "Testing linear axis 3"
-        test_linear_axis('z', 3, ipAddress, port)
-    elif testIndex == 4:
-        print "Testing joystick"
-        test_joystick(ipAddress, port, {'x': 1, 'y': 2, 'z': 3})
-    elif testIndex == 5:
-        print "Configuring axes to home"
-        test_configure_home(ipAddress, port, {'x': 1, 'y': 2, 'z': 3})
-    else:
-        print "Unknown test, exiting"

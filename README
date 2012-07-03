@@ -10,3 +10,17 @@ Rewrite of cnc controller to:
 
 
 I want the UI to be seperate from the core and control as little as possible
+
+I'm thinking the main code should be:
+
+import phyctrl.ui.osx
+
+phyctrl.ui.osx.run()
+
+or
+
+import phyctrl.ui.linux
+
+phyctrl.ui.osx.linux.run()
+
+etc...
