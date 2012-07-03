@@ -203,7 +203,7 @@ class Camera:
     def measure_calibration_error(self, gridSize, gridBlockSize):
         if not self.calibrated:
             raise Exception("Attempted to measure calibration "
-            "error of calibrated camera")
+            "error of uncalibrated camera")
         gridN = gridSize[0] * gridSize[1]
         errs = []
         for (i, im) in enumerate(self.calibrationImages):
