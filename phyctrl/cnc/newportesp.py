@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-from ipserial import IPSerialBridge
+import logging
+
+from ..io.ipserial import IPSerialBridge
 
 JoystickOn = """BO0
     1BP11,10,12
@@ -29,8 +31,16 @@ class NewportESP(IPSerialBridge):
         timeout: seconds to wait for the bridge to connect
         """
         IPSerialBridge.__init__(self, address, port)
-        self.connect(timeout=timeout)
         self._axes = range(1, naxes + 1)  # newport uses 1 based indexing
+        self._timeout = timeout
+        self.connected = False
+        self.connect()
+
+    def connect(self):
+        self.connected = self.connect(timeout=self._timeout)
+        if not self.connected:
+            logging.error("NewportESP failed to connect")
+        return self.connected
 
     def configure_axis(self, axis, cfgCommand):
         axis = int(axis)
