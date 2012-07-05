@@ -1,5 +1,84 @@
 #!/usr/bin/env python
 
+
+def iget(prompt, default, key):
+    v = raw_input("%s [default: %s]" % (prompt, default))
+    try:
+        return key(v)
+    except:
+        print "Using default"
+        return key(default)
+
+
+def interactive_calibration():
+    import logging
+    logging.basicConfig(level=logging.DEBUG)
+
+    from camera import Camera
+    from localization import Localization
+    from grid import Grid
+
+    # define camera (assuming cv for now)
+    print "Please select a camera source"
+    from cvcamera import CVIO
+    io = CVIO(iget("Camera Index", 0, int))
+    try:
+        r = io.connect()
+        if not r:
+            raise Exception("connect returned false")
+    except Exception as E:
+        print "Failed to connect: %s" % E
+        return
+
+    # define grid
+    grid = Grid(iget("Grid block size", 25.4, float), \
+            iget("Grid width", 7, int), \
+            iget("Grid height", 6, int))
+
+    loc = Localization(grid)
+    cam = Camera(io, loc)
+
+    # setup gui
+    import cv
+    cv.StartWindowThread()
+    cv.NamedWindow("win")
+
+    # capture images
+    go = True
+
+    def l_or_c(v):
+        if v == 'c':
+            return lambda im: loc.add_image(im, process=True)
+        elif v == 'l':
+            return lambda im: loc.set_image(im, process=True)
+        else:
+            return lambda im: im
+
+    while go:
+        im = cam.capture()
+        cv.ShowImage("win", im)
+        f = iget("Calibration or Localization image [c/l]", "", l_or_c)
+        f(im)
+        if iget("Quit? [q]", "", str).lower() == "q":
+            go = False
+
+    if iget("Calibrate? [c]", "", str).lower() == "c":
+        loc.calibrate()
+
+    if iget("Localize? [l]", "", str).lower() == "l":
+        loc.locate()
+
+    if iget("Test? [t]", "", str).lower() == "t":
+        im = cam.capture(undistort=True)
+        cv.ShowImage("win", im)
+
+    # save
+    if iget("Save? [s]", "", str).lower() == "s":
+        d = iget("Directory", "calibration", str)
+        if d == "":
+            d = "calibration"
+        loc.save(d)
+
 import os
 import sys
 

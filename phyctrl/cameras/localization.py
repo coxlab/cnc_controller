@@ -1,406 +1,128 @@
 #!/usr/bin/env python
 
+import logging
 import os
 
 import numpy
 import cv
 
-import conversions
+import calibration
+import grid
 
 
-class Camera:
-    def __init__(self, camID=None):
-        self.connected = False
-        self.calibrated = False
-        self.located = False
+class Localization(calibration.Calibration):
+    def __init__(self, grid):
+        super(Localization, self).__init__(grid)
+        # self.grid = grid  # already in Calibration.__init__
+        self.localized = False
+        self.image = None
 
-        self.logDir = None
+        self.r = cv.CreateMat(3, 1, cv.CV_64FC1)
+        self.t = cv.CreateMat(3, 1, cv.CV_64FC1)
 
-        self.imageSize = (-1, -1)
-        self.camID = camID
+    def set_image(self, image, process=True):
+        self.image = grid.GridImage(image, self.grid)
+        if process:
+            s, p = self.image.process()
+            if s:
+                logging.info("Found %i points in localization image" % len(p))
+            else:
+                logging.warning("Failed to find grid in localization image")
+            return s
 
-        # for calibration
-        self.calibrationImages = []
-        self.calibrationImgPts = []
+    def locate(self):
+        assert self.image is not None, \
+                "No localization image found, run set_image first"
+        assert len(self.image.pts) == self.grid.n, \
+                "Invalid number of grid points found %i != %i" % \
+                (len(self.image.pts), self.grid.n)
 
-        # for localization
-        self.localizationImage = None
-        self.localizationCorners = None
+        im_pts = cv.CreateMat(self.grid.n, 2, cv.CV_64FC1)
+        obj_pts = cv.CreateMat(self.grid.n, 3, cv.CV_64FC1)
 
-        self.streaming = False
+        for j in xrange(self.grid.n):
+            im_pts[j, 0] = self.image.pts[j][0]
+            im_pts[j, 1] = self.image.pts[j][1]
+            obj_pts[j, 0] = (j % self.grid.width) * self.grid.size
+            obj_pts[j, 1] = (j / self.grid.width) * self.grid.size
+            obj_pts[j, 2] = 0.
 
-    # ==== Override these ====
-    def connect(self):
-        # should set self.connected
-        raise Exception("Override this")
+        cv.FindExtrinsicCameraParams2(obj_pts, im_pts, self.cm,
+                self.dc, self.r, self.t)
 
-    def disconnect(self):
-        # should set self.connected
-        raise Exception("Override this")
+        # TODO print out rotation and translation vectors
 
-    def capture_frame(self):
-        # should return a numpy array
-        raise Exception("Override this")
+        self.calculate_image_to_world()
 
-    def start_streaming(self):
-        raise Exception("Override this")
-
-    def stop_streaming(self):
-        raise Exception("Override this")
-
-    def poll_streaming(self):
-        # should either return a numpy array or 0
-        raise Exception("Override this")
-    # ==========================
-
-    def capture(self, undistort=True, filename=None):
-        if not self.connected:
-            self.connect()
-
-        frame = self.capture_frame()
-
-        image = conversions.NumPy2Ipl(frame)  # .astype('uint8'))
-        #image = NumPy2Ipl(frame.astype('uint16'))
-
-        #print self.logDir, filename
-        if self.logDir != None and filename != None:
-            # save image
-            cv.SaveImage("%s/%s" % (self.logDir, filename), image)
-
-        # TODO find a better way to do this
-        if self.imageSize == (-1, -1):
-            self.imageSize = (image.width, image.height)
-
-        if self.calibrated and undistort and False:
-            # undistort image
-            undistortedImage = cv.CreateImage((image.width, image.height),
-                                            image.depth, image.nChannels)
-            #result = cv.CreateImage(input.shape[::-1], depth, channels)
-            cv.Undistort2(image, undistortedImage, \
-                    self.camMatrix, self.distCoeffs)
-            return undistortedImage
-
-        return image
-
-    def undistort_image(self, image):
-        undistortedImage = cv.CreateImage((image.width, image.height),
-                                            image.depth, image.nChannels)
-        cv.Undistort2(image, undistortedImage, self.camMatrix, self.distCoeffs)
-        return undistortedImage
-
-    def capture_grid_image(self, gridSize):
-        #if not self.calibrated:
-        #    raise IOError('Camera must be calibrated before capturing grid')
-
-        image = self.capture(undistort=False)
-        success, corners = cv.FindChessboardCorners(image, gridSize)
-
-        if not success:
-            return image, corners, False
-
-        corners = cv.FindCornerSubPix(image, corners, (11, 11), (-1, -1),
-                    (cv.CV_TERMCRIT_EPS + cv.CV_TERMCRIT_ITER, 30, 0.01))
-
-        gridN = gridSize[0] * gridSize[1]
-        if len(corners) != gridN:
-            return image, corners, False
-
-        # # check order of corners
-        # # check that grid is not rotated
-        # dyh = abs(corners[1][1] - corners[0][1])
-        # dyv = abs(corners[gridSize[0]][1] - corners[0][1])
-        # if dyh > dyv:
-        #     # grid is rotated (columns and rows are swapped)
-        #     newCorners = []
-        #     for i in xrange(len(corners)):
-        #         divmod(i,gridSize[0])
-        #          * gridSize
-        #         newCorners.append()
-        # xs should be ascending
-        if corners[0][0] > corners[1][0]:
-            #print "flipping rows"
-            for r in xrange(gridSize[1]):
-                for c in xrange(gridSize[0] / 2):
-                    i = c + r * gridSize[0]
-                    i2 = (gridSize[0] - c - 1) + r * gridSize[0]
-                    o = corners[i]
-                    corners[i] = corners[i2]
-                    corners[i2] = o
-
-        # ys should be descending
-        if corners[0][1] > corners[gridSize[0]][1]:
-            #print "flipping columns"
-            for c in xrange(gridSize[0]):
-                for r in xrange(gridSize[1] / 2):
-                    i = c + r * gridSize[0]
-                    i2 = c + (gridSize[1] - r - 1) * gridSize[0]
-                    o = corners[i]
-                    corners[i] = corners[i2]
-                    corners[i2] = o
-
-        return image, corners, True
-
-    # ============================================
-    #           Calibration
-    # ============================================
-    def capture_calibration_image(self, gridSize):
-        image, corners, success = self.capture_grid_image(gridSize)
-        if not success:
-            return image, False
-
-        self.calibrationImages.append(image)
-        self.calibrationImgPts.append(corners)
-        return image, True
-
-    def remove_last_calibration_point(self):
-        self.calibrationImages.pop()
-        self.calibrationImgPts.pop()
-
-    def calibrate(self, gridSize, gridBlockSize):
-        errs = self.calibrate_internals(gridSize, gridBlockSize)
-        if self.logDir != None:
-            self.save_calibration("%s/calibration/" % self.logDir)
-        return errs
-
-    def calibrate_internals(self, gridSize, gridBlockSize):
-        # initialize camera matrices
-        self.camMatrix = cv.CreateMat(3, 3, cv.CV_64FC1)
-        cv.SetZero(self.camMatrix)
-        self.camMatrix[0, 0] = 1.
-        self.camMatrix[1, 1] = 1.
-        self.distCoeffs = cv.CreateMat(5, 1, cv.CV_64FC1)
-        cv.SetZero(self.distCoeffs)
-
-        nGrids = len(self.calibrationImages)
-        gridN = gridSize[0] * gridSize[1]
-
-        imPts = cv.CreateMat(nGrids * gridN, 2, cv.CV_64FC1)
-        objPts = cv.CreateMat(nGrids * gridN, 3, cv.CV_64FC1)
-        ptCounts = cv.CreateMat(nGrids, 1, cv.CV_32SC1)
-
-        # organize self.calibrationImgPts (to imPts) and
-        # construct objPts and ptCounts
-        for (i, c) in enumerate(self.calibrationImgPts):
-            for j in xrange(gridN):
-                imPts[j + i * gridN, 0] = c[j][0]
-                imPts[j + i * gridN, 1] = c[j][1]
-                objPts[j + i * gridN, 0] = (j % gridSize[0]) * gridBlockSize
-                objPts[j + i * gridN, 1] = (j / gridSize[0]) * gridBlockSize
-                objPts[j + i * gridN, 2] = 0.
-            ptCounts[i, 0] = len(c)
-
-        cv.CalibrateCamera2(objPts, imPts, ptCounts, self.imageSize,
-            self.camMatrix, self.distCoeffs,
-            cv.CreateMat(nGrids, 3, cv.CV_64FC1),
-            cv.CreateMat(nGrids, 3, cv.CV_64FC1), 0)
-
-        # camera is now calibrated
-        self.calibrated = True
-
-        errs = self.measure_calibration_error(gridSize, gridBlockSize)
-        return errs
-
-    def measure_calibration_error(self, gridSize, gridBlockSize):
-        if not self.calibrated:
-            raise Exception("Attempted to measure calibration "
-            "error of uncalibrated camera")
-        gridN = gridSize[0] * gridSize[1]
-        errs = []
-        for (i, im) in enumerate(self.calibrationImages):
-            # im = image with chessboard
-            corners = self.calibrationImgPts[i]
-            imPts = cv.CreateMat(gridN, 2, cv.CV_64FC1)
-            objPts = cv.CreateMat(gridN, 3, cv.CV_64FC1)
-            for j in xrange(gridN):
-                imPts[j, 0] = corners[j][0]
-                imPts[j, 1] = corners[j][1]
-                objPts[j, 0] = (j % gridSize[0]) * gridBlockSize
-                objPts[j, 1] = (j / gridSize[0]) * gridBlockSize
-                objPts[j, 2] = 0.
-
-            # measure rVec and tVec for this image
-            rVec = cv.CreateMat(3, 1, cv.CV_64FC1)
-            tVec = cv.CreateMat(3, 1, cv.CV_64FC1)
-            cv.FindExtrinsicCameraParams2(objPts, imPts, self.camMatrix,
-                self.distCoeffs, rVec, tVec)
-
-            # reproject points
-            pimPts = cv.CreateMat(gridN, 2, cv.CV_64FC1)
-            cv.ProjectPoints2(objPts, rVec, tVec, \
-                    self.camMatrix, self.distCoeffs, pimPts)
-
-            # measure error
-            err = []
-            for j in xrange(gridN):
-                err.append([imPts[j, 0] - pimPts[j, 0], \
-                        imPts[j, 1] - pimPts[j, 1]])
-
-            errs.append(err)
-
-        return errs
-
-    def save_calibration(self, directory):
-        if not self.calibrated:
-            raise Exception("Attempted to save calibration of "
-            "uncalibrated camera")
-
-        directory = "%s/%i" % (directory, self.camID)
-
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        if not os.path.exists("%s/images" % directory):
-            os.makedirs("%s/images" % directory)
-
-        cv.Save("%s/camMatrix.xml" % directory, self.camMatrix)
-        cv.Save("%s/distCoeffs.xml" % directory, self.distCoeffs)
-        for (i, im) in enumerate(self.calibrationImages):
-            cv.SaveImage("%s/images/%i.png" % (directory, i), im)
-            corners = numpy.array(self.calibrationImgPts[i])
-            numpy.savetxt("%s/images/%i.pts" % (directory, i), corners)
-
-        if self.located:
-            cv.SaveImage("%s/localizationImage.png" % (directory), \
-                    self.localizationImage)
-            numpy.savetxt("%s/localizationPts.pts" % (directory), \
-                    numpy.array(self.localizationCorners))
-            cv.Save("%s/rVec.xml" % directory, self.rVec)
-            cv.Save("%s/tVec.xml" % directory, self.tVec)
-            cv.Save("%s/itoWMatrix.xml" % directory, \
-                    conversions.NumPytoCV(self.itoWMatrix))
-
-    def load_calibration(self, directory):
-        directory = "%s/%i" % (directory, self.camID)
-
-        self.camMatrix = cv.Load("%s/camMatrix.xml" % directory)
-        self.distCoeffs = cv.Load("%s/distCoeffs.xml" % directory)
-        self.calibrated = True
-
-        if os.path.exists("%s/itoWMatrix.xml" % directory):
-            self.rVec = cv.Load("%s/rVec.xml" % directory)
-            self.tVec = cv.Load("%s/tVec.xml" % directory)
-            # self.itoWMatrix = \
-            #        conversions.CVtoNumPy(cv.Load("%s/itoWMatrix.xml" % \
-            #        directory))
-            # print self.itoWMatrix
-            rMatrix = cv.CreateMat(3, 3, cv.CV_64FC1)
-            cv.Rodrigues2(self.rVec, rMatrix)
-            self.itoWMatrix = calculate_image_to_world_matrix(\
-                    self.tVec, rMatrix, self.camMatrix)
-            self.located = True
-
-        #print "RADAR: Faking distCoeffs"
-        #self.distCoeffs[0,0] = 0.#0.25
-        #self.distCoeffs[1,0] = 0.#-10.#-30.
-        #self.distCoeffs[2,0] = 0.#-0.02
-        #self.distCoeffs[3,0] = 0.#-0.01
-        #self.distCoeffs[4,0] = 0.
-
-    # ============================================
-    #           Localization
-    # ============================================
-    def capture_localization_image(self, gridSize):
-        image, corners, success = self.capture_grid_image(gridSize)
-        if not success:
-            return image, False
-
-        self.localizationImage = image
-        self.localizationCorners = corners
-        return image, True
-
-    def locate(self, gridSize, gridBlockSize):
-        if self.localizationImage == None or self.localizationCorners == None:
-            raise ValueError('You must successfully call \
-                    capture_localization_image before locate')
-        self.rVec = cv.CreateMat(3, 1, cv.CV_64FC1)
-        self.tVec = cv.CreateMat(3, 1, cv.CV_64FC1)
-        gridN = gridSize[0] * gridSize[1]
-        imPts = cv.CreateMat(gridN, 2, cv.CV_64FC1)
-        objPts = cv.CreateMat(gridN, 3, cv.CV_64FC1)
-
-        for j in xrange(gridN):
-            imPts[j, 0] = self.localizationCorners[j][0]
-            imPts[j, 1] = self.localizationCorners[j][1]
-            objPts[j, 0] = (j % gridSize[0]) * gridBlockSize
-            objPts[j, 1] = (j / gridSize[0]) * gridBlockSize
-            objPts[j, 2] = 0.
-
-        #for i in xrange(gridN):
-        #    print imPts[i,0], imPts[i,1], objPts[i,0], \
-        #        objPts[i,1], objPts[i,2]
-        cv.FindExtrinsicCameraParams2(objPts, imPts, self.camMatrix,
-            self.distCoeffs, self.rVec, self.tVec)
-
-        # convert rVec to rMatrix
-        rMatrix = cv.CreateMat(3, 3, cv.CV_64FC1)
-        cv.Rodrigues2(self.rVec, rMatrix)
-        # calculate image-to-world transformation matrix
-        self.itoWMatrix = calculate_image_to_world_matrix(\
-                self.tVec, rMatrix, self.camMatrix)
+    def calculate_image_to_world(self):
+        rm = cv.CreateMat(3, 3, cv.CV_64FC1)
+        cv.Rodrigues2(self.r, rm)
+        self.image_to_world = calculate_image_to_world_matrix( \
+                self.t, rm, self.cm)
         self.located = True
 
-        if self.logDir != None:
-            self.save_calibration("%s/calibration/" % self.logDir)
-
     def get_position(self):
-        #if not self.calibrated:
-        #    raise Exception("Camera must be calibrated "
-        #    "before calling get_position")
         if self.located:
-            # flipping y and z to make this left-handed
-            #return self.tVec[0,0], self.tVec[1,0], self.tVec[2,0]
-            return self.itoWMatrix[3, 0], \
-                    self.itoWMatrix[3, 1], self.itoWMatrix[3, 2]
+            return self.image_to_world[3, 0], self.image_to_world[3, 1], \
+                    self.image_to_world[3, 2]
         else:
-            raise Exception
-            return 0, 0, 0
+            logging.warning("get_position called with located = False")
+            return numpy.nan, numpy.nan, numpy.nan
 
     def get_3d_position(self, x, y):
-        src = cv.CreateMat(1, 1, cv.CV_64FC2)
-        dst = cv.CreateMat(1, 1, cv.CV_64FC2)
-        src[0, 0] = (x, y)
-        cv.UndistortPoints(src, dst, self.camMatrix, self.distCoeffs)
-        x, y = dst[0, 0]
-        #print src[0,0], dst[0,0]
         if self.located:
-            #tp = numpy.matrix([ x - self.camMatrix[0,2], \
-            #        y - self.camMatrix[1,2], 1., 1. ])
-            #tp = numpy.array([x - self.camMatrix[0,2], \
-            #        y - self.camMatrix[1,2], 1., 1.])
+            src = cv.CreateMat(1, 1, cv.CV_64FC2)
+            dst = cv.CreateMat(1, 1, cv.CV_64FC2)
+            src[0, 0] = (x, y)
+            cv.UndistortPoints(src, dst, self.cm, self.dc)
+            x, y = dst[0, 0]
             tp = numpy.array([x, y, 1., 1.])
             tr = numpy.array(tp * self.itoWMatrix)[0]
-            # trm = numpy.zeros(4,dtype=numpy.float64)
-            # for i in xrange(4):
-            #     for j in xrange(4):
-            #         trm[i] += tp[j] * self.itoWMatrix[j,i]
-            # if sum(numpy.abs(tr - trm)) > 1e-9:
-            #     print tr, trm
-            #     tr = trm
-            # flipping y and z to make this left-handed
             return tr[0] / tr[3], tr[1] / tr[3], tr[2] / tr[3]
         else:
-            raise Exception("camera was not localized prior "
-            "to call to get_3d_position")
-            return 0, 0, 0
+            logging.warning("get_3d_position called with located = False")
+            return numpy.nan, numpy.nan, numpy.nan
+
+    def save(self, directory):
+        super(Localization, self).save(directory)
+        if self.located:
+            cv.SaveImage(os.path.join(directory, "localizationImage.png"), \
+                    self.image.im)
+            numpy.savetxt(os.path.join(directory, "localizationPts.pts"), \
+                    numpy.array(self.image.pts))
+            cv.Save(os.path.join(directory, "rVec.xml"), self.r)
+            cv.Save(os.path.join(directory, "tVec.xml"), self.t)
+            numpy.savetxt(os.path.join(directory, "itoWMatrix.np"), \
+                    self.image_to_world)
+            logging.debug("Saved localization to %s" % directory)
+        else:
+            logging.warning("located = False, not saving localization")
+
+    def load(self, directory, recompute=False):
+        super(Localization, self).save(directory, recompute)
+        logging.debug("Loading localization from %s" % directory)
+        if recompute:
+            if self.set_image(cv.LoadImage(os.path.join(\
+                    directory, "localizationImage.png")), process=True):
+                self.locate()
+                return True
+            else:
+                # failed to locate from loaded image
+                return False
+        else:
+            self.r = cv.Load(os.path.join(directory, "rVec.xml"))
+            self.t = cv.Load(os.path.join(directory, "tVec.xml"))
+            self.image_to_world = numpy.loadtxt(os.path.join(\
+                    directory, "itoWMatrix.np"))
 
 
 def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):
-    #print "t"
-
     # open CV is [col,row]
     t = numpy.matrix([[1., 0., 0., 0.],
                     [0., 1., 0., 0.],
                     [0., 0., 1., 0.],
                     [cv.Get1D(tVec, 0)[0], \
                             cv.Get1D(tVec, 1)[0], cv.Get1D(tVec, 2)[0], 1.]])
-    # t = numpy.matrix([[1., 0., 0., 0.],
-    #                 [0., 1., 0., 0.],
-    #                 [0., 0., 1., 0.],
-    #                 [tVec[0,0], tVec[1,0], tVec[2,0], 1.]])
-    # t = numpy.matrix([[1., 0., 0., tVec[0,0]],
-    #                 [0., 1., 0., tVec[1,0]],
-    #                 [0., 0., 1., tVec[2,0]],
-    #                 [0., 0., 0., 1.]])
-    #print "r"
     r = numpy.matrix([[cv.Get1D(rMatrix, 0)[0], cv.Get1D(rMatrix, 1)[0], \
                         cv.Get1D(rMatrix, 2)[0], 0.],
                 [cv.Get1D(rMatrix, 3)[0], cv.Get1D(rMatrix, 4)[0], \
@@ -408,14 +130,6 @@ def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):
                 [cv.Get1D(rMatrix, 6)[0], cv.Get1D(rMatrix, 7)[0], \
                         cv.Get1D(rMatrix, 8)[0], 0.],
                 [0., 0., 0., 1.]])
-    # r = numpy.matrix([[rMatrix[0,0], rMatrix[0,1], rMatrix[0,2], 0.],
-    #             [rMatrix[1,0], rMatrix[1,1], rMatrix[1,2], 0.],
-    #             [rMatrix[2,0], rMatrix[2,1], rMatrix[2,2], 0.],
-    #             [0., 0., 0., 1.] ])
-    # r = numpy.matrix(([rMatrix[0,0], rMatrix[1,0], rMatrix[2,0], 0.],
-    #                 [rMatrix[0,1], rMatrix[1,1], rMatrix[2,1], 0.],
-    #                 [rMatrix[0,2], rMatrix[1,2], rMatrix[2,2], 0.],
-    #                 [0., 0., 0., 1.]))
     info = t * r
 
     s = numpy.matrix([[1., 0., 0., 0.],
@@ -426,25 +140,7 @@ def calculate_image_to_world_matrix(tVec, rMatrix, camMatrix):
     s[1, 1] = -1.
     s[2, 2] = -1.
 
-    #return info
-
     t = info * s
     info = t
-    # #return info
-    # s[0,0] = 1. / camMatrix[0,0]
-    # s[1,1] = 1. / camMatrix[1,1]
-    # s[2,2] = 1.
-    #
-    # info = s * t
 
     return info
-
-# ===========================================================
-# ===========================================================
-# ======================== Testing ==========================
-# ===========================================================
-# ===========================================================
-
-
-if __name__ == '__main__':
-    pass

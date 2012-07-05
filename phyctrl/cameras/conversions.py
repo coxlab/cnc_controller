@@ -4,6 +4,15 @@ import numpy
 import cv
 
 
+def to_grayscale(image, key=cv.CV_BGR2GRAY):
+    if image.nChannels == 1:
+        return image
+    gim = cv.CreateImage((image.width, image.height), cv.IPL_DEPTH_8U, 1)
+    #cvCvtColor(image, gray_im, CV_BGR2GRAY);
+    cv.CvtColor(image, gim, key)
+    return gim
+
+
 def NumPy2Ipl(input):
     if not isinstance(input, numpy.ndarray):
         raise TypeError('Must be called with numpy.ndarray!')
