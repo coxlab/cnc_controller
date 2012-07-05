@@ -10,6 +10,41 @@ def iget(prompt, default, key):
         return key(default)
 
 
+def setup_cv_io():
+    from cvcamera import CVIO
+    io = CVIO(iget("Camera Index", 0, int))
+    try:
+        r = io.connect()
+        if not r:
+            raise IOError("connect returned false")
+    except Exception as E:
+        raise IOError("Failed to connect: %s" % E)
+    return io
+
+
+def setup_dc1394_io():
+    import dc1394camera
+    cams = dc1394camera.dc1394.enumerate_cameras()
+    print "Select camera number"
+    for (i, cam) in enumerate(cams):
+        print "  %i = %s [%i]" % (i + 1, cam['model'], cam['guid'])
+    i = iget("enter number", 1, int)
+    assert (i > 0) and (i <= len(cams)), "Invalid choice %i" % i
+    guid = cams[i - 1]['guid']
+    io = dc1394camera.DC1394IO(guid)
+    try:
+        r = io.connect()
+        if not r:
+            raise IOError("connect returned false")
+    except Exception as E:
+        raise IOError("Failed to connect: %s" % E)
+    return io
+
+
+def setup_file_io():
+    raise NotImplementedError
+
+
 def interactive_calibration():
     import logging
     logging.basicConfig(level=logging.DEBUG)
@@ -20,15 +55,18 @@ def interactive_calibration():
 
     # define camera (assuming cv for now)
     print "Please select a camera source"
-    from cvcamera import CVIO
-    io = CVIO(iget("Camera Index", 0, int))
-    try:
-        r = io.connect()
-        if not r:
-            raise Exception("connect returned false")
-    except Exception as E:
-        print "Failed to connect: %s" % E
-        return
+    print "  1 = cv"
+    print "  2 = dc1394"
+    #print "  3 = file"
+    i = iget("enter number", 1, int)
+    if i == 1:
+        io = setup_cv_io()
+    elif i == 2:
+        io = setup_dc1394_io()
+    elif i == 3:
+        io = setup_file_io()
+    else:
+        raise ValueError("Invalid choice %i" % i)
 
     # define grid
     grid = Grid(iget("Grid block size", 25.4, float), \
@@ -78,25 +116,6 @@ def interactive_calibration():
         if d == "":
             d = "calibration"
         loc.save(d)
-
-import os
-import sys
-
-import numpy
-import pylab
-
-import filecamera
-#import camera
-import conversions
-import stereocamera
-
-global dc1394Available
-dc1394Available = False
-try:
-    import dc1394camera
-    dc1394Available = True
-except:
-    dc1394Available = False
 
 
 def test_stereo_localization_repeatability(camIDs, gridSize, gridBlockSize, \
