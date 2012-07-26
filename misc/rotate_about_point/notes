@@ -1,0 +1,20 @@
+trying to keep some semblence of path across point rotations
+I need to know:
+ - plane of rotation in some sort of frame
+ - distance of point rotation (offset compensated arm length)
+ - angle or rotation
+
+I don't yet have the plane of rotation. steps to get it
+ - map cnc frame (axes are homed, etc..)
+ - just map plane of rotation (I have the points, may be simpler)
+
+-- measuring cnc frame --
+I need several points in camera and cnc frames where each axis moves
+
+procedure will be:
+
+calculate point (tip) in cnc frame (accounting for rotation)
+map point to camera frame (rigid transform, not accounting for rotation)
+
+problem: rotation axis may not be aligned with x-axis
+fine z may not be aligned with ?

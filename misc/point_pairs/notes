@@ -1,0 +1,31 @@
+the majority of the data is in point pairs acquired form the stereo cameras
+a data structure like the following should suffice
+
+class 2dPoint:
+    srcImage = pointer or file path to image
+    x = 0 is left
+    y = 0 is top?
+
+class 3dPoint:
+    frame = [Skull/TC/Camera]
+    x = - is ?
+    y = - is ?
+    z = - is ?
+
+class PointPair(3dPoint):
+    left = 2dPoint for 'left' source
+    right = 2dPoint for 'right' source
+
+class FrameManager:
+    """ manages translation between frames """
+
+
+--------------------
+
+Maybe I want a wrapper around frame manager that is a frame constructor
+
+
+Frame Camera
+Frame TC
+Frame Skull
+Stack (frames are ordered as a list for a right now) [Camera <-> TC <-> Skull]
