@@ -125,12 +125,16 @@ class OCController (NSObject, electrodeController.controller.Controller):
    
     def send_on_conduit(self, data):
         if self.mwConduit is None:
+            cfg.log.debug("self.mwConduit is None")
+            cfg.log.debug("making self.mwConduit")
             self.mwConduit = mworks.conduit.IPCServerConduit("cnc")
+            cfg.log.debug("initializing self.mwConduit")
             self.mwConduit.initialize()
 
         if self.mwConduit is None:
             cfg.log.error("Unable to connect conduit")
         else:
+            cfg.log.debug("sending on conduit: %s" % str(data))
             self.mwConduit.send_data(PATH_INFO, data)
 
     def awakeFromNib(self):

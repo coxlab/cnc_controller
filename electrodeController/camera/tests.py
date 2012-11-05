@@ -233,22 +233,27 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='../c
         cp = FileCameraPair(camIDs[0], camIDs[1], frameDirectory)
     else:
         print "CameraPair"
-        cp = CameraPair(camIDs[0],camIDs[1])
+        cp = stereocamera.StereoCamera(camIDs[0], camIDs[1])
+        #cp = CameraPair(camIDs[0],camIDs[1])
 
     print "Connect"
-    cp.connect()
+    #cp.connect()
 
     print "Capture"
     im1, im2 = cp.capture()
 
-    print "Loading calibration",
+    print "Loading calibration"
     cp.load_calibrations(calibrationDirectory)
-    print cp.cameras[0].calibrated, cp.cameras[1].calibrated
+    #print cp.cameras[0].calibrated, cp.cameras[1].calibrated
 
     print "Capture localization image"
     success = False
     while not success:
-        ims, success = cp.capture_localization_images(gridSize)
+        l, r = cp.capture_localization_images(gridSize)
+        lim = l[0]
+        rim = r[0]
+        success = l[1] and r[1]
+        print "Captured localization image:", success
         if not success:
             print "Both cameras did not see the grid"
             if poll_user("Try Again?", "y", "n", 0) == 1:
@@ -260,7 +265,7 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='../c
 
     #print ims[0][0].width, ims[0][0].height #1280 x 960
 
-    if not all([c.located for c in cp.cameras]):
+    if not all(cp.get_located()):
         print "Something wasn't located correctly"
         sys.exit(1)
 
@@ -269,15 +274,16 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='../c
     f = pylab.figure(1)
     a = Axes3D(f)
     cpos = []
-    for c in cp.cameras:
-        p = c.get_position()
+    #for c in cp.cameras:
+    #    p = c.get_position()
+    for p in cp.get_camera_positions():
         cpos.append(p)
         # a.scatter([p[0]],[p[1]],[p[2]],c='b')
-    lcorners = cp.cameras[0].localizationCorners
-    rcorners = cp.cameras[1].localizationCorners
+    lcorners = cp.leftCamera.localizationCorners
+    rcorners = cp.rightCamera.localizationCorners
     pts = []
     for (l,r) in zip(lcorners,rcorners):
-        p = cp.get_3d_position((l,r))
+        p = cp.get_3d_position(l,r)
         pts.append(p)
         a.scatter([p[0]],[p[1]],[p[2]],c='r')
 
@@ -328,17 +334,17 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='../c
 
     pylab.figure(4)
     pylab.subplot(121)
-    i1 = pylab.array(conversions.CVtoNumPy(ims[0][0])/255.)
+    i1 = pylab.array(conversions.CVtoNumPy(lim[0])/255.)
     pylab.imshow(i1)
     pylab.gray()
     pylab.subplot(122)
-    i2 = pylab.array(conversions.CVtoNumPy(ims[1][0])/255.)
+    i2 = pylab.array(conversions.CVtoNumPy(rim[0])/255.)
     pylab.imshow(i2)
     pylab.gray()
     pylab.show()
 
     #print "Save calibrations/localization"
-    #cp.save_calibrations(calibrationDirectory)
+    cp.save_calibrations(calibrationDirectory)
 
 def test_single_camera(camID, gridSize, gridBlockSize, calibrationDirectory='../calibrations'):
     if dc1394Available == False:
@@ -462,7 +468,7 @@ if __name__ == "__main__":
         test_single_camera(49712223528793951, gridSize, gridBlockSize) # left
     elif test[0] == 'r':
         test_single_camera(49712223528793946, gridSize, gridBlockSize) # right
-    elif test[0] == 'p':
+    elif test[0] == 'p':  # use this for calibration (2012-09-17)
         test_camera_pair((49712223528793951, 49712223528793946), gridSize, gridBlockSize, frameDirectory=frameDir)
     elif test[0] == 's':
         if test[1] == 'l':
