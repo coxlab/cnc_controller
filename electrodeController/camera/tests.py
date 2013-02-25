@@ -234,6 +234,8 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='../c
     else:
         print "CameraPair"
         cp = stereocamera.StereoCamera(camIDs[0], camIDs[1])
+        cp.leftCamera.set_shutter(800)
+        cp.rightCamera.set_shutter(800)
         #cp = CameraPair(camIDs[0],camIDs[1])
 
     print "Connect"
@@ -345,6 +347,8 @@ def test_camera_pair(camIDs, gridSize, gridBlockSize, calibrationDirectory='../c
 
     #print "Save calibrations/localization"
     cp.save_calibrations(calibrationDirectory)
+    cp.disconnect()
+    del cp
 
 def test_single_camera(camID, gridSize, gridBlockSize, calibrationDirectory='../calibrations'):
     if dc1394Available == False:
