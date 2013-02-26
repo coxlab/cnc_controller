@@ -1,11 +1,3 @@
-#
-#  main.py
-#  EyeTracker
-#
-#  Created by David Cox on 11/13/08.
-#  Copyright Harvard University 2008. All rights reserved.
-#
-
 #import modules required by application
 
 import numpy
@@ -18,12 +10,13 @@ from PyObjCTools import AppHelper
 
 from ocController import *
 from ocZoomView import *
-from ocCenteringSlider import *
+#from ocCenteringSlider import *
 from ocMeshView import *
 from ocAtlasView import *
 
 #print "Python file is open and running, passing control to AppKit"
-# import the child class of NSObject that provides the bridge between objc and python
+# import the child class of NSObject that provides the bridge between
+# objc and python
 
 # OLD
 #from CNCController import *
