@@ -3,5 +3,6 @@
 import logging
 log = logging.getLogger(__name__)
 
-import axes, cnc
+import axes
+import cnc
 __all__ = ['cnc', 'axes']

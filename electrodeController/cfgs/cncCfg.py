@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-import logging, os
+import logging
+import os
 
 # homing procedure
 # home modes should be
@@ -24,16 +25,16 @@ import logging, os
 # ----- CNC settings ------
 cncLinearAxesIP = "169.254.0.9"
 cncLinearAxesPort = 8003
-cncLinearAxes = {'x':1, 'y':2, 'z':3}
+cncLinearAxes = {'x': 1, 'y': 2, 'z': 3}
 cncHeadAxesIP = "169.254.0.9"
 cncHeadAxesPort = 8004
-cncHeadAxes = {'b':1, 'w':2}
+cncHeadAxes = {'b': 1, 'w': 2}
 
 serialConnectionTimeout = 4.0
 
 cncArmLength = 212.331
 
-cncRegDeltaAngle = 2.0 # in degrees
+cncRegDeltaAngle = 2.0  # in degrees
 
 # -- X --
 xInc = 1.27
@@ -97,7 +98,7 @@ xNegLimit = -12.70
 #  2 (1) : abort motion on sw limit
 #  3 (0) : reserved
 # QD: update motor settings
-xAxisConfig="""QM3
+xAxisConfig = """QM3
     QI2.0
     QV30.0
     SN2
@@ -127,7 +128,7 @@ xAxisConfig="""QM3
 yInc = 1.27
 yPosLimit = 12.70
 yNegLimit = -12.70
-yAxisConfig="""QM3
+yAxisConfig = """QM3
     QI2.0
     QV30.0
     SN2
@@ -157,7 +158,7 @@ yAxisConfig="""QM3
 zInc = 1.27
 zPosLimit = 12.70
 zNegLimit = -12.70
-zAxisConfig="""QM3
+zAxisConfig = """QM3
     QI2.0
     QV30.0
     SN2
@@ -188,7 +189,7 @@ bInc = 1.0
 
 # -- W --
 wInc = 0.5
-wDirection = 1.0 # for flipping the w-axis
+wDirection = 1.0  # for flipping the w-axis
 # Thorlabs stage specs:
 # 0.05 um minimal achievable incremental motion
 # 0.8 um minimal repeatable incremental motion
