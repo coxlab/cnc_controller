@@ -1,3 +1,0 @@
-Home Y Axis: set software limits to +70mm
-Z axis will not home correctly, it reaches switch, stops, and then tries to keep going
-X axis 
